@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include <stdint.h>
 #define LLC_UART	0
 #define LLC_UDP		1
 
@@ -23,7 +23,7 @@
 typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned int u32;
-typedef unsigned int uint32_t;
+//typedef unsigned int uint32_t;
 typedef unsigned int UINT;
 
 #define bool u8

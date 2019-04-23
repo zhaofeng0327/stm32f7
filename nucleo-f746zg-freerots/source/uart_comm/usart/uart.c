@@ -64,7 +64,8 @@ void * jz_uart_init_ex(int usart_no)
 		//xSemaphoreGive(sem_uart2);
 
 		if (HAL_UART_Init(&huart2) != HAL_OK) {
-			Error_Handler();
+			//Error_Handler();
+                      debug("uart2 init error\r\n");
 		} else {
 			//HAL_UART_Receive_IT(&huart2, uart2_buf. LLC_PACK_SZ_MAX);
 			//huart2.RxCpltCallback = uart2_rx_callback;
@@ -122,13 +123,13 @@ int jz_uart_write_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millise
 
 	return (retval==kStatus_Success)?lens:(-1);
 #endif
-	return 0;
+
 }
 
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 {
-	BaseType_t xHigherPriorityTaskWoken;
+	//BaseType_t xHigherPriorityTaskWoken;
 	if (UartHandle->Instance == USART2) {
 		//xSemaphoreTakeFromISR(sem_uart2, &xHigherPriorityTaskWoken);
 		write_ringbuf(uart2_ch);

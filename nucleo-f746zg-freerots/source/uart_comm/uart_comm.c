@@ -35,36 +35,30 @@ typedef struct {
 
 static RECV_FILE_DES recv_file_des;
 
-static const volume_relation volume_table[4] = {
-		{volume_mute,	0}, // 0
-		{volume_low,	5}, // 15
-		{volume_middle, 10},// 20
-		{volume_high,	15} // 30
-};
 
-static osStatus jd_master_com_send_play_msg(jd_om_comm *hdl,unsigned char type, void *req_data);
+//static osStatus jd_master_com_send_play_msg(jd_om_comm *hdl,unsigned char type, void *req_data);
 
 static unsigned char is_req_type_valid(unsigned char type)
 {
-	if (type > 0xCF || type < 0xC0) {
+	if (type >= 0xC0 &&  type <= 0xDF) {
+		return 1;
+	} else {
 		dzlog_error("invalid req type\r\n");
 		return 0;
-	} else {
-		return 1;
 	}
 }
 
 
 static unsigned char is_res_type_valid(unsigned char type)
 {
-	if (type > 0xAF || type < 0xA0) {
+	if (type >= 0xA0 && type <= 0xBF) {
+		return 1;
+	} else {
 		dzlog_error("invalid res type\r\n");
 		return 0;
-	} else {
-		return 1;
 	}
 }
-
+#if 0
 static bool is_null_data(unsigned char *buf,int buf_size)
 {
 	bool is_null = true;
@@ -78,7 +72,7 @@ static bool is_null_data(unsigned char *buf,int buf_size)
 	}
 	return is_null;
 }
-
+#endif
 void print_hex(char *func,char *data, int len)
 {
 #if 1
@@ -103,13 +97,13 @@ static unsigned char get_active_res(int ulTimeOut/*millisecond*/)
 		res = 0;
 	return (unsigned char)res;
 }
-
+#if 0
 static void set_active_res(jd_om_comm *hdl,unsigned char res)
 {
 	jd_om_task_notify(&(hdl->uart_comm_des.thread_handle_send),res);
 	dzlog_debug("set active res as 0x%02x.\r\n", res);
 }
-
+#endif
 unsigned char wait_response(jd_om_comm *hdl,unsigned char ActiveReq)
 {
 	//unsigned char ret = 1;
@@ -492,26 +486,12 @@ RESPONSE:
 		return ret;
 	}
 }
-#endif
+
 static osStatus jd_master_com_send_play_msg(jd_om_comm *hdl,unsigned char type, void *req_data)
 {
 	pic_play_msg *msg = NULL;
 
 	switch (type){
-		case REQ_SHOW:
-			msg = jd_om_malloc(sizeof(pic_play_msg));
-			msg->type = pic_play_service_code;
-			msg->msg.info_service_code.service_code = (play_service_code)(((REQ_SHOW_T *)req_data)->service_code);
-			msg->msg.info_service_code.timeout = ((REQ_SHOW_T *)req_data)->keep_alive;
-			break;
-
-		case REQ_SET_VOLUME:
-			msg = jd_om_malloc(sizeof(pic_play_msg));
-			msg->type = pic_play_key_pushed;
-			msg->msg.info_key.fromIsr = false;
-			msg->msg.info_key.value = key_pushed_vol;
-			msg->msg.info_key.volume = (voice_volume_level)(((REQ_SET_VOLUME_T *)req_data)->volume);
-			break;
 
 		case REQ_TRANS_FILE_HEAD:
 			msg = jd_om_malloc(sizeof(pic_play_msg));
@@ -532,11 +512,6 @@ static osStatus jd_master_com_send_play_msg(jd_om_comm *hdl,unsigned char type, 
 			snprintf(msg->msg.info_file.file_name,64,"%s",strrchr(recv_file_des.file_path,'/')+1);
 			break;
 
-		case REQ_NOTIFY_ALL_FILE_COMPLETED:
-			msg = jd_om_malloc(sizeof(pic_play_msg));
-			msg->type = pic_play_all_file_update_end;
-			break;
-
 		default:
 			dzlog_error("%s:unknown type=%d.\r\n",__func__,type);
 			break;
@@ -550,27 +525,27 @@ static osStatus jd_master_com_send_play_msg(jd_om_comm *hdl,unsigned char type, 
 	}
 	return osErrorOS;
 }
+#endif
 
 static osStatus jd_master_com_send_response(jd_om_comm *hdl,unsigned char type, void *data)
 {
 	int payload_size;
 	unsigned char res_type;
-	unsigned int material_num = 0;
+	//unsigned int material_num = 0;
 	osStatus ret;
 
 	switch (type) {
+
 	case REQ_DEVICE_INFO:
 	{
 		res_type = RES_DEVICE_INFO;
-		material_num = ((RES_DEVICE_INFO_T *)data)->schedule.material_num;
-		payload_size = sizeof(RES_DEVICE_INFO_T) + material_num*sizeof(AdvMaterialInfo);
+		payload_size = sizeof(RES_DEVICE_INFO_T);
 		break;
 	}
-
-	case REQ_CONFIG_PASSWORD:
+	case REQ_SET_SN:
 	{
-		res_type = RES_CONFIG_PASSWORD;
-		payload_size = sizeof(RES_CONFIG_PASSWORD_T);
+		res_type = RES_SET_SN;
+		payload_size = sizeof(RES_SET_SN_T);
 		break;
 	}
 
@@ -587,46 +562,70 @@ static osStatus jd_master_com_send_response(jd_om_comm *hdl,unsigned char type, 
 		payload_size = sizeof(RES_SET_TIME_T);
 		break;
 	}
-
-	case REQ_SET_VOLUME:
+	case REQ_FLASH_LED:
 	{
-		res_type = RES_SET_VOLUME;
-		payload_size = sizeof(RES_SET_VOLUME_T);
+		res_type = RES_FLASH_LED;
+		payload_size = sizeof(RES_SET_FLASH_LED_T);
 		break;
 	}
-
-	case REQ_CLEAR_PASSWORD:
+	case REQ_SLOT_LED:
 	{
-		res_type = RES_CLEAR_PASSWORD;
-		payload_size = sizeof(RES_CLEAR_PASSWORD_T);
+		res_type = RES_SLOT_LED;
+		payload_size = sizeof(RES_SET_SLOT_LED_T);
 		break;
 	}
-
-	case REQ_SHOW:
+	case REQ_SLOT_ELOCK:
 	{
-		res_type = RES_SHOW;
-		payload_size = sizeof(RES_SHOW_T);
+		res_type = RES_SLOT_ELOCK;
+		payload_size = sizeof(RES_SET_SLOT_ELOCK_T);
 		break;
 	}
-
-	case REQ_NOTIFY_ALL_FILE_COMPLETED:
+	case REQ_SLOT_POWER:
 	{
-		res_type = RES_NOTIFY_ALL_FILE_COMPLETED;
-		payload_size = sizeof(RES_NOTIFY_ALL_FILE_COMPLETED_T);
+		res_type = RES_SLOT_POWER;
+		payload_size = sizeof(RES_SET_SLOT_POWER_T);
 		break;
 	}
-
-	case REQ_SET_SN:
+	case REQ_SLOT_KEY_STAT:
 	{
-		res_type = RES_SET_SN;
-		payload_size = sizeof(RES_SET_SN_T);
+		res_type = RES_SLOT_KEY_STAT;
+		payload_size = sizeof(RES_GET_SLOT_KEY_T);
 		break;
 	}
-
-	case REQ_SET_DEVICE_ID:
+	case REQ_BATTERY_ENCRYPT:
 	{
-		res_type = RES_SET_DEVICE_ID;
-		payload_size = sizeof(RES_SET_DEVICE_ID_T);
+		res_type = RES_BATTERY_ENCRYPT;
+		payload_size = sizeof(RES_BATTERY_ENCRYPT_T);
+		break;
+	}
+	case REQ_BATTERY_INFO:
+	{
+		res_type = RES_BATTERY_INFO;
+		payload_size = sizeof(RES_BATTERY_INFO_T);
+		break;
+	}
+	case REQ_GPRS_MODULE_INFO:
+	{
+		res_type = RES_GPRS_MODULE_INFO;
+		payload_size = sizeof(RES_GPRS_MODULE_INFO_T);
+		break;
+	}
+	case REQ_GPRS_CONNECT:
+	{
+		res_type = RES_GPRS_CONNECT;
+		payload_size = sizeof(RES_GPRS_CONNECT_T);
+		break;
+	}
+	case REQ_DEVICE_AGEING:
+	{
+		res_type = RES_DEVICE_AGEING;
+		payload_size = sizeof(RES_AGEING_T);
+		break;
+	}
+	case REQ_ENV_TEMPRATURE:
+	{
+		res_type = RES_ENV_TEMPRATURE;
+		payload_size = sizeof(RES_TEMPRATURE_T);
 		break;
 	}
 
@@ -1092,7 +1091,7 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 	char payload[MAX_QUEUE_ELEMENT_SIZE] = { 0 };
 	MSG_UART_HEAD_T* head = (MSG_UART_HEAD_T*)pt;
 	static unsigned char last_session_id = -1;
-	static unsigned int old_pkt_id = 1;
+	//static unsigned int old_pkt_id = 1;
 	unsigned int payload_len = 0;
 	unsigned char type;
 
@@ -1151,8 +1150,36 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 	}
 
 	switch (type) {
+
+	case REQ_DEVICE_INFO:
+		{
+			dzlog_debug("get device info\r\n");
+			RES_DEVICE_INFO_T res;
+			res.code = 0;
+			snprintf((char *)res.sn, 16, "%s", "AB12345678");
+			get_md5((unsigned char *)res.sn_md5, (char const *)res.sn, 1);
+			snprintf((char *)res.fw_ver, 4, "%c%c%c%c", 1,0,0,0);
+			snprintf((char *)res.hw_ver, 4, "%c%c%c%c", 1,0,1,0);
+			res.Encrypted = 0;
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_SET_SN:
+		{
+			REQ_SET_SN_T *req = (REQ_SET_SN_T *)pt + sizeof(MSG_UART_HEAD_T);
+			dzlog_debug("set sn : %s\r\n", req->sn);
+
+
+			RES_SET_SN_T res;
+			res.code = 0;
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
 		case REQ_GET_TIME:
 		{
+			dzlog_debug("get rtc time 1555733950\r\n");
 			RES_GET_TIME_T res;
 			res.time_sec = 1555733950;//jd_master_com_get_system_time_second();
 			res.time_usec = 0;
@@ -1160,6 +1187,153 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 			has_send_res = true;
 			break;
 		}
+	case REQ_SET_TIME:
+		{
+			REQ_SET_TIME_T * req = (REQ_SET_TIME_T *)pt + sizeof(MSG_UART_HEAD_T);
+			dzlog_debug("set time sec %d \r\n", req->time_sec);
+
+			RES_SET_TIME_T res;
+			res.code = 0;
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_FLASH_LED:
+		{
+			REQ_SET_FLASH_LED_T *req = (REQ_SET_FLASH_LED_T *)pt + sizeof(MSG_UART_HEAD_T);
+			dzlog_debug("set flash led %d\r\n", req->led_status);
+
+
+			RES_SET_FLASH_LED_T res;
+			res.code = 0;
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_SLOT_LED:
+		{
+			REQ_SET_SLOT_LED_T *req = (REQ_SET_SLOT_LED_T *)pt + sizeof(MSG_UART_HEAD_T);
+			dzlog_debug("set slot %d led to %d\r\n", req->slot_num, req->led_status);
+
+
+			RES_SET_SLOT_LED_T res;
+			res.code = 0;
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_SLOT_ELOCK:
+		{
+			REQ_SET_SLOT_ELOCK_T *req = (REQ_SET_SLOT_ELOCK_T *)pt + sizeof(MSG_UART_HEAD_T);
+			dzlog_debug("set slot %d lock to %d\r\n", req->slot_num, req->elock_status);
+
+
+			RES_SET_SLOT_ELOCK_T res;
+			res.code = 0;
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_SLOT_POWER:
+		{
+			REQ_SET_SLOT_POWER_T *req = (REQ_SET_SLOT_POWER_T *)pt + sizeof(MSG_UART_HEAD_T);
+			dzlog_debug("set slot %d power to %d\r\n", req->slot_num, req->power_status);
+
+			RES_SET_SLOT_POWER_T res;
+			res.code = 0;
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_SLOT_KEY_STAT:
+		{
+			REQ_GET_SLOT_KEY_T *req = (REQ_GET_SLOT_KEY_T *)pt + sizeof(MSG_UART_HEAD_T);
+			dzlog_debug("get slot %d key status\r\n", req->slot_num);
+
+			RES_GET_SLOT_KEY_T res;
+			res.code = 0;
+			res.key_status = 1;
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_BATTERY_ENCRYPT:
+		{
+			REQ_BATTERY_ENCRYPT_T *req = (REQ_BATTERY_ENCRYPT_T *)pt + sizeof(MSG_UART_HEAD_T);
+			dzlog_debug("set battery %d opt %d\r\n", req->slot_num, req->opt);
+
+			RES_BATTERY_ENCRYPT_T res;
+			res.code = 0;
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_BATTERY_INFO:
+		{
+			REQ_BATTERY_INFO_T *req = (REQ_BATTERY_INFO_T *)pt + sizeof(MSG_UART_HEAD_T);
+			dzlog_debug("get battery %d info opt %d\r\n", req->slot_num, req->opt);
+
+			RES_BATTERY_INFO_T res;
+			res.code = 0;
+			snprintf((char *)res.sn, 16, "%s", "BAT1234567");
+			res.temperature = 23;
+			res.voltage = 4100;	//电压
+			res.current = 0;	//电流
+			res.full_cap = 5200;	//满电�?
+			res.rem_cap = 4000;	//剩余电量
+			res.charge_cnt = 8; //充放电次�?
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_GPRS_MODULE_INFO:
+		{
+			dzlog_debug("get gprs info\r\n");
+
+			RES_GPRS_MODULE_INFO_T res;
+			res.code = 0;	//响应代码：ok �?，fail�?
+			snprintf(res.module_name,16, "%s", "MITU"); //模块�?
+			memcpy(res.Iccid, "12345678901234567890", 20); //iccid
+			res.module_ready = 1;//模块是否正常
+			res.simcard_ready = 1;//sim卡是否正�?
+			res.gprs_ready = 1;	//gprs 是否正常
+			res.rssi = 20;		//rssi
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_GPRS_CONNECT:
+		{
+			REQ_GPRS_CONNECT_T * req = (REQ_GPRS_CONNECT_T*)pt + sizeof(MSG_UART_HEAD_T);
+			dzlog_debug("gprs connect opt %d\r\n", req->opt);
+
+			RES_GPRS_CONNECT_T res;
+			res.code = 0;	//响应代码：ok �?，fail�?
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_DEVICE_AGEING:
+		{
+			REQ_AGEING_T *req = (REQ_AGEING_T *)pt + sizeof(MSG_UART_HEAD_T);
+			dzlog_debug("ageing opt %d\r\n", req->opt);
+			RES_AGEING_T res;
+			res.code = 0;
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+	case REQ_ENV_TEMPRATURE:
+		{
+			dzlog_debug("get temprature\r\n");
+			RES_TEMPRATURE_T res;
+			res.code = 0;
+			res.temperature = 23;
+			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+
 		default:
 			break;
 	}
@@ -1169,7 +1343,7 @@ FREE:
 		if(is_req_type_valid(type)){
 			RES_COMMON_T res;
 
-			dzlog_error("%s:exception res start to send...\r\n",__func__,type);
+			dzlog_error("%s: type %d exception res start to send...\r\n",__func__,type);
 			res.code = 1;
 			jd_master_com_send_exception_response(hdl,type,(void *)&res);
 		}
@@ -1389,7 +1563,7 @@ void uart_recv_queue_task(void const *p)
 	unsigned int disconnect_cnt = 0,lose_times = 0;
 	unsigned int loseMaximumSec = 0;
 	bool ever_disconnect_notify = false;
-	REQ_SHOW_T req;
+	//REQ_SHOW_T req;
 	bool fileTransering = false;
 	UINT fileTransTimeCnt = 0;
 
@@ -1402,7 +1576,7 @@ void uart_recv_queue_task(void const *p)
 		jd_om_mq_recv(&(hdl->uart_comm_des.recv_queue), (void **)&pt, 1000/*millisecond timeout*/);
 
 		//dzlog_debug("%s:##2##\r\n",__func__);
-		#if 1
+		#if 0
 		if(fileTransering){
 			if(fileTransTimeCnt++>50){
 				//we've too much time not received host data transfer,so force to interrupt it.
@@ -1423,9 +1597,9 @@ void uart_recv_queue_task(void const *p)
 				loseMaximumSec = 300;	// first time detection:5 minutes timeout.
 			if(disconnect_cnt++ >= loseMaximumSec){	// only trigger one time.
 				dzlog_debug("%s:##lose connect %d seconds with host##\r\n",__func__,loseMaximumSec);
-				req.service_code = srv_code_connect_fail;
-				req.keep_alive = 0;
-				jd_master_com_send_play_msg(hdl,REQ_SHOW,&req);
+				//req.service_code = srv_code_connect_fail;
+				//req.keep_alive = 0;
+				//jd_master_com_send_play_msg(hdl,REQ_SHOW,&req);
 				ever_disconnect_notify = true;
 				disconnect_cnt = 0;	//stop counter
 				lose_times++;
@@ -1433,9 +1607,9 @@ void uart_recv_queue_task(void const *p)
 		}
 		else{
 			if(ever_disconnect_notify){
-				req.service_code = srv_code_default;
-				req.keep_alive = 5;
-				jd_master_com_send_play_msg(hdl,REQ_SHOW,&req);
+				//req.service_code = srv_code_default;
+				//req.keep_alive = 5;
+				//jd_master_com_send_play_msg(hdl,REQ_SHOW,&req);
 				ever_disconnect_notify = false;
 			}
 			disconnect_cnt = 0;	//stop counter
@@ -1472,7 +1646,7 @@ void uart_send_queue_task(void const *p)
 
 	dzlog_info("%s start\r\n", __func__);
 
-	char buf[128];
+	//char buf[128];
 
 #if 0
 	while(1) {
@@ -1555,7 +1729,7 @@ void uart_recv_task(void const *p)
 
 		r_len = jd_om_recv(uart_hdl, &from_addr, buf, MAX_QUEUE_ELEMENT_SIZE);
 		if (r_len)
-			dump_buffer(buf, r_len);
+			dump_buffer((u8 *)buf, r_len);
 		if ((r_len > sizeof(MSG_UART_HEAD_T)) ||
 			((r_len == strlen(ReqNameByAT)) && (strncmp(buf,ReqNameByAT,r_len)==0))) {
 			print_hex((char *)__func__,buf, r_len);
@@ -1588,7 +1762,7 @@ void eeprom_setting_show_test(void)
 	}
 }
 #endif
-
+#if 0
 void uart_send_data(jd_om_comm *p, void *pt)
 {
 	jd_om_comm *hdl = (jd_om_comm *)p;
@@ -1860,7 +2034,7 @@ void uart_task(void const *p)
 }
 
 
-
+#endif
 #ifdef AES_CBC_256_DBG
 static void aes_cbc_encrypt_desrypt_testing(char *in_string)
 {

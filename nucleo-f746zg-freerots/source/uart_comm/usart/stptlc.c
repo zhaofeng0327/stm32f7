@@ -20,7 +20,7 @@
 #include "stptlc.h"
 #include "stpllc_uart.h"
 #include "jd_os_middleware.h"
-
+#include "utils.h"
 
 static int g_timeout_cnts = 0;
 
@@ -107,8 +107,8 @@ u8 tlc_mksum(tlc_hd * hd,int lens){
 int tlc_wait_recv_ack(stptlc * tlc)
 {
 	int ret = 0;
-	u8 id = 0;
-	int rdlens = 0;
+	//u8 id = 0;
+	//int rdlens = 0;
 
 	//rdbuf要大于TLC_FRAME_SIZE/3*4
 	u8 rdbuf[TLC_FRAME_SIZE*2] = { 0 };

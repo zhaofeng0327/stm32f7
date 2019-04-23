@@ -54,20 +54,21 @@ bool ends_with(const char * haystack, const char * needle)
 
 	return (strcasecmp(end, needle) ? false : true);
 }
-#if 0
-int get_md5(unsigned char file_Dev,unsigned char *md5, const char *ptr, int type)
+#if 1
+int get_md5(unsigned char *md5, const char *ptr, int type)
 {
 	MD5_CTX_T ctx;
 	int i = 0;
-	FIL g_fileObject;
-	UINT bytesRead;
-	FRESULT error;
+	//FIL g_fileObject;
+	//UINT bytesRead;
+	//FRESULT error;
 
 	if ((type != 0) && (type != 1))
 		return -1;
 
 	md5_init(&ctx);
 	if (0 == type) {
+#if 0
 		unsigned int mem_size = 1024;
 		unsigned char *pData = NULL;
 
@@ -91,6 +92,7 @@ int get_md5(unsigned char file_Dev,unsigned char *md5, const char *ptr, int type
 		f_close(&g_fileObject);
 		jd_om_free(pData);
 		pData = NULL;
+#endif
 	} else if (1 == type) {
 		md5_update(&ctx, (unsigned char*)ptr, strlen(ptr));
 	}

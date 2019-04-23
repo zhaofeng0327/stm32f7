@@ -320,9 +320,9 @@ u32 jd_om_mq_recv(JD_OM_QUEUE *pxQueue,
 }
 
 void jd_om_delete_mq(JD_OM_QUEUE *pxQueue){
-	unsigned long ulMessagesWaiting;
+	//unsigned long ulMessagesWaiting;
 
-	ulMessagesWaiting = uxQueueMessagesWaiting( *pxQueue );
+	//ulMessagesWaiting = uxQueueMessagesWaiting( *pxQueue );
 	//configASSERT( ( ulMessagesWaiting == 0 ) );
 	vQueueDelete( *pxQueue );
 }
