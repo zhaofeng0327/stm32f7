@@ -2,7 +2,6 @@
 #include "typedef.h"
 #include "utils.h"
 //#include "aes.h"
-//#include "pin_mux.h"
 #include "stm32f746xx.h"
 #include "cmsis_os.h"
 
@@ -14,11 +13,12 @@
 
 #define WAIT_RESPONSE_TIME_OUT (3000)
 
-#define UART_NUM	2
+#define UART_NUM	4
 
 osThreadId uartSendQueueTaskHandle;
 osThreadId uartRecvQueueTaskHandle;
 osThreadId uartRecvHandle;
+jd_om_comm *uart_hdl = NULL;
 
 typedef struct {
 	unsigned char version[4];
@@ -2129,7 +2129,50 @@ static void aes_cbc_encrypt_desrypt_testing(char *in_string)
 }
 #endif
 
-int uart_task_init(jd_om_comm *uart_hdl)
+
+static int uart_resource_init(jd_om_comm *hdl)
+{
+	if(jd_om_mq_create(&(hdl->uart_comm_des.send_queue),MAX_QUEUE_SIZE) != osOK){
+		dberr("create send queue fail.\r\n");
+		return -1;
+	}
+
+	if(jd_om_mq_create(&(hdl->uart_comm_des.recv_queue),MAX_QUEUE_SIZE) != osOK){
+		dberr("create recv queue fail.\r\n");
+		return -1;
+	}
+
+
+	if(jd_om_sem_new(&(hdl->uart_comm_des.sem)) != osOK){
+		dberr("create pic play semaphore fail.\r\n");
+		return -1;
+	}
+
+	return 0;
+}
+
+int uart_task_exit(jd_om_comm *hdl)
+{
+	if (NULL == hdl)
+		return 0;
+	jd_om_comm_close(hdl);
+
+	jd_om_delete_mq(&(hdl->uart_comm_des.recv_queue));
+	jd_om_delete_mq(&(hdl->uart_comm_des.send_queue));
+
+	return 0;
+}
+
+static void hw_ver_detect_init(jd_om_comm *uart_hdl)
+{
+	//TODO:READ HW version
+	uart_hdl->hw_ver[0] = 0;
+	uart_hdl->hw_ver[1] = 0;
+	uart_hdl->hw_ver[2] = 0;
+	uart_hdl->hw_ver[3] = 1;
+}
+
+int start_slot_comm_task()
 {
 	int ret = 0;
 	jd_om_comm_addr local_addr;
@@ -2137,6 +2180,10 @@ int uart_task_init(jd_om_comm *uart_hdl)
 
 	//jd_master_com_clear_communication_cipher();
 	//eeprom_setting_show_test();
+
+	uart_hdl = (jd_om_comm *)jd_om_malloc(sizeof(jd_om_comm));
+	uart_resource_init(uart_hdl);
+	hw_ver_detect_init(uart_hdl);
 
 	if (jd_om_mutex_create(&(uart_hdl->uart_comm_des.mutex_active_req)) != osOK){
 		dzlog_error("mutex_active_req init error\r\n");

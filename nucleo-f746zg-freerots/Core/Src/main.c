@@ -100,12 +100,12 @@ void MX_USART3_UART_DeInit(void)
 /* Private variables ---------------------------------------------------------*/
 
 ETH_HandleTypeDef heth;
+
 UART_HandleTypeDef huart3;
 
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 osThreadId defaultTaskHandle;
-
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -117,10 +117,8 @@ static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 
+static void MX_GFXSIMULATOR_Init(void);
 void StartDefaultTask(void const * argument);
-void uart_recv_queue_task(void const * argument);
-void uart_send_queue_task(void const * argument);
-void uart_recv_task(void const * argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -134,54 +132,6 @@ void uart_recv_task(void const * argument);
   * @retval None
   */
 
-static int uart_resource_init(jd_om_comm *hdl)
-{
-	if(jd_om_mq_create(&(hdl->uart_comm_des.send_queue),MAX_QUEUE_SIZE) != osOK){
-		dberr("create send queue fail.\r\n");
-		return -1;
-	}
-
-	if(jd_om_mq_create(&(hdl->uart_comm_des.recv_queue),MAX_QUEUE_SIZE) != osOK){
-		dberr("create recv queue fail.\r\n");
-		return -1;
-	}
-
-
-	if(jd_om_sem_new(&(hdl->uart_comm_des.sem)) != osOK){
-		dberr("create pic play semaphore fail.\r\n");
-		return -1;
-	}
-
-	return 0;
-}
-
-int uart_task_exit(jd_om_comm *hdl)
-{
-	if (NULL == hdl)
-		return 0;
-	jd_om_comm_close(hdl);
-
-	jd_om_delete_mq(&(hdl->uart_comm_des.recv_queue));
-	jd_om_delete_mq(&(hdl->uart_comm_des.send_queue));
-
-	return 0;
-}
-
-static void hw_ver_detect_init(jd_om_comm *uart_hdl)
-{
-	//TODO:READ HW version
-	uart_hdl->hw_ver[0] = 0;
-	uart_hdl->hw_ver[1] = 0;
-	uart_hdl->hw_ver[2] = 0;
-	uart_hdl->hw_ver[3] = 1;
-}
-#if 0
-osThreadDef(uartRecvQueueTask, uart_recv_queue_task, osPriorityNormal, 0, 5120);
-osThreadDef(uartSendQueueTask, uart_send_queue_task, osPriorityNormal, 0, 1024);
-osThreadDef(uartRecvTask, uart_recv_task, osPriorityNormal, 0, 1024);
-#else
-osThreadDef(uartTask, uart_task, osPriorityNormal, 0, 5120);
-#endif
 /* USER CODE END 0 */
 
 /**
@@ -191,7 +141,6 @@ osThreadDef(uartTask, uart_task, osPriorityNormal, 0, 5120);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  jd_om_comm *uart_hdl = NULL;
 
   /* USER CODE END 1 */
 
@@ -216,7 +165,8 @@ int main(void)
   MX_ETH_Init();
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
-  //MX_USART2_UART_Init();
+  MX_GFXSIMULATOR_Init();
+  MX_UART4_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -237,7 +187,6 @@ int main(void)
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
 
-
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
@@ -247,10 +196,8 @@ int main(void)
   /* add threads, ... */
   printf("main start .....\r\n");
 
-  uart_hdl = (jd_om_comm *)jd_om_malloc(sizeof(jd_om_comm));
-  uart_resource_init(uart_hdl);
-  hw_ver_detect_init(uart_hdl);
-  uart_task_init(uart_hdl);
+
+  start_slot_comm_task();
 
 
   /* USER CODE END RTOS_THREADS */
@@ -316,9 +263,10 @@ void SystemClock_Config(void)
     Error_Handler();
   }
   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_USART3
-                              |RCC_PERIPHCLK_CLK48;
+                              |RCC_PERIPHCLK_UART4|RCC_PERIPHCLK_CLK48;
   PeriphClkInitStruct.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
   PeriphClkInitStruct.Usart3ClockSelection = RCC_USART3CLKSOURCE_PCLK1;
+  PeriphClkInitStruct.Uart4ClockSelection = RCC_UART4CLKSOURCE_PCLK1;
   PeriphClkInitStruct.Clk48ClockSelection = RCC_CLK48SOURCE_PLL;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
   {
@@ -368,6 +316,27 @@ static void MX_ETH_Init(void)
   /* USER CODE BEGIN ETH_Init 2 */
 
   /* USER CODE END ETH_Init 2 */
+
+}
+
+/**
+  * @brief GFXSIMULATOR Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GFXSIMULATOR_Init(void)
+{
+
+  /* USER CODE BEGIN GFXSIMULATOR_Init 0 */
+
+  /* USER CODE END GFXSIMULATOR_Init 0 */
+
+  /* USER CODE BEGIN GFXSIMULATOR_Init 1 */
+
+  /* USER CODE END GFXSIMULATOR_Init 1 */
+  /* USER CODE BEGIN GFXSIMULATOR_Init 2 */
+
+  /* USER CODE END GFXSIMULATOR_Init 2 */
 
 }
 
@@ -425,36 +394,36 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOG_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LD1_Pin|LD3_Pin|LD2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_14|GPIO_PIN_7, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(USB_PowerSwitchOn_GPIO_Port, USB_PowerSwitchOn_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_6, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : USER_Btn_Pin */
-  GPIO_InitStruct.Pin = USER_Btn_Pin;
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(USER_Btn_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD1_Pin LD3_Pin LD2_Pin */
-  GPIO_InitStruct.Pin = LD1_Pin|LD3_Pin|LD2_Pin;
+  /*Configure GPIO pins : PB0 PB14 PB7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_14|GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : USB_PowerSwitchOn_Pin */
-  GPIO_InitStruct.Pin = USB_PowerSwitchOn_Pin;
+  /*Configure GPIO pin : PG6 */
+  GPIO_InitStruct.Pin = GPIO_PIN_6;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(USB_PowerSwitchOn_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : USB_OverCurrent_Pin */
-  GPIO_InitStruct.Pin = USB_OverCurrent_Pin;
+  /*Configure GPIO pin : PG7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(USB_OverCurrent_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
 }
 

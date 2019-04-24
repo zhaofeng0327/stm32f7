@@ -7,16 +7,17 @@
 #include "stm32f746xx.h"
 #include "event_groups.h"
 
-UART_HandleTypeDef huart2;
-SemaphoreHandle_t sem_uart2;
+
+
+//SemaphoreHandle_t sem_uart2;
 
 //#define USE_HAL_UART_REGISTER_CALLBACKS 1
-uint8_t uart2_ch;
+
 //uint8_t uart2_buf[LLC_PACK_SZ_MAX];//LLC_PACK_SZ_MAX
 //uint32_t uart2_cnt;
-EventGroupHandle_t EventUart2RxHdl;
-#define UART2_RX_BIT 1
-QueueHandle_t uart2_rx_queue;
+//EventGroupHandle_t EventUart2RxHdl;
+//#define UART2_RX_BIT 1
+//QueueHandle_t uart2_rx_queue;
 
 typedef struct {
 	uint32_t head;
@@ -26,21 +27,28 @@ typedef struct {
 }RingBuf;
 
 RingBuf uart2_ringbuf;
+RingBuf uart4_ringbuf;
 
-void init_ringbuf()
+UART_HandleTypeDef huart2;
+UART_HandleTypeDef huart4;
+uint8_t uart2_ch;
+uint8_t uart4_ch;
+
+
+void init_ringbuf(RingBuf *rbuf)
 {
-	memset(&uart2_ringbuf, 0,  sizeof(RingBuf));
+	memset(rbuf, 0,  sizeof(RingBuf));
 }
 
-int write_ringbuf(u8 data)
+int write_ringbuf(RingBuf *rbuf, u8 data)
 {
-	if(uart2_ringbuf.len >= LLC_PACK_SZ_MAX) //判断缓冲区是否已满
+	if(rbuf->len >= LLC_PACK_SZ_MAX) //判断缓冲区是否已满
 	{
 		return 0;
 	}
-	uart2_ringbuf.ring_buf[uart2_ringbuf.tail++]=data;
-	uart2_ringbuf.tail = (uart2_ringbuf.tail)%LLC_PACK_SZ_MAX;//防止越界非法访问
-	uart2_ringbuf.len++;
+	rbuf->ring_buf[rbuf->tail++] = data;
+	rbuf->tail = (rbuf->tail)%LLC_PACK_SZ_MAX;//防止越界非法访问
+	rbuf->len++;
 	return 1;
 }
 
@@ -60,18 +68,19 @@ void * jz_uart_init_ex(int usart_no)
 		huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
 		huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
 		//huart2.RxCpltCallback = HAL_UART_RxCpltCallback;
-		sem_uart2 = xSemaphoreCreateBinary();
+		//sem_uart2 = xSemaphoreCreateBinary();
 		//xSemaphoreGive(sem_uart2);
 
 		if (HAL_UART_Init(&huart2) != HAL_OK) {
 			//Error_Handler();
-                      debug("uart2 init error\r\n");
+			debug("uart2 init error\r\n");
+			return NULL;
 		} else {
 			//HAL_UART_Receive_IT(&huart2, uart2_buf. LLC_PACK_SZ_MAX);
 			//huart2.RxCpltCallback = uart2_rx_callback;
 			//huart2.RxISR = uart2_rx_callback;
 			//huart2.TxISR = uart2_tx_callback;
-			EventUart2RxHdl = xEventGroupCreate();
+			//EventUart2RxHdl = xEventGroupCreate();
 			//uart2_rx_queue = xQueueCreate(100, 4);
 			//if (uart2_rx_queue)
 			//	printf("create uart2 rx queue\r\n");
@@ -79,14 +88,20 @@ void * jz_uart_init_ex(int usart_no)
 			//SET_BIT(huart2.Instance->CR3, USART_CR3_OVRDIS_Pos);
 			//__HAL_UART_ENABLE_IT(&huart2, UART_IT_TC);
 
-			init_ringbuf();
-			__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
 
+			init_ringbuf(&uart2_ringbuf);
+			__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
 			HAL_UART_Receive_IT(&huart2, (uint8_t *)&uart2_ch, 1);
-			//HAL_UART_Receive_IT(&huart2, (uint8_t *)&uart2_buf, LLC_PACK_SZ_MAX);
-			//HAL_UART_Receive_IT(&huart2, (uint8_t *)uart2_buf, 5);
 			return &huart2;
 		}
+	} else if (4 == usart_no) {
+
+		init_ringbuf(&uart4_ringbuf);
+		MX_UART4_Init();
+                		__HAL_UART_ENABLE_IT(&huart4, UART_IT_RXNE);
+		HAL_UART_Receive_IT(&huart4, (uint8_t *)&uart4_ch, 1);
+
+		return &huart4;
 	}
 
 	return NULL;
@@ -95,7 +110,7 @@ void * jz_uart_init_ex(int usart_no)
 void jz_uart_close_ex(void *fd)
 {
 	debug("%s >>>>>\r\n",__func__);
-	HAL_UART_DeInit(&huart2);
+	HAL_UART_DeInit(fd);
 }
 
 int jz_uart_write_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec*/)
@@ -103,11 +118,128 @@ int jz_uart_write_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millise
 	int ret = 0;
 	if (lens <=  0)
 		return 0;
-	HAL_UART_Transmit(&huart2, buffer, lens, ulTimeout);
-	ret = lens - huart2.TxXferCount;
+
+	UART_HandleTypeDef* hdl = (UART_HandleTypeDef*)fd;
+	USART_TypeDef* ins = hdl->Instance;
+	HAL_HalfDuplex_EnableTransmitter(hdl);
+
+	HAL_UART_Transmit(fd, buffer, lens, ulTimeout);
+	ret = lens - hdl->TxXferCount;
+	//SET_BIT(huart2.Instance->CR1, USART_CR1_RE_Pos);
+
+	if (UART4 == ins) {
+		HAL_HalfDuplex_EnableReceiver(hdl);
+		HAL_UART_Receive_IT(hdl, (uint8_t *)&uart4_ch, 1);
+	}
 	//debug("%s lens %d>>>>>\r\n", __func__, lens);
 	//dump_buffer(buffer, ret);
 	return ret;
+
+
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
+{
+	//BaseType_t xHigherPriorityTaskWoken;
+	if (USART2 == UartHandle->Instance) {
+		//xSemaphoreTakeFromISR(sem_uart2, &xHigherPriorityTaskWoken);
+		write_ringbuf(&uart2_ringbuf, uart2_ch);
+		HAL_UART_Receive_IT(UartHandle, (uint8_t *)&uart2_ch, 1);
+		//xSemaphoreGiveFromISR(sem_uart2, &xHigherPriorityTaskWoken);
+		//printf("0x%02x\r\n", uart2_ch);
+		//portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+	} else if (UART4 == UartHandle->Instance) {
+		//printf("%02x\r\n", uart4_ch);
+		write_ringbuf(&uart4_ringbuf, uart4_ch);
+		HAL_UART_Receive_IT(UartHandle, (uint8_t *)&uart4_ch, 1);
+	}
+}
+
+
+
+int jz_uart_read_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec*/)
+{
+	//uint32_t cnt = 0;
+	uint32_t timeout = 0;
+	uint32_t r = 0;
+	uint32_t olen = 0;
+	RingBuf *rb = 0;
+	uint32_t d = 5;
+	if (NULL == fd)
+		return 0;
+
+	UART_HandleTypeDef* hdl = (UART_HandleTypeDef*)fd;
+	USART_TypeDef* ins = hdl->Instance;
+
+	if (USART2 == ins) {
+		rb = &uart2_ringbuf;
+		d = 2;
+	} else if (UART4 == ins) {
+		rb = &uart4_ringbuf;
+		d = 1;
+	} else {
+		return 0;
+	}
+
+	while (1) {
+		if (rb->len == olen) {
+			vTaskDelay(d);
+			if (timeout++ > 10) {
+				timeout = 0;
+
+				if (olen) {
+					r = lens > rb->len ? rb->len : lens;
+					memcpy(buffer, rb->ring_buf + rb->head, r);
+					rb->head = (rb->head + r) % LLC_PACK_SZ_MAX;
+					rb->len -= r;
+					return r;
+				}
+			}
+		} else {
+			olen = rb->len;
+			timeout = 0;
+		}
+	}
+
+}
+
+
+/**
+  * @brief UART4 Initialization Function
+  * @param None
+  * @retval None
+  */
+void MX_UART4_Init(void)
+{
+
+  /* USER CODE BEGIN UART4_Init 0 */
+
+  /* USER CODE END UART4_Init 0 */
+
+  /* USER CODE BEGIN UART4_Init 1 */
+
+  /* USER CODE END UART4_Init 1 */
+  huart4.Instance = UART4;
+  huart4.Init.BaudRate = 115200;
+  huart4.Init.WordLength = UART_WORDLENGTH_8B;
+  huart4.Init.StopBits = UART_STOPBITS_1;
+  huart4.Init.Parity = UART_PARITY_NONE;
+  huart4.Init.Mode = UART_MODE_TX_RX;
+  huart4.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart4.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart4.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart4.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_HalfDuplex_Init(&huart4) != HAL_OK)
+  {
+	debug("uart4 init error\r\n");
+  }
+  /* USER CODE BEGIN UART4_Init 2 */
+
+
+  /* USER CODE END UART4_Init 2 */
+
+}
+
 #if 0
 	int retval = kStatus_Fail;
 	/* Send introduction message. */
@@ -123,22 +255,6 @@ int jz_uart_write_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millise
 
 	return (retval==kStatus_Success)?lens:(-1);
 #endif
-
-}
-
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
-{
-	//BaseType_t xHigherPriorityTaskWoken;
-	if (UartHandle->Instance == USART2) {
-		//xSemaphoreTakeFromISR(sem_uart2, &xHigherPriorityTaskWoken);
-		write_ringbuf(uart2_ch);
-		HAL_UART_Receive_IT(UartHandle, (uint8_t *)&uart2_ch, 1);
-		//xSemaphoreGiveFromISR(sem_uart2, &xHigherPriorityTaskWoken);
-		//printf("0x%02x\r\n", uart2_ch);
-		//portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-	}
-}
 
 #if 0
 		xSemaphoreTakeFromISR(sem_uart2, &xHigherPriorityTaskWoken);
@@ -159,38 +275,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 
 #endif
 
-
-
-int jz_uart_read_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec*/)
-{
-	//uint32_t cnt = 0;
-	uint32_t timeout = 0;
-	uint32_t r;
-	uint32_t olen = 0;
-	timeout = 0;
-
-
-	while (1) {
-		if (uart2_ringbuf.len == olen) {
-			vTaskDelay(1);
-			if (timeout++ > 10) {
-				timeout = 0;
-
-				if (olen) {
-					r = lens > uart2_ringbuf.len ? uart2_ringbuf.len : lens;
-					memcpy(buffer, uart2_ringbuf.ring_buf + uart2_ringbuf.head, r);
-					uart2_ringbuf.head = (uart2_ringbuf.head + r) % LLC_PACK_SZ_MAX;
-					uart2_ringbuf.len -= r;
-					return r;
-				}
-			}
-		} else {
-			olen = uart2_ringbuf.len;
-			timeout = 0;
-		}
-	}
-
-}
 
 #if 0
 	while (uart2_ringbuf.len == 0)
