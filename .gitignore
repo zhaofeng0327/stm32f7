@@ -1,0 +1,8 @@
+nucleo-f746zg-freerots/EWARM/nucleo-f746zg-ad/Obj/
+nucleo-f746zg-freerots/EWARM/nucleo-f746zg-ad/List/
+nucleo-f746zg-freerots/EWARM/nucleo-f746zg-ad/Exe/
+nucleo-f746zg-freerots/EWARM/nucleo-f746zg-freertos/Obj/
+nucleo-f746zg-freerots/EWARM/nucleo-f746zg-freertos/List/
+nucleo-f746zg-freerots/EWARM/nucleo-f746zg-freertos/Exe/
+*.bak
+
