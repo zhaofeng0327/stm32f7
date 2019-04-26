@@ -11,7 +11,7 @@ History:
 #include "jd_os_middleware.h"
 #include "protocal.h"
 
-int start_slot_comm_task();
+int start_uart_service();
 void uart_recv_queue_task(void const *p);
 void uart_send_queue_task(void const *p);
 void uart_recv_task(void const *p);

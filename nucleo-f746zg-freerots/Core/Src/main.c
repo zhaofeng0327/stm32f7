@@ -129,14 +129,15 @@ int main(void)
 
 
   /* USER CODE BEGIN 2 */
+	printf("main start .....\r\n");
+	printf("uuid 0x%08x, 0x%08x, 0x%08x\r\n", HAL_GetUIDw0(), HAL_GetUIDw1(), HAL_GetUIDw2());
+	start_uart_service();
 
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
-	printf("main start .....\r\n");
-	printf("uuid 0x%08x, 0x%08x, 0x%08x\r\n", HAL_GetUIDw0(), HAL_GetUIDw1(), HAL_GetUIDw2());
-	start_slot_comm_task();
+
   /* Start scheduler */
   osKernelStart();
 

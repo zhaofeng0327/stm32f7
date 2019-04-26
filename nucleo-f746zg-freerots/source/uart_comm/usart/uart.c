@@ -28,13 +28,15 @@ typedef struct {
 
 RingBuf uart2_ringbuf;
 RingBuf uart4_ringbuf;
+RingBuf uart6_ringbuf;
 
-extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart2;
-
+extern UART_HandleTypeDef huart4;
+extern UART_HandleTypeDef huart6;
 
 uint8_t uart2_ch;
 uint8_t uart4_ch;
+uint8_t uart6_ch;
 
 osMutexDef(uart_rx_mtx);
 osMutexId uart_rx_mtx_id;
@@ -56,27 +58,32 @@ int write_ringbuf(RingBuf *rbuf, u8 data)
 	return 1;
 }
 
+void uart_config(UART_HandleTypeDef *hdl, USART_TypeDef *num)
+{
+	hdl->Instance = num;
+	hdl->Init.BaudRate = 115200;
+	hdl->Init.WordLength = UART_WORDLENGTH_8B;
+	hdl->Init.StopBits = UART_STOPBITS_1;
+	hdl->Init.Parity = UART_PARITY_NONE;
+	hdl->Init.Mode = UART_MODE_TX_RX;
+	hdl->Init.HwFlowCtl = UART_HWCONTROL_NONE;
+	hdl->Init.OverSampling = UART_OVERSAMPLING_16;
+	hdl->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+	hdl->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+}
+
 void * jz_uart_init_ex(int usart_no)
 {
-	if (usart_no == 2) {
-		debug("%s >>>>>\r\n",__func__);
+	debug("%s %d>>>>>\r\n", __func__, usart_no);
 
-		huart2.Instance = USART2;
-		huart2.Init.BaudRate = 115200;
-		huart2.Init.WordLength = UART_WORDLENGTH_8B;
-		huart2.Init.StopBits = UART_STOPBITS_1;
-		huart2.Init.Parity = UART_PARITY_NONE;
-		huart2.Init.Mode = UART_MODE_TX_RX;
-		huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-		huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-		huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-		huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+	if (usart_no == 2) {
+		uart_config(&huart2, USART2);
+
 		//huart2.RxCpltCallback = HAL_UART_RxCpltCallback;
 		//sem_uart2 = xSemaphoreCreateBinary();
 		//xSemaphoreGive(sem_uart2);
 
 		if (HAL_UART_Init(&huart2) != HAL_OK) {
-			//Error_Handler();
 			debug("uart2 init error\r\n");
 			return NULL;
 		} else {
@@ -91,24 +98,16 @@ void * jz_uart_init_ex(int usart_no)
 			//CLEAR_BIT(huart2.Instance->CR1, USART_CR1_UE_Pos);
 			//SET_BIT(huart2.Instance->CR3, USART_CR3_OVRDIS_Pos);
 			//__HAL_UART_ENABLE_IT(&huart2, UART_IT_TC);
-			init_ringbuf(&uart2_ringbuf);
 			//uart_rx_mtx_id = osMutexCreate(osMutex(uart_rx_mtx));
-			__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
+			//__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
+			init_ringbuf(&uart2_ringbuf);
 			HAL_UART_Receive_IT(&huart2, (uint8_t *)&uart2_ch, 1);
 			return &huart2;
 		}
-	} else if (4 == usart_no) {
+	}
+	else if (4 == usart_no) {
 
-		huart4.Instance = UART4;
-		huart4.Init.BaudRate = 115200;
-		huart4.Init.WordLength = UART_WORDLENGTH_8B;
-		huart4.Init.StopBits = UART_STOPBITS_1;
-		huart4.Init.Parity = UART_PARITY_NONE;
-		huart4.Init.Mode = UART_MODE_TX_RX;
-		huart4.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-		huart4.Init.OverSampling = UART_OVERSAMPLING_16;
-		huart4.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-		huart4.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+		uart_config(&huart4, UART4);
 		if (HAL_HalfDuplex_Init(&huart4) != HAL_OK) {
 			debug("uart4 init error\r\n");
 			return NULL;
@@ -119,6 +118,18 @@ void * jz_uart_init_ex(int usart_no)
 			//__HAL_UART_ENABLE_IT(&huart4, UART_IT_RXNE);
 			HAL_UART_Receive_IT(&huart4, (uint8_t *)&uart4_ch, 1);
 			return &huart4;
+		}
+	}
+	else if (6 == usart_no) {
+		uart_config(&huart6, USART6);
+		if (HAL_UART_Init(&huart6) != HAL_OK) {
+			debug("uart6 init error\r\n");
+			return NULL;
+		} else {
+			init_ringbuf(&uart6_ringbuf);
+			__HAL_UART_ENABLE_IT(&huart6, UART_IT_RXNE);
+			HAL_UART_Receive_IT(&huart6, (uint8_t *)&uart6_ch, 1);
+			return &huart6;
 		}
 	}
 
@@ -178,6 +189,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 //		if (0xA5 == uart4_ch)
 //			osMutexRelease(uart_rx_mtx_id);
 		HAL_UART_Receive_IT(UartHandle, (uint8_t *)&uart4_ch, 1);
+	} else if (USART6 == UartHandle->Instance) {
+		write_ringbuf(&uart6_ringbuf, uart6_ch);
+		HAL_UART_Receive_IT(UartHandle, (uint8_t *)&uart6_ch, 1);
 	}
 }
 
@@ -202,6 +216,9 @@ int jz_uart_read_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec
 		d = 2;
 	} else if (UART4 == ins) {
 		rb = &uart4_ringbuf;
+		d = 1;
+	} else if (USART6 == ins) {
+		rb = &uart6_ringbuf;
 		d = 1;
 	} else {
 		return 0;
@@ -229,6 +246,8 @@ int jz_uart_read_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec
 					rb->head = (rb->head + r) % LLC_PACK_SZ_MAX;
 					rb->len -= r;
 					return r;
+				} else {
+					return 0;
 				}
 			}
 		} else {

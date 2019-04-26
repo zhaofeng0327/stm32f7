@@ -13,12 +13,19 @@
 
 #define WAIT_RESPONSE_TIME_OUT (3000)
 
-#define UART_NUM	2
+#define UART_NUM	6
 
 osThreadId uartSendQueueTaskHandle;
 osThreadId uartRecvQueueTaskHandle;
 osThreadId uartRecvHandle;
 jd_om_comm *uart_hdl = NULL;
+unsigned char hw_ver[4];
+unsigned char cipher[32];
+
+UART_COMM_DES_T uart_comm_des;
+JD_OM_MUTEX mutex_channel_select;
+jd_om_comm uart_channels[8];
+int active_channel;
 
 typedef struct {
 	unsigned char version[4];
@@ -35,6 +42,21 @@ typedef struct {
 
 static RECV_FILE_DES recv_file_des;
 
+void select_uart_channel(int num)
+{
+	jd_om_mutex_lock(&(mutex_channel_select));
+	active_channel = num;
+	jd_om_mutex_unlock(&(mutex_channel_select));
+}
+
+int get_uart_channel()
+{
+	int chn;
+	jd_om_mutex_lock(&(mutex_channel_select));
+	chn = active_channel;
+	jd_om_mutex_unlock(&(mutex_channel_select));
+	return chn;
+}
 
 //static osStatus jd_master_com_send_play_msg(jd_om_comm *hdl,unsigned char type, void *req_data);
 
@@ -646,7 +668,7 @@ static osStatus jd_master_com_send_response(jd_om_comm *hdl,unsigned char type, 
 	unsigned short chksum = crc16((char *)pkt, packet_size - CHECKSUM_SIZE);
 	memcpy((char *)pkt + packet_size - CHECKSUM_SIZE, &chksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(hdl->uart_comm_des.send_queue), (void *)pkt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pkt);
 	if (osErrorOS == ret)
 		dzlog_error("res[%02x] to queue error\r\n", res_type);
 
@@ -675,7 +697,7 @@ static osStatus jd_master_com_send_exception_response(jd_om_comm *hdl,unsigned c
 	unsigned short chksum = crc16((char *)pkt, packet_size - CHECKSUM_SIZE);
 	memcpy((char *)pkt + packet_size - CHECKSUM_SIZE, &chksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(hdl->uart_comm_des.send_queue), (void *)pkt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pkt);
 	if (osErrorOS == ret)
 		dzlog_error("res[%02x] to queue error\r\n", res_type);
 
@@ -702,7 +724,7 @@ int uart_sent_dumb()
 	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
 	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pt);
 	if (ret) {
 		dzlog_error("%s send msg error\n", __func__);
 		free(pt);
@@ -753,7 +775,7 @@ int uart_battery_set_sn_psw(u8 *sn, u32 sn_len, u8 *psw, u32 psw_len)
 	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
 	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pt);
 	if (ret) {
 		dzlog_error("%s send msg error\n", __func__);
 		free(pt);
@@ -784,7 +806,7 @@ int uart_battery_get_info(u8 opt)
 	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
 	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pt);
 	if (ret) {
 		dzlog_error("%s send msg error\n", __func__);
 		free(pt);
@@ -815,7 +837,7 @@ int uart_battery_decode(u8 *psw, u32 psw_len)
 	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
 	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pt);
 	if (ret) {
 		dzlog_error("%s send msg error\n", __func__);
 		free(pt);
@@ -844,7 +866,7 @@ int uart_battery_encode()
 	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
 	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pt);
 	if (ret) {
 		dzlog_error("%s send msg error\n", __func__);
 		free(pt);
@@ -871,7 +893,7 @@ int uart_battery_virtual_psw_info()
 	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
 	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pt);
 	if (ret) {
 		dzlog_error("%s send msg error\n", __func__);
 		free(pt);
@@ -901,7 +923,7 @@ int uart_battery_set_discharge_level(u8 level)
 	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
 	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pt);
 	if (ret) {
 		dzlog_error("%s send msg error\n", __func__);
 		free(pt);
@@ -929,7 +951,7 @@ int uart_battery_charge_status()
 	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
 	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pt);
 	if (ret) {
 		dzlog_error("%s send msg error\n", __func__);
 		free(pt);
@@ -957,7 +979,7 @@ int uart_battery_protocal_version()
 	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
 	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pt);
 	if (ret) {
 		dzlog_error("%s send msg error\n", __func__);
 		free(pt);
@@ -985,7 +1007,7 @@ int uart_battery_passwd_chksum()
 	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
 	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
 
-	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pt);
 	if (ret) {
 		dzlog_error("%s send msg error\n", __func__);
 		free(pt);
@@ -997,7 +1019,6 @@ int uart_battery_passwd_chksum()
 
 void test_bat_protoc()
 {
-	osDelay(5000);
 	uart_battery_set_sn_psw("ABCD123456", 10, "pppssswwwd", 10);
 	osDelay(5000);
 	uart_battery_get_info(1);
@@ -1985,7 +2006,7 @@ void uart_recv_queue_task(void const *p)
 	while (1) {
 		//daemon_flag_clear(uart_daemon);
 		//dzlog_debug("%s:@@1@@\r\n",__func__);
-		jd_om_mq_recv(&(hdl->uart_comm_des.recv_queue), (void **)&pt, 1000/*millisecond timeout*/);
+		jd_om_mq_recv(&(uart_comm_des.recv_queue), (void **)&pt, 1000/*millisecond timeout*/);
 
 		//dzlog_debug("%s:##2##\r\n",__func__);
 		#if 0
@@ -2045,7 +2066,7 @@ static void send_err_recovery(jd_om_comm *hdl,unsigned char ActiveReq)
 
 void uart_send_queue_task(void const *p)
 {
-	jd_om_comm *hdl = (jd_om_comm *)p;
+	jd_om_comm *hdl = 0;//(jd_om_comm *)p;
 	int slave = SLAVE_1;
 	int ret;
 	int lens;
@@ -2076,7 +2097,7 @@ void uart_send_queue_task(void const *p)
 	while (1) {
 		MSG_UART_HEAD_T *head = NULL;
 		char res;
-		jd_om_mq_recv(&(hdl->uart_comm_des.send_queue), (void **)&pt, 0);
+		jd_om_mq_recv(&(uart_comm_des.send_queue), (void **)&pt, 0);
 		if(pt == NULL){
 			dzlog_error("%s: invalid message: NULL\r\n",__func__);
 			continue;
@@ -2103,6 +2124,7 @@ void uart_send_queue_task(void const *p)
 RESEND_DATA:
 		send_err = 0;
 		//print_hex((char *)__func__, pt, lens);
+		hdl = &uart_channels[get_uart_channel()];
 		ret = jd_om_send(hdl, &to_addr, pt, lens, 0);
 		if (ret <= 0) {
 			num_fail++;
@@ -2125,12 +2147,16 @@ RESEND_DATA:
 	}
 }
 
+
+
+
+
 /*!
  * @brief uart receive Task responsible for loopback.
  */
 void uart_recv_task(void const *p)
 {
-	jd_om_comm *uart_hdl = (jd_om_comm *)p;
+	jd_om_comm *uart_hdl = 0;//(jd_om_comm *)p;
 	int r_len;
 	jd_om_comm_addr from_addr;
 	char buf[MAX_QUEUE_ELEMENT_SIZE] = { 0 };
@@ -2140,16 +2166,19 @@ void uart_recv_task(void const *p)
 	//task of receving.
 	while (1) {
 		memset(buf, 0, MAX_QUEUE_ELEMENT_SIZE);
-
+		uart_hdl = &uart_channels[get_uart_channel()];
 		r_len = jd_om_recv(uart_hdl, &from_addr, buf, MAX_QUEUE_ELEMENT_SIZE);
 		if (r_len)
 			dump_buffer((u8 *)buf, r_len);
+		else
+			continue;
+
 		if ((r_len > sizeof(MSG_UART_HEAD_T)) ||
 			((r_len == strlen(ReqNameByAT)) && (strncmp(buf,ReqNameByAT,r_len)==0))) {
 			print_hex((char *)__func__,buf, r_len);
 			pt = jd_om_malloc(r_len);
 			memcpy(pt, buf, r_len);
-			jd_om_mq_send(&(uart_hdl->uart_comm_des.recv_queue), pt);
+			jd_om_mq_send(&(uart_comm_des.recv_queue), pt);
 			//dzlog_debug("%s:send recv queue end...\r\n",__func__);
 		}
 		else{
@@ -2544,68 +2573,46 @@ static void aes_cbc_encrypt_desrypt_testing(char *in_string)
 #endif
 
 
-static int uart_resource_init(jd_om_comm *hdl)
-{
-	if(jd_om_mq_create(&(hdl->uart_comm_des.send_queue),MAX_QUEUE_SIZE) != osOK){
-		dberr("create send queue fail.\r\n");
-		return -1;
-	}
-
-	if(jd_om_mq_create(&(hdl->uart_comm_des.recv_queue),MAX_QUEUE_SIZE) != osOK){
-		dberr("create recv queue fail.\r\n");
-		return -1;
-	}
-
-
-	if(jd_om_sem_new(&(hdl->uart_comm_des.sem)) != osOK){
-		dberr("create pic play semaphore fail.\r\n");
-		return -1;
-	}
-
-	return 0;
-}
-
 int uart_task_exit(jd_om_comm *hdl)
 {
 	if (NULL == hdl)
 		return 0;
 	jd_om_comm_close(hdl);
 
-	jd_om_delete_mq(&(hdl->uart_comm_des.recv_queue));
-	jd_om_delete_mq(&(hdl->uart_comm_des.send_queue));
+	jd_om_delete_mq(&(uart_comm_des.recv_queue));
+	jd_om_delete_mq(&(uart_comm_des.send_queue));
 
 	return 0;
 }
 
-static void hw_ver_detect_init(jd_om_comm *uart_hdl)
-{
-	//TODO:READ HW version
-	uart_hdl->hw_ver[0] = 0;
-	uart_hdl->hw_ver[1] = 0;
-	uart_hdl->hw_ver[2] = 0;
-	uart_hdl->hw_ver[3] = 1;
-}
-
-int start_slot_comm_task()
+int start_uart_service()
 {
 	int ret = 0;
 	jd_om_comm_addr local_addr;
 	jd_om_comm_addr addr_mask;
 
-	//jd_master_com_clear_communication_cipher();
-	//eeprom_setting_show_test();
+	if(jd_om_mq_create(&(uart_comm_des.send_queue),MAX_QUEUE_SIZE) != osOK){
+		dberr("create send queue fail.\r\n");
+		return -1;
+	}
 
-	uart_hdl = (jd_om_comm *)jd_om_malloc(sizeof(jd_om_comm));
-	uart_resource_init(uart_hdl);
-	hw_ver_detect_init(uart_hdl);
+	if(jd_om_mq_create(&(uart_comm_des.recv_queue),MAX_QUEUE_SIZE) != osOK){
+		dberr("create recv queue fail.\r\n");
+		return -1;
+	}
 
-	if (jd_om_mutex_create(&(uart_hdl->uart_comm_des.mutex_active_req)) != osOK){
+	if (jd_om_mutex_create(&(uart_comm_des.mutex_active_req)) != osOK){
 		dzlog_error("mutex_active_req init error\r\n");
 		vTaskSuspend(NULL);
 	}
 
-	if (jd_om_mutex_create(&(uart_hdl->uart_comm_des.mutex_active_res)) != osOK){
+	if (jd_om_mutex_create(&(uart_comm_des.mutex_active_res)) != osOK){
 		dzlog_error("mutex_active_res init error\r\n");
+		vTaskSuspend(NULL);
+	}
+
+	if (jd_om_mutex_create(&(mutex_channel_select)) != osOK){
+		dzlog_error("mutex_chanel_select init error\r\n");
 		vTaskSuspend(NULL);
 	}
 
@@ -2618,17 +2625,25 @@ int start_slot_comm_task()
 	local_addr.addr = tlc_iaddr("1.0.0");
 	addr_mask.addr = tlc_iaddr("255.0.0");
 
-	ret = jd_om_comm_open(uart_hdl, &local_addr, &addr_mask, UART_NUM);
+	ret = jd_om_comm_open(&uart_channels[0], &local_addr, &addr_mask, 2);
 	if (0 != ret) {
-		dzlog_error("open uart number %d fail ret %d.\r\n", UART_NUM, ret);
+		dzlog_error("open uart number %d fail ret %d.\r\n", 4, ret);
 		vTaskSuspend(NULL);
 	}
+
+	ret = jd_om_comm_open(&uart_channels[1], &local_addr, &addr_mask, 6);
+	if (0 != ret) {
+		dzlog_error("open uart number %d fail ret %d.\r\n", 4, ret);
+		vTaskSuspend(NULL);
+	}
+
+	select_uart_channel(1);
 
 #if 1
 	/* definition and creation of uartSendQueueTask */
 	osThreadDef(uartSendQueueTask, uart_send_queue_task, osPriorityNormal, 0, 1024);
-	uart_hdl->uart_comm_des.thread_handle_send = osThreadCreate(osThread(uartSendQueueTask), uart_hdl);
-	if(uart_hdl->uart_comm_des.thread_handle_send == NULL){
+	uart_comm_des.thread_handle_send = osThreadCreate(osThread(uartSendQueueTask), uart_hdl);
+	if(uart_comm_des.thread_handle_send == NULL){
 		printf("create send thread fail.\r\n");
 		while (1)
 			;
@@ -2638,8 +2653,8 @@ int start_slot_comm_task()
 
 	/* definition and creation of uartRecvQueueTask */
 	osThreadDef(uartRecvQueueTask, uart_recv_queue_task, osPriorityNormal, 0, 5120);
-	uart_hdl->uart_comm_des.thread_handle_recv = osThreadCreate(osThread(uartRecvQueueTask), uart_hdl);
-	if(uart_hdl->uart_comm_des.thread_handle_recv == NULL){
+	uart_comm_des.thread_handle_recv = osThreadCreate(osThread(uartRecvQueueTask), uart_hdl);
+	if(uart_comm_des.thread_handle_recv == NULL){
 		printf("create recv thread fail.\r\n");
 		while (1);
 	} else {

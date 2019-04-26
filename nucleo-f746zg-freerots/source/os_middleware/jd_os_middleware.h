@@ -104,32 +104,29 @@ typedef struct {
 
 typedef struct {
 	JD_OM_QUEUE	send_queue;			//for task send message communication.
-	JD_OM_QUEUE	play_queue;			//for task play pic message communication.
-	JD_OM_QUEUE	play_player_queue;	//for task player play message communication.
-	JD_OM_QUEUE	jpg_decode_queue;	//for task decode jpeg message communication.
-	JD_OM_QUEUE	mp3_player_queue;	//for task play mp3 message communication.
+	//JD_OM_QUEUE	play_queue;			//for task play pic message communication.
+	//JD_OM_QUEUE	play_player_queue;	//for task player play message communication.
+	//JD_OM_QUEUE	jpg_decode_queue;	//for task decode jpeg message communication.
+	//JD_OM_QUEUE	mp3_player_queue;	//for task play mp3 message communication.
 	JD_OM_QUEUE	recv_queue;			//for uart internal message exchange.
 	JD_OM_MUTEX mutex_active_req;
 	JD_OM_MUTEX mutex_active_res;
-	JD_OM_SEM	sem;				//for pic play binary-semaphore
-	JD_OM_SEM	sem_player;			//for player play binary-semaphore
-	JD_OM_SEM	sem_decode_jpg;		//for decode jpeg binary-semaphore
-	JD_OM_SEM	sem_mp3;			//for mp3 play binary-semaphore
+	//JD_OM_SEM	sem;				//for pic play binary-semaphore
+	//JD_OM_SEM	sem_player;			//for player play binary-semaphore
+	//JD_OM_SEM	sem_decode_jpg;		//for decode jpeg binary-semaphore
+	//JD_OM_SEM	sem_mp3;			//for mp3 play binary-semaphore
 	JD_OM_THREAD	thread_handle_send;
 	JD_OM_THREAD	thread_handle_recv;
-	#ifdef PLAY_SCHEDULE_LIST
-	PLAY_SCHEDULE *current_schedule;
-	JD_OM_MUTEX schedule_mutex;
-	#endif
+	//#ifdef PLAY_SCHEDULE_LIST
+	//PLAY_SCHEDULE *current_schedule;
+	//JD_OM_MUTEX schedule_mutex;
+	//#endif
 }UART_COMM_DES_T;
 
 typedef struct tag_jd_om_comm {
 #if( TLC_COMM == 1 )
 	stptlc  * ptlc;
 #endif
-	unsigned char hw_ver[4];
-	unsigned char cipher[32];
-	UART_COMM_DES_T uart_comm_des;
 }jd_om_comm;
 
 typedef struct tag_jd_om_comm_addr {
