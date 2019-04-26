@@ -2,7 +2,7 @@
 
 "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\bin\armstlink2.dll" 
 
-"D:\work\stm32f7\nucleo-f746zg-freerots\EWARM\nucleo-f746zg-freertos\Exe\nucleo-f746zg-ad.out" 
+"D:\work\stm32f7\nucleo-f746zg-freerots\EWARM\nucleo-f746zg-ad\Exe\nucleo-f746zg-ad.out" 
 
 --plugin="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\bin\armbat.dll" 
 

@@ -997,6 +997,7 @@ int uart_battery_passwd_chksum()
 
 void test_bat_protoc()
 {
+	osDelay(5000);
 	uart_battery_set_sn_psw("ABCD123456", 10, "pppssswwwd", 10);
 	osDelay(5000);
 	uart_battery_get_info(1);
@@ -1014,7 +1015,6 @@ void test_bat_protoc()
 	uart_battery_protocal_version();
 	osDelay(5000);
 	uart_battery_passwd_chksum();
-	osDelay(5000);
 
 }
 

@@ -29,8 +29,10 @@ typedef struct {
 RingBuf uart2_ringbuf;
 RingBuf uart4_ringbuf;
 
-UART_HandleTypeDef huart2;
-UART_HandleTypeDef huart4;
+extern UART_HandleTypeDef huart4;
+extern UART_HandleTypeDef huart2;
+
+
 uint8_t uart2_ch;
 uint8_t uart4_ch;
 
@@ -89,24 +91,35 @@ void * jz_uart_init_ex(int usart_no)
 			//CLEAR_BIT(huart2.Instance->CR1, USART_CR1_UE_Pos);
 			//SET_BIT(huart2.Instance->CR3, USART_CR3_OVRDIS_Pos);
 			//__HAL_UART_ENABLE_IT(&huart2, UART_IT_TC);
-
-
 			init_ringbuf(&uart2_ringbuf);
-			uart_rx_mtx_id = osMutexCreate(osMutex(uart_rx_mtx));
+			//uart_rx_mtx_id = osMutexCreate(osMutex(uart_rx_mtx));
 			__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
 			HAL_UART_Receive_IT(&huart2, (uint8_t *)&uart2_ch, 1);
 			return &huart2;
 		}
 	} else if (4 == usart_no) {
 
-		init_ringbuf(&uart4_ringbuf);
-		//uart_rx_mtx_id = osMutexCreate(&uart_rx_mtx);
-		uart_rx_mtx_id = osMutexCreate(osMutex(uart_rx_mtx));
-		MX_UART4_Init();
-		//__HAL_UART_ENABLE_IT(&huart4, UART_IT_RXNE);
-		HAL_UART_Receive_IT(&huart4, (uint8_t *)&uart4_ch, 1);
-
-		return &huart4;
+		huart4.Instance = UART4;
+		huart4.Init.BaudRate = 115200;
+		huart4.Init.WordLength = UART_WORDLENGTH_8B;
+		huart4.Init.StopBits = UART_STOPBITS_1;
+		huart4.Init.Parity = UART_PARITY_NONE;
+		huart4.Init.Mode = UART_MODE_TX_RX;
+		huart4.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+		huart4.Init.OverSampling = UART_OVERSAMPLING_16;
+		huart4.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+		huart4.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+		if (HAL_HalfDuplex_Init(&huart4) != HAL_OK) {
+			debug("uart4 init error\r\n");
+			return NULL;
+		} else {
+			init_ringbuf(&uart4_ringbuf);
+			//uart_rx_mtx_id = osMutexCreate(&uart_rx_mtx);
+			//uart_rx_mtx_id = osMutexCreate(osMutex(uart_rx_mtx));
+			//__HAL_UART_ENABLE_IT(&huart4, UART_IT_RXNE);
+			HAL_UART_Receive_IT(&huart4, (uint8_t *)&uart4_ch, 1);
+			return &huart4;
+		}
 	}
 
 	return NULL;
@@ -116,7 +129,7 @@ void jz_uart_close_ex(void *fd)
 {
 	debug("%s >>>>>\r\n",__func__);
 	HAL_UART_DeInit(fd);
-	osMutexRelease(uart_rx_mtx_id);
+	//osMutexRelease(uart_rx_mtx_id);
 }
 
 int jz_uart_write_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec*/)
@@ -224,43 +237,6 @@ int jz_uart_read_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec
 		}
 	}
 #endif
-}
-
-
-/**
-  * @brief UART4 Initialization Function
-  * @param None
-  * @retval None
-  */
-void MX_UART4_Init(void)
-{
-
-  /* USER CODE BEGIN UART4_Init 0 */
-
-  /* USER CODE END UART4_Init 0 */
-
-  /* USER CODE BEGIN UART4_Init 1 */
-
-  /* USER CODE END UART4_Init 1 */
-  huart4.Instance = UART4;
-  huart4.Init.BaudRate = 115200;
-  huart4.Init.WordLength = UART_WORDLENGTH_8B;
-  huart4.Init.StopBits = UART_STOPBITS_1;
-  huart4.Init.Parity = UART_PARITY_NONE;
-  huart4.Init.Mode = UART_MODE_TX_RX;
-  huart4.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart4.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart4.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart4.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_HalfDuplex_Init(&huart4) != HAL_OK)
-  {
-	debug("uart4 init error\r\n");
-  }
-  /* USER CODE BEGIN UART4_Init 2 */
-
-
-  /* USER CODE END UART4_Init 2 */
-
 }
 
 #if 0

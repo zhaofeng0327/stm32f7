@@ -9,7 +9,7 @@
         <stlinkfoundProbes />
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>2891466657</Checksum>
+        <Checksum>1362605440</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -103,10 +103,10 @@
         <mode>0</mode>
     </DisassembleMode>
     <Breakpoints2>
-        <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\source\uart_comm\uart_comm.c}.1967.2" 0 0 1 "" 0 "" 0</Bp0>
-        <Bp1>_ 0 "EMUL_DATA" "uart2_buf" 0 0 0 0 4294967295</Bp1>
-        <Bp2>_ 0 "EMUL_DATA" "uart2_buf" 0 0 0 0 4294967295</Bp2>
-        <Bp3>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\source\uart_comm\manage_at_uart.c}.80.26" 0 0 1 "" 0 "" 0</Bp3>
+        <Bp0>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\source\uart_comm\usart\uart.c}.175.3" 0 0 1 "" 0 "" 0</Bp0>
+        <Bp1>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\source\uart_comm\usart\uart.c}.169.3" 0 0 1 "" 0 "" 0</Bp1>
+        <Bp2>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\source\uart_comm\usart\uart.c}.164.2" 0 0 1 "" 0 "" 0</Bp2>
+        <Bp3>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Core\Src\stm32f7xx_it.c}.186.3" 0 0 1 "" 0 "" 0</Bp3>
         <Count>4</Count>
     </Breakpoints2>
     <LogFile>
