@@ -34,6 +34,8 @@ UART_HandleTypeDef huart4;
 uint8_t uart2_ch;
 uint8_t uart4_ch;
 
+osMutexDef(uart_rx_mtx);
+osMutexId uart_rx_mtx_id;
 
 void init_ringbuf(RingBuf *rbuf)
 {
@@ -90,6 +92,7 @@ void * jz_uart_init_ex(int usart_no)
 
 
 			init_ringbuf(&uart2_ringbuf);
+			uart_rx_mtx_id = osMutexCreate(osMutex(uart_rx_mtx));
 			__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
 			HAL_UART_Receive_IT(&huart2, (uint8_t *)&uart2_ch, 1);
 			return &huart2;
@@ -97,8 +100,10 @@ void * jz_uart_init_ex(int usart_no)
 	} else if (4 == usart_no) {
 
 		init_ringbuf(&uart4_ringbuf);
+		//uart_rx_mtx_id = osMutexCreate(&uart_rx_mtx);
+		uart_rx_mtx_id = osMutexCreate(osMutex(uart_rx_mtx));
 		MX_UART4_Init();
-                		__HAL_UART_ENABLE_IT(&huart4, UART_IT_RXNE);
+		//__HAL_UART_ENABLE_IT(&huart4, UART_IT_RXNE);
 		HAL_UART_Receive_IT(&huart4, (uint8_t *)&uart4_ch, 1);
 
 		return &huart4;
@@ -111,6 +116,7 @@ void jz_uart_close_ex(void *fd)
 {
 	debug("%s >>>>>\r\n",__func__);
 	HAL_UART_DeInit(fd);
+	osMutexRelease(uart_rx_mtx_id);
 }
 
 int jz_uart_write_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec*/)
@@ -121,7 +127,10 @@ int jz_uart_write_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millise
 
 	UART_HandleTypeDef* hdl = (UART_HandleTypeDef*)fd;
 	USART_TypeDef* ins = hdl->Instance;
-	HAL_HalfDuplex_EnableTransmitter(hdl);
+
+	if (UART4 == ins) {
+		HAL_HalfDuplex_EnableTransmitter(hdl);
+	}
 
 	HAL_UART_Transmit(fd, buffer, lens, ulTimeout);
 	ret = lens - hdl->TxXferCount;
@@ -144,6 +153,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 	if (USART2 == UartHandle->Instance) {
 		//xSemaphoreTakeFromISR(sem_uart2, &xHigherPriorityTaskWoken);
 		write_ringbuf(&uart2_ringbuf, uart2_ch);
+//		if (0xA5 == uart2_ch)
+//			osMutexRelease(uart_rx_mtx_id);
 		HAL_UART_Receive_IT(UartHandle, (uint8_t *)&uart2_ch, 1);
 		//xSemaphoreGiveFromISR(sem_uart2, &xHigherPriorityTaskWoken);
 		//printf("0x%02x\r\n", uart2_ch);
@@ -151,6 +162,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 	} else if (UART4 == UartHandle->Instance) {
 		//printf("%02x\r\n", uart4_ch);
 		write_ringbuf(&uart4_ringbuf, uart4_ch);
+//		if (0xA5 == uart4_ch)
+//			osMutexRelease(uart_rx_mtx_id);
 		HAL_UART_Receive_IT(UartHandle, (uint8_t *)&uart4_ch, 1);
 	}
 }
@@ -181,6 +194,16 @@ int jz_uart_read_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec
 		return 0;
 	}
 
+#if 0
+
+	osMutexWait(uart_rx_mtx_id, osWaitForever);
+	r = lens > rb->len ? rb->len : lens;
+	memcpy(buffer, rb->ring_buf + rb->head, r);
+	rb->head = (rb->head + r) % LLC_PACK_SZ_MAX;
+	rb->len -= r;
+	return r;
+
+#else
 	while (1) {
 		if (rb->len == olen) {
 			vTaskDelay(d);
@@ -200,7 +223,7 @@ int jz_uart_read_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec
 			timeout = 0;
 		}
 	}
-
+#endif
 }
 
 

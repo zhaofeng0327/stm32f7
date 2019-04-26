@@ -168,7 +168,7 @@ int main(void)
   MX_GFXSIMULATOR_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-
+	printf("uuid 0x%08x, 0x%08x, 0x%08x\r\n", HAL_GetUIDw0(), HAL_GetUIDw1(), HAL_GetUIDw2());
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -450,6 +450,8 @@ void StartDefaultTask(void const * argument)
 	//HAL_UART_Transmit(&huart3, "hello\r\n", 7, 1000);
 	//printf("hello world\r\n");
     osDelay(1000);
+	test_bat_protoc();
+	//uart_sent_dumb();
   }
   /* USER CODE END 5 */
 }

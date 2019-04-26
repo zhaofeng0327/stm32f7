@@ -13,7 +13,7 @@
 
 #define WAIT_RESPONSE_TIME_OUT (3000)
 
-#define UART_NUM	4
+#define UART_NUM	2
 
 osThreadId uartSendQueueTaskHandle;
 osThreadId uartRecvQueueTaskHandle;
@@ -40,10 +40,10 @@ static RECV_FILE_DES recv_file_des;
 
 static unsigned char is_req_type_valid(unsigned char type)
 {
-	if (type >= 0xC0 &&  type <= 0xDF) {
+	if ((type >= 0xC0 &&  type <= 0xDF) || (type >= 0xF0)) {
 		return 1;
 	} else {
-		dzlog_error("invalid req type\r\n");
+		//dzlog_error("invalid req type 0x%02x\r\n", type);
 		return 0;
 	}
 }
@@ -51,10 +51,10 @@ static unsigned char is_req_type_valid(unsigned char type)
 
 static unsigned char is_res_type_valid(unsigned char type)
 {
-	if (type >= 0xA0 && type <= 0xBF) {
+	if ((type >= 0xA0 && type <= 0xBF) || (type >= 0xE0 &&  type <= 0xEF)) {
 		return 1;
 	} else {
-		dzlog_error("invalid res type\r\n");
+		//dzlog_error("invalid res type 0x%02x\r\n", type);
 		return 0;
 	}
 }
@@ -682,6 +682,341 @@ static osStatus jd_master_com_send_exception_response(jd_om_comm *hdl,unsigned c
 	return ret;
 }
 
+int uart_sent_dumb()
+{
+	int ret = -1;
+	int payload_len = 512;
+	int pkt_len = sizeof(MSG_UART_HEAD_T) + payload_len + CHECKSUM_SIZE;
+	static u32 packetid = 0;
+	unsigned char *pt = jd_om_malloc(pkt_len);
+
+	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
+
+	head->start = START_CMD;
+	head->type = RES_GET_TIME;
+	head->payload_len = payload_len;
+	head->packet_id = packetid++;
+
+	memset(pt + sizeof(MSG_UART_HEAD_T), 0xde, payload_len);
+
+	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
+	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
+
+	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	if (ret) {
+		dzlog_error("%s send msg error\n", __func__);
+		free(pt);
+	}
+
+	return 0;
+}
+
+u8 get_packet_id()
+{
+	static unsigned char uart_packet_id = 0;
+	return uart_packet_id++;
+}
+
+/*
+REQ_BAT_SET_SN_PSW
+REQ_BAT_GET_INFO
+REQ_BAT_ENCODE
+REQ_BAT_DECODE
+REQ_BAT_VIRTUAL_PWR_INFO
+REQ_BAT_DISCHARGE_LEVEL
+REQ_BAT_CHARGE_STATUS
+REQ_BAT_PROTOCAL_VERSION
+REQ_BAT_DECODE_CHKSUM
+*/
+
+int uart_battery_set_sn_psw(u8 *sn, u32 sn_len, u8 *psw, u32 psw_len)
+{
+	int ret = -1;
+	int payload_len = sizeof(REQ_BAT_SET_SN_PSW_T);
+	int pkt_len = sizeof(MSG_UART_HEAD_T) + payload_len + CHECKSUM_SIZE;
+
+	unsigned char *pt = jd_om_malloc(pkt_len);
+
+	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
+
+	head->start = START_CMD;
+	head->type = REQ_BAT_SET_SN_PSW;
+	head->payload_len = payload_len;
+	head->packet_id = get_packet_id();
+
+	REQ_BAT_SET_SN_PSW_T * req = (REQ_BAT_SET_SN_PSW_T *)(pt + sizeof(MSG_UART_HEAD_T));
+	req->sn_len = sn_len;
+	memcpy(req->sn, sn, sn_len);
+	req->passwd_len = psw_len;
+	memcpy(req->passwd, psw, psw_len);
+
+	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
+	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
+
+	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	if (ret) {
+		dzlog_error("%s send msg error\n", __func__);
+		free(pt);
+	}
+
+	return 0;
+}
+
+//opt : 0 加密电池 1不加密电池
+int uart_battery_get_info(u8 opt)
+{
+	int ret = -1;
+	int payload_len = sizeof(REQ_BAT_GET_INFO_T);
+	int pkt_len = sizeof(MSG_UART_HEAD_T) + payload_len + CHECKSUM_SIZE;
+
+	unsigned char *pt = jd_om_malloc(pkt_len);
+
+	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
+
+	head->start = START_CMD;
+	head->type = REQ_BAT_GET_INFO;
+	head->payload_len = payload_len;
+	head->packet_id = get_packet_id();
+
+	REQ_BAT_GET_INFO_T * req = (REQ_BAT_GET_INFO_T *)(pt + sizeof(MSG_UART_HEAD_T));
+	req->opt = opt;
+
+	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
+	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
+
+	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	if (ret) {
+		dzlog_error("%s send msg error\n", __func__);
+		free(pt);
+	}
+
+	return 0;
+}
+
+int uart_battery_decode(u8 *psw, u32 psw_len)
+{
+	int ret = -1;
+	int payload_len = sizeof(REQ_BAT_DECODE_T);
+	int pkt_len = sizeof(MSG_UART_HEAD_T) + payload_len + CHECKSUM_SIZE;
+
+	unsigned char *pt = jd_om_malloc(pkt_len);
+
+	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
+
+	head->start = START_CMD;
+	head->type = REQ_BAT_DECODE;
+	head->payload_len = payload_len;
+	head->packet_id = get_packet_id();
+
+	REQ_BAT_DECODE_T * req = (REQ_BAT_DECODE_T *)(pt + sizeof(MSG_UART_HEAD_T));
+	req->passwd_len = psw_len;
+	memcpy(req->passwd, psw, psw_len);
+
+	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
+	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
+
+	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	if (ret) {
+		dzlog_error("%s send msg error\n", __func__);
+		free(pt);
+	}
+
+	return 0;
+
+}
+
+
+int uart_battery_encode()
+{
+	int ret = -1;
+	int payload_len = 0;
+	int pkt_len = sizeof(MSG_UART_HEAD_T) + payload_len + CHECKSUM_SIZE;
+
+	unsigned char *pt = jd_om_malloc(pkt_len);
+
+	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
+
+	head->start = START_CMD;
+	head->type = REQ_BAT_ENCODE;
+	head->payload_len = payload_len;
+	head->packet_id = get_packet_id();
+
+	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
+	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
+
+	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	if (ret) {
+		dzlog_error("%s send msg error\n", __func__);
+		free(pt);
+	}
+
+	return 0;
+
+}
+int uart_battery_virtual_psw_info()
+{
+	int ret = -1;
+	int payload_len = 0;
+	int pkt_len = sizeof(MSG_UART_HEAD_T) + payload_len + CHECKSUM_SIZE;
+
+	unsigned char *pt = jd_om_malloc(pkt_len);
+
+	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
+
+	head->start = START_CMD;
+	head->type = REQ_BAT_VIRTUAL_PWR_INFO;
+	head->payload_len = payload_len;
+	head->packet_id = get_packet_id();
+
+	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
+	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
+
+	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	if (ret) {
+		dzlog_error("%s send msg error\n", __func__);
+		free(pt);
+	}
+
+	return 0;
+
+}
+
+int uart_battery_set_discharge_level(u8 level)
+{
+	int ret = -1;
+	int payload_len = sizeof(REQ_BAT_DISCHARGE_LEVEL_T);
+	int pkt_len = sizeof(MSG_UART_HEAD_T) + payload_len + CHECKSUM_SIZE;
+
+	unsigned char *pt = jd_om_malloc(pkt_len);
+
+	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
+
+	head->start = START_CMD;
+	head->type = REQ_BAT_DISCHARGE_LEVEL;
+	head->payload_len = payload_len;
+	head->packet_id = get_packet_id();
+
+	REQ_BAT_DISCHARGE_LEVEL_T *req = (REQ_BAT_DISCHARGE_LEVEL_T *)(pt + sizeof(MSG_UART_HEAD_T));
+	req->data[0] = level;
+	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
+	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
+
+	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	if (ret) {
+		dzlog_error("%s send msg error\n", __func__);
+		free(pt);
+	}
+
+	return 0;
+
+}
+
+int uart_battery_charge_status()
+{
+	int ret = -1;
+	int payload_len = 0;
+	int pkt_len = sizeof(MSG_UART_HEAD_T) + payload_len + CHECKSUM_SIZE;
+
+	unsigned char *pt = jd_om_malloc(pkt_len);
+
+	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
+
+	head->start = START_CMD;
+	head->type = REQ_BAT_CHARGE_STATUS;
+	head->payload_len = payload_len;
+	head->packet_id = get_packet_id();
+
+	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
+	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
+
+	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	if (ret) {
+		dzlog_error("%s send msg error\n", __func__);
+		free(pt);
+	}
+
+	return 0;
+
+}
+
+int uart_battery_protocal_version()
+{
+	int ret = -1;
+	int payload_len = 0;
+	int pkt_len = sizeof(MSG_UART_HEAD_T) + payload_len + CHECKSUM_SIZE;
+
+	unsigned char *pt = jd_om_malloc(pkt_len);
+
+	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
+
+	head->start = START_CMD;
+	head->type = REQ_BAT_PROTOCAL_VERSION;
+	head->payload_len = payload_len;
+	head->packet_id = get_packet_id();
+
+	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
+	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
+
+	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	if (ret) {
+		dzlog_error("%s send msg error\n", __func__);
+		free(pt);
+	}
+
+	return 0;
+
+}
+
+int uart_battery_passwd_chksum()
+{
+	int ret = -1;
+	int payload_len = 0;
+	int pkt_len = sizeof(MSG_UART_HEAD_T) + payload_len + CHECKSUM_SIZE;
+
+	unsigned char *pt = jd_om_malloc(pkt_len);
+
+	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
+
+	head->start = START_CMD;
+	head->type = REQ_BAT_PASSWD_CHKSUM;
+	head->payload_len = payload_len;
+	head->packet_id = get_packet_id();
+
+	unsigned short checksum = crc16((char *)pt, pkt_len - CHECKSUM_SIZE);
+	memcpy((char *)pt + pkt_len - CHECKSUM_SIZE, &checksum, CHECKSUM_SIZE);
+
+	ret = jd_om_mq_send(&(uart_hdl->uart_comm_des.send_queue), (void *)pt);
+	if (ret) {
+		dzlog_error("%s send msg error\n", __func__);
+		free(pt);
+	}
+
+	return 0;
+
+}
+
+void test_bat_protoc()
+{
+	uart_battery_set_sn_psw("ABCD123456", 10, "pppssswwwd", 10);
+	osDelay(5000);
+	uart_battery_get_info(1);
+	osDelay(5000);
+	uart_battery_decode("pppssswwwd", 10);
+	osDelay(5000);
+	uart_battery_encode();
+	osDelay(5000);
+	uart_battery_virtual_psw_info();
+	osDelay(5000);
+	uart_battery_set_discharge_level(1);
+	osDelay(5000);
+	uart_battery_charge_status();
+	osDelay(5000);
+	uart_battery_protocal_version();
+	osDelay(5000);
+	uart_battery_passwd_chksum();
+	osDelay(5000);
+
+}
 
 #define SECONDS_IN_A_DAY (86400U)
 #define SECONDS_IN_A_HOUR (3600U)
@@ -1112,7 +1447,7 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 	dzlog_debug("recv type %02x\r\n", type);
 
 	//判断start字段值是否正�?
-	if (!is_req_type_valid(type)){
+	if (!is_req_type_valid(type) && !is_res_type_valid(type)){
 		has_send_res = true;	//don't send res as valid command type
 		goto FREE;
 	}
@@ -1158,6 +1493,8 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 			res.code = 0;
 			snprintf((char *)res.sn, 16, "%s", "AB12345678");
 			get_md5((unsigned char *)res.sn_md5, (char const *)res.sn, 1);
+			memcpy((char *)res.cpuid, "AAAABBBBCCCC", 12);
+			get_md5((unsigned char *)res.cpuid_md5, (char const *)res.cpuid, 1);
 			snprintf((char *)res.fw_ver, 4, "%c%c%c%c", 1,0,0,0);
 			snprintf((char *)res.hw_ver, 4, "%c%c%c%c", 1,0,1,0);
 			res.Encrypted = 0;
@@ -1330,6 +1667,81 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 			res.code = 0;
 			res.temperature = 23;
 			jd_master_com_send_response(hdl,type,(void *)&res);
+			has_send_res = true;
+			break;
+		}
+
+		case RES_BAT_SET_SN_PSW:
+		{
+			RES_BAT_SET_SN_PSW_T *res = (RES_BAT_SET_SN_PSW_T *)(pt + sizeof(MSG_UART_HEAD_T));
+			dzlog_debug("++++++set battery sn res %d\r\n", res->code);
+			has_send_res = true;
+			break;
+		}
+		case RES_BAT_GET_INFO:
+		{
+			RES_BAT_GET_INFO_T *res = (RES_BAT_GET_INFO_T *)(pt + sizeof(MSG_UART_HEAD_T));
+			dzlog_debug("++++++get battery info sn len %d sn %s temp %d vol_h %d vol_l %d ratio %d\r\n",
+				res->sn_len,		//sn 有效长度
+				res->sn,		//sn
+				res->Temp,			//温度: 16进制温度值（单位：摄氏度）+偏移量 40(避免负温度)
+				res->Vol_H,		//电压：高位
+				res->Vol_L,		//电压：低位
+				res->ratio);		//16进制
+			has_send_res = true;
+
+			break;
+		}
+		case RES_BAT_ENCODE:
+		{
+			RES_BAT_ENCODE_T *res = (RES_BAT_ENCODE_T *)(pt + sizeof(MSG_UART_HEAD_T));
+			dzlog_debug("++++++battery encode res %d\r\n", res->code);
+			has_send_res = true;
+			break;
+		}
+		case RES_BAT_DECODE:
+		{
+			RES_BAT_DECODE_T *res = (RES_BAT_DECODE_T *)(pt + sizeof(MSG_UART_HEAD_T));
+			dzlog_debug("++++++battery decode res %d \r\n", res->code);
+			has_send_res = true;
+			break;
+		}
+		case RES_BAT_VIRTUAL_PWR_INFO:
+		{
+
+			RES_BAT_VIRTUAL_PWR_T *res = (RES_BAT_VIRTUAL_PWR_T *)(pt + sizeof(MSG_UART_HEAD_T));
+
+			dzlog_debug("++++++battery virtual info cnt1 %d cnt2 %d ratio %d last %d discharging %d \r\n",
+				res->data[0], res->data[1], res->data[2], res->data[3], res->data[4]);
+			has_send_res = true;
+			break;
+		}
+		case RES_BAT_DISCHARGE_LEVEL:
+		{
+			RES_BAT_DISCHARGE_LEVEL_T *res = (RES_BAT_DISCHARGE_LEVEL_T *)(pt + sizeof(MSG_UART_HEAD_T));
+			dzlog_debug("++++++battery discharge level res %d\r\n", res->code);
+			has_send_res = true;
+			break;
+		}
+		case RES_BAT_CHARGE_STATUS:
+		{
+			RES_BAT_CHARGE_STATUS_T *res = (RES_BAT_CHARGE_STATUS_T *)(pt + sizeof(MSG_UART_HEAD_T));
+			dzlog_debug("++++++battery charge status level %d status %d\r\n", res->data[0], res->data[1]);
+			has_send_res = true;
+			break;
+		}
+		case RES_BAT_PROTOCAL_VERSION:
+		{
+			RES_BAT_PROTOCAL_VERSION_T *res = (RES_BAT_PROTOCAL_VERSION_T *)(pt + sizeof(MSG_UART_HEAD_T));
+			dzlog_debug("++++++battery protocal version len %d version %d.%d.%d\r\n",
+				res->ver_len, res->ver[0], res->ver[1], res->ver[2]);
+			has_send_res = true;
+			break;
+		}
+		case RES_BAT_PASSWD_CHKSUM:
+		{
+			RES_BAT_PASSWD_CHKSUM_T *res = (RES_BAT_PASSWD_CHKSUM_T *)(pt + sizeof(MSG_UART_HEAD_T));
+			dzlog_debug("++++++battery crc 0x%02x 0x%02x\r\n", res->crc[0], res->crc[1]);
 			has_send_res = true;
 			break;
 		}
@@ -1647,7 +2059,7 @@ void uart_send_queue_task(void const *p)
 	dzlog_info("%s start\r\n", __func__);
 
 	//char buf[128];
-
+	static u32 num_ok = 0, num_fail = 0;
 #if 0
 	while(1) {
 		//osDelay(1000);
@@ -1672,10 +2084,10 @@ void uart_send_queue_task(void const *p)
 
 		head = (MSG_UART_HEAD_T *)pt;
 		lens = sizeof(MSG_UART_HEAD_T) + head->payload_len + CHECKSUM_SIZE;
-		print_hex((char *)__func__,pt, lens);
+		//print_hex((char *)__func__,pt, lens);
 		res = head->type;
-		if (!is_res_type_valid(res)) {
-			dzlog_error("invalid request 0x%02x\r\n", res);
+		if (!is_res_type_valid(res) && !is_req_type_valid(res)) {
+			dzlog_error("invalid head type 0x%02x\r\n", res);
 			jd_om_free(pt);
 			continue;
 		}
@@ -1690,10 +2102,10 @@ void uart_send_queue_task(void const *p)
 		cnt_resend = 1;
 RESEND_DATA:
 		send_err = 0;
-		print_hex((char *)__func__, pt, lens);
+		//print_hex((char *)__func__, pt, lens);
 		ret = jd_om_send(hdl, &to_addr, pt, lens, 0);
-
 		if (ret <= 0) {
+			num_fail++;
 			dzlog_error("send fail count %d\r\n", cnt_resend);
 
 			if (res == RES_DEVICE_INFO) {
@@ -1703,8 +2115,10 @@ RESEND_DATA:
 				}
 			}
 			send_err = 1;
+		} else {
+			num_ok++;
 		}
-		//dzlog_debug("send msg completed\r\n");
+		dzlog_debug("send %d err/ok : %d/%d\r\n", lens, num_fail, num_ok);
 		jd_om_free(pt);
 		if (send_err)
 			send_err_recovery(hdl,active_req);

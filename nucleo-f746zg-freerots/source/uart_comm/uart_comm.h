@@ -16,6 +16,8 @@ void uart_recv_queue_task(void const *p);
 void uart_send_queue_task(void const *p);
 void uart_recv_task(void const *p);
 void uart_task(void const *p);
+int uart_sent_dumb();
+void test_bat_protoc();
 
 
 bool jd_master_com_get_dev_sn(unsigned char *sn);
