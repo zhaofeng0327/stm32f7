@@ -115,8 +115,8 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USART6_UART_Init();
   MX_RTC_Init();
-  MX_WWDG_Init();
-  MX_IWDG_Init();
+//	MX_WWDG_Init();
+//	MX_IWDG_Init();
   MX_TIM6_Init();
   MX_RNG_Init();
   MX_CRC_Init();
