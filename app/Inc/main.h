@@ -117,6 +117,10 @@ void Error_Handler(void);
 #define UART7_RX_GPIO_Port GPIOE
 #define UART7_TX_Pin GPIO_PIN_8
 #define UART7_TX_GPIO_Port GPIOE
+#define UART7_RTS_Pin GPIO_PIN_9
+#define UART7_RTS_GPIO_Port GPIOE
+#define UART7_CTS_Pin GPIO_PIN_10
+#define UART7_CTS_GPIO_Port GPIOE
 #define LED8_Pin GPIO_PIN_11
 #define LED8_GPIO_Port GPIOE
 #define SOLENOID_EN4_Pin GPIO_PIN_13
