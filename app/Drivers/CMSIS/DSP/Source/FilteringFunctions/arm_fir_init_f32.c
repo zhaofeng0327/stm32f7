@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_fir_init_f32.c
- * Description:  Floating-point FIR filter initialization function
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_fir_init_f32.c
+* Description:  Floating-point FIR filter initialization function
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -41,11 +42,11 @@
  * @details
  *
  * @param[in,out] *S points to an instance of the floating-point FIR filter structure.
- * @param[in] 	  numTaps  Number of filter coefficients in the filter.
+ * @param[in]     numTaps  Number of filter coefficients in the filter.
  * @param[in]     *pCoeffs points to the filter coefficients buffer.
  * @param[in]     *pState points to the state buffer.
- * @param[in] 	  blockSize number of samples that are processed per call.
- * @return 		  none.
+ * @param[in]     blockSize number of samples that are processed per call.
+ * @return        none.
  *
  * <b>Description:</b>
  * \par
@@ -59,24 +60,23 @@
  */
 
 void arm_fir_init_f32(
-  arm_fir_instance_f32 * S,
-  uint16_t numTaps,
-  float32_t * pCoeffs,
-  float32_t * pState,
-  uint32_t blockSize)
+	arm_fir_instance_f32 *S,
+	uint16_t             numTaps,
+	float32_t            *pCoeffs,
+	float32_t            *pState,
+	uint32_t             blockSize)
 {
-  /* Assign filter taps */
-  S->numTaps = numTaps;
+	/* Assign filter taps */
+	S->numTaps = numTaps;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+	/* Assign coefficient pointer */
+	S->pCoeffs = pCoeffs;
 
-  /* Clear state buffer and the size of state buffer is (blockSize + numTaps - 1) */
-  memset(pState, 0, (numTaps + (blockSize - 1U)) * sizeof(float32_t));
+	/* Clear state buffer and the size of state buffer is (blockSize + numTaps - 1) */
+	memset(pState, 0, (numTaps + (blockSize - 1U)) * sizeof(float32_t));
 
-  /* Assign state pointer */
-  S->pState = pState;
-
+	/* Assign state pointer */
+	S->pState = pState;
 }
 
 /**

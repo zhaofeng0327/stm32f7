@@ -14,4 +14,4 @@
 #include "jtest_group_call.h"
 #include "jtest_cycle.h"
 
-#endif /* _JTEST_H_ */
+#endif	/* _JTEST_H_ */

@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_biquad_cascade_df1_q15.c
- * Description:  Processing function for the Q15 Biquad cascade DirectFormI(DF1) filter
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_biquad_cascade_df1_q15.c
+* Description:  Processing function for the Q15 Biquad cascade DirectFormI(DF1) filter
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -60,338 +61,325 @@
  */
 
 void arm_biquad_cascade_df1_q15(
-  const arm_biquad_casd_df1_inst_q15 * S,
-  q15_t * pSrc,
-  q15_t * pDst,
-  uint32_t blockSize)
+	const arm_biquad_casd_df1_inst_q15 *S,
+	q15_t                              *pSrc,
+	q15_t                              *pDst,
+	uint32_t                           blockSize)
 {
+	#if defined(ARM_MATH_DSP)
+
+	/* Run the below code for Cortex-M4 and Cortex-M3 */
+
+	q15_t *pIn  = pSrc;			/*  Source pointer                               */
+	q15_t *pOut = pDst;			/*  Destination pointer                          */
+	q31_t in;					/*  Temporary variable to hold input value       */
+	q31_t out;					/*  Temporary variable to hold output value      */
+	q31_t b0;					/*  Temporary variable to hold bo value          */
+	q31_t b1, a1;				/*  Filter coefficients                          */
+	q31_t state_in, state_out;	/*  Filter state variables                       */
+	q31_t acc_l, acc_h;
+	q63_t acc;											/*  Accumulator                                  */
+	int32_t lShift = (15 - (int32_t) S->postShift);		/*  Post shift                                   */
+	q15_t *pState = S->pState;							/*  State pointer                                */
+	q15_t *pCoeffs = S->pCoeffs;						/*  Coefficient pointer                          */
+	uint32_t sample, stage = (uint32_t) S->numStages;	/*  Stage loop counter                           */
+	int32_t uShift = (32 - lShift);
 
+	do {
+		/* Read the b0 and 0 coefficients using SIMD  */
+		b0 = *__SIMD32(pCoeffs)++;
 
-#if defined (ARM_MATH_DSP)
+		/* Read the b1 and b2 coefficients using SIMD */
+		b1 = *__SIMD32(pCoeffs)++;
 
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
-
-  q15_t *pIn = pSrc;                             /*  Source pointer                               */
-  q15_t *pOut = pDst;                            /*  Destination pointer                          */
-  q31_t in;                                      /*  Temporary variable to hold input value       */
-  q31_t out;                                     /*  Temporary variable to hold output value      */
-  q31_t b0;                                      /*  Temporary variable to hold bo value          */
-  q31_t b1, a1;                                  /*  Filter coefficients                          */
-  q31_t state_in, state_out;                     /*  Filter state variables                       */
-  q31_t acc_l, acc_h;
-  q63_t acc;                                     /*  Accumulator                                  */
-  int32_t lShift = (15 - (int32_t) S->postShift);       /*  Post shift                                   */
-  q15_t *pState = S->pState;                     /*  State pointer                                */
-  q15_t *pCoeffs = S->pCoeffs;                   /*  Coefficient pointer                          */
-  uint32_t sample, stage = (uint32_t) S->numStages;     /*  Stage loop counter                           */
-  int32_t uShift = (32 - lShift);
+		/* Read the a1 and a2 coefficients using SIMD */
+		a1 = *__SIMD32(pCoeffs)++;
 
-  do
-  {
-    /* Read the b0 and 0 coefficients using SIMD  */
-    b0 = *__SIMD32(pCoeffs)++;
+		/* Read the input state values from the state buffer:  x[n-1], x[n-2] */
+		state_in = *__SIMD32(pState)++;
 
-    /* Read the b1 and b2 coefficients using SIMD */
-    b1 = *__SIMD32(pCoeffs)++;
+		/* Read the output state values from the state buffer:  y[n-1], y[n-2] */
+		state_out = *__SIMD32(pState)--;
 
-    /* Read the a1 and a2 coefficients using SIMD */
-    a1 = *__SIMD32(pCoeffs)++;
+		/* Apply loop unrolling and compute 2 output values simultaneously. */
 
-    /* Read the input state values from the state buffer:  x[n-1], x[n-2] */
-    state_in = *__SIMD32(pState)++;
+		/*      The variable acc hold output values that are being computed:
+		 *
+		 *    acc =  b0 * x[n] + b1 * x[n-1] + b2 * x[n-2] + a1 * y[n-1] + a2 * y[n-2]
+		 *    acc =  b0 * x[n] + b1 * x[n-1] + b2 * x[n-2] + a1 * y[n-1] + a2 * y[n-2]
+		 */
+		sample = blockSize >> 1U;
 
-    /* Read the output state values from the state buffer:  y[n-1], y[n-2] */
-    state_out = *__SIMD32(pState)--;
+		/* First part of the processing with loop unrolling.  Compute 2 outputs at a time.
+		** a second loop below computes the remaining 1 sample. */
+		while (sample > 0U) {
+			/* Read the input */
+			in = *__SIMD32(pIn)++;
 
-    /* Apply loop unrolling and compute 2 output values simultaneously. */
-    /*      The variable acc hold output values that are being computed:
-     *
-     *    acc =  b0 * x[n] + b1 * x[n-1] + b2 * x[n-2] + a1 * y[n-1] + a2 * y[n-2]
-     *    acc =  b0 * x[n] + b1 * x[n-1] + b2 * x[n-2] + a1 * y[n-1] + a2 * y[n-2]
-     */
-    sample = blockSize >> 1U;
+			/* out =  b0 * x[n] + 0 * 0 */
+			out = __SMUAD(b0, in);
 
-    /* First part of the processing with loop unrolling.  Compute 2 outputs at a time.
-     ** a second loop below computes the remaining 1 sample. */
-    while (sample > 0U)
-    {
+			/* acc +=  b1 * x[n-1] +  b2 * x[n-2] + out */
+			acc = __SMLALD(b1, state_in, out);
+			/* acc +=  a1 * y[n-1] +  a2 * y[n-2] */
+			acc = __SMLALD(a1, state_out, acc);
 
-      /* Read the input */
-      in = *__SIMD32(pIn)++;
+			/* The result is converted from 3.29 to 1.31 if postShift = 1, and then saturation is applied */
+			/* Calc lower part of acc */
+			acc_l = acc & 0xffffffff;
 
-      /* out =  b0 * x[n] + 0 * 0 */
-      out = __SMUAD(b0, in);
+			/* Calc upper part of acc */
+			acc_h = (acc >> 32) & 0xffffffff;
 
-      /* acc +=  b1 * x[n-1] +  b2 * x[n-2] + out */
-      acc = __SMLALD(b1, state_in, out);
-      /* acc +=  a1 * y[n-1] +  a2 * y[n-2] */
-      acc = __SMLALD(a1, state_out, acc);
+			/* Apply shift for lower part of acc and upper part of acc */
+			out = (uint32_t) acc_l >> lShift | acc_h << uShift;
 
-      /* The result is converted from 3.29 to 1.31 if postShift = 1, and then saturation is applied */
-      /* Calc lower part of acc */
-      acc_l = acc & 0xffffffff;
+			out = __SSAT(out, 16);
 
-      /* Calc upper part of acc */
-      acc_h = (acc >> 32) & 0xffffffff;
+			/* Every time after the output is computed state should be updated. */
+			/* The states should be updated as:  */
+			/* Xn2 = Xn1    */
+			/* Xn1 = Xn     */
+			/* Yn2 = Yn1    */
+			/* Yn1 = acc   */
+			/* x[n-N], x[n-N-1] are packed together to make state_in of type q31 */
+			/* y[n-N], y[n-N-1] are packed together to make state_out of type q31 */
 
-      /* Apply shift for lower part of acc and upper part of acc */
-      out = (uint32_t) acc_l >> lShift | acc_h << uShift;
+			# ifndef  ARM_MATH_BIG_ENDIAN
 
-      out = __SSAT(out, 16);
+			state_in  = __PKHBT(in, state_in, 16);
+			state_out = __PKHBT(out, state_out, 16);
 
-      /* Every time after the output is computed state should be updated. */
-      /* The states should be updated as:  */
-      /* Xn2 = Xn1    */
-      /* Xn1 = Xn     */
-      /* Yn2 = Yn1    */
-      /* Yn1 = acc   */
-      /* x[n-N], x[n-N-1] are packed together to make state_in of type q31 */
-      /* y[n-N], y[n-N-1] are packed together to make state_out of type q31 */
+			# else
 
-#ifndef  ARM_MATH_BIG_ENDIAN
+			state_in  = __PKHBT(state_in >> 16, (in >> 16), 16);
+			state_out = __PKHBT(state_out >> 16, (out), 16);
 
-      state_in = __PKHBT(in, state_in, 16);
-      state_out = __PKHBT(out, state_out, 16);
+			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
 
-#else
+			/* out =  b0 * x[n] + 0 * 0 */
+			out = __SMUADX(b0, in);
+			/* acc +=  b1 * x[n-1] +  b2 * x[n-2] + out */
+			acc = __SMLALD(b1, state_in, out);
+			/* acc +=  a1 * y[n-1] + a2 * y[n-2] */
+			acc = __SMLALD(a1, state_out, acc);
 
-      state_in = __PKHBT(state_in >> 16, (in >> 16), 16);
-      state_out = __PKHBT(state_out >> 16, (out), 16);
+			/* The result is converted from 3.29 to 1.31 if postShift = 1, and then saturation is applied */
+			/* Calc lower part of acc */
+			acc_l = acc & 0xffffffff;
 
-#endif /* #ifndef  ARM_MATH_BIG_ENDIAN */
+			/* Calc upper part of acc */
+			acc_h = (acc >> 32) & 0xffffffff;
 
-      /* out =  b0 * x[n] + 0 * 0 */
-      out = __SMUADX(b0, in);
-      /* acc +=  b1 * x[n-1] +  b2 * x[n-2] + out */
-      acc = __SMLALD(b1, state_in, out);
-      /* acc +=  a1 * y[n-1] + a2 * y[n-2] */
-      acc = __SMLALD(a1, state_out, acc);
+			/* Apply shift for lower part of acc and upper part of acc */
+			out = (uint32_t) acc_l >> lShift | acc_h << uShift;
 
-      /* The result is converted from 3.29 to 1.31 if postShift = 1, and then saturation is applied */
-      /* Calc lower part of acc */
-      acc_l = acc & 0xffffffff;
+			out = __SSAT(out, 16);
 
-      /* Calc upper part of acc */
-      acc_h = (acc >> 32) & 0xffffffff;
+			/* Store the output in the destination buffer. */
 
-      /* Apply shift for lower part of acc and upper part of acc */
-      out = (uint32_t) acc_l >> lShift | acc_h << uShift;
+			# ifndef  ARM_MATH_BIG_ENDIAN
 
-      out = __SSAT(out, 16);
+			*__SIMD32(pOut)++ = __PKHBT(state_out, out, 16);
 
-      /* Store the output in the destination buffer. */
+			# else
 
-#ifndef  ARM_MATH_BIG_ENDIAN
+			*__SIMD32(pOut)++ = __PKHBT(out, state_out >> 16, 16);
 
-      *__SIMD32(pOut)++ = __PKHBT(state_out, out, 16);
+			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
 
-#else
+			/* Every time after the output is computed state should be updated. */
+			/* The states should be updated as:  */
+			/* Xn2 = Xn1    */
+			/* Xn1 = Xn     */
+			/* Yn2 = Yn1    */
+			/* Yn1 = acc   */
+			/* x[n-N], x[n-N-1] are packed together to make state_in of type q31 */
+			/* y[n-N], y[n-N-1] are packed together to make state_out of type q31 */
+			# ifndef  ARM_MATH_BIG_ENDIAN
 
-      *__SIMD32(pOut)++ = __PKHBT(out, state_out >> 16, 16);
+			state_in  = __PKHBT(in >> 16, state_in, 16);
+			state_out = __PKHBT(out, state_out, 16);
 
-#endif /* #ifndef  ARM_MATH_BIG_ENDIAN */
+			# else
 
-      /* Every time after the output is computed state should be updated. */
-      /* The states should be updated as:  */
-      /* Xn2 = Xn1    */
-      /* Xn1 = Xn     */
-      /* Yn2 = Yn1    */
-      /* Yn1 = acc   */
-      /* x[n-N], x[n-N-1] are packed together to make state_in of type q31 */
-      /* y[n-N], y[n-N-1] are packed together to make state_out of type q31 */
-#ifndef  ARM_MATH_BIG_ENDIAN
+			state_in  = __PKHBT(state_in >> 16, in, 16);
+			state_out = __PKHBT(state_out >> 16, out, 16);
 
-      state_in = __PKHBT(in >> 16, state_in, 16);
-      state_out = __PKHBT(out, state_out, 16);
+			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
 
-#else
 
-      state_in = __PKHBT(state_in >> 16, in, 16);
-      state_out = __PKHBT(state_out >> 16, out, 16);
+			/* Decrement the loop counter */
+			sample--;
+		}
 
-#endif /* #ifndef  ARM_MATH_BIG_ENDIAN */
+		/* If the blockSize is not a multiple of 2, compute any remaining output samples here.
+		** No loop unrolling is used. */
 
+		if ((blockSize & 0x1U) != 0U) {
+			/* Read the input */
+			in = *pIn++;
 
-      /* Decrement the loop counter */
-      sample--;
+			/* out =  b0 * x[n] + 0 * 0 */
 
-    }
+			# ifndef  ARM_MATH_BIG_ENDIAN
 
-    /* If the blockSize is not a multiple of 2, compute any remaining output samples here.
-     ** No loop unrolling is used. */
+			out = __SMUAD(b0, in);
 
-    if ((blockSize & 0x1U) != 0U)
-    {
-      /* Read the input */
-      in = *pIn++;
+			# else
 
-      /* out =  b0 * x[n] + 0 * 0 */
+			out = __SMUADX(b0, in);
 
-#ifndef  ARM_MATH_BIG_ENDIAN
+			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
 
-      out = __SMUAD(b0, in);
+			/* acc =  b1 * x[n-1] + b2 * x[n-2] + out */
+			acc = __SMLALD(b1, state_in, out);
+			/* acc +=  a1 * y[n-1] + a2 * y[n-2] */
+			acc = __SMLALD(a1, state_out, acc);
 
-#else
+			/* The result is converted from 3.29 to 1.31 if postShift = 1, and then saturation is applied */
+			/* Calc lower part of acc */
+			acc_l = acc & 0xffffffff;
 
-      out = __SMUADX(b0, in);
+			/* Calc upper part of acc */
+			acc_h = (acc >> 32) & 0xffffffff;
 
-#endif /* #ifndef  ARM_MATH_BIG_ENDIAN */
+			/* Apply shift for lower part of acc and upper part of acc */
+			out = (uint32_t) acc_l >> lShift | acc_h << uShift;
 
-      /* acc =  b1 * x[n-1] + b2 * x[n-2] + out */
-      acc = __SMLALD(b1, state_in, out);
-      /* acc +=  a1 * y[n-1] + a2 * y[n-2] */
-      acc = __SMLALD(a1, state_out, acc);
+			out = __SSAT(out, 16);
 
-      /* The result is converted from 3.29 to 1.31 if postShift = 1, and then saturation is applied */
-      /* Calc lower part of acc */
-      acc_l = acc & 0xffffffff;
+			/* Store the output in the destination buffer. */
+			*pOut++ = (q15_t) out;
 
-      /* Calc upper part of acc */
-      acc_h = (acc >> 32) & 0xffffffff;
+			/* Every time after the output is computed state should be updated. */
+			/* The states should be updated as:  */
+			/* Xn2 = Xn1    */
+			/* Xn1 = Xn     */
+			/* Yn2 = Yn1    */
+			/* Yn1 = acc   */
+			/* x[n-N], x[n-N-1] are packed together to make state_in of type q31 */
+			/* y[n-N], y[n-N-1] are packed together to make state_out of type q31 */
 
-      /* Apply shift for lower part of acc and upper part of acc */
-      out = (uint32_t) acc_l >> lShift | acc_h << uShift;
+			# ifndef  ARM_MATH_BIG_ENDIAN
 
-      out = __SSAT(out, 16);
+			state_in  = __PKHBT(in, state_in, 16);
+			state_out = __PKHBT(out, state_out, 16);
 
-      /* Store the output in the destination buffer. */
-      *pOut++ = (q15_t) out;
+			# else
 
-      /* Every time after the output is computed state should be updated. */
-      /* The states should be updated as:  */
-      /* Xn2 = Xn1    */
-      /* Xn1 = Xn     */
-      /* Yn2 = Yn1    */
-      /* Yn1 = acc   */
-      /* x[n-N], x[n-N-1] are packed together to make state_in of type q31 */
-      /* y[n-N], y[n-N-1] are packed together to make state_out of type q31 */
+			state_in  = __PKHBT(state_in >> 16, in, 16);
+			state_out = __PKHBT(state_out >> 16, out, 16);
 
-#ifndef  ARM_MATH_BIG_ENDIAN
+			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
+		}
 
-      state_in = __PKHBT(in, state_in, 16);
-      state_out = __PKHBT(out, state_out, 16);
+		/*  The first stage goes from the input wire to the output wire.  */
+		/*  Subsequent numStages occur in-place in the output wire  */
+		pIn = pDst;
 
-#else
+		/* Reset the output pointer */
+		pOut = pDst;
 
-      state_in = __PKHBT(state_in >> 16, in, 16);
-      state_out = __PKHBT(state_out >> 16, out, 16);
+		/*  Store the updated state variables back into the state array */
+		*__SIMD32(pState)++ = state_in;
+		*__SIMD32(pState)++ = state_out;
 
-#endif /* #ifndef  ARM_MATH_BIG_ENDIAN */
 
-    }
+		/* Decrement the loop counter */
+		stage--;
+	} while (stage > 0U);
 
-    /*  The first stage goes from the input wire to the output wire.  */
-    /*  Subsequent numStages occur in-place in the output wire  */
-    pIn = pDst;
+	#else  /* if defined(ARM_MATH_DSP) */
 
-    /* Reset the output pointer */
-    pOut = pDst;
+	/* Run the below code for Cortex-M0 */
 
-    /*  Store the updated state variables back into the state array */
-    *__SIMD32(pState)++ = state_in;
-    *__SIMD32(pState)++ = state_out;
+	q15_t *pIn = pSrc;									/*  Source pointer                               */
+	q15_t *pOut = pDst;									/*  Destination pointer                          */
+	q15_t b0, b1, b2, a1, a2;							/*  Filter coefficients           */
+	q15_t Xn1, Xn2, Yn1, Yn2;							/*  Filter state variables        */
+	q15_t Xn;											/*  temporary input               */
+	q63_t acc;											/*  Accumulator                                  */
+	int32_t shift = (15 - (int32_t) S->postShift);		/*  Post shift                                   */
+	q15_t *pState = S->pState;							/*  State pointer                                */
+	q15_t *pCoeffs = S->pCoeffs;						/*  Coefficient pointer                          */
+	uint32_t sample, stage = (uint32_t) S->numStages;	/*  Stage loop counter                           */
 
+	do {
+		/* Reading the coefficients */
+		b0 = *pCoeffs++;
+		pCoeffs++;	// skip the 0 coefficient
+		b1 = *pCoeffs++;
+		b2 = *pCoeffs++;
+		a1 = *pCoeffs++;
+		a2 = *pCoeffs++;
 
-    /* Decrement the loop counter */
-    stage--;
+		/* Reading the state values */
+		Xn1 = pState[0];
+		Xn2 = pState[1];
+		Yn1 = pState[2];
+		Yn2 = pState[3];
 
-  } while (stage > 0U);
+		/*      The variables acc holds the output value that is computed:
+		 *    acc =  b0 * x[n] + b1 * x[n-1] + b2 * x[n-2] + a1 * y[n-1] + a2 * y[n-2]
+		 */
 
-#else
+		sample = blockSize;
 
-  /* Run the below code for Cortex-M0 */
+		while (sample > 0U) {
+			/* Read the input */
+			Xn = *pIn++;
 
-  q15_t *pIn = pSrc;                             /*  Source pointer                               */
-  q15_t *pOut = pDst;                            /*  Destination pointer                          */
-  q15_t b0, b1, b2, a1, a2;                      /*  Filter coefficients           */
-  q15_t Xn1, Xn2, Yn1, Yn2;                      /*  Filter state variables        */
-  q15_t Xn;                                      /*  temporary input               */
-  q63_t acc;                                     /*  Accumulator                                  */
-  int32_t shift = (15 - (int32_t) S->postShift); /*  Post shift                                   */
-  q15_t *pState = S->pState;                     /*  State pointer                                */
-  q15_t *pCoeffs = S->pCoeffs;                   /*  Coefficient pointer                          */
-  uint32_t sample, stage = (uint32_t) S->numStages;     /*  Stage loop counter                           */
+			/* acc =  b0 * x[n] + b1 * x[n-1] + b2 * x[n-2] + a1 * y[n-1] + a2 * y[n-2] */
+			/* acc =  b0 * x[n] */
+			acc = (q31_t) b0 * Xn;
 
-  do
-  {
-    /* Reading the coefficients */
-    b0 = *pCoeffs++;
-    pCoeffs++;  // skip the 0 coefficient
-    b1 = *pCoeffs++;
-    b2 = *pCoeffs++;
-    a1 = *pCoeffs++;
-    a2 = *pCoeffs++;
+			/* acc +=  b1 * x[n-1] */
+			acc += (q31_t) b1 * Xn1;
+			/* acc +=  b[2] * x[n-2] */
+			acc += (q31_t) b2 * Xn2;
+			/* acc +=  a1 * y[n-1] */
+			acc += (q31_t) a1 * Yn1;
+			/* acc +=  a2 * y[n-2] */
+			acc += (q31_t) a2 * Yn2;
 
-    /* Reading the state values */
-    Xn1 = pState[0];
-    Xn2 = pState[1];
-    Yn1 = pState[2];
-    Yn2 = pState[3];
+			/* The result is converted to 1.31  */
+			acc = __SSAT((acc >> shift), 16);
 
-    /*      The variables acc holds the output value that is computed:
-     *    acc =  b0 * x[n] + b1 * x[n-1] + b2 * x[n-2] + a1 * y[n-1] + a2 * y[n-2]
-     */
+			/* Every time after the output is computed state should be updated. */
+			/* The states should be updated as:  */
+			/* Xn2 = Xn1    */
+			/* Xn1 = Xn     */
+			/* Yn2 = Yn1    */
+			/* Yn1 = acc    */
+			Xn2 = Xn1;
+			Xn1 = Xn;
+			Yn2 = Yn1;
+			Yn1 = (q15_t) acc;
 
-    sample = blockSize;
+			/* Store the output in the destination buffer. */
+			*pOut++ = (q15_t) acc;
 
-    while (sample > 0U)
-    {
-      /* Read the input */
-      Xn = *pIn++;
+			/* decrement the loop counter */
+			sample--;
+		}
 
-      /* acc =  b0 * x[n] + b1 * x[n-1] + b2 * x[n-2] + a1 * y[n-1] + a2 * y[n-2] */
-      /* acc =  b0 * x[n] */
-      acc = (q31_t) b0 *Xn;
+		/*  The first stage goes from the input buffer to the output buffer. */
+		/*  Subsequent stages occur in-place in the output buffer */
+		pIn = pDst;
 
-      /* acc +=  b1 * x[n-1] */
-      acc += (q31_t) b1 *Xn1;
-      /* acc +=  b[2] * x[n-2] */
-      acc += (q31_t) b2 *Xn2;
-      /* acc +=  a1 * y[n-1] */
-      acc += (q31_t) a1 *Yn1;
-      /* acc +=  a2 * y[n-2] */
-      acc += (q31_t) a2 *Yn2;
+		/* Reset to destination pointer */
+		pOut = pDst;
 
-      /* The result is converted to 1.31  */
-      acc = __SSAT((acc >> shift), 16);
+		/*  Store the updated state variables back into the pState array */
+		*pState++ = Xn1;
+		*pState++ = Xn2;
+		*pState++ = Yn1;
+		*pState++ = Yn2;
+	} while (--stage);
 
-      /* Every time after the output is computed state should be updated. */
-      /* The states should be updated as:  */
-      /* Xn2 = Xn1    */
-      /* Xn1 = Xn     */
-      /* Yn2 = Yn1    */
-      /* Yn1 = acc    */
-      Xn2 = Xn1;
-      Xn1 = Xn;
-      Yn2 = Yn1;
-      Yn1 = (q15_t) acc;
-
-      /* Store the output in the destination buffer. */
-      *pOut++ = (q15_t) acc;
-
-      /* decrement the loop counter */
-      sample--;
-    }
-
-    /*  The first stage goes from the input buffer to the output buffer. */
-    /*  Subsequent stages occur in-place in the output buffer */
-    pIn = pDst;
-
-    /* Reset to destination pointer */
-    pOut = pDst;
-
-    /*  Store the updated state variables back into the pState array */
-    *pState++ = Xn1;
-    *pState++ = Xn2;
-    *pState++ = Yn1;
-    *pState++ = Yn2;
-
-  } while (--stage);
-
-#endif /* #if defined (ARM_MATH_DSP) */
-
-}
-
+	#endif	/* #if defined (ARM_MATH_DSP) */
+} /* arm_biquad_cascade_df1_q15 */
 
 /**
  * @} end of BiquadCascadeDF1 group

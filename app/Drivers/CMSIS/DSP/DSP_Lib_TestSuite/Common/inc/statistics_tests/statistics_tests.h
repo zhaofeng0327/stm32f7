@@ -12,4 +12,4 @@ JTEST_DECLARE_GROUP(rms_tests);
 JTEST_DECLARE_GROUP(std_tests);
 JTEST_DECLARE_GROUP(var_tests);
 
-#endif /* _STATISTICS_TESTS_H_ */
+#endif	/* _STATISTICS_TESTS_H_ */

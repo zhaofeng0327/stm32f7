@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_var_f32.c
- * Description:  Variance of the elements of a floating-point vector
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_var_f32.c
+* Description:  Variance of the elements of a floating-point vector
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -63,118 +64,113 @@
  */
 
 void arm_var_f32(
-                 float32_t * pSrc,
-                 uint32_t blockSize,
-                 float32_t * pResult)
+	float32_t *pSrc,
+	uint32_t  blockSize,
+	float32_t *pResult)
 {
-    float32_t fMean, fValue;
-    uint32_t blkCnt;            /* loop counter */
-    float32_t * pInput = pSrc;
-    float32_t sum = 0.0f;
-    float32_t fSum = 0.0f;
-    #if defined(ARM_MATH_DSP)
-    float32_t in1, in2, in3, in4;
-    #endif
+	float32_t fMean, fValue;
+	uint32_t blkCnt;/* loop counter */
+	float32_t *pInput = pSrc;
+	float32_t sum     = 0.0f;
+	float32_t fSum    = 0.0f;
+	#if defined(ARM_MATH_DSP)
+	float32_t in1, in2, in3, in4;
+	#endif
 
-    if (blockSize <= 1U)
-    {
-        *pResult = 0;
-        return;
-    }
+	if (blockSize <= 1U) {
+		*pResult = 0;
+		return;
+	}
 
-    #if defined(ARM_MATH_DSP)
-        /* Run the below code for Cortex-M4 and Cortex-M7 */
+	#if defined(ARM_MATH_DSP)
+	/* Run the below code for Cortex-M4 and Cortex-M7 */
 
-        /*loop Unrolling */
-        blkCnt = blockSize >> 2U;
+	/*loop Unrolling */
+	blkCnt = blockSize >> 2U;
 
-        /* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
-        ** a second loop below computes the remaining 1 to 3 samples. */
-        while (blkCnt > 0U)
-        {
-            /* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
-            in1 = *pInput++;
-            in2 = *pInput++;
-            in3 = *pInput++;
-            in4 = *pInput++;
+	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
+	** a second loop below computes the remaining 1 to 3 samples. */
+	while (blkCnt > 0U) {
+		/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
+		in1 = *pInput++;
+		in2 = *pInput++;
+		in3 = *pInput++;
+		in4 = *pInput++;
 
-            sum += in1;
-            sum += in2;
-            sum += in3;
-            sum += in4;
+		sum += in1;
+		sum += in2;
+		sum += in3;
+		sum += in4;
 
-            /* Decrement the loop counter */
-            blkCnt--;
-        }
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-        /* If the blockSize is not a multiple of 4, compute any remaining output samples here.
-        ** No loop unrolling is used. */
-        blkCnt = blockSize % 0x4U;
+	/* If the blockSize is not a multiple of 4, compute any remaining output samples here.
+	** No loop unrolling is used. */
+	blkCnt = blockSize % 0x4U;
 
-    #else
-        /* Run the below code for Cortex-M0 or Cortex-M3 */
+	#else  /* if defined(ARM_MATH_DSP) */
+/* Run the below code for Cortex-M0 or Cortex-M3 */
 
-        /* Loop over blockSize number of values */
-        blkCnt = blockSize;
+	/* Loop over blockSize number of values */
+	blkCnt = blockSize;
 
-    #endif
+	#endif /* if defined(ARM_MATH_DSP) */
 
-    while (blkCnt > 0U)
-    {
-        /* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
-        sum += *pInput++;
+	while (blkCnt > 0U) {
+		/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
+		sum += *pInput++;
 
-        /* Decrement the loop counter */
-        blkCnt--;
-    }
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-    /* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) / blockSize  */
-    fMean = sum / (float32_t) blockSize;
+	/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) / blockSize  */
+	fMean = sum / (float32_t) blockSize;
 
-    pInput = pSrc;
+	pInput = pSrc;
 
-    #if defined(ARM_MATH_DSP)
+	#if defined(ARM_MATH_DSP)
 
-        /*loop Unrolling */
-        blkCnt = blockSize >> 2U;
+	/*loop Unrolling */
+	blkCnt = blockSize >> 2U;
 
-        /* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
-        ** a second loop below computes the remaining 1 to 3 samples. */
-        while (blkCnt > 0U)
-        {
-            fValue = *pInput++ - fMean;
-            fSum += fValue * fValue;
-            fValue = *pInput++ - fMean;
-            fSum += fValue * fValue;
-            fValue = *pInput++ - fMean;
-            fSum += fValue * fValue;
-            fValue = *pInput++ - fMean;
-            fSum += fValue * fValue;
+	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
+	** a second loop below computes the remaining 1 to 3 samples. */
+	while (blkCnt > 0U) {
+		fValue = *pInput++ - fMean;
+		fSum  += fValue * fValue;
+		fValue = *pInput++ - fMean;
+		fSum  += fValue * fValue;
+		fValue = *pInput++ - fMean;
+		fSum  += fValue * fValue;
+		fValue = *pInput++ - fMean;
+		fSum  += fValue * fValue;
 
-            /* Decrement the loop counter */
-            blkCnt--;
-        }
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-        blkCnt = blockSize % 0x4U;
-    #else
-        /* Run the below code for Cortex-M0 or Cortex-M3 */
+	blkCnt = blockSize % 0x4U;
+	#else  /* if defined(ARM_MATH_DSP) */
+/* Run the below code for Cortex-M0 or Cortex-M3 */
 
-        /* Loop over blockSize number of values */
-        blkCnt = blockSize;
-    #endif
+	/* Loop over blockSize number of values */
+	blkCnt = blockSize;
+	#endif /* if defined(ARM_MATH_DSP) */
 
-    while (blkCnt > 0U)
-    {
-        fValue = *pInput++ - fMean;
-        fSum += fValue * fValue;
+	while (blkCnt > 0U) {
+		fValue = *pInput++ - fMean;
+		fSum  += fValue * fValue;
 
-        /* Decrement the loop counter */
-        blkCnt--;
-    }
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-    /* Variance */
-    *pResult = fSum / (float32_t)(blockSize - 1.0f);
-}
+	/* Variance */
+	*pResult = fSum / (float32_t) (blockSize - 1.0f);
+} /* arm_var_f32 */
 
 /**
  * @} end of variance group

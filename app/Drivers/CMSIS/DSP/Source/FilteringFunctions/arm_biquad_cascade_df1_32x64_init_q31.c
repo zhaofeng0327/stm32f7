@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_biquad_cascade_df1_32x64_init_q31.c
- * Description:  High precision Q31 Biquad cascade filter initialization function
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_biquad_cascade_df1_32x64_init_q31.c
+* Description:  High precision Q31 Biquad cascade filter initialization function
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -40,7 +41,7 @@
 /**
  * @details
  *
- * @param[in,out] *S           	points to an instance of the high precision Q31 Biquad cascade filter structure.
+ * @param[in,out] *S            points to an instance of the high precision Q31 Biquad cascade filter structure.
  * @param[in]     numStages     number of 2nd order stages in the filter.
  * @param[in]     *pCoeffs      points to the filter coefficients.
  * @param[in]     *pState       points to the state buffer.
@@ -71,26 +72,26 @@
  */
 
 void arm_biquad_cas_df1_32x64_init_q31(
-  arm_biquad_cas_df1_32x64_ins_q31 * S,
-  uint8_t numStages,
-  q31_t * pCoeffs,
-  q63_t * pState,
-  uint8_t postShift)
+	arm_biquad_cas_df1_32x64_ins_q31 *S,
+	uint8_t                          numStages,
+	q31_t                            *pCoeffs,
+	q63_t                            *pState,
+	uint8_t                          postShift)
 {
-  /* Assign filter stages */
-  S->numStages = numStages;
+	/* Assign filter stages */
+	S->numStages = numStages;
 
-  /* Assign postShift to be applied to the output */
-  S->postShift = postShift;
+	/* Assign postShift to be applied to the output */
+	S->postShift = postShift;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+	/* Assign coefficient pointer */
+	S->pCoeffs = pCoeffs;
 
-  /* Clear state buffer and size is always 4 * numStages */
-  memset(pState, 0, (4U * (uint32_t) numStages) * sizeof(q63_t));
+	/* Clear state buffer and size is always 4 * numStages */
+	memset(pState, 0, (4U * (uint32_t) numStages) * sizeof(q63_t));
 
-  /* Assign state pointer */
-  S->pState = pState;
+	/* Assign state pointer */
+	S->pState = pState;
 }
 
 /**

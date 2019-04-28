@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_iir_lattice_init_f32.c
- * Description:  Floating-point IIR lattice filter initialization function
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_iir_lattice_init_f32.c
+* Description:  Floating-point IIR lattice filter initialization function
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -49,31 +50,29 @@
  */
 
 void arm_iir_lattice_init_f32(
-  arm_iir_lattice_instance_f32 * S,
-  uint16_t numStages,
-  float32_t * pkCoeffs,
-  float32_t * pvCoeffs,
-  float32_t * pState,
-  uint32_t blockSize)
+	arm_iir_lattice_instance_f32 *S,
+	uint16_t                     numStages,
+	float32_t                    *pkCoeffs,
+	float32_t                    *pvCoeffs,
+	float32_t                    *pState,
+	uint32_t                     blockSize)
 {
-  /* Assign filter taps */
-  S->numStages = numStages;
+	/* Assign filter taps */
+	S->numStages = numStages;
 
-  /* Assign reflection coefficient pointer */
-  S->pkCoeffs = pkCoeffs;
+	/* Assign reflection coefficient pointer */
+	S->pkCoeffs = pkCoeffs;
 
-  /* Assign ladder coefficient pointer */
-  S->pvCoeffs = pvCoeffs;
+	/* Assign ladder coefficient pointer */
+	S->pvCoeffs = pvCoeffs;
 
-  /* Clear state buffer and size is always blockSize + numStages */
-  memset(pState, 0, (numStages + blockSize) * sizeof(float32_t));
+	/* Clear state buffer and size is always blockSize + numStages */
+	memset(pState, 0, (numStages + blockSize) * sizeof(float32_t));
 
-  /* Assign state pointer */
-  S->pState = pState;
-
-
+	/* Assign state pointer */
+	S->pState = pState;
 }
 
-  /**
-   * @} end of IIR_Lattice group
-   */
+/**
+ * @} end of IIR_Lattice group
+ */

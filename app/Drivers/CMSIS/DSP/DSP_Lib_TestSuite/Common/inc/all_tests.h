@@ -6,4 +6,4 @@
 /*--------------------------------------------------------------------------------*/
 JTEST_DECLARE_GROUP(all_tests);
 
-#endif /* _ALL_TESTS_H_ */
+#endif	/* _ALL_TESTS_H_ */

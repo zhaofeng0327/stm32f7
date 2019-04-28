@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_mean_q15.c
- * Description:  Mean value of a Q15 vector
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_mean_q15.c
+* Description:  Mean value of a Q15 vector
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -58,62 +59,60 @@
  */
 
 void arm_mean_q15(
-  q15_t * pSrc,
-  uint32_t blockSize,
-  q15_t * pResult)
+	q15_t    *pSrc,
+	uint32_t blockSize,
+	q15_t    *pResult)
 {
-  q31_t sum = 0;                                 /* Temporary result storage */
-  uint32_t blkCnt;                               /* loop counter */
+	q31_t sum = 0;	/* Temporary result storage */
+	uint32_t blkCnt;/* loop counter */
 
-#if defined (ARM_MATH_DSP)
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
+	#if defined(ARM_MATH_DSP)
+	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
-  q31_t in;
+	q31_t in;
 
-  /*loop Unrolling */
-  blkCnt = blockSize >> 2U;
+	/*loop Unrolling */
+	blkCnt = blockSize >> 2U;
 
-  /* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
-   ** a second loop below computes the remaining 1 to 3 samples. */
-  while (blkCnt > 0U)
-  {
-    /* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
-    in = *__SIMD32(pSrc)++;
-    sum += ((in << 16U) >> 16U);
-    sum +=  (in >> 16U);
-    in = *__SIMD32(pSrc)++;
-    sum += ((in << 16U) >> 16U);
-    sum +=  (in >> 16U);
+	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
+	** a second loop below computes the remaining 1 to 3 samples. */
+	while (blkCnt > 0U) {
+		/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
+		in   = *__SIMD32(pSrc)++;
+		sum += ((in << 16U) >> 16U);
+		sum += (in >> 16U);
+		in   = *__SIMD32(pSrc)++;
+		sum += ((in << 16U) >> 16U);
+		sum += (in >> 16U);
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-  /* If the blockSize is not a multiple of 4, compute any remaining output samples here.
-   ** No loop unrolling is used. */
-  blkCnt = blockSize % 0x4U;
+	/* If the blockSize is not a multiple of 4, compute any remaining output samples here.
+	** No loop unrolling is used. */
+	blkCnt = blockSize % 0x4U;
 
-#else
-  /* Run the below code for Cortex-M0 */
+	#else  /* if defined(ARM_MATH_DSP) */
+	/* Run the below code for Cortex-M0 */
 
-  /* Loop over blockSize number of values */
-  blkCnt = blockSize;
+	/* Loop over blockSize number of values */
+	blkCnt = blockSize;
 
-#endif /* #if defined (ARM_MATH_DSP) */
+	#endif	/* #if defined (ARM_MATH_DSP) */
 
-  while (blkCnt > 0U)
-  {
-    /* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
-    sum += *pSrc++;
+	while (blkCnt > 0U) {
+		/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
+		sum += *pSrc++;
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-  /* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) / blockSize  */
-  /* Store the result to the destination */
-  *pResult = (q15_t) (sum / (q31_t)blockSize);
-}
+	/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) / blockSize  */
+	/* Store the result to the destination */
+	*pResult = (q15_t) (sum / (q31_t) blockSize);
+} /* arm_mean_q15 */
 
 /**
  * @} end of mean group

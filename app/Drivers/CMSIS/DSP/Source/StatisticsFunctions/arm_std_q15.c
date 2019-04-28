@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_std_q15.c
- * Description:  Standard deviation of an array of Q15 vector
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_std_q15.c
+* Description:  Standard deviation of an array of Q15 vector
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -58,116 +59,115 @@
  */
 
 void arm_std_q15(
-  q15_t * pSrc,
-  uint32_t blockSize,
-  q15_t * pResult)
+	q15_t    *pSrc,
+	uint32_t blockSize,
+	q15_t    *pResult)
 {
-  q31_t sum = 0;                                 /* Accumulator */
-  q31_t meanOfSquares, squareOfMean;             /* square of mean and mean of square */
-  uint32_t blkCnt;                               /* loop counter */
-  q63_t sumOfSquares = 0;                        /* Accumulator */
-#if defined (ARM_MATH_DSP)
-  q31_t in;                                      /* input value */
-  q15_t in1;                                     /* input value */
-#else
-  q15_t in;                                      /* input value */
-#endif
+	q31_t sum = 0;						/* Accumulator */
+	q31_t meanOfSquares, squareOfMean;	/* square of mean and mean of square */
+	uint32_t blkCnt;					/* loop counter */
+	q63_t sumOfSquares = 0;				/* Accumulator */
+	#if defined(ARM_MATH_DSP)
+	q31_t in;	/* input value */
+	q15_t in1;	/* input value */
+	#else
+	q15_t in;	/* input value */
+	#endif
 
-  if (blockSize == 1U)
-  {
-    *pResult = 0;
-    return;
-  }
+	if (blockSize == 1U) {
+		*pResult = 0;
+		return;
+	}
 
-#if defined (ARM_MATH_DSP)
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
+	#if defined(ARM_MATH_DSP)
+	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
-  /*loop Unrolling */
-  blkCnt = blockSize >> 2U;
+	/*loop Unrolling */
+	blkCnt = blockSize >> 2U;
 
-  /* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
-   ** a second loop below computes the remaining 1 to 3 samples. */
-  while (blkCnt > 0U)
-  {
-    /* C = (A[0] * A[0] + A[1] * A[1] + ... + A[blockSize-1] * A[blockSize-1])  */
-    /* Compute Sum of squares of the input samples
-     * and then store the result in a temporary variable, sum. */
-    in = *__SIMD32(pSrc)++;
-    sum += ((in << 16U) >> 16U);
-    sum +=  (in >> 16U);
-    sumOfSquares = __SMLALD(in, in, sumOfSquares);
-    in = *__SIMD32(pSrc)++;
-    sum += ((in << 16U) >> 16U);
-    sum +=  (in >> 16U);
-    sumOfSquares = __SMLALD(in, in, sumOfSquares);
+	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
+	** a second loop below computes the remaining 1 to 3 samples. */
+	while (blkCnt > 0U) {
+		/* C = (A[0] * A[0] + A[1] * A[1] + ... + A[blockSize-1] * A[blockSize-1])  */
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+		/* Compute Sum of squares of the input samples
+		 * and then store the result in a temporary variable, sum. */
+		in   = *__SIMD32(pSrc)++;
+		sum += ((in << 16U) >> 16U);
+		sum += (in >> 16U);
+		sumOfSquares = __SMLALD(in, in, sumOfSquares);
+		in   = *__SIMD32(pSrc)++;
+		sum += ((in << 16U) >> 16U);
+		sum += (in >> 16U);
+		sumOfSquares = __SMLALD(in, in, sumOfSquares);
 
-  /* If the blockSize is not a multiple of 4, compute any remaining output samples here.
-   ** No loop unrolling is used. */
-  blkCnt = blockSize % 0x4U;
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-  while (blkCnt > 0U)
-  {
-    /* C = (A[0] * A[0] + A[1] * A[1] + ... + A[blockSize-1] * A[blockSize-1]) */
-    /* Compute Sum of squares of the input samples
-     * and then store the result in a temporary variable, sum. */
-    in1 = *pSrc++;
-    sumOfSquares = __SMLALD(in1, in1, sumOfSquares);
-    sum += in1;
+	/* If the blockSize is not a multiple of 4, compute any remaining output samples here.
+	** No loop unrolling is used. */
+	blkCnt = blockSize % 0x4U;
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+	while (blkCnt > 0U) {
+		/* C = (A[0] * A[0] + A[1] * A[1] + ... + A[blockSize-1] * A[blockSize-1]) */
 
-  /* Compute Mean of squares of the input samples
-   * and then store the result in a temporary variable, meanOfSquares. */
-  meanOfSquares = (q31_t)(sumOfSquares / (q63_t)(blockSize - 1U));
+		/* Compute Sum of squares of the input samples
+		 * and then store the result in a temporary variable, sum. */
+		in1 = *pSrc++;
+		sumOfSquares = __SMLALD(in1, in1, sumOfSquares);
+		sum += in1;
 
-  /* Compute square of mean */
-  squareOfMean = (q31_t)((q63_t)sum * sum / (q63_t)(blockSize * (blockSize - 1U)));
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-  /* mean of the squares minus the square of the mean. */
-  /* Compute standard deviation and store the result to the destination */
-  arm_sqrt_q15(__SSAT((meanOfSquares - squareOfMean) >> 15U, 16U), pResult);
+	/* Compute Mean of squares of the input samples
+	 * and then store the result in a temporary variable, meanOfSquares. */
+	meanOfSquares = (q31_t) (sumOfSquares / (q63_t) (blockSize - 1U));
 
-#else
-  /* Run the below code for Cortex-M0 */
+	/* Compute square of mean */
+	squareOfMean = (q31_t) ((q63_t) sum * sum / (q63_t) (blockSize * (blockSize - 1U)));
 
-  /* Loop over blockSize number of values */
-  blkCnt = blockSize;
+	/* mean of the squares minus the square of the mean. */
+	/* Compute standard deviation and store the result to the destination */
+	arm_sqrt_q15(__SSAT((meanOfSquares - squareOfMean) >> 15U, 16U), pResult);
 
-  while (blkCnt > 0U)
-  {
-    /* C = (A[0] * A[0] + A[1] * A[1] + ... + A[blockSize-1] * A[blockSize-1]) */
-    /* Compute Sum of squares of the input samples
-     * and then store the result in a temporary variable, sumOfSquares. */
-    in = *pSrc++;
-    sumOfSquares += (in * in);
+	#else  /* if defined(ARM_MATH_DSP) */
+	/* Run the below code for Cortex-M0 */
 
-    /* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
-    /* Compute sum of all input values and then store the result in a temporary variable, sum. */
-    sum += in;
+	/* Loop over blockSize number of values */
+	blkCnt = blockSize;
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+	while (blkCnt > 0U) {
+		/* C = (A[0] * A[0] + A[1] * A[1] + ... + A[blockSize-1] * A[blockSize-1]) */
 
-  /* Compute Mean of squares of the input samples
-   * and then store the result in a temporary variable, meanOfSquares. */
-  meanOfSquares = (q31_t)(sumOfSquares / (q63_t)(blockSize - 1U));
+		/* Compute Sum of squares of the input samples
+		 * and then store the result in a temporary variable, sumOfSquares. */
+		in = *pSrc++;
+		sumOfSquares += (in * in);
 
-  /* Compute square of mean */
-  squareOfMean = (q31_t)((q63_t)sum * sum / (q63_t)(blockSize * (blockSize - 1U)));
+		/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
+		/* Compute sum of all input values and then store the result in a temporary variable, sum. */
+		sum += in;
 
-  /* mean of the squares minus the square of the mean. */
-  /* Compute standard deviation and store the result to the destination */
-  arm_sqrt_q15(__SSAT((meanOfSquares - squareOfMean) >> 15U, 16U), pResult);
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-#endif /* #if defined (ARM_MATH_DSP) */
-}
+	/* Compute Mean of squares of the input samples
+	 * and then store the result in a temporary variable, meanOfSquares. */
+	meanOfSquares = (q31_t) (sumOfSquares / (q63_t) (blockSize - 1U));
+
+	/* Compute square of mean */
+	squareOfMean = (q31_t) ((q63_t) sum * sum / (q63_t) (blockSize * (blockSize - 1U)));
+
+	/* mean of the squares minus the square of the mean. */
+	/* Compute standard deviation and store the result to the destination */
+	arm_sqrt_q15(__SSAT((meanOfSquares - squareOfMean) >> 15U, 16U), pResult);
+
+	#endif	/* #if defined (ARM_MATH_DSP) */
+} /* arm_std_q15 */
 
 /**
  * @} end of STD group

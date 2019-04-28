@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_dot_prod_q15.c
- * Description:  Q15 dot product
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_dot_prod_q15.c
+* Description:  Q15 dot product
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -55,73 +56,69 @@
  */
 
 void arm_dot_prod_q15(
-  q15_t * pSrcA,
-  q15_t * pSrcB,
-  uint32_t blockSize,
-  q63_t * result)
+	q15_t    *pSrcA,
+	q15_t    *pSrcB,
+	uint32_t blockSize,
+	q63_t    *result)
 {
-  q63_t sum = 0;                                 /* Temporary result storage */
-  uint32_t blkCnt;                               /* loop counter */
+	q63_t sum = 0;	/* Temporary result storage */
+	uint32_t blkCnt;/* loop counter */
 
-#if defined (ARM_MATH_DSP)
+	#if defined(ARM_MATH_DSP)
 
-/* Run the below code for Cortex-M4 and Cortex-M3 */
-
-
-  /*loop Unrolling */
-  blkCnt = blockSize >> 2U;
-
-  /* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
-   ** a second loop below computes the remaining 1 to 3 samples. */
-  while (blkCnt > 0U)
-  {
-    /* C = A[0]* B[0] + A[1]* B[1] + A[2]* B[2] + .....+ A[blockSize-1]* B[blockSize-1] */
-    /* Calculate dot product and then store the result in a temporary buffer. */
-    sum = __SMLALD(*__SIMD32(pSrcA)++, *__SIMD32(pSrcB)++, sum);
-    sum = __SMLALD(*__SIMD32(pSrcA)++, *__SIMD32(pSrcB)++, sum);
-
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
-
-  /* If the blockSize is not a multiple of 4, compute any remaining output samples here.
-   ** No loop unrolling is used. */
-  blkCnt = blockSize % 0x4U;
-
-  while (blkCnt > 0U)
-  {
-    /* C = A[0]* B[0] + A[1]* B[1] + A[2]* B[2] + .....+ A[blockSize-1]* B[blockSize-1] */
-    /* Calculate dot product and then store the results in a temporary buffer. */
-    sum = __SMLALD(*pSrcA++, *pSrcB++, sum);
-
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
 
-#else
+	/*loop Unrolling */
+	blkCnt = blockSize >> 2U;
 
-  /* Run the below code for Cortex-M0 */
+	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
+	** a second loop below computes the remaining 1 to 3 samples. */
+	while (blkCnt > 0U) {
+		/* C = A[0]* B[0] + A[1]* B[1] + A[2]* B[2] + .....+ A[blockSize-1]* B[blockSize-1] */
+		/* Calculate dot product and then store the result in a temporary buffer. */
+		sum = __SMLALD(*__SIMD32(pSrcA)++, *__SIMD32(pSrcB)++, sum);
+		sum = __SMLALD(*__SIMD32(pSrcA)++, *__SIMD32(pSrcB)++, sum);
 
-  /* Initialize blkCnt with number of samples */
-  blkCnt = blockSize;
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-  while (blkCnt > 0U)
-  {
-    /* C = A[0]* B[0] + A[1]* B[1] + A[2]* B[2] + .....+ A[blockSize-1]* B[blockSize-1] */
-    /* Calculate dot product and then store the results in a temporary buffer. */
-    sum += (q63_t) ((q31_t) * pSrcA++ * *pSrcB++);
+	/* If the blockSize is not a multiple of 4, compute any remaining output samples here.
+	** No loop unrolling is used. */
+	blkCnt = blockSize % 0x4U;
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+	while (blkCnt > 0U) {
+		/* C = A[0]* B[0] + A[1]* B[1] + A[2]* B[2] + .....+ A[blockSize-1]* B[blockSize-1] */
+		/* Calculate dot product and then store the results in a temporary buffer. */
+		sum = __SMLALD(*pSrcA++, *pSrcB++, sum);
 
-#endif /* #if defined (ARM_MATH_DSP) */
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-  /* Store the result in the destination buffer in 34.30 format */
-  *result = sum;
 
-}
+	#else  /* if defined(ARM_MATH_DSP) */
+
+	/* Run the below code for Cortex-M0 */
+
+	/* Initialize blkCnt with number of samples */
+	blkCnt = blockSize;
+
+	while (blkCnt > 0U) {
+		/* C = A[0]* B[0] + A[1]* B[1] + A[2]* B[2] + .....+ A[blockSize-1]* B[blockSize-1] */
+		/* Calculate dot product and then store the results in a temporary buffer. */
+		sum += (q63_t) ((q31_t) *pSrcA++ **pSrcB++);
+
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
+
+	#endif	/* #if defined (ARM_MATH_DSP) */
+
+	/* Store the result in the destination buffer in 34.30 format */
+	*result = sum;
+} /* arm_dot_prod_q15 */
 
 /**
  * @} end of dot_prod group

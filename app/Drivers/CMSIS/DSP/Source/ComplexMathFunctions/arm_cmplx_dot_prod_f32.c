@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_cmplx_dot_prod_f32.c
- * Description:  Floating-point complex dot product
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_cmplx_dot_prod_f32.c
+* Description:  Floating-point complex dot product
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -74,117 +75,114 @@
  */
 
 void arm_cmplx_dot_prod_f32(
-  float32_t * pSrcA,
-  float32_t * pSrcB,
-  uint32_t numSamples,
-  float32_t * realResult,
-  float32_t * imagResult)
+	float32_t *pSrcA,
+	float32_t *pSrcB,
+	uint32_t  numSamples,
+	float32_t *realResult,
+	float32_t *imagResult)
 {
-  float32_t real_sum = 0.0f, imag_sum = 0.0f;    /* Temporary result storage */
-  float32_t a0,b0,c0,d0;
+	float32_t real_sum = 0.0f, imag_sum = 0.0f;	/* Temporary result storage */
+	float32_t a0, b0, c0, d0;
 
-#if defined (ARM_MATH_DSP)
+	#if defined(ARM_MATH_DSP)
 
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
-  uint32_t blkCnt;                               /* loop counter */
+	/* Run the below code for Cortex-M4 and Cortex-M3 */
+	uint32_t blkCnt;/* loop counter */
 
-  /*loop Unrolling */
-  blkCnt = numSamples >> 2U;
+	/*loop Unrolling */
+	blkCnt = numSamples >> 2U;
 
-  /* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
-   ** a second loop below computes the remaining 1 to 3 samples. */
-  while (blkCnt > 0U)
-  {
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
+	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
+	** a second loop below computes the remaining 1 to 3 samples. */
+	while (blkCnt > 0U) {
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
 
-      real_sum += a0 * c0;
-      imag_sum += a0 * d0;
-      real_sum -= b0 * d0;
-      imag_sum += b0 * c0;
+		real_sum += a0 * c0;
+		imag_sum += a0 * d0;
+		real_sum -= b0 * d0;
+		imag_sum += b0 * c0;
 
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
 
-      real_sum += a0 * c0;
-      imag_sum += a0 * d0;
-      real_sum -= b0 * d0;
-      imag_sum += b0 * c0;
+		real_sum += a0 * c0;
+		imag_sum += a0 * d0;
+		real_sum -= b0 * d0;
+		imag_sum += b0 * c0;
 
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
 
-      real_sum += a0 * c0;
-      imag_sum += a0 * d0;
-      real_sum -= b0 * d0;
-      imag_sum += b0 * c0;
+		real_sum += a0 * c0;
+		imag_sum += a0 * d0;
+		real_sum -= b0 * d0;
+		imag_sum += b0 * c0;
 
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
 
-      real_sum += a0 * c0;
-      imag_sum += a0 * d0;
-      real_sum -= b0 * d0;
-      imag_sum += b0 * c0;
+		real_sum += a0 * c0;
+		imag_sum += a0 * d0;
+		real_sum -= b0 * d0;
+		imag_sum += b0 * c0;
 
-      /* Decrement the loop counter */
-      blkCnt--;
-  }
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-  /* If the numSamples is not a multiple of 4, compute any remaining output samples here.
-   ** No loop unrolling is used. */
-  blkCnt = numSamples & 0x3U;
+	/* If the numSamples is not a multiple of 4, compute any remaining output samples here.
+	** No loop unrolling is used. */
+	blkCnt = numSamples & 0x3U;
 
-  while (blkCnt > 0U)
-  {
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
+	while (blkCnt > 0U) {
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
 
-      real_sum += a0 * c0;
-      imag_sum += a0 * d0;
-      real_sum -= b0 * d0;
-      imag_sum += b0 * c0;
+		real_sum += a0 * c0;
+		imag_sum += a0 * d0;
+		real_sum -= b0 * d0;
+		imag_sum += b0 * c0;
 
-      /* Decrement the loop counter */
-      blkCnt--;
-  }
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-#else
+	#else  /* if defined(ARM_MATH_DSP) */
 
-  /* Run the below code for Cortex-M0 */
+	/* Run the below code for Cortex-M0 */
 
-  while (numSamples > 0U)
-  {
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
+	while (numSamples > 0U) {
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
 
-      real_sum += a0 * c0;
-      imag_sum += a0 * d0;
-      real_sum -= b0 * d0;
-      imag_sum += b0 * c0;
+		real_sum += a0 * c0;
+		imag_sum += a0 * d0;
+		real_sum -= b0 * d0;
+		imag_sum += b0 * c0;
 
-      /* Decrement the loop counter */
-      numSamples--;
-  }
+		/* Decrement the loop counter */
+		numSamples--;
+	}
 
-#endif /* #if defined (ARM_MATH_DSP) */
+	#endif	/* #if defined (ARM_MATH_DSP) */
 
-  /* Store the real and imaginary results in the destination buffers */
-  *realResult = real_sum;
-  *imagResult = imag_sum;
-}
+	/* Store the real and imaginary results in the destination buffers */
+	*realResult = real_sum;
+	*imagResult = imag_sum;
+} /* arm_cmplx_dot_prod_f32 */
 
 /**
  * @} end of cmplx_dot_prod group

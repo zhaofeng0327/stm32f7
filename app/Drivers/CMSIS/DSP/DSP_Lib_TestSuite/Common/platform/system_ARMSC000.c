@@ -1,10 +1,11 @@
 /**************************************************************************//**
- * @file     system_ARMSC000.c
- * @brief    CMSIS Device System Source File for
- *           for ARMSC000 Device Series
- * @version  V5.00
- * @date     07. September 2016
- ******************************************************************************/
+* @file     system_ARMSC000.c
+* @brief    CMSIS Device System Source File for
+*           for ARMSC000 Device Series
+* @version  V5.00
+* @date     07. September 2016
+******************************************************************************/
+
 /*
  * Copyright (c) 2009-2016 ARM Limited. All rights reserved.
  *
@@ -26,31 +27,31 @@
 #include "ARMSC000.h"
 
 /*----------------------------------------------------------------------------
-  Define clocks
+ * Define clocks
  *----------------------------------------------------------------------------*/
-#define  XTAL            ( 5000000UL)      /* Oscillator frequency */
+#define  XTAL            ( 5000000UL)	/* Oscillator frequency */
 
 #define  SYSTEM_CLOCK    (5U * XTAL)
 
 
 /*----------------------------------------------------------------------------
-  System Core Clock Variable
+ * System Core Clock Variable
  *----------------------------------------------------------------------------*/
 uint32_t SystemCoreClock = SYSTEM_CLOCK;
 
 
 /*----------------------------------------------------------------------------
-  System Core Clock update function
+ * System Core Clock update function
  *----------------------------------------------------------------------------*/
-void SystemCoreClockUpdate (void)
+void SystemCoreClockUpdate(void)
 {
-  SystemCoreClock = SYSTEM_CLOCK;
+	SystemCoreClock = SYSTEM_CLOCK;
 }
 
 /*----------------------------------------------------------------------------
-  System initialization function
+ * System initialization function
  *----------------------------------------------------------------------------*/
-void SystemInit (void)
+void SystemInit(void)
 {
-  SystemCoreClock = SYSTEM_CLOCK;
+	SystemCoreClock = SYSTEM_CLOCK;
 }

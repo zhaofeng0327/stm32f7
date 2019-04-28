@@ -1,8 +1,8 @@
 #include "ref.h"
 
 float32_t ref_pid_f32(
-	arm_pid_instance_f32 * S,
-	float32_t in)
+	arm_pid_instance_f32 *S,
+	float32_t            in)
 {
 	float32_t out;
 
@@ -19,8 +19,8 @@ float32_t ref_pid_f32(
 }
 
 q31_t ref_pid_q31(
-	arm_pid_instance_q31 * S,
-	q31_t in)
+	arm_pid_instance_q31 *S,
+	q31_t                in)
 {
 	q63_t acc;
 	q31_t out;
@@ -50,30 +50,30 @@ q31_t ref_pid_q31(
 }
 
 q15_t ref_pid_q15(
-	arm_pid_instance_q15 * S,
-	q15_t in)
+	arm_pid_instance_q15 *S,
+	q15_t                in)
 {
 	q63_t acc;
 	q15_t out;
 	q15_t A1, A2;
-	
-#if defined (ARM_MATH_DSP)
-   
-#ifndef  ARM_MATH_BIG_ENDIAN
+
+	#if defined(ARM_MATH_DSP)
+
+	# ifndef  ARM_MATH_BIG_ENDIAN
 	A2 = S->A1 >> 16;
-	A1 = (q15_t)S->A1;	
-#else
+	A1 = (q15_t) S->A1;
+	# else
 	A1 = S->A1 >> 16;
-	A2 = (q15_t)S->A1;	
-#endif
-   
-#else
-	
+	A2 = (q15_t) S->A1;
+	# endif
+
+	#else
+
 	A1 = S->A1;
 	A2 = S->A2;
-	
-#endif	
-	
+
+	#endif /* if defined(ARM_MATH_DSP) */
+
 	/* acc = A0 * x[n]  */
 	acc = ((q31_t) S->A0) * in;
 
@@ -94,4 +94,4 @@ q15_t ref_pid_q15(
 
 	/* return to application */
 	return (out);
-}
+} /* ref_pid_q15 */

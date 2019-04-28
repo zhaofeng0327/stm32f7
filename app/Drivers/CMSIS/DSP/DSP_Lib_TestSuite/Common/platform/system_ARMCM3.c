@@ -1,10 +1,11 @@
 /**************************************************************************//**
- * @file     system_ARMCM3.c
- * @brief    CMSIS Device System Source File for
- *           ARMCM3 Device Series
- * @version  V5.00
- * @date     07. September 2016
- ******************************************************************************/
+* @file     system_ARMCM3.c
+* @brief    CMSIS Device System Source File for
+*           ARMCM3 Device Series
+* @version  V5.00
+* @date     07. September 2016
+******************************************************************************/
+
 /*
  * Copyright (c) 2009-2016 ARM Limited. All rights reserved.
  *
@@ -26,43 +27,42 @@
 #include "ARMCM3.h"
 
 /*----------------------------------------------------------------------------
-  Define clocks
+ * Define clocks
  *----------------------------------------------------------------------------*/
-#define  XTAL            ( 5000000UL)      /* Oscillator frequency */
+#define  XTAL            ( 5000000UL)	/* Oscillator frequency */
 
 #define  SYSTEM_CLOCK    (5U * XTAL)
 
 
 /*----------------------------------------------------------------------------
-  Externals
+ * Externals
  *----------------------------------------------------------------------------*/
-#if defined (__VTOR_PRESENT) && (__VTOR_PRESENT == 1U)
-  extern uint32_t __Vectors;
+#if defined(__VTOR_PRESENT) && (__VTOR_PRESENT == 1U)
+extern uint32_t __Vectors;
 #endif
 
 /*----------------------------------------------------------------------------
-  System Core Clock Variable
+ * System Core Clock Variable
  *----------------------------------------------------------------------------*/
 uint32_t SystemCoreClock = SYSTEM_CLOCK;
 
 
 /*----------------------------------------------------------------------------
-  System Core Clock update function
+ * System Core Clock update function
  *----------------------------------------------------------------------------*/
-void SystemCoreClockUpdate (void)
+void SystemCoreClockUpdate(void)
 {
-  SystemCoreClock = SYSTEM_CLOCK;
+	SystemCoreClock = SYSTEM_CLOCK;
 }
 
 /*----------------------------------------------------------------------------
-  System initialization function
+ * System initialization function
  *----------------------------------------------------------------------------*/
-void SystemInit (void)
+void SystemInit(void)
 {
+	#if defined(__VTOR_PRESENT) && (__VTOR_PRESENT == 1U)
+	SCB->VTOR = (uint32_t) &__Vectors;
+	#endif
 
-#if defined (__VTOR_PRESENT) && (__VTOR_PRESENT == 1U)
-  SCB->VTOR = (uint32_t) &__Vectors;
-#endif
-
-  SystemCoreClock = SYSTEM_CLOCK;
+	SystemCoreClock = SYSTEM_CLOCK;
 }

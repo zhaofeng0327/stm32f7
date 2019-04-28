@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_negate_q7.c
- * Description:  Negates Q7 vectors
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_negate_q7.c
+* Description:  Negates Q7 vectors
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -51,62 +52,60 @@
  */
 
 void arm_negate_q7(
-  q7_t * pSrc,
-  q7_t * pDst,
-  uint32_t blockSize)
+	q7_t     *pSrc,
+	q7_t     *pDst,
+	uint32_t blockSize)
 {
-  uint32_t blkCnt;                               /* loop counter */
-  q7_t in;
+	uint32_t blkCnt;/* loop counter */
+	q7_t in;
 
-#if defined (ARM_MATH_DSP)
+	#if defined(ARM_MATH_DSP)
 
-/* Run the below code for Cortex-M4 and Cortex-M3 */
-  q31_t input;                                   /* Input values1-4 */
-  q31_t zero = 0x00000000;
+	/* Run the below code for Cortex-M4 and Cortex-M3 */
+	q31_t input;/* Input values1-4 */
+	q31_t zero = 0x00000000;
 
 
-  /*loop Unrolling */
-  blkCnt = blockSize >> 2U;
+	/*loop Unrolling */
+	blkCnt = blockSize >> 2U;
 
-  /* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
-   ** a second loop below computes the remaining 1 to 3 samples. */
-  while (blkCnt > 0U)
-  {
-    /* C = -A */
-    /* Read four inputs */
-    input = *__SIMD32(pSrc)++;
+	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
+	** a second loop below computes the remaining 1 to 3 samples. */
+	while (blkCnt > 0U) {
+		/* C = -A */
+		/* Read four inputs */
+		input = *__SIMD32(pSrc)++;
 
-    /* Store the Negated results in the destination buffer in a single cycle by packing the results */
-    *__SIMD32(pDst)++ = __QSUB8(zero, input);
+		/* Store the Negated results in the destination buffer in a single cycle by packing the results */
+		*__SIMD32(pDst)++ = __QSUB8(zero, input);
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-  /* If the blockSize is not a multiple of 4, compute any remaining output samples here.
-   ** No loop unrolling is used. */
-  blkCnt = blockSize % 0x4U;
+	/* If the blockSize is not a multiple of 4, compute any remaining output samples here.
+	** No loop unrolling is used. */
+	blkCnt = blockSize % 0x4U;
 
-#else
+	#else  /* if defined(ARM_MATH_DSP) */
 
-  /* Run the below code for Cortex-M0 */
+	/* Run the below code for Cortex-M0 */
 
-  /* Initialize blkCnt with number of samples */
-  blkCnt = blockSize;
+	/* Initialize blkCnt with number of samples */
+	blkCnt = blockSize;
 
-#endif /* #if defined (ARM_MATH_DSP) */
+	#endif	/* #if defined (ARM_MATH_DSP) */
 
-  while (blkCnt > 0U)
-  {
-    /* C = -A */
-    /* Negate and then store the results in the destination buffer. */ \
-      in = *pSrc++;
-    *pDst++ = (in == (q7_t) 0x80) ? 0x7f : -in;
+	while (blkCnt > 0U) {
+		/* C = -A */
+		/* Negate and then store the results in the destination buffer. */ \
+		in      = *pSrc++;
+		*pDst++ = (in == (q7_t) 0x80) ? 0x7f : -in;
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
-}
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
+} /* arm_negate_q7 */
 
 /**
  * @} end of negate group

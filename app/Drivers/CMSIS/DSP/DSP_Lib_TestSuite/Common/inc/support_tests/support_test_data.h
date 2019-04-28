@@ -28,4 +28,4 @@ ARR_DESC_DECLARE(support_f_15);
 ARR_DESC_DECLARE(support_f_32);
 ARR_DESC_DECLARE(support_f_all);
 
-#endif
+#endif // ifndef ARM_SUPPORT_TEST_DATA_H

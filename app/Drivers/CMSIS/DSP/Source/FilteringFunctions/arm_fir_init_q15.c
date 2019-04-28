@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_fir_init_q15.c
- * Description:  Q15 FIR filter initialization function
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_fir_init_q15.c
+* Description:  Q15 FIR filter initialization function
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -39,7 +40,7 @@
 
 /**
  * @param[in,out]  *S points to an instance of the Q15 FIR filter structure.
- * @param[in] 	   numTaps  Number of filter coefficients in the filter. Must be even and greater than or equal to 4.
+ * @param[in]      numTaps  Number of filter coefficients in the filter. Must be even and greater than or equal to 4.
  * @param[in]      *pCoeffs points to the filter coefficients buffer.
  * @param[in]      *pState points to the state buffer.
  * @param[in]      blockSize is number of samples processed per call.
@@ -76,66 +77,62 @@
  */
 
 arm_status arm_fir_init_q15(
-  arm_fir_instance_q15 * S,
-  uint16_t numTaps,
-  q15_t * pCoeffs,
-  q15_t * pState,
-  uint32_t blockSize)
+	arm_fir_instance_q15 *S,
+	uint16_t             numTaps,
+	q15_t                *pCoeffs,
+	q15_t                *pState,
+	uint32_t             blockSize)
 {
-  arm_status status;
+	arm_status status;
 
 
-#if defined (ARM_MATH_DSP)
+	#if defined(ARM_MATH_DSP)
 
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
+	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
-  /* The Number of filter coefficients in the filter must be even and at least 4 */
-  if (numTaps & 0x1U)
-  {
-    status = ARM_MATH_ARGUMENT_ERROR;
-  }
-  else
-  {
-    /* Assign filter taps */
-    S->numTaps = numTaps;
+	/* The Number of filter coefficients in the filter must be even and at least 4 */
+	if (numTaps & 0x1U) {
+		status = ARM_MATH_ARGUMENT_ERROR;
+	} else   {
+		/* Assign filter taps */
+		S->numTaps = numTaps;
 
-    /* Assign coefficient pointer */
-    S->pCoeffs = pCoeffs;
+		/* Assign coefficient pointer */
+		S->pCoeffs = pCoeffs;
 
-    /* Clear the state buffer.  The size is always (blockSize + numTaps ) */
-    memset(pState, 0, (numTaps + (blockSize)) * sizeof(q15_t));
+		/* Clear the state buffer.  The size is always (blockSize + numTaps ) */
+		memset(pState, 0, (numTaps + (blockSize)) * sizeof(q15_t));
 
-    /* Assign state pointer */
-    S->pState = pState;
+		/* Assign state pointer */
+		S->pState = pState;
 
-    status = ARM_MATH_SUCCESS;
-  }
+		status = ARM_MATH_SUCCESS;
+	}
 
-  return (status);
+	return (status);
 
-#else
+	#else  /* if defined(ARM_MATH_DSP) */
 
-  /* Run the below code for Cortex-M0 */
+	/* Run the below code for Cortex-M0 */
 
-  /* Assign filter taps */
-  S->numTaps = numTaps;
+	/* Assign filter taps */
+	S->numTaps = numTaps;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+	/* Assign coefficient pointer */
+	S->pCoeffs = pCoeffs;
 
-  /* Clear the state buffer.  The size is always (blockSize + numTaps - 1) */
-  memset(pState, 0, (numTaps + (blockSize - 1U)) * sizeof(q15_t));
+	/* Clear the state buffer.  The size is always (blockSize + numTaps - 1) */
+	memset(pState, 0, (numTaps + (blockSize - 1U)) * sizeof(q15_t));
 
-  /* Assign state pointer */
-  S->pState = pState;
+	/* Assign state pointer */
+	S->pState = pState;
 
-  status = ARM_MATH_SUCCESS;
+	status = ARM_MATH_SUCCESS;
 
-  return (status);
+	return (status);
 
-#endif /*  #if defined (ARM_MATH_DSP) */
-
-}
+	#endif	/*  #if defined (ARM_MATH_DSP) */
+} /* arm_fir_init_q15 */
 
 /**
  * @} end of FIR group

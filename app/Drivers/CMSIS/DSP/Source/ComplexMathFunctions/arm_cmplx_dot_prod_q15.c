@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_cmplx_dot_prod_q15.c
- * Description:  Processing function for the Q15 Complex Dot product
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_cmplx_dot_prod_q15.c
+* Description:  Processing function for the Q15 Complex Dot product
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -56,121 +57,118 @@
  */
 
 void arm_cmplx_dot_prod_q15(
-  q15_t * pSrcA,
-  q15_t * pSrcB,
-  uint32_t numSamples,
-  q31_t * realResult,
-  q31_t * imagResult)
+	q15_t    *pSrcA,
+	q15_t    *pSrcB,
+	uint32_t numSamples,
+	q31_t    *realResult,
+	q31_t    *imagResult)
 {
-  q63_t real_sum = 0, imag_sum = 0;              /* Temporary result storage */
-  q15_t a0,b0,c0,d0;
+	q63_t real_sum = 0, imag_sum = 0;	/* Temporary result storage */
+	q15_t a0, b0, c0, d0;
 
-#if defined (ARM_MATH_DSP)
+	#if defined(ARM_MATH_DSP)
 
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
-  uint32_t blkCnt;                               /* loop counter */
-
-
-  /*loop Unrolling */
-  blkCnt = numSamples >> 2U;
-
-  /* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
-   ** a second loop below computes the remaining 1 to 3 samples. */
-  while (blkCnt > 0U)
-  {
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
-
-      real_sum += (q31_t)a0 * c0;
-      imag_sum += (q31_t)a0 * d0;
-      real_sum -= (q31_t)b0 * d0;
-      imag_sum += (q31_t)b0 * c0;
-
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
-
-      real_sum += (q31_t)a0 * c0;
-      imag_sum += (q31_t)a0 * d0;
-      real_sum -= (q31_t)b0 * d0;
-      imag_sum += (q31_t)b0 * c0;
-
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
-
-      real_sum += (q31_t)a0 * c0;
-      imag_sum += (q31_t)a0 * d0;
-      real_sum -= (q31_t)b0 * d0;
-      imag_sum += (q31_t)b0 * c0;
-
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
-
-      real_sum += (q31_t)a0 * c0;
-      imag_sum += (q31_t)a0 * d0;
-      real_sum -= (q31_t)b0 * d0;
-      imag_sum += (q31_t)b0 * c0;
-
-      /* Decrement the loop counter */
-      blkCnt--;
-  }
-
-  /* If the numSamples is not a multiple of 4, compute any remaining output samples here.
-   ** No loop unrolling is used. */
-  blkCnt = numSamples % 0x4U;
-
-  while (blkCnt > 0U)
-  {
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
-
-      real_sum += (q31_t)a0 * c0;
-      imag_sum += (q31_t)a0 * d0;
-      real_sum -= (q31_t)b0 * d0;
-      imag_sum += (q31_t)b0 * c0;
-
-      /* Decrement the loop counter */
-      blkCnt--;
-  }
-
-#else
-
-  /* Run the below code for Cortex-M0 */
-
-  while (numSamples > 0U)
-  {
-      a0 = *pSrcA++;
-      b0 = *pSrcA++;
-      c0 = *pSrcB++;
-      d0 = *pSrcB++;
-
-      real_sum += a0 * c0;
-      imag_sum += a0 * d0;
-      real_sum -= b0 * d0;
-      imag_sum += b0 * c0;
+	/* Run the below code for Cortex-M4 and Cortex-M3 */
+	uint32_t blkCnt;/* loop counter */
 
 
-      /* Decrement the loop counter */
-      numSamples--;
-  }
+	/*loop Unrolling */
+	blkCnt = numSamples >> 2U;
 
-#endif /* #if defined (ARM_MATH_DSP) */
+	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
+	** a second loop below computes the remaining 1 to 3 samples. */
+	while (blkCnt > 0U) {
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
 
-  /* Store the real and imaginary results in 8.24 format  */
-  /* Convert real data in 34.30 to 8.24 by 6 right shifts */
-  *realResult = (q31_t) (real_sum >> 6);
-  /* Convert imaginary data in 34.30 to 8.24 by 6 right shifts */
-  *imagResult = (q31_t) (imag_sum >> 6);
-}
+		real_sum += (q31_t) a0 * c0;
+		imag_sum += (q31_t) a0 * d0;
+		real_sum -= (q31_t) b0 * d0;
+		imag_sum += (q31_t) b0 * c0;
+
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
+
+		real_sum += (q31_t) a0 * c0;
+		imag_sum += (q31_t) a0 * d0;
+		real_sum -= (q31_t) b0 * d0;
+		imag_sum += (q31_t) b0 * c0;
+
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
+
+		real_sum += (q31_t) a0 * c0;
+		imag_sum += (q31_t) a0 * d0;
+		real_sum -= (q31_t) b0 * d0;
+		imag_sum += (q31_t) b0 * c0;
+
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
+
+		real_sum += (q31_t) a0 * c0;
+		imag_sum += (q31_t) a0 * d0;
+		real_sum -= (q31_t) b0 * d0;
+		imag_sum += (q31_t) b0 * c0;
+
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
+
+	/* If the numSamples is not a multiple of 4, compute any remaining output samples here.
+	** No loop unrolling is used. */
+	blkCnt = numSamples % 0x4U;
+
+	while (blkCnt > 0U) {
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
+
+		real_sum += (q31_t) a0 * c0;
+		imag_sum += (q31_t) a0 * d0;
+		real_sum -= (q31_t) b0 * d0;
+		imag_sum += (q31_t) b0 * c0;
+
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
+
+	#else  /* if defined(ARM_MATH_DSP) */
+
+	/* Run the below code for Cortex-M0 */
+
+	while (numSamples > 0U) {
+		a0 = *pSrcA++;
+		b0 = *pSrcA++;
+		c0 = *pSrcB++;
+		d0 = *pSrcB++;
+
+		real_sum += a0 * c0;
+		imag_sum += a0 * d0;
+		real_sum -= b0 * d0;
+		imag_sum += b0 * c0;
+
+
+		/* Decrement the loop counter */
+		numSamples--;
+	}
+
+	#endif	/* #if defined (ARM_MATH_DSP) */
+
+	/* Store the real and imaginary results in 8.24 format  */
+	/* Convert real data in 34.30 to 8.24 by 6 right shifts */
+	*realResult = (q31_t) (real_sum >> 6);
+	/* Convert imaginary data in 34.30 to 8.24 by 6 right shifts */
+	*imagResult = (q31_t) (imag_sum >> 6);
+} /* arm_cmplx_dot_prod_q15 */
 
 /**
  * @} end of cmplx_dot_prod group

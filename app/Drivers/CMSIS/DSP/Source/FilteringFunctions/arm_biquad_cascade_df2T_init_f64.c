@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_biquad_cascade_df2T_init_f64.c
- * Description:  Initialization function for floating-point transposed direct form II Biquad cascade filter
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_biquad_cascade_df2T_init_f64.c
+* Description:  Initialization function for floating-point transposed direct form II Biquad cascade filter
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -66,22 +67,22 @@
  */
 
 void arm_biquad_cascade_df2T_init_f64(
-  arm_biquad_cascade_df2T_instance_f64 * S,
-  uint8_t numStages,
-  float64_t * pCoeffs,
-  float64_t * pState)
+	arm_biquad_cascade_df2T_instance_f64 *S,
+	uint8_t                              numStages,
+	float64_t                            *pCoeffs,
+	float64_t                            *pState)
 {
-  /* Assign filter stages */
-  S->numStages = numStages;
+	/* Assign filter stages */
+	S->numStages = numStages;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+	/* Assign coefficient pointer */
+	S->pCoeffs = pCoeffs;
 
-  /* Clear state buffer and size is always 2 * numStages */
-  memset(pState, 0, (2U * (uint32_t) numStages) * sizeof(float64_t));
+	/* Clear state buffer and size is always 2 * numStages */
+	memset(pState, 0, (2U * (uint32_t) numStages) * sizeof(float64_t));
 
-  /* Assign state pointer */
-  S->pState = pState;
+	/* Assign state pointer */
+	S->pState = pState;
 }
 
 /**

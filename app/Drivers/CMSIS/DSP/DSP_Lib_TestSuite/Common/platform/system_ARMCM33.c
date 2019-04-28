@@ -1,10 +1,11 @@
 /**************************************************************************//**
- * @file     system_ARMCM33.c
- * @brief    CMSIS Device System Source File for
- *           ARMCM33 Device Series
- * @version  V5.00
- * @date     02. November 2016
- ******************************************************************************/
+* @file     system_ARMCM33.c
+* @brief    CMSIS Device System Source File for
+*           ARMCM33 Device Series
+* @version  V5.00
+* @date     02. November 2016
+******************************************************************************/
+
 /*
  * Copyright (c) 2009-2016 ARM Limited. All rights reserved.
  *
@@ -23,77 +24,76 @@
  * limitations under the License.
  */
 
-#if defined (ARMCM33)
-  #include "ARMCM33.h"
-#elif defined (ARMCM33_TZ)
-  #include "ARMCM33_TZ.h"
+#if defined(ARMCM33)
+# include "ARMCM33.h"
+#elif defined(ARMCM33_TZ)
+# include "ARMCM33_TZ.h"
 
-  #if defined (__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U)
-    #include "partition_ARMCM33.h"
-  #endif
-#elif defined (ARMCM33_DSP_FP)
-  #include "ARMCM33_DSP_FP.h"
-#elif defined (ARMCM33_DSP_FP_TZ)
-  #include "ARMCM33_DSP_FP_TZ.h"
+# if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+#  include "partition_ARMCM33.h"
+# endif
+#elif defined(ARMCM33_DSP_FP)
+# include "ARMCM33_DSP_FP.h"
+#elif defined(ARMCM33_DSP_FP_TZ)
+# include "ARMCM33_DSP_FP_TZ.h"
 
-  #if defined (__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U)
-    #include "partition_ARMCM33.h"
-  #endif
-#else
-  #error device not specified!
-#endif
+# if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+#  include "partition_ARMCM33.h"
+# endif
+#else  /* if defined(ARMCM33) */
+# error device not specified!
+#endif /* if defined(ARMCM33) */
 
 /*----------------------------------------------------------------------------
-  Define clocks
+ * Define clocks
  *----------------------------------------------------------------------------*/
-#define  XTAL            ( 5000000UL)      /* Oscillator frequency */
+#define  XTAL            ( 5000000UL)	/* Oscillator frequency */
 
 #define  SYSTEM_CLOCK    (5U * XTAL)
 
 
 /*----------------------------------------------------------------------------
-  Externals
+ * Externals
  *----------------------------------------------------------------------------*/
-#if defined (__VTOR_PRESENT) && (__VTOR_PRESENT == 1U)
-  extern uint32_t __Vectors;
+#if defined(__VTOR_PRESENT) && (__VTOR_PRESENT == 1U)
+extern uint32_t __Vectors;
 #endif
 
 /*----------------------------------------------------------------------------
-  System Core Clock Variable
+ * System Core Clock Variable
  *----------------------------------------------------------------------------*/
 uint32_t SystemCoreClock = SYSTEM_CLOCK;
 
 
 /*----------------------------------------------------------------------------
-  System Core Clock update function
+ * System Core Clock update function
  *----------------------------------------------------------------------------*/
-void SystemCoreClockUpdate (void)
+void SystemCoreClockUpdate(void)
 {
-  SystemCoreClock = SYSTEM_CLOCK;
+	SystemCoreClock = SYSTEM_CLOCK;
 }
 
 /*----------------------------------------------------------------------------
-  System initialization function
+ * System initialization function
  *----------------------------------------------------------------------------*/
-void SystemInit (void)
+void SystemInit(void)
 {
+	#if defined(__VTOR_PRESENT) && (__VTOR_PRESENT == 1U)
+	SCB->VTOR = (uint32_t) &__Vectors;
+	#endif
 
-#if defined (__VTOR_PRESENT) && (__VTOR_PRESENT == 1U)
-  SCB->VTOR = (uint32_t) &__Vectors;
-#endif
+	#if defined(__FPU_USED) && (__FPU_USED == 1U)
+	SCB->CPACR |= ((3U << 10U * 2U)	/* set CP10 Full Access */
+	  | (3U << 11U * 2U)  );		/* set CP11 Full Access */
+	#endif
 
-#if defined (__FPU_USED) && (__FPU_USED == 1U)
-  SCB->CPACR |= ((3U << 10U*2U) |           /* set CP10 Full Access */
-                 (3U << 11U*2U)  );         /* set CP11 Full Access */
-#endif
+	#ifdef UNALIGNED_SUPPORT_DISABLE
+	SCB->CCR |= SCB_CCR_UNALIGN_TRP_Msk;
+	#endif
 
-#ifdef UNALIGNED_SUPPORT_DISABLE
-  SCB->CCR |= SCB_CCR_UNALIGN_TRP_Msk;
-#endif
+	#if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+	TZ_SAU_Setup();
+	#endif
 
-#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-  TZ_SAU_Setup();
-#endif
-
-  SystemCoreClock = SYSTEM_CLOCK;
+	SystemCoreClock = SYSTEM_CLOCK;
 }

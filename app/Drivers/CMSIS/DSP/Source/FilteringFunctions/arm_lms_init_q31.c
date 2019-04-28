@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_lms_init_q31.c
- * Description:  Q31 LMS filter initialization function
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_lms_init_q31.c
+* Description:  Q31 LMS filter initialization function
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -37,16 +38,16 @@
  * @{
  */
 
-  /**
-   * @brief Initialization function for Q31 LMS filter.
-   * @param[in] *S points to an instance of the Q31 LMS filter structure.
-   * @param[in] numTaps  number of filter coefficients.
-   * @param[in] *pCoeffs points to coefficient buffer.
-   * @param[in] *pState points to state buffer.
-   * @param[in] mu step size that controls filter coefficient updates.
-   * @param[in] blockSize number of samples to process.
-   * @param[in] postShift bit shift applied to coefficients.
-   * @return none.
+/**
+ * @brief Initialization function for Q31 LMS filter.
+ * @param[in] *S points to an instance of the Q31 LMS filter structure.
+ * @param[in] numTaps  number of filter coefficients.
+ * @param[in] *pCoeffs points to coefficient buffer.
+ * @param[in] *pState points to state buffer.
+ * @param[in] mu step size that controls filter coefficient updates.
+ * @param[in] blockSize number of samples to process.
+ * @param[in] postShift bit shift applied to coefficients.
+ * @return none.
  *
  * \par Description:
  * <code>pCoeffs</code> points to the array of filter coefficients stored in time reversed order:
@@ -60,32 +61,31 @@
  */
 
 void arm_lms_init_q31(
-  arm_lms_instance_q31 * S,
-  uint16_t numTaps,
-  q31_t * pCoeffs,
-  q31_t * pState,
-  q31_t mu,
-  uint32_t blockSize,
-  uint32_t postShift)
+	arm_lms_instance_q31 *S,
+	uint16_t             numTaps,
+	q31_t                *pCoeffs,
+	q31_t                *pState,
+	q31_t                mu,
+	uint32_t             blockSize,
+	uint32_t             postShift)
 {
-  /* Assign filter taps */
-  S->numTaps = numTaps;
+	/* Assign filter taps */
+	S->numTaps = numTaps;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+	/* Assign coefficient pointer */
+	S->pCoeffs = pCoeffs;
 
-  /* Clear state buffer and size is always blockSize + numTaps - 1 */
-  memset(pState, 0, ((uint32_t) numTaps + (blockSize - 1U)) * sizeof(q31_t));
+	/* Clear state buffer and size is always blockSize + numTaps - 1 */
+	memset(pState, 0, ((uint32_t) numTaps + (blockSize - 1U)) * sizeof(q31_t));
 
-  /* Assign state pointer */
-  S->pState = pState;
+	/* Assign state pointer */
+	S->pState = pState;
 
-  /* Assign Step size value */
-  S->mu = mu;
+	/* Assign Step size value */
+	S->mu = mu;
 
-  /* Assign postShift value to be applied */
-  S->postShift = postShift;
-
+	/* Assign postShift value to be applied */
+	S->postShift = postShift;
 }
 
 /**

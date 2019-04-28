@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_cmplx_mag_squared_q31.c
- * Description:  Q31 complex magnitude squared
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_cmplx_mag_squared_q31.c
+* Description:  Q31 complex magnitude squared
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -52,97 +53,93 @@
  */
 
 void arm_cmplx_mag_squared_q31(
-  q31_t * pSrc,
-  q31_t * pDst,
-  uint32_t numSamples)
+	q31_t    *pSrc,
+	q31_t    *pDst,
+	uint32_t numSamples)
 {
-  q31_t real, imag;                              /* Temporary variables to store real and imaginary values */
-  q31_t acc0, acc1;                              /* Accumulators */
+	q31_t real, imag;	/* Temporary variables to store real and imaginary values */
+	q31_t acc0, acc1;	/* Accumulators */
 
-#if defined (ARM_MATH_DSP)
+	#if defined(ARM_MATH_DSP)
 
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
-  uint32_t blkCnt;                               /* loop counter */
+	/* Run the below code for Cortex-M4 and Cortex-M3 */
+	uint32_t blkCnt;/* loop counter */
 
-  /* loop Unrolling */
-  blkCnt = numSamples >> 2U;
+	/* loop Unrolling */
+	blkCnt = numSamples >> 2U;
 
-  /* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
-   ** a second loop below computes the remaining 1 to 3 samples. */
-  while (blkCnt > 0U)
-  {
-    /* C[0] = (A[0] * A[0] + A[1] * A[1]) */
-    real = *pSrc++;
-    imag = *pSrc++;
-    acc0 = (q31_t) (((q63_t) real * real) >> 33);
-    acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
-    /* store the result in 3.29 format in the destination buffer. */
-    *pDst++ = acc0 + acc1;
+	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
+	** a second loop below computes the remaining 1 to 3 samples. */
+	while (blkCnt > 0U) {
+		/* C[0] = (A[0] * A[0] + A[1] * A[1]) */
+		real = *pSrc++;
+		imag = *pSrc++;
+		acc0 = (q31_t) (((q63_t) real * real) >> 33);
+		acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
+		/* store the result in 3.29 format in the destination buffer. */
+		*pDst++ = acc0 + acc1;
 
-    real = *pSrc++;
-    imag = *pSrc++;
-    acc0 = (q31_t) (((q63_t) real * real) >> 33);
-    acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
-    /* store the result in 3.29 format in the destination buffer. */
-    *pDst++ = acc0 + acc1;
+		real = *pSrc++;
+		imag = *pSrc++;
+		acc0 = (q31_t) (((q63_t) real * real) >> 33);
+		acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
+		/* store the result in 3.29 format in the destination buffer. */
+		*pDst++ = acc0 + acc1;
 
-    real = *pSrc++;
-    imag = *pSrc++;
-    acc0 = (q31_t) (((q63_t) real * real) >> 33);
-    acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
-    /* store the result in 3.29 format in the destination buffer. */
-    *pDst++ = acc0 + acc1;
+		real = *pSrc++;
+		imag = *pSrc++;
+		acc0 = (q31_t) (((q63_t) real * real) >> 33);
+		acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
+		/* store the result in 3.29 format in the destination buffer. */
+		*pDst++ = acc0 + acc1;
 
-    real = *pSrc++;
-    imag = *pSrc++;
-    acc0 = (q31_t) (((q63_t) real * real) >> 33);
-    acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
-    /* store the result in 3.29 format in the destination buffer. */
-    *pDst++ = acc0 + acc1;
+		real = *pSrc++;
+		imag = *pSrc++;
+		acc0 = (q31_t) (((q63_t) real * real) >> 33);
+		acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
+		/* store the result in 3.29 format in the destination buffer. */
+		*pDst++ = acc0 + acc1;
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-  /* If the numSamples is not a multiple of 4, compute any remaining output samples here.
-   ** No loop unrolling is used. */
-  blkCnt = numSamples % 0x4U;
+	/* If the numSamples is not a multiple of 4, compute any remaining output samples here.
+	** No loop unrolling is used. */
+	blkCnt = numSamples % 0x4U;
 
-  while (blkCnt > 0U)
-  {
-    /* C[0] = (A[0] * A[0] + A[1] * A[1]) */
-    real = *pSrc++;
-    imag = *pSrc++;
-    acc0 = (q31_t) (((q63_t) real * real) >> 33);
-    acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
-    /* store the result in 3.29 format in the destination buffer. */
-    *pDst++ = acc0 + acc1;
+	while (blkCnt > 0U) {
+		/* C[0] = (A[0] * A[0] + A[1] * A[1]) */
+		real = *pSrc++;
+		imag = *pSrc++;
+		acc0 = (q31_t) (((q63_t) real * real) >> 33);
+		acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
+		/* store the result in 3.29 format in the destination buffer. */
+		*pDst++ = acc0 + acc1;
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-#else
+	#else  /* if defined(ARM_MATH_DSP) */
 
-  /* Run the below code for Cortex-M0 */
+	/* Run the below code for Cortex-M0 */
 
-  while (numSamples > 0U)
-  {
-    /* out = ((real * real) + (imag * imag)) */
-    real = *pSrc++;
-    imag = *pSrc++;
-    acc0 = (q31_t) (((q63_t) real * real) >> 33);
-    acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
-    /* store the result in 3.29 format in the destination buffer. */
-    *pDst++ = acc0 + acc1;
+	while (numSamples > 0U) {
+		/* out = ((real * real) + (imag * imag)) */
+		real = *pSrc++;
+		imag = *pSrc++;
+		acc0 = (q31_t) (((q63_t) real * real) >> 33);
+		acc1 = (q31_t) (((q63_t) imag * imag) >> 33);
+		/* store the result in 3.29 format in the destination buffer. */
+		*pDst++ = acc0 + acc1;
 
-    /* Decrement the loop counter */
-    numSamples--;
-  }
+		/* Decrement the loop counter */
+		numSamples--;
+	}
 
-#endif /* #if defined (ARM_MATH_DSP) */
-
-}
+	#endif	/* #if defined (ARM_MATH_DSP) */
+} /* arm_cmplx_mag_squared_q31 */
 
 /**
  * @} end of cmplx_mag_squared group

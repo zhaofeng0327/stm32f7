@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_abs_q15.c
- * Description:  Q15 vector absolute value
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_abs_q15.c
+* Description:  Q15 vector absolute value
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -51,116 +52,112 @@
  */
 
 void arm_abs_q15(
-  q15_t * pSrc,
-  q15_t * pDst,
-  uint32_t blockSize)
+	q15_t    *pSrc,
+	q15_t    *pDst,
+	uint32_t blockSize)
 {
-  uint32_t blkCnt;                               /* loop counter */
+	uint32_t blkCnt;/* loop counter */
 
-#if defined (ARM_MATH_DSP)
-  __SIMD32_TYPE *simd;
+	#if defined(ARM_MATH_DSP)
+	__SIMD32_TYPE *simd;
 
-/* Run the below code for Cortex-M4 and Cortex-M3 */
+	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
-  q15_t in1;                                     /* Input value1 */
-  q15_t in2;                                     /* Input value2 */
-
-
-  /*loop Unrolling */
-  blkCnt = blockSize >> 2U;
-
-  /* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
-   ** a second loop below computes the remaining 1 to 3 samples. */
-  simd = __SIMD32_CONST(pDst);
-  while (blkCnt > 0U)
-  {
-    /* C = |A| */
-    /* Read two inputs */
-    in1 = *pSrc++;
-    in2 = *pSrc++;
+	q15_t in1;	/* Input value1 */
+	q15_t in2;	/* Input value2 */
 
 
-    /* Store the Absolute result in the destination buffer by packing the two values, in a single cycle */
-#ifndef  ARM_MATH_BIG_ENDIAN
-    *simd++ =
-      __PKHBT(((in1 > 0) ? in1 : (q15_t)__QSUB16(0, in1)),
-              ((in2 > 0) ? in2 : (q15_t)__QSUB16(0, in2)), 16);
+	/*loop Unrolling */
+	blkCnt = blockSize >> 2U;
 
-#else
-
-
-    *simd++ =
-      __PKHBT(((in2 > 0) ? in2 : (q15_t)__QSUB16(0, in2)),
-              ((in1 > 0) ? in1 : (q15_t)__QSUB16(0, in1)), 16);
-
-#endif /* #ifndef  ARM_MATH_BIG_ENDIAN    */
-
-    in1 = *pSrc++;
-    in2 = *pSrc++;
+	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
+	** a second loop below computes the remaining 1 to 3 samples. */
+	simd = __SIMD32_CONST(pDst);
+	while (blkCnt > 0U) {
+		/* C = |A| */
+		/* Read two inputs */
+		in1 = *pSrc++;
+		in2 = *pSrc++;
 
 
-#ifndef  ARM_MATH_BIG_ENDIAN
+		/* Store the Absolute result in the destination buffer by packing the two values, in a single cycle */
+		# ifndef  ARM_MATH_BIG_ENDIAN
+		*simd++ =
+		  __PKHBT(((in1 > 0) ? in1 : (q15_t) __QSUB16(0, in1)),
+			((in2 > 0) ? in2 : (q15_t) __QSUB16(0, in2)), 16);
 
-    *simd++ =
-      __PKHBT(((in1 > 0) ? in1 : (q15_t)__QSUB16(0, in1)),
-              ((in2 > 0) ? in2 : (q15_t)__QSUB16(0, in2)), 16);
-
-#else
+		# else
 
 
-    *simd++ =
-      __PKHBT(((in2 > 0) ? in2 : (q15_t)__QSUB16(0, in2)),
-              ((in1 > 0) ? in1 : (q15_t)__QSUB16(0, in1)), 16);
+		*simd++ =
+		  __PKHBT(((in2 > 0) ? in2 : (q15_t) __QSUB16(0, in2)),
+			((in1 > 0) ? in1 : (q15_t) __QSUB16(0, in1)), 16);
 
-#endif /* #ifndef  ARM_MATH_BIG_ENDIAN    */
+		# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
-  pDst = (q15_t *)simd;
+		in1 = *pSrc++;
+		in2 = *pSrc++;
 
-  /* If the blockSize is not a multiple of 4, compute any remaining output samples here.
-   ** No loop unrolling is used. */
-  blkCnt = blockSize % 0x4U;
 
-  while (blkCnt > 0U)
-  {
-    /* C = |A| */
-    /* Read the input */
-    in1 = *pSrc++;
+		# ifndef  ARM_MATH_BIG_ENDIAN
 
-    /* Calculate absolute value of input and then store the result in the destination buffer. */
-    *pDst++ = (in1 > 0) ? in1 : (q15_t)__QSUB16(0, in1);
+		*simd++ =
+		  __PKHBT(((in1 > 0) ? in1 : (q15_t) __QSUB16(0, in1)),
+			((in2 > 0) ? in2 : (q15_t) __QSUB16(0, in2)), 16);
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+		# else
 
-#else
 
-  /* Run the below code for Cortex-M0 */
+		*simd++ =
+		  __PKHBT(((in2 > 0) ? in2 : (q15_t) __QSUB16(0, in2)),
+			((in1 > 0) ? in1 : (q15_t) __QSUB16(0, in1)), 16);
 
-  q15_t in;                                      /* Temporary input variable */
+		# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
 
-  /* Initialize blkCnt with number of samples */
-  blkCnt = blockSize;
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
+	pDst = (q15_t *) simd;
 
-  while (blkCnt > 0U)
-  {
-    /* C = |A| */
-    /* Read the input */
-    in = *pSrc++;
+	/* If the blockSize is not a multiple of 4, compute any remaining output samples here.
+	** No loop unrolling is used. */
+	blkCnt = blockSize % 0x4U;
 
-    /* Calculate absolute value of input and then store the result in the destination buffer. */
-    *pDst++ = (in > 0) ? in : ((in == (q15_t) 0x8000) ? 0x7fff : -in);
+	while (blkCnt > 0U) {
+		/* C = |A| */
+		/* Read the input */
+		in1 = *pSrc++;
 
-    /* Decrement the loop counter */
-    blkCnt--;
-  }
+		/* Calculate absolute value of input and then store the result in the destination buffer. */
+		*pDst++ = (in1 > 0) ? in1 : (q15_t) __QSUB16(0, in1);
 
-#endif /* #if defined (ARM_MATH_DSP) */
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
 
-}
+	#else  /* if defined(ARM_MATH_DSP) */
+
+	/* Run the below code for Cortex-M0 */
+
+	q15_t in;	/* Temporary input variable */
+
+	/* Initialize blkCnt with number of samples */
+	blkCnt = blockSize;
+
+	while (blkCnt > 0U) {
+		/* C = |A| */
+		/* Read the input */
+		in = *pSrc++;
+
+		/* Calculate absolute value of input and then store the result in the destination buffer. */
+		*pDst++ = (in > 0) ? in : ((in == (q15_t) 0x8000) ? 0x7fff : -in);
+
+		/* Decrement the loop counter */
+		blkCnt--;
+	}
+
+	#endif	/* #if defined (ARM_MATH_DSP) */
+} /* arm_abs_q15 */
 
 /**
  * @} end of BasicAbs group

@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_fir_sparse_init_q7.c
- * Description:  Q7 sparse FIR filter initialization function
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_fir_sparse_init_q7.c
+* Description:  Q7 sparse FIR filter initialization function
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -59,35 +60,34 @@
  */
 
 void arm_fir_sparse_init_q7(
-  arm_fir_sparse_instance_q7 * S,
-  uint16_t numTaps,
-  q7_t * pCoeffs,
-  q7_t * pState,
-  int32_t * pTapDelay,
-  uint16_t maxDelay,
-  uint32_t blockSize)
+	arm_fir_sparse_instance_q7 *S,
+	uint16_t                   numTaps,
+	q7_t                       *pCoeffs,
+	q7_t                       *pState,
+	int32_t                    *pTapDelay,
+	uint16_t                   maxDelay,
+	uint32_t                   blockSize)
 {
-  /* Assign filter taps */
-  S->numTaps = numTaps;
+	/* Assign filter taps */
+	S->numTaps = numTaps;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+	/* Assign coefficient pointer */
+	S->pCoeffs = pCoeffs;
 
-  /* Assign TapDelay pointer */
-  S->pTapDelay = pTapDelay;
+	/* Assign TapDelay pointer */
+	S->pTapDelay = pTapDelay;
 
-  /* Assign MaxDelay */
-  S->maxDelay = maxDelay;
+	/* Assign MaxDelay */
+	S->maxDelay = maxDelay;
 
-  /* reset the stateIndex to 0 */
-  S->stateIndex = 0U;
+	/* reset the stateIndex to 0 */
+	S->stateIndex = 0U;
 
-  /* Clear state buffer and size is always maxDelay + blockSize */
-  memset(pState, 0, (maxDelay + blockSize) * sizeof(q7_t));
+	/* Clear state buffer and size is always maxDelay + blockSize */
+	memset(pState, 0, (maxDelay + blockSize) * sizeof(q7_t));
 
-  /* Assign state pointer */
-  S->pState = pState;
-
+	/* Assign state pointer */
+	S->pState = pState;
 }
 
 /**

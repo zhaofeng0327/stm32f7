@@ -6,25 +6,25 @@
 /*--------------------------------------------------------------------------------*/
 
 #include "arr_desc.h"
-#include "arm_math.h"           /* float32_t */
+#include "arm_math.h"	/* float32_t */
 
 /*--------------------------------------------------------------------------------*/
 /* Macros and Defines */
 /*--------------------------------------------------------------------------------*/
-#define MATRIX_TEST_MAX_ROWS 4
-#define MATRIX_TEST_MAX_COLS 4
-#define MATRIX_TEST_BIGGEST_INPUT_TYPE float64_t
-#define MATRIX_TEST_MAX_ELTS (MATRIX_TEST_MAX_ROWS * MATRIX_TEST_MAX_COLS)
-#define MATRIX_MAX_COEFFS_LEN 16
-#define MATRIX_MAX_SHIFTS_LEN 5
+#define MATRIX_TEST_MAX_ROWS              4
+#define MATRIX_TEST_MAX_COLS              4
+#define MATRIX_TEST_BIGGEST_INPUT_TYPE    float64_t
+#define MATRIX_TEST_MAX_ELTS              (MATRIX_TEST_MAX_ROWS * MATRIX_TEST_MAX_COLS)
+#define MATRIX_MAX_COEFFS_LEN             16
+#define MATRIX_MAX_SHIFTS_LEN             5
 
 /**
  *  Declare the matrix inputs defined by MATRIX_DEFINE_INPUTS.
  */
 #define MATRIX_DECLARE_INPUTS(suffix)               \
-    ARR_DESC_DECLARE(matrix_##suffix##_a_inputs);   \
-    ARR_DESC_DECLARE(matrix_##suffix##_b_inputs);   \
-    ARR_DESC_DECLARE(matrix_##suffix##_invertible_inputs)
+	ARR_DESC_DECLARE(matrix_ ## suffix ## _a_inputs);   \
+	ARR_DESC_DECLARE(matrix_ ## suffix ## _b_inputs);   \
+	ARR_DESC_DECLARE(matrix_ ## suffix ## _invertible_inputs)
 
 
 /*--------------------------------------------------------------------------------*/
@@ -51,4 +51,4 @@ extern const q31_t matrix_q31_scale_values[MATRIX_MAX_COEFFS_LEN];
 extern const q15_t matrix_q15_scale_values[MATRIX_MAX_COEFFS_LEN];
 extern const int32_t matrix_shift_values[MATRIX_MAX_SHIFTS_LEN];
 
-#endif /* _MATRIX_TEST_DATA_H_ */
+#endif	/* _MATRIX_TEST_DATA_H_ */

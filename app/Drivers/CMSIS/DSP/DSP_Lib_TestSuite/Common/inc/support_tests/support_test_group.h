@@ -6,4 +6,4 @@
 /*--------------------------------------------------------------------------------*/
 JTEST_DECLARE_GROUP(support_tests);
 
-#endif /* _SUPPORT_TEST_GROUP_H_ */
+#endif	/* _SUPPORT_TEST_GROUP_H_ */

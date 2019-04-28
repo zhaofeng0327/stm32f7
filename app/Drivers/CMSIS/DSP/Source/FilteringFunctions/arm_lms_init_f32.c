@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_lms_init_f32.c
- * Description:  Floating-point LMS filter initialization function
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_lms_init_f32.c
+* Description:  Floating-point LMS filter initialization function
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -33,16 +34,16 @@
  * @{
  */
 
-  /**
-   * @brief Initialization function for floating-point LMS filter.
-   * @param[in] *S points to an instance of the floating-point LMS filter structure.
-   * @param[in] numTaps  number of filter coefficients.
-   * @param[in] *pCoeffs points to the coefficient buffer.
-   * @param[in] *pState points to state buffer.
-   * @param[in] mu step size that controls filter coefficient updates.
-   * @param[in] blockSize number of samples to process.
-   * @return none.
-   */
+/**
+ * @brief Initialization function for floating-point LMS filter.
+ * @param[in] *S points to an instance of the floating-point LMS filter structure.
+ * @param[in] numTaps  number of filter coefficients.
+ * @param[in] *pCoeffs points to the coefficient buffer.
+ * @param[in] *pState points to state buffer.
+ * @param[in] mu step size that controls filter coefficient updates.
+ * @param[in] blockSize number of samples to process.
+ * @return none.
+ */
 
 /**
  * \par Description:
@@ -55,27 +56,27 @@
  */
 
 void arm_lms_init_f32(
-  arm_lms_instance_f32 * S,
-  uint16_t numTaps,
-  float32_t * pCoeffs,
-  float32_t * pState,
-  float32_t mu,
-  uint32_t blockSize)
+	arm_lms_instance_f32 *S,
+	uint16_t             numTaps,
+	float32_t            *pCoeffs,
+	float32_t            *pState,
+	float32_t            mu,
+	uint32_t             blockSize)
 {
-  /* Assign filter taps */
-  S->numTaps = numTaps;
+	/* Assign filter taps */
+	S->numTaps = numTaps;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+	/* Assign coefficient pointer */
+	S->pCoeffs = pCoeffs;
 
-  /* Clear state buffer and size is always blockSize + numTaps */
-  memset(pState, 0, (numTaps + (blockSize - 1)) * sizeof(float32_t));
+	/* Clear state buffer and size is always blockSize + numTaps */
+	memset(pState, 0, (numTaps + (blockSize - 1)) * sizeof(float32_t));
 
-  /* Assign state pointer */
-  S->pState = pState;
+	/* Assign state pointer */
+	S->pState = pState;
 
-  /* Assign Step size value */
-  S->mu = mu;
+	/* Assign Step size value */
+	S->mu = mu;
 }
 
 /**

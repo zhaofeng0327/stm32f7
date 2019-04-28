@@ -1,13 +1,14 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        arm_biquad_cascade_df1_init_q15.c
- * Description:  Q15 Biquad cascade DirectFormI(DF1) filter initialization function
- *
- * $Date:        27. January 2017
- * $Revision:    V.1.5.1
- *
- * Target Processor: Cortex-M cores
- * -------------------------------------------------------------------- */
+* Project:      CMSIS DSP Library
+* Title:        arm_biquad_cascade_df1_init_q15.c
+* Description:  Q15 Biquad cascade DirectFormI(DF1) filter initialization function
+*
+* $Date:        27. January 2017
+* $Revision:    V.1.5.1
+*
+* Target Processor: Cortex-M cores
+* -------------------------------------------------------------------- */
+
 /*
  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
  *
@@ -72,26 +73,26 @@
  */
 
 void arm_biquad_cascade_df1_init_q15(
-  arm_biquad_casd_df1_inst_q15 * S,
-  uint8_t numStages,
-  q15_t * pCoeffs,
-  q15_t * pState,
-  int8_t postShift)
+	arm_biquad_casd_df1_inst_q15 *S,
+	uint8_t                      numStages,
+	q15_t                        *pCoeffs,
+	q15_t                        *pState,
+	int8_t                       postShift)
 {
-  /* Assign filter stages */
-  S->numStages = numStages;
+	/* Assign filter stages */
+	S->numStages = numStages;
 
-  /* Assign postShift to be applied to the output */
-  S->postShift = postShift;
+	/* Assign postShift to be applied to the output */
+	S->postShift = postShift;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+	/* Assign coefficient pointer */
+	S->pCoeffs = pCoeffs;
 
-  /* Clear state buffer and size is always 4 * numStages */
-  memset(pState, 0, (4U * (uint32_t) numStages) * sizeof(q15_t));
+	/* Clear state buffer and size is always 4 * numStages */
+	memset(pState, 0, (4U * (uint32_t) numStages) * sizeof(q15_t));
 
-  /* Assign state pointer */
-  S->pState = pState;
+	/* Assign state pointer */
+	S->pState = pState;
 }
 
 /**
