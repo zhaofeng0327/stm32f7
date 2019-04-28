@@ -10,10 +10,30 @@
 #   2015-07-22 - first version
 # ------------------------------------------------
 
+ifeq ($(origin BOARD), undefined)
+BOARD = 730
+endif
+
+ifneq ($(BOARD), 730)
+ifneq ($(BOARD), 746)
+$(error BOARD Must be define as BOARD=730 or BOARD=746)
+else
+$(info BOARD=$(BOARD))
+endif
+else
+$(info BOARD=$(BOARD))
+endif
+
 ######################################
 # target
 ######################################
+ifeq ($(BOARD), 730)
 TARGET = A1902_STM32F730V8T6
+else ifeq ($(BOARD), 746)
+TARGET = STM32F746ZGT6U
+endif
+
+$(info TARGET=$(TARGET))
 
 
 ######################################
@@ -29,7 +49,11 @@ OPT = -Og
 # paths
 #######################################
 # Build path
+ifeq ($(TARGET), A1902_STM32F730V8T6)
 BUILD_DIR = build
+else ifeq ($(TARGET), STM32F746ZGT6U)
+BUILD_DIR = build_746
+endif
 
 ######################################
 # source
@@ -39,7 +63,6 @@ C_SOURCES =  \
 Src/main.c \
 Src/gpio.c \
 Src/adc.c \
-Src/aes.c \
 Src/crc.c \
 Src/user_diskio.c \
 Src/fatfs.c \
@@ -55,8 +78,6 @@ Src/stm32f7xx_it.c \
 Src/stm32f7xx_hal_msp.c \
 Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc.c \
 Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c \
-Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cryp.c \
-Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cryp_ex.c \
 Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c \
 Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_crc.c \
 Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_crc_ex.c \
@@ -98,9 +119,21 @@ Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c \
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c \
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1/port.c
 
+ifeq ($(TARGET), A1902_STM32F730V8T6)
+C_SOURCES +=  \
+Src/aes.c \
+Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cryp.c \
+Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cryp_ex.c
+endif
+
 # ASM sources
+ifeq ($(TARGET), A1902_STM32F730V8T6)
 ASM_SOURCES =  \
 startup_stm32f730xx.s
+else ifeq ($(TARGET), STM32F746ZGT6U)
+ASM_SOURCES =  \
+startup_stm32f746xx.s
+endif
 
 
 #######################################
@@ -143,9 +176,15 @@ MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
 AS_DEFS = 
 
 # C defines
+ifeq ($(TARGET), A1902_STM32F730V8T6)
 C_DEFS =  \
 -DUSE_HAL_DRIVER \
 -DSTM32F730xx
+else ifeq ($(TARGET), STM32F746ZGT6U)
+C_DEFS =  \
+-DUSE_HAL_DRIVER \
+-DSTM32F746xx
+endif
 
 
 # AS includes
@@ -184,7 +223,11 @@ CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 # LDFLAGS
 #######################################
 # link script
+ifeq ($(TARGET), A1902_STM32F730V8T6)
 LDSCRIPT = STM32F730V8Tx_FLASH.ld
+else ifeq ($(TARGET), STM32F746ZGT6U)
+LDSCRIPT = STM32F746ZGTx_FLASH.ld
+endif
 
 # libraries
 LIBS = -lc -lm -lnosys 
@@ -229,6 +272,9 @@ $(BUILD_DIR):
 #######################################
 clean:
 	-rm -fR $(BUILD_DIR)
+
+up:
+	st-flash write $(BUILD_DIR)/$(TARGET).bin 0x8000000
 
 #######################################
 # dependencies

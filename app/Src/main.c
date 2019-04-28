@@ -22,7 +22,6 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "adc.h"
-#include "aes.h"
 #include "crc.h"
 #include "fatfs.h"
 #include "iwdg.h"
@@ -33,6 +32,10 @@
 #include "usart.h"
 #include "wwdg.h"
 #include "gpio.h"
+
+#ifdef STM32F730xx
+#include "aes.h"
+#endif
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -115,9 +118,12 @@ int main(void)
   MX_WWDG_Init();
   MX_IWDG_Init();
   MX_TIM6_Init();
-  MX_AES_Init();
   MX_RNG_Init();
   MX_CRC_Init();
+
+#ifdef STM32F730xx
+	MX_AES_Init();
+#endif
 
   /* Initialize interrupts */
   MX_NVIC_Init();
