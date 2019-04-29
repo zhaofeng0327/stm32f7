@@ -1,6 +1,6 @@
 #ifndef __PROTOCAL_H__
 #define __PROTOCAL_H__
-
+#include "typedef.h"
 
 #define START_CMD						0xFF	//协议首字符
 
@@ -97,7 +97,7 @@ typedef enum {
 	voice_file = 3
 }FileType;
 
-//协议�?
+//协议头
 typedef struct {
 	unsigned char start;
 	unsigned char slave;
@@ -106,7 +106,7 @@ typedef struct {
 	unsigned int payload_len;
 }STRUCT_PACKED MSG_UART_HEAD_T;
 
-//协议数据�?
+//协议数据包
 typedef struct {
 	MSG_UART_HEAD_T head;
 	void *		payload;
@@ -151,7 +151,7 @@ typedef struct{
 }STRUCT_PACKED RES_SET_TIME_T;
 
 typedef struct{
-	u8 led_status;//  0 �?灯灭.�?1 �?灯亮�? 2 �?闪烁
+	u8 led_status;//  0 ： 灯灭.， 1 ： 灯亮，  2 ： 闪烁
 }STRUCT_PACKED REQ_SET_FLASH_LED_T;
 
 typedef struct{
@@ -160,8 +160,8 @@ typedef struct{
 
 
 typedef struct{
-	u8 slot_num;
-	u8 led_status;//  0 �?灯灭.�?1 �?灯亮�? 2 �?闪烁
+	u8 slot_num;//卡槽号
+	u8 led_status;//  0 ： 灯灭.， 1 ： 灯亮，  2 ： 闪烁
 }STRUCT_PACKED REQ_SET_SLOT_LED_T;
 
 typedef struct{
@@ -170,23 +170,23 @@ typedef struct{
 
 
 typedef struct{
-	u8 slot_num;
-	u8 elock_status;//1 �?开锁，  0 �?上锁
-	u32 keep_time;
+	u8 slot_num;//卡槽号
+	u8 elock_status;//1 ： 开锁，  0 ： 上锁
+	u32 keep_time;//备注 ： 电磁阀打开保持时间 默认值
 }STRUCT_PACKED REQ_SET_SLOT_ELOCK_T;
 
 typedef struct{
-	u8 code;
+	u8 code;//响应代码：ok 为0，fail为1
 }STRUCT_PACKED RES_SET_SLOT_ELOCK_T;
 
 
 typedef struct{
-	u8 slot_num;
-	u8 power_status;
+	u8 slot_num;//卡槽号
+	u8 power_status; //1 ： 打开，  0 ： 关闭
 }STRUCT_PACKED REQ_SET_SLOT_POWER_T;
 
 typedef struct{
-	u8 code;//1 �?打开�? 0 �?关闭
+	u8 code;//响应代码：ok 为0，fail为1
 }STRUCT_PACKED RES_SET_SLOT_POWER_T;
 
 typedef struct{
@@ -218,21 +218,18 @@ typedef struct{
 typedef struct{
 	u8 code;
 	u8 sn[16];
-	int temperature;	//温度
+	int temperature;//温度
 	int voltage;	//电压
-	int current;	//电流
-	int full_cap;	//满电�?
-	int rem_cap;	//剩余电量
-	int charge_cnt;	//充放电次�?
+	int ratio;		//电量百分比
 }STRUCT_PACKED RES_BATTERY_INFO_T;
 
 
 typedef struct{
-	char code;	//响应代码：ok �?，fail�?
-	char module_name[16]; //模块�?
+	char code;	//响应代码：ok 为0，fail为1
+	char module_name[16]; //模块名
 	char Iccid[32]; //iccid
 	char module_ready;//模块是否正常
-	char simcard_ready;//sim卡是否正�?
+	char simcard_ready;//sim卡是否正常
 	char gprs_ready;	//gprs 是否正常
 	char rssi;		//rssi
 }STRUCT_PACKED RES_GPRS_MODULE_INFO_T;
@@ -242,13 +239,13 @@ typedef struct{
 	u8 opt;		//0：断开 gprs ,1 : 连接gprs
 }STRUCT_PACKED REQ_GPRS_CONNECT_T;
 typedef struct {
-	u8 code;	//响应代码：ok �?，fail�?
+	u8 code;	//响应代码：ok 为0，fail为1
 }STRUCT_PACKED RES_GPRS_CONNECT_T;
 
 typedef struct __Payload
 {
-	u8 opt;		//0: 停止 1：开�?
-	u8 slot_list[8];	//老化卡槽列表, 值为1老化 �?值为0不老化
+	u8 opt;		//0: 停止 1：开始
+	u8 slot_list[8];	//老化卡槽列表, 值为1老化 ， 值为0不老化
 	u32 time_sec;	//老化时间
 }STRUCT_PACKED REQ_AGEING_T;
 typedef struct{
@@ -361,48 +358,5 @@ typedef struct {
 	unsigned char crc[2];
 }STRUCT_PACKED RES_BAT_PASSWD_CHKSUM_T;
 
-
-/*************************************************
-Function: crc16
-Description: CRC16校验码计�?
-Input:
-       ptr     内容
-       count   长度
-Output:
-Return:                CRC16校验�?
-Others:
-*************************************************/
-unsigned short crc16(char *ptr, int count);
-
-
-/*************************************************
-Function: get_file_size
-Description: 计算文件大小
-Input:
-	filename: 文件路径
-Output:
-Return:
-	文件字节�?
-Others:
-*************************************************/
-unsigned long get_file_size(unsigned char file_Dev,const char *filename);
-
-bool ends_with(const char * haystack, const char * needle);
-
-/*************************************************
-Function: get_md5
-Description: 计算文件md5
-Input:
-       ptr: 文件路径
-       type�?文件
-                 1 字符�?
-Output:
-       md5: 文件md5
-Return:
-       0ﺿ成�?
-       <0: 失败
-Others:
-*************************************************/
-int get_md5(unsigned char *md5, const char *ptr, int type);
 
 #endif

@@ -1198,7 +1198,16 @@
             <group>
                 <name>Core</name>
                 <file>
+                    <name>$PROJ_DIR$\..\Core\Src\eth.c</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Core\Src\freertos.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Core\Src\gfxsimulator.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Core\Src\gpio.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Core\Src\main.c</name>
@@ -1212,14 +1221,29 @@
                 <file>
                     <name>$PROJ_DIR$\..\Core\Src\stm32f7xx_it.c</name>
                 </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Core\Src\usart.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Core\Src\usb_otg.c</name>
+                </file>
             </group>
             <group>
                 <name>source</name>
+                <file>
+                    <name>$PROJ_DIR$\..\source\uart_comm\api_battery.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\source\uart_comm\api_battery.h</name>
+                </file>
                 <file>
                     <name>$PROJ_DIR$\..\source\uart_comm\usart\base64.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\source\uart_comm\usart\base64.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\source\uart_comm\battery_protocal.h</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\source\os_middleware\jd_os_middleware.c</name>
@@ -1228,16 +1252,10 @@
                     <name>$PROJ_DIR$\..\source\os_middleware\jd_os_middleware.h</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\source\md_5.c</name>
+                    <name>$PROJ_DIR$\..\source\md5.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\source\md_5.h</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\source\uart_comm\protocal.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\source\uart_comm\protocal.h</name>
+                    <name>$PROJ_DIR$\..\source\md5.h</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\source\uart_comm\usart\stpllc.h</name>
@@ -1253,6 +1271,12 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\source\uart_comm\usart\stptlc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\source\uart_comm\test_battery.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\source\uart_comm\test_battery.h</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\source\uart_comm\usart\typedef.h</name>

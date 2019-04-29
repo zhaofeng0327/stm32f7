@@ -117,6 +117,7 @@ typedef struct {
 	//JD_OM_SEM	sem_mp3;			//for mp3 play binary-semaphore
 	JD_OM_THREAD	thread_handle_send;
 	JD_OM_THREAD	thread_handle_recv;
+	JD_OM_THREAD	thread_uart_recv[8];
 	//#ifdef PLAY_SCHEDULE_LIST
 	//PLAY_SCHEDULE *current_schedule;
 	//JD_OM_MUTEX schedule_mutex;

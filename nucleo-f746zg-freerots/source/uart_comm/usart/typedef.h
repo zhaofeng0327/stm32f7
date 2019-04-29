@@ -35,6 +35,12 @@ typedef unsigned int UINT;
 #define debug printf
 #define dump dump_buffer
 
+
+#define dzlog_info debug
+#define dzlog_debug debug
+#define dzlog_error dberr
+
+
 #define EXPORT_API
 
 #endif

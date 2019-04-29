@@ -23,7 +23,7 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
-#include "uart_comm.h"
+#include "test_battery.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -110,8 +110,8 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-  	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
-    osDelay(1000);
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
+	osDelay(1000);
 	test_bat_protoc();
   }
   /* USER CODE END StartDefaultTask */

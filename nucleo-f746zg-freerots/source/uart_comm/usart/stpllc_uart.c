@@ -99,8 +99,8 @@ int stpllc_read(stpllc * hw,u8 * pdata,int lens) {
 		}
 	}
 
-	// debug("recv raw --- \r\n");
-    // dump_buffer(buf, (int)hw->cache_lens);
+	//debug("recv raw --- \r\n");
+    //dump_buffer(buf, (int)hw->cache_lens);
 
 	if ( hw->cache_lens > 0) {
 
