@@ -27,20 +27,20 @@
 
 
 #ifndef TIMERS_H
-# define TIMERS_H
+#define TIMERS_H
 
-# ifndef INC_FREERTOS_H
-#  error "include FreeRTOS.h must appear in source files before include timers.h"
-# endif
+#ifndef INC_FREERTOS_H
+#error "include FreeRTOS.h must appear in source files before include timers.h"
+#endif
 
 /*lint -save -e537 This headers are only multiply included if the application code
  * happens to also be including task.h. */
-# include "task.h"
+#include "task.h"
 /*lint -restore */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /*-----------------------------------------------------------
 * MACROS AND DEFINITIONS
@@ -51,20 +51,20 @@ extern "C" {
  * as defined below.  The commands that are sent from interrupts must use the
  * highest numbers as tmrFIRST_FROM_ISR_COMMAND is used to determine if the task
  * or interrupt version of the queue send function should be used. */
-# define tmrCOMMAND_EXECUTE_CALLBACK_FROM_ISR    ( (BaseType_t) -2 )
-# define tmrCOMMAND_EXECUTE_CALLBACK             ( (BaseType_t) -1 )
-# define tmrCOMMAND_START_DONT_TRACE             ( (BaseType_t) 0 )
-# define tmrCOMMAND_START                        ( (BaseType_t) 1 )
-# define tmrCOMMAND_RESET                        ( (BaseType_t) 2 )
-# define tmrCOMMAND_STOP                         ( (BaseType_t) 3 )
-# define tmrCOMMAND_CHANGE_PERIOD                ( (BaseType_t) 4 )
-# define tmrCOMMAND_DELETE                       ( (BaseType_t) 5 )
+#define tmrCOMMAND_EXECUTE_CALLBACK_FROM_ISR    ( (BaseType_t) -2 )
+#define tmrCOMMAND_EXECUTE_CALLBACK             ( (BaseType_t) -1 )
+#define tmrCOMMAND_START_DONT_TRACE             ( (BaseType_t) 0 )
+#define tmrCOMMAND_START                        ( (BaseType_t) 1 )
+#define tmrCOMMAND_RESET                        ( (BaseType_t) 2 )
+#define tmrCOMMAND_STOP                         ( (BaseType_t) 3 )
+#define tmrCOMMAND_CHANGE_PERIOD                ( (BaseType_t) 4 )
+#define tmrCOMMAND_DELETE                       ( (BaseType_t) 5 )
 
-# define tmrFIRST_FROM_ISR_COMMAND               ( (BaseType_t) 6 )
-# define tmrCOMMAND_START_FROM_ISR               ( (BaseType_t) 6 )
-# define tmrCOMMAND_RESET_FROM_ISR               ( (BaseType_t) 7 )
-# define tmrCOMMAND_STOP_FROM_ISR                ( (BaseType_t) 8 )
-# define tmrCOMMAND_CHANGE_PERIOD_FROM_ISR       ( (BaseType_t) 9 )
+#define tmrFIRST_FROM_ISR_COMMAND               ( (BaseType_t) 6 )
+#define tmrCOMMAND_START_FROM_ISR               ( (BaseType_t) 6 )
+#define tmrCOMMAND_RESET_FROM_ISR               ( (BaseType_t) 7 )
+#define tmrCOMMAND_STOP_FROM_ISR                ( (BaseType_t) 8 )
+#define tmrCOMMAND_CHANGE_PERIOD_FROM_ISR       ( (BaseType_t) 9 )
 
 
 /**
@@ -223,13 +223,13 @@ typedef void (*PendedFunction_t)(void *, uint32_t);
  * }
  * @endverbatim
  */
-# if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 TimerHandle_t xTimerCreate(const char *const pcTimerName,	/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
   const TickType_t                           xTimerPeriodInTicks,
   const UBaseType_t                          uxAutoReload,
   void *const                                pvTimerID,
   TimerCallbackFunction_t                    pxCallbackFunction) PRIVILEGED_FUNCTION;
-# endif
+#endif
 
 /**
  * TimerHandle_t xTimerCreateStatic(const char * const pcTimerName,
@@ -353,14 +353,14 @@ TimerHandle_t xTimerCreate(const char *const pcTimerName,	/*lint !e971 Unqualifi
  * }
  * @endverbatim
  */
-# if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 TimerHandle_t xTimerCreateStatic(const char *const pcTimerName,	/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
   const TickType_t                                 xTimerPeriodInTicks,
   const UBaseType_t                                uxAutoReload,
   void *const                                      pvTimerID,
   TimerCallbackFunction_t                          pxCallbackFunction,
   StaticTimer_t                                    *pxTimerBuffer) PRIVILEGED_FUNCTION;
-# endif	/* configSUPPORT_STATIC_ALLOCATION */
+#endif	/* configSUPPORT_STATIC_ALLOCATION */
 
 /**
  * void *pvTimerGetTimerID( TimerHandle_t xTimer );
@@ -500,7 +500,7 @@ TaskHandle_t xTimerGetTimerDaemonTaskHandle(void) PRIVILEGED_FUNCTION;
  * See the xTimerCreate() API function example usage scenario.
  *
  */
-# define xTimerStart(xTimer, xTicksToWait) \
+#define xTimerStart(xTimer, xTicksToWait) \
 	xTimerGenericCommand( ( xTimer ), tmrCOMMAND_START, \
 	  ( xTaskGetTickCount() ), NULL, ( xTicksToWait ) )
 
@@ -544,7 +544,7 @@ TaskHandle_t xTimerGetTimerDaemonTaskHandle(void) PRIVILEGED_FUNCTION;
  * See the xTimerCreate() API function example usage scenario.
  *
  */
-# define xTimerStop(xTimer, xTicksToWait) \
+#define xTimerStop(xTimer, xTicksToWait) \
 	xTimerGenericCommand( ( xTimer ), tmrCOMMAND_STOP, 0U, NULL, \
 	  ( xTicksToWait ) )
 
@@ -626,7 +626,7 @@ TaskHandle_t xTimerGetTimerDaemonTaskHandle(void) PRIVILEGED_FUNCTION;
  * }
  * @endverbatim
  */
-# define xTimerChangePeriod(xTimer, xNewPeriod, xTicksToWait) \
+#define xTimerChangePeriod(xTimer, xNewPeriod, xTicksToWait) \
 	xTimerGenericCommand( ( xTimer ), \
 	  tmrCOMMAND_CHANGE_PERIOD, \
 	  ( xNewPeriod ), NULL, ( xTicksToWait ) )
@@ -667,7 +667,7 @@ TaskHandle_t xTimerGetTimerDaemonTaskHandle(void) PRIVILEGED_FUNCTION;
  *
  * See the xTimerChangePeriod() API function example usage scenario.
  */
-# define xTimerDelete(xTimer, xTicksToWait) \
+#define xTimerDelete(xTimer, xTicksToWait) \
 	xTimerGenericCommand( ( xTimer ), tmrCOMMAND_DELETE, 0U, NULL, \
 	  ( xTicksToWait ) )
 
@@ -793,7 +793,7 @@ TaskHandle_t xTimerGetTimerDaemonTaskHandle(void) PRIVILEGED_FUNCTION;
  * }
  * @endverbatim
  */
-# define xTimerReset(xTimer, xTicksToWait) \
+#define xTimerReset(xTimer, xTicksToWait) \
 	xTimerGenericCommand( ( xTimer ), tmrCOMMAND_RESET, \
 	  ( xTaskGetTickCount() ), NULL, ( xTicksToWait ) )
 
@@ -881,7 +881,7 @@ TaskHandle_t xTimerGetTimerDaemonTaskHandle(void) PRIVILEGED_FUNCTION;
  * }
  * @endverbatim
  */
-# define xTimerStartFromISR(xTimer, pxHigherPriorityTaskWoken) \
+#define xTimerStartFromISR(xTimer, pxHigherPriorityTaskWoken) \
 	xTimerGenericCommand( ( xTimer ), \
 	  tmrCOMMAND_START_FROM_ISR, \
 	  ( xTaskGetTickCountFromISR() ), ( pxHigherPriorityTaskWoken ), 0U)
@@ -947,7 +947,7 @@ TaskHandle_t xTimerGetTimerDaemonTaskHandle(void) PRIVILEGED_FUNCTION;
  * }
  * @endverbatim
  */
-# define xTimerStopFromISR(xTimer, pxHigherPriorityTaskWoken) \
+#define xTimerStopFromISR(xTimer, pxHigherPriorityTaskWoken) \
 	xTimerGenericCommand( ( xTimer ), \
 	  tmrCOMMAND_STOP_FROM_ISR, 0, \
 	  ( pxHigherPriorityTaskWoken ), 0U)
@@ -1023,7 +1023,7 @@ TaskHandle_t xTimerGetTimerDaemonTaskHandle(void) PRIVILEGED_FUNCTION;
  * }
  * @endverbatim
  */
-# define xTimerChangePeriodFromISR(xTimer, xNewPeriod, pxHigherPriorityTaskWoken) \
+#define xTimerChangePeriodFromISR(xTimer, xNewPeriod, pxHigherPriorityTaskWoken) \
 	xTimerGenericCommand( ( xTimer ), \
 	  tmrCOMMAND_CHANGE_PERIOD_FROM_ISR, \
 	  ( xNewPeriod ), ( pxHigherPriorityTaskWoken ), 0U)
@@ -1112,7 +1112,7 @@ TaskHandle_t xTimerGetTimerDaemonTaskHandle(void) PRIVILEGED_FUNCTION;
  * }
  * @endverbatim
  */
-# define xTimerResetFromISR(xTimer, pxHigherPriorityTaskWoken) \
+#define xTimerResetFromISR(xTimer, pxHigherPriorityTaskWoken) \
 	xTimerGenericCommand( ( xTimer ), \
 	  tmrCOMMAND_RESET_FROM_ISR, \
 	  ( xTaskGetTickCountFromISR() ), ( pxHigherPriorityTaskWoken ), 0U)
@@ -1290,12 +1290,12 @@ BaseType_t xTimerGenericCommand(TimerHandle_t xTimer, const BaseType_t xCommandI
   BaseType_t *const pxHigherPriorityTaskWoken,
   const TickType_t xTicksToWait) PRIVILEGED_FUNCTION;
 
-# if ( configUSE_TRACE_FACILITY == 1 )
+#if ( configUSE_TRACE_FACILITY == 1 )
 void vTimerSetTimerNumber(TimerHandle_t xTimer, UBaseType_t uxTimerNumber) PRIVILEGED_FUNCTION;
 UBaseType_t uxTimerGetTimerNumber(TimerHandle_t xTimer) PRIVILEGED_FUNCTION;
-# endif
+#endif
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 #endif	/* TIMERS_H */

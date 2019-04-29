@@ -314,7 +314,7 @@ void arm_fir_fast_q15(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* arm_fir_fast_q15 */
+}	/* arm_fir_fast_q15 */
 
 /**
  * @} end of FIR group

@@ -75,7 +75,7 @@ void arm_cfft_radix4_f32(
 	if (S->ifftFlag == 1U) {
 		/*  Complex IFFT radix-4  */
 		arm_radix4_butterfly_inverse_f32(pSrc, S->fftLen, S->pTwiddle, S->twidCoefModifier, S->onebyfftLen);
-	} else   {
+	} else {
 		/*  Complex FFT radix-4  */
 		arm_radix4_butterfly_f32(pSrc, S->fftLen, S->pTwiddle, S->twidCoefModifier);
 	}
@@ -470,7 +470,7 @@ void arm_radix4_butterfly_f32(
 		ptr1 += 8U;
 	} while (--j);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	float32_t t1, t2, r1, r2, s1, s2;
 
@@ -583,7 +583,7 @@ void arm_radix4_butterfly_f32(
 	}
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_radix4_butterfly_f32 */
+}	/* arm_radix4_butterfly_f32 */
 
 /*
  * @brief  Core function for the floating-point CIFFT butterfly process.
@@ -983,7 +983,7 @@ void arm_radix4_butterfly_inverse_f32(
 		ptr1 = ptr1 + 8U;
 	} while (--j);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	float32_t t1, t2, r1, r2, s1, s2;
 
@@ -1177,4 +1177,4 @@ void arm_radix4_butterfly_inverse_f32(
 	}
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_radix4_butterfly_inverse_f32 */
+}	/* arm_radix4_butterfly_inverse_f32 */

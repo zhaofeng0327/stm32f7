@@ -4273,7 +4273,7 @@ arm_status arm_rfft_init_q31(
 
 	/* return the status of RFFT Init function */
 	return (status);
-} /* arm_rfft_init_q31 */
+}	/* arm_rfft_init_q31 */
 
 /**
  * @} end of RealFFT group

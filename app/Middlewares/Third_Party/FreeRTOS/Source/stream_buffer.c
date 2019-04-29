@@ -40,7 +40,7 @@
 #include "stream_buffer.h"
 
 #if ( configUSE_TASK_NOTIFICATIONS != 1 )
-# error configUSE_TASK_NOTIFICATIONS must be set to 1 to build stream_buffer.c
+#error configUSE_TASK_NOTIFICATIONS must be set to 1 to build stream_buffer.c
 #endif
 
 /* Lint e961 and e750 are suppressed as a MISRA exception justified because the
@@ -54,7 +54,7 @@
  * that uses task notifications. */
 /*lint -save -e9026 Function like macros allowed and needed here so they can be overidden. */
 #ifndef sbRECEIVE_COMPLETED
-# define sbRECEIVE_COMPLETED(pxStreamBuffer)                                       \
+#define sbRECEIVE_COMPLETED(pxStreamBuffer)                                       \
 	vTaskSuspendAll();                                                              \
 	{                                                                               \
 		if ( ( pxStreamBuffer )->xTaskWaitingToSend != NULL)                        \
@@ -69,7 +69,7 @@
 #endif	/* sbRECEIVE_COMPLETED */
 
 #ifndef sbRECEIVE_COMPLETED_FROM_ISR
-# define sbRECEIVE_COMPLETED_FROM_ISR(pxStreamBuffer,                               \
+#define sbRECEIVE_COMPLETED_FROM_ISR(pxStreamBuffer,                               \
 	  pxHigherPriorityTaskWoken)                   \
 	{                                                                                   \
 		UBaseType_t uxSavedInterruptStatus;                                                 \
@@ -93,7 +93,7 @@
  * or #defined the notification macro away, them provide a default implementation
  * that uses task notifications. */
 #ifndef sbSEND_COMPLETED
-# define sbSEND_COMPLETED(pxStreamBuffer)                                          \
+#define sbSEND_COMPLETED(pxStreamBuffer)                                          \
 	vTaskSuspendAll();                                                              \
 	{                                                                               \
 		if ( ( pxStreamBuffer )->xTaskWaitingToReceive != NULL)                     \
@@ -108,7 +108,7 @@
 #endif	/* sbSEND_COMPLETED */
 
 #ifndef sbSEND_COMPLETE_FROM_ISR
-# define sbSEND_COMPLETE_FROM_ISR(pxStreamBuffer, pxHigherPriorityTaskWoken)       \
+#define sbSEND_COMPLETE_FROM_ISR(pxStreamBuffer, pxHigherPriorityTaskWoken)       \
 	{                                                                                   \
 		UBaseType_t uxSavedInterruptStatus;                                                 \
                                                                                         \
@@ -249,7 +249,7 @@ StreamBufferHandle_t xStreamBufferGenericCreate(size_t xBufferSizeBytes, size_t 
 
 	if (pucAllocatedMemory != NULL) {
 		prvInitialiseNewStreamBuffer( (StreamBuffer_t *) pucAllocatedMemory,/* Structure at the start of the allocated memory. */ /*lint !e9087 Safe cast as allocated memory is aligned. */ /*lint !e826 Area is not too small and alignment is guaranteed provided malloc() behaves as expected and returns aligned buffer. */
-		  pucAllocatedMemory + sizeof( StreamBuffer_t ),					/* Storage area follows. */ /*lint !e9016 Indexing past structure valid for uint8_t pointer, also storage area has no alignment requirement. */
+		  pucAllocatedMemory + sizeof( StreamBuffer_t ),/* Storage area follows. */ /*lint !e9016 Indexing past structure valid for uint8_t pointer, also storage area has no alignment requirement. */
 		  xBufferSizeBytes,
 		  xTriggerLevelBytes,
 		  xIsMessageBuffer);
@@ -292,7 +292,7 @@ StreamBufferHandle_t xStreamBufferGenericCreateStatic(size_t xBufferSizeBytes,
 	 * to hold at least one message. */
 	configASSERT(xBufferSizeBytes > sbBYTES_TO_STORE_MESSAGE_LENGTH);
 
-	# if ( configASSERT_DEFINED == 1 )
+	#if ( configASSERT_DEFINED == 1 )
 	{
 		/* Sanity check that the size of the structure used to declare a
 		 * variable of type StaticStreamBuffer_t equals the size of the real
@@ -300,7 +300,7 @@ StreamBufferHandle_t xStreamBufferGenericCreateStatic(size_t xBufferSizeBytes,
 		volatile size_t xSize = sizeof( StaticStreamBuffer_t );
 		configASSERT(xSize == sizeof( StreamBuffer_t ) );
 	}
-	# endif	/* configASSERT_DEFINED */
+	#endif	/* configASSERT_DEFINED */
 
 	if ( ( pucStreamBufferStorageArea != NULL ) && ( pxStaticStreamBuffer != NULL ) ) {
 		prvInitialiseNewStreamBuffer(pxStreamBuffer,
@@ -322,7 +322,7 @@ StreamBufferHandle_t xStreamBufferGenericCreateStatic(size_t xBufferSizeBytes,
 	}
 
 	return xReturn;
-} /* xStreamBufferGenericCreateStatic */
+}	/* xStreamBufferGenericCreateStatic */
 
 #endif	/* ( configSUPPORT_STATIC_ALLOCATION == 1 ) */
 /*-----------------------------------------------------------*/
@@ -339,7 +339,7 @@ void vStreamBufferDelete(StreamBufferHandle_t xStreamBuffer)
 		#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 		{
 			/* Both the structure and the buffer were allocated using a single call
-			 * to pvPortMalloc(), hence only one call to vPortFree() is required. */
+			* to pvPortMalloc(), hence only one call to vPortFree() is required. */
 			vPortFree( (void *) pxStreamBuffer);/*lint !e9087 Standard free() semantics require void *, plus pxStreamBuffer was allocated by pvPortMalloc(). */
 		}
 		#else
@@ -404,7 +404,7 @@ BaseType_t xStreamBufferReset(StreamBufferHandle_t xStreamBuffer)
 	}
 
 	return xReturn;
-} /* xStreamBufferReset */
+}	/* xStreamBufferReset */
 
 /*-----------------------------------------------------------*/
 
@@ -547,7 +547,7 @@ size_t xStreamBufferSend(StreamBufferHandle_t xStreamBuffer,
 	}
 
 	return xReturn;
-} /* xStreamBufferSend */
+}	/* xStreamBufferSend */
 
 /*-----------------------------------------------------------*/
 
@@ -590,7 +590,7 @@ size_t xStreamBufferSendFromISR(StreamBufferHandle_t xStreamBuffer,
 	traceSTREAM_BUFFER_SEND_FROM_ISR(xStreamBuffer, xReturn);
 
 	return xReturn;
-} /* xStreamBufferSendFromISR */
+}	/* xStreamBufferSendFromISR */
 
 /*-----------------------------------------------------------*/
 
@@ -722,7 +722,7 @@ size_t xStreamBufferReceive(StreamBufferHandle_t xStreamBuffer,
 	}
 
 	return xReceivedLength;
-} /* xStreamBufferReceive */
+}	/* xStreamBufferReceive */
 
 /*-----------------------------------------------------------*/
 
@@ -772,7 +772,7 @@ size_t xStreamBufferReceiveFromISR(StreamBufferHandle_t xStreamBuffer,
 	traceSTREAM_BUFFER_RECEIVE_FROM_ISR(xStreamBuffer, xReceivedLength);
 
 	return xReceivedLength;
-} /* xStreamBufferReceiveFromISR */
+}	/* xStreamBufferReceiveFromISR */
 
 /*-----------------------------------------------------------*/
 
@@ -967,7 +967,7 @@ static size_t prvWriteBytesToBuffer(StreamBuffer_t *const pxStreamBuffer, const 
 	pxStreamBuffer->xHead = xNextHead;
 
 	return xCount;
-} /* prvWriteBytesToBuffer */
+}	/* prvWriteBytesToBuffer */
 
 /*-----------------------------------------------------------*/
 
@@ -1018,7 +1018,7 @@ static size_t prvReadBytesFromBuffer(StreamBuffer_t *pxStreamBuffer, uint8_t *pu
 	}
 
 	return xCount;
-} /* prvReadBytesFromBuffer */
+}	/* prvReadBytesFromBuffer */
 
 /*-----------------------------------------------------------*/
 

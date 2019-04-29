@@ -299,7 +299,7 @@ void arm_fir_sparse_q7(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -441,7 +441,7 @@ void arm_fir_sparse_q7(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_fir_sparse_q7 */
+}	/* arm_fir_sparse_q7 */
 
 /**
  * @} end of FIR_Sparse group

@@ -1225,7 +1225,7 @@ static uint32_t SDMMC_GetCmdResp1(SDMMC_TypeDef *SDMMCx, uint8_t SD_CMD, uint32_
 	} else {
 		return SDMMC_ERROR_GENERAL_UNKNOWN_ERR;
 	}
-} /* SDMMC_GetCmdResp1 */
+}	/* SDMMC_GetCmdResp1 */
 
 /**
  * @brief  Checks for error conditions for R2 (CID or CSD) response.
@@ -1346,7 +1346,7 @@ static uint32_t SDMMC_GetCmdResp6(SDMMC_TypeDef *SDMMCx, uint8_t SD_CMD, uint16_
 	} else {
 		return SDMMC_ERROR_GENERAL_UNKNOWN_ERR;
 	}
-} /* SDMMC_GetCmdResp6 */
+}	/* SDMMC_GetCmdResp6 */
 
 /**
  * @brief  Checks for error conditions for R7 response.

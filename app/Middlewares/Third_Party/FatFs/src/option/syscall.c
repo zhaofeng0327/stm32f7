@@ -125,7 +125,7 @@ void ff_rel_grant(
 	osSemaphoreRelease(sobj);
 }
 
-#endif /* if _FS_REENTRANT */
+#endif	/* if _FS_REENTRANT */
 
 
 #if _USE_LFN == 3	/* LFN with a working buffer on the heap */
@@ -154,4 +154,4 @@ void ff_memfree(
 	ff_free(mblock);/* Discard the memory block with POSIX API */
 }
 
-#endif /* if _USE_LFN == 3 */
+#endif	/* if _USE_LFN == 3 */

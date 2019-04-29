@@ -19,20 +19,20 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_LL_PWR_H
-# define __STM32F7xx_LL_PWR_H
+#define __STM32F7xx_LL_PWR_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx.h"
+#include "stm32f7xx.h"
 
 /** @addtogroup STM32F7xx_LL_Driver
  * @{
  */
 
-# if defined(PWR)
+#if defined(PWR)
 
 /** @defgroup PWR_LL PWR
  * @{
@@ -53,14 +53,14 @@ extern "C" {
  * @brief    Flags defines which can be used with LL_PWR_WriteReg function
  * @{
  */
-#  define LL_PWR_CR1_CSBF     PWR_CR1_CSBF	/*!< Clear standby flag */
+#define LL_PWR_CR1_CSBF     PWR_CR1_CSBF/*!< Clear standby flag */
 
-#  define LL_PWR_CR2_CWUF6    PWR_CR2_CWUF6	/*!< Clear WKUP pin 6 */
-#  define LL_PWR_CR2_CWUF5    PWR_CR2_CWUF5	/*!< Clear WKUP pin 5 */
-#  define LL_PWR_CR2_CWUF4    PWR_CR2_CWUF4	/*!< Clear WKUP pin 4 */
-#  define LL_PWR_CR2_CWUF3    PWR_CR2_CWUF3	/*!< Clear WKUP pin 3 */
-#  define LL_PWR_CR2_CWUF2    PWR_CR2_CWUF2	/*!< Clear WKUP pin 2 */
-#  define LL_PWR_CR2_CWUF1    PWR_CR2_CWUF1	/*!< Clear WKUP pin 1 */
+#define LL_PWR_CR2_CWUF6    PWR_CR2_CWUF6	/*!< Clear WKUP pin 6 */
+#define LL_PWR_CR2_CWUF5    PWR_CR2_CWUF5	/*!< Clear WKUP pin 5 */
+#define LL_PWR_CR2_CWUF4    PWR_CR2_CWUF4	/*!< Clear WKUP pin 4 */
+#define LL_PWR_CR2_CWUF3    PWR_CR2_CWUF3	/*!< Clear WKUP pin 3 */
+#define LL_PWR_CR2_CWUF2    PWR_CR2_CWUF2	/*!< Clear WKUP pin 2 */
+#define LL_PWR_CR2_CWUF1    PWR_CR2_CWUF1	/*!< Clear WKUP pin 1 */
 
 /**
  * @}
@@ -70,21 +70,21 @@ extern "C" {
  * @brief    Flags defines which can be used with LL_PWR_ReadReg function
  * @{
  */
-#  define LL_PWR_CSR1_WUIF       PWR_CSR1_WUIF		/*!< Wakeup flag */
-#  define LL_PWR_CSR1_SBF        PWR_CSR1_SBF		/*!< Standby flag */
-#  define LL_PWR_CSR1_PVDO       PWR_CSR1_PVDO		/*!< Power voltage detector output flag */
-#  define LL_PWR_CSR1_BRR        PWR_CSR1_BRR		/*!< Backup Regulator ready flag */
-#  define LL_PWR_CSR1_VOSRDY     PWR_CSR1_VOSRDY	/*!< Voltage scaling select flag */
-#  define LL_PWR_CSR1_ODRDY      PWR_CSR1_ODRDY		/*!< Over-drive mode ready */
-#  define LL_PWR_CSR1_ODSWRDY    PWR_CSR1_ODSWRDY	/*!< Over-drive mode switching ready */
-#  define LL_PWR_CSR1_UDRDY      PWR_CSR1_UDRDY		/*!< Under-drive ready flag */
+#define LL_PWR_CSR1_WUIF       PWR_CSR1_WUIF	/*!< Wakeup flag */
+#define LL_PWR_CSR1_SBF        PWR_CSR1_SBF		/*!< Standby flag */
+#define LL_PWR_CSR1_PVDO       PWR_CSR1_PVDO	/*!< Power voltage detector output flag */
+#define LL_PWR_CSR1_BRR        PWR_CSR1_BRR		/*!< Backup Regulator ready flag */
+#define LL_PWR_CSR1_VOSRDY     PWR_CSR1_VOSRDY	/*!< Voltage scaling select flag */
+#define LL_PWR_CSR1_ODRDY      PWR_CSR1_ODRDY	/*!< Over-drive mode ready */
+#define LL_PWR_CSR1_ODSWRDY    PWR_CSR1_ODSWRDY	/*!< Over-drive mode switching ready */
+#define LL_PWR_CSR1_UDRDY      PWR_CSR1_UDRDY	/*!< Under-drive ready flag */
 
-#  define LL_PWR_CSR2_EWUP1      PWR_CSR2_EWUP1	/*!< Enable WKUP pin 1 */
-#  define LL_PWR_CSR2_EWUP2      PWR_CSR2_EWUP2	/*!< Enable WKUP pin 2 */
-#  define LL_PWR_CSR2_EWUP3      PWR_CSR2_EWUP3	/*!< Enable WKUP pin 3 */
-#  define LL_PWR_CSR2_EWUP4      PWR_CSR2_EWUP4	/*!< Enable WKUP pin 4 */
-#  define LL_PWR_CSR2_EWUP5      PWR_CSR2_EWUP5	/*!< Enable WKUP pin 5 */
-#  define LL_PWR_CSR2_EWUP6      PWR_CSR2_EWUP6	/*!< Enable WKUP pin 6 */
+#define LL_PWR_CSR2_EWUP1      PWR_CSR2_EWUP1	/*!< Enable WKUP pin 1 */
+#define LL_PWR_CSR2_EWUP2      PWR_CSR2_EWUP2	/*!< Enable WKUP pin 2 */
+#define LL_PWR_CSR2_EWUP3      PWR_CSR2_EWUP3	/*!< Enable WKUP pin 3 */
+#define LL_PWR_CSR2_EWUP4      PWR_CSR2_EWUP4	/*!< Enable WKUP pin 4 */
+#define LL_PWR_CSR2_EWUP5      PWR_CSR2_EWUP5	/*!< Enable WKUP pin 5 */
+#define LL_PWR_CSR2_EWUP6      PWR_CSR2_EWUP6	/*!< Enable WKUP pin 6 */
 
 /**
  * @}
@@ -93,11 +93,11 @@ extern "C" {
 /** @defgroup PWR_LL_EC_MODE_PWR Mode Power
  * @{
  */
-#  define LL_PWR_MODE_STOP_MAINREGU               0x00000000U									/*!< Enter Stop mode (with main Regulator ON) when the CPU enters deepsleep */
-#  define LL_PWR_MODE_STOP_MAINREGU_UNDERDRIVE    (PWR_CR1_MRUDS | PWR_CR1_FPDS)				/*!< Enter Stop mode (with main Regulator in under-drive mode) when the CPU enters deepsleep */
-#  define LL_PWR_MODE_STOP_LPREGU                 PWR_CR1_LPDS									/*!< Enter Stop mode (with low power Regulator ON) when the CPU enters deepsleep */
-#  define LL_PWR_MODE_STOP_LPREGU_UNDERDRIVE      (PWR_CR1_LPDS | PWR_CR1_LPUDS | PWR_CR1_FPDS)	/*!< Enter Stop mode (with low power Regulator in under-drive mode) when the CPU enters deepsleep */
-#  define LL_PWR_MODE_STANDBY                     PWR_CR1_PDDS									/*!< Enter Standby mode when the CPU enters deepsleep */
+#define LL_PWR_MODE_STOP_MAINREGU               0x00000000U										/*!< Enter Stop mode (with main Regulator ON) when the CPU enters deepsleep */
+#define LL_PWR_MODE_STOP_MAINREGU_UNDERDRIVE    (PWR_CR1_MRUDS | PWR_CR1_FPDS)					/*!< Enter Stop mode (with main Regulator in under-drive mode) when the CPU enters deepsleep */
+#define LL_PWR_MODE_STOP_LPREGU                 PWR_CR1_LPDS									/*!< Enter Stop mode (with low power Regulator ON) when the CPU enters deepsleep */
+#define LL_PWR_MODE_STOP_LPREGU_UNDERDRIVE      (PWR_CR1_LPDS | PWR_CR1_LPUDS | PWR_CR1_FPDS)	/*!< Enter Stop mode (with low power Regulator in under-drive mode) when the CPU enters deepsleep */
+#define LL_PWR_MODE_STANDBY                     PWR_CR1_PDDS									/*!< Enter Standby mode when the CPU enters deepsleep */
 
 /**
  * @}
@@ -106,9 +106,9 @@ extern "C" {
 /** @defgroup PWR_LL_EC_REGU_VOLTAGE Regulator Voltage
  * @{
  */
-#  define LL_PWR_REGU_VOLTAGE_SCALE3    PWR_CR1_VOS_0
-#  define LL_PWR_REGU_VOLTAGE_SCALE2    PWR_CR1_VOS_1
-#  define LL_PWR_REGU_VOLTAGE_SCALE1    (PWR_CR1_VOS_0 | PWR_CR1_VOS_1)
+#define LL_PWR_REGU_VOLTAGE_SCALE3    PWR_CR1_VOS_0
+#define LL_PWR_REGU_VOLTAGE_SCALE2    PWR_CR1_VOS_1
+#define LL_PWR_REGU_VOLTAGE_SCALE1    (PWR_CR1_VOS_0 | PWR_CR1_VOS_1)
 
 /**
  * @}
@@ -117,8 +117,8 @@ extern "C" {
 /** @defgroup PWR_LL_EC_REGU_MODE_DS_MODE  Regulator Mode In Deep Sleep Mode
  * @{
  */
-#  define LL_PWR_REGU_DSMODE_MAIN         0x00000000U	/*!< Voltage Regulator in main mode during deepsleep mode */
-#  define LL_PWR_REGU_DSMODE_LOW_POWER    PWR_CR1_LPDS	/*!< Voltage Regulator in low-power mode during deepsleep mode */
+#define LL_PWR_REGU_DSMODE_MAIN         0x00000000U	/*!< Voltage Regulator in main mode during deepsleep mode */
+#define LL_PWR_REGU_DSMODE_LOW_POWER    PWR_CR1_LPDS/*!< Voltage Regulator in low-power mode during deepsleep mode */
 
 /**
  * @}
@@ -127,14 +127,14 @@ extern "C" {
 /** @defgroup PWR_LL_EC_PVDLEVEL Power Voltage Detector Level
  * @{
  */
-#  define LL_PWR_PVDLEVEL_0    PWR_CR1_PLS_LEV0	/*!< Voltage threshold detected by PVD 2.0 V */
-#  define LL_PWR_PVDLEVEL_1    PWR_CR1_PLS_LEV1	/*!< Voltage threshold detected by PVD 2.1 V */
-#  define LL_PWR_PVDLEVEL_2    PWR_CR1_PLS_LEV2	/*!< Voltage threshold detected by PVD 2.3 V */
-#  define LL_PWR_PVDLEVEL_3    PWR_CR1_PLS_LEV3	/*!< Voltage threshold detected by PVD 2.5 V */
-#  define LL_PWR_PVDLEVEL_4    PWR_CR1_PLS_LEV4	/*!< Voltage threshold detected by PVD 2.6 V */
-#  define LL_PWR_PVDLEVEL_5    PWR_CR1_PLS_LEV5	/*!< Voltage threshold detected by PVD 2.7 V */
-#  define LL_PWR_PVDLEVEL_6    PWR_CR1_PLS_LEV6	/*!< Voltage threshold detected by PVD 2.8 V */
-#  define LL_PWR_PVDLEVEL_7    PWR_CR1_PLS_LEV7	/*!< Voltage threshold detected by PVD 2.9 V */
+#define LL_PWR_PVDLEVEL_0    PWR_CR1_PLS_LEV0	/*!< Voltage threshold detected by PVD 2.0 V */
+#define LL_PWR_PVDLEVEL_1    PWR_CR1_PLS_LEV1	/*!< Voltage threshold detected by PVD 2.1 V */
+#define LL_PWR_PVDLEVEL_2    PWR_CR1_PLS_LEV2	/*!< Voltage threshold detected by PVD 2.3 V */
+#define LL_PWR_PVDLEVEL_3    PWR_CR1_PLS_LEV3	/*!< Voltage threshold detected by PVD 2.5 V */
+#define LL_PWR_PVDLEVEL_4    PWR_CR1_PLS_LEV4	/*!< Voltage threshold detected by PVD 2.6 V */
+#define LL_PWR_PVDLEVEL_5    PWR_CR1_PLS_LEV5	/*!< Voltage threshold detected by PVD 2.7 V */
+#define LL_PWR_PVDLEVEL_6    PWR_CR1_PLS_LEV6	/*!< Voltage threshold detected by PVD 2.8 V */
+#define LL_PWR_PVDLEVEL_7    PWR_CR1_PLS_LEV7	/*!< Voltage threshold detected by PVD 2.9 V */
 
 /**
  * @}
@@ -143,12 +143,12 @@ extern "C" {
 /** @defgroup PWR_LL_EC_WAKEUP_PIN  Wakeup Pins
  * @{
  */
-#  define LL_PWR_WAKEUP_PIN1    PWR_CSR2_EWUP1	/*!< WKUP pin 1 : PA0  */
-#  define LL_PWR_WAKEUP_PIN2    PWR_CSR2_EWUP2	/*!< WKUP pin 2 : PA2  */
-#  define LL_PWR_WAKEUP_PIN3    PWR_CSR2_EWUP3	/*!< WKUP pin 3 : PC1  */
-#  define LL_PWR_WAKEUP_PIN4    PWR_CSR2_EWUP4	/*!< WKUP pin 4 : PC13 */
-#  define LL_PWR_WAKEUP_PIN5    PWR_CSR2_EWUP5	/*!< WKUP pin 5 : PI8  */
-#  define LL_PWR_WAKEUP_PIN6    PWR_CSR2_EWUP6	/*!< WKUP pin 6 : PI11 */
+#define LL_PWR_WAKEUP_PIN1    PWR_CSR2_EWUP1/*!< WKUP pin 1 : PA0  */
+#define LL_PWR_WAKEUP_PIN2    PWR_CSR2_EWUP2/*!< WKUP pin 2 : PA2  */
+#define LL_PWR_WAKEUP_PIN3    PWR_CSR2_EWUP3/*!< WKUP pin 3 : PC1  */
+#define LL_PWR_WAKEUP_PIN4    PWR_CSR2_EWUP4/*!< WKUP pin 4 : PC13 */
+#define LL_PWR_WAKEUP_PIN5    PWR_CSR2_EWUP5/*!< WKUP pin 5 : PI8  */
+#define LL_PWR_WAKEUP_PIN6    PWR_CSR2_EWUP6/*!< WKUP pin 6 : PI11 */
 
 /**
  * @}
@@ -173,14 +173,14 @@ extern "C" {
  * @param  __VALUE__ Value to be written in the register
  * @retval None
  */
-#  define LL_PWR_WriteReg(__REG__, __VALUE__)    WRITE_REG(PWR->__REG__, (__VALUE__))
+#define LL_PWR_WriteReg(__REG__, __VALUE__)    WRITE_REG(PWR->__REG__, (__VALUE__))
 
 /**
  * @brief  Read a value in PWR register
  * @param  __REG__ Register to be read
  * @retval Register value
  */
-#  define LL_PWR_ReadReg(__REG__)    READ_REG(PWR->__REG__)
+#define LL_PWR_ReadReg(__REG__)    READ_REG(PWR->__REG__)
 
 /**
  * @}
@@ -993,7 +993,7 @@ __STATIC_INLINE void LL_PWR_ClearFlag_UD(void)
 	WRITE_REG(PWR->CSR1, PWR_CSR1_UDRDY);
 }
 
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup PWR_LL_EF_Init De-initialization function
  * @{
@@ -1003,7 +1003,7 @@ ErrorStatus LL_PWR_DeInit(void);
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /**
  * @}
@@ -1017,15 +1017,15 @@ ErrorStatus LL_PWR_DeInit(void);
  * @}
  */
 
-# endif	/* defined(PWR) */
+#endif	/* defined(PWR) */
 
 /**
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_LL_PWR_H */
 

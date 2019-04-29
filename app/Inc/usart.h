@@ -18,13 +18,13 @@
  */
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __usart_H
-# define __usart_H
-# ifdef __cplusplus
+#define __usart_H
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "main.h"
+#include "main.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -56,9 +56,9 @@ void MX_USART6_UART_Init(void);
 
 /* USER CODE END Prototypes */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 #endif	/*__ usart_H */
 
 /**

@@ -94,7 +94,7 @@ void arm_conv_opt_q7(
 
 		/* Initialization of inputB pointer */
 		pIn2 = pSrcB;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = pSrcB;
 
@@ -227,7 +227,7 @@ void arm_conv_opt_q7(
 		k--;
 	}
 
-	#endif /* ifndef UNALIGNED_SUPPORT_DISABLE */
+	#endif	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
 	/* Temporary pointer for scratch2 */
 	py = pScratch2;
@@ -393,7 +393,7 @@ void arm_conv_opt_q7(
 
 		pScratch1 += 1U;
 	}
-} /* arm_conv_opt_q7 */
+}	/* arm_conv_opt_q7 */
 
 /**
  * @} end of Conv group

@@ -24,21 +24,21 @@
  */
 
 #if   defined( __ICCARM__ )
-# pragma system_include         /* treat file as system include file for MISRA check */
+#pragma system_include         /* treat file as system include file for MISRA check */
 #elif defined(__clang__)
-# pragma clang system_header   /* treat file as system include file */
+#pragma clang system_header   /* treat file as system include file */
 #endif
 
 #ifndef TZ_CONTEXT_H
-# define TZ_CONTEXT_H
+#define TZ_CONTEXT_H
 
-# include <stdint.h>
+#include <stdint.h>
 
-# ifndef TZ_MODULEID_T
-#  define TZ_MODULEID_T
+#ifndef TZ_MODULEID_T
+#define TZ_MODULEID_T
 /// \details Data type that identifies secure software modules called by a process.
 typedef uint32_t TZ_ModuleId_t;
-# endif
+#endif
 
 /// \details TZ Memory ID identifies an allocated memory slot.
 typedef uint32_t TZ_MemoryId_t;

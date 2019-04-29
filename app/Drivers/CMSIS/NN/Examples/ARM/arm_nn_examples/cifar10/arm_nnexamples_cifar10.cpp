@@ -96,10 +96,10 @@
 #include "arm_nnexamples_cifar10_inputs.h"
 
 #ifdef _RTE_
-# include "RTE_Components.h"
-# ifdef RTE_Compiler_EventRecorder
-#  include "EventRecorder.h"
-# endif
+#include "RTE_Components.h"
+#ifdef RTE_Compiler_EventRecorder
+#include "EventRecorder.h"
+#endif
 #endif
 
 // include the input and weights
@@ -195,4 +195,4 @@ int main()
 	}
 
 	return 0;
-} // main
+}	// main

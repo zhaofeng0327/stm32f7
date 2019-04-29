@@ -125,7 +125,7 @@ void arm_correlate_opt_q7(
 
 		/* Updating the pointer position to non zero value */
 		pOut += j;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = (pSrcB);
 
@@ -424,7 +424,7 @@ void arm_correlate_opt_q7(
 
 		pScratch1 += 1U;
 	}
-} /* arm_correlate_opt_q7 */
+}	/* arm_correlate_opt_q7 */
 
 /**
  * @} end of Corr group

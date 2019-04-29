@@ -67,7 +67,7 @@ void ref_cfft_f32(
 			data[i] /= N;
 		}
 	}
-} /* ref_cfft_f32 */
+}	/* ref_cfft_f32 */
 
 void ref_cfft_q31(
 	const arm_cfft_instance_q31 *S,
@@ -126,13 +126,13 @@ void ref_cfft_q31(
 			// read the float data, scale up for q31, cast to q31
 			p1[i] = (q31_t) ( fSrc[i] * 2147483648.0f );
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLen * 2; i++) {
 			// read the float data, scale up for q31, cast to q31
 			p1[i] = (q31_t) ( fSrc[i] * 2147483648.0f / (float32_t) S->fftLen);
 		}
 	}
-} /* ref_cfft_q31 */
+}	/* ref_cfft_q31 */
 
 void ref_cfft_q15(
 	const arm_cfft_instance_q15 *S,
@@ -196,13 +196,13 @@ void ref_cfft_q15(
 			// read the float data, scale up for q15, cast to q15
 			pSrc[i] = (q15_t) ( fSrc[i] * 32768.0f );
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLen * 2; i++) {
 			// read the float data, scale up for q15, cast to q15
 			pSrc[i] = (q15_t) ( fSrc[i] * 32768.0f / (float32_t) S->fftLen);
 		}
 	}
-} /* ref_cfft_q15 */
+}	/* ref_cfft_q15 */
 
 void ref_cfft_radix2_f32(
 	const arm_cfft_radix2_instance_f32 *S,
@@ -245,7 +245,7 @@ void ref_cfft_radix2_f32(
 			ref_cfft_f32(&arm_cfft_sR_f32_len4096, pSrc, S->ifftFlag, S->bitReverseFlag);
 			break;
 	}
-} /* ref_cfft_radix2_f32 */
+}	/* ref_cfft_radix2_f32 */
 
 void ref_cfft_radix2_q31(
 	const arm_cfft_radix2_instance_q31 *S,
@@ -302,13 +302,13 @@ void ref_cfft_radix2_q31(
 			// read the float data, scale up for q31, cast to q31
 			pSrc[i] = (q31_t) ( fSrc[i] * 2147483648.0f );
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLen * 2; i++) {
 			// read the float data, scale up for q31, cast to q31
 			pSrc[i] = (q31_t) ( fSrc[i] * 2147483648.0f / (float32_t) S->fftLen);
 		}
 	}
-} /* ref_cfft_radix2_q31 */
+}	/* ref_cfft_radix2_q31 */
 
 void ref_cfft_radix2_q15(
 	const arm_cfft_radix2_instance_q15 *S,
@@ -370,13 +370,13 @@ void ref_cfft_radix2_q15(
 			// read the float data, scale up for q15, cast to q15
 			pSrc[i] = (q15_t) ( fSrc[i] * 32768.0f );
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLen * 2; i++) {
 			// read the float data, scale up for q15, cast to q15
 			pSrc[i] = (q15_t) ( fSrc[i] * 32768.0f / (float32_t) S->fftLen);
 		}
 	}
-} /* ref_cfft_radix2_q15 */
+}	/* ref_cfft_radix2_q15 */
 
 void ref_cfft_radix4_f32(
 	const arm_cfft_radix4_instance_f32 *S,
@@ -419,7 +419,7 @@ void ref_cfft_radix4_f32(
 			ref_cfft_f32(&arm_cfft_sR_f32_len4096, pSrc, S->ifftFlag, S->bitReverseFlag);
 			break;
 	}
-} /* ref_cfft_radix4_f32 */
+}	/* ref_cfft_radix4_f32 */
 
 void ref_cfft_radix4_q31(
 	const arm_cfft_radix4_instance_q31 *S,
@@ -476,13 +476,13 @@ void ref_cfft_radix4_q31(
 			// read the float data, scale up for q31, cast to q31
 			pSrc[i] = (q31_t) ( fSrc[i] * 2147483648.0f );
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLen * 2; i++) {
 			// read the float data, scale up for q31, cast to q31
 			pSrc[i] = (q31_t) ( fSrc[i] * 2147483648.0f / (float32_t) S->fftLen);
 		}
 	}
-} /* ref_cfft_radix4_q31 */
+}	/* ref_cfft_radix4_q31 */
 
 void ref_cfft_radix4_q15(
 	const arm_cfft_radix4_instance_q15 *S,
@@ -544,10 +544,10 @@ void ref_cfft_radix4_q15(
 			// read the float data, scale up for q15, cast to q15
 			pSrc[i] = (q15_t) ( fSrc[i] * 32768.0f );
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLen * 2; i++) {
 			// read the float data, scale up for q15, cast to q15
 			pSrc[i] = (q15_t) ( fSrc[i] * 32768.0f / (float32_t) S->fftLen);
 		}
 	}
-} /* ref_cfft_radix4_q15 */
+}	/* ref_cfft_radix4_q15 */

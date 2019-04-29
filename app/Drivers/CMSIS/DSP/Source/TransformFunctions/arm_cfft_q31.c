@@ -100,7 +100,7 @@ void arm_cfft_q31(
 				arm_cfft_radix4by2_inverse_q31(p1, L, S->pTwiddle);
 				break;
 		}
-	} else   {
+	} else {
 		switch (L) {
 			case 16:
 			case 64:
@@ -121,7 +121,7 @@ void arm_cfft_q31(
 
 	if (bitReverseFlag)
 		arm_bitreversal_32((uint32_t *) p1, S->bitRevLength, S->pBitRevTable);
-} /* arm_cfft_q31 */
+}	/* arm_cfft_q31 */
 
 /**
  * @} end of ComplexFFT group
@@ -181,7 +181,7 @@ void arm_cfft_radix4by2_q31(
 		pSrc[4 * i + 2] = xt;
 		pSrc[4 * i + 3] = yt;
 	}
-} /* arm_cfft_radix4by2_q31 */
+}	/* arm_cfft_radix4by2_q31 */
 
 void arm_cfft_radix4by2_inverse_q31(
 	q31_t       *pSrc,
@@ -237,4 +237,4 @@ void arm_cfft_radix4by2_inverse_q31(
 		pSrc[4 * i + 2] = xt;
 		pSrc[4 * i + 3] = yt;
 	}
-} /* arm_cfft_radix4by2_inverse_q31 */
+}	/* arm_cfft_radix4by2_inverse_q31 */

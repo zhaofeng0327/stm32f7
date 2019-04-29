@@ -84,7 +84,7 @@ void ref_fir_interpolate_f32(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* ref_fir_interpolate_f32 */
+}	/* ref_fir_interpolate_f32 */
 
 void ref_fir_interpolate_q31(
 	const arm_fir_interpolate_instance_q31 *S,
@@ -94,8 +94,8 @@ void ref_fir_interpolate_q31(
 {
 	q31_t *pState  = S->pState;	/* State pointer */
 	q31_t *pCoeffs = S->pCoeffs;/* Coefficient pointer */
-	q31_t *pStateCurnt;			/* Points to the current sample of the state */
-	q31_t *ptr1, *ptr2;			/* Temporary pointers for state and coefficient buffers */
+	q31_t *pStateCurnt;	/* Points to the current sample of the state */
+	q31_t *ptr1, *ptr2;	/* Temporary pointers for state and coefficient buffers */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -180,7 +180,7 @@ void ref_fir_interpolate_q31(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* ref_fir_interpolate_q31 */
+}	/* ref_fir_interpolate_q31 */
 
 void ref_fir_interpolate_q15(
 	const arm_fir_interpolate_instance_q15 *S,
@@ -273,4 +273,4 @@ void ref_fir_interpolate_q15(
 		/* Decrement the loop counter */
 		i--;
 	}
-} /* ref_fir_interpolate_q15 */
+}	/* ref_fir_interpolate_q15 */

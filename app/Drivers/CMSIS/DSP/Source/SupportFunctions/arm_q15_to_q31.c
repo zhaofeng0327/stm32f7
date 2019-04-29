@@ -81,7 +81,7 @@ void arm_q15_to_q31(
 		in1 = *__SIMD32(pIn)++;
 		in2 = *__SIMD32(pIn)++;
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		/* extract lower 16 bits to 32 bit result */
 		out1 = in1 << 16U;
@@ -92,7 +92,7 @@ void arm_q15_to_q31(
 		/* extract upper 16 bits to 32 bit result */
 		out4 = in2 & 0xFFFF0000;
 
-		# else  /* ifndef ARM_MATH_BIG_ENDIAN */
+		#else	/* ifndef ARM_MATH_BIG_ENDIAN */
 
 		/* extract upper 16 bits to 32 bit result */
 		out1 = in1 & 0xFFFF0000;
@@ -103,7 +103,7 @@ void arm_q15_to_q31(
 		/* extract lower 16 bits to 32 bit result */
 		out4 = in2 << 16U;
 
-		# endif	//      #ifndef ARM_MATH_BIG_ENDIAN
+		#endif	//      #ifndef ARM_MATH_BIG_ENDIAN
 
 		*pDst++ = out1;
 		*pDst++ = out2;
@@ -118,7 +118,7 @@ void arm_q15_to_q31(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -135,7 +135,7 @@ void arm_q15_to_q31(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_q15_to_q31 */
+}	/* arm_q15_to_q31 */
 
 /**
  * @} end of q15_to_x group

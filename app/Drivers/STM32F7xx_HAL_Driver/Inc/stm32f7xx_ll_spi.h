@@ -19,20 +19,20 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef STM32F7xx_LL_SPI_H
-# define STM32F7xx_LL_SPI_H
+#define STM32F7xx_LL_SPI_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx.h"
+#include "stm32f7xx.h"
 
 /** @addtogroup STM32F7xx_LL_Driver
  * @{
  */
 
-# if defined(SPI1) || defined(SPI2) || defined(SPI3) || defined(SPI4) || defined(SPI5) || defined(SPI6)
+#if defined(SPI1) || defined(SPI2) || defined(SPI3) || defined(SPI4) || defined(SPI5) || defined(SPI6)
 
 /** @defgroup SPI_LL SPI
  * @{
@@ -43,7 +43,7 @@ extern "C" {
 /* Private macros ------------------------------------------------------------*/
 
 /* Exported types ------------------------------------------------------------*/
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup SPI_LL_ES_INIT SPI Exported Init structure
  * @{
@@ -108,7 +108,7 @@ typedef struct {
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /* Exported constants --------------------------------------------------------*/
 
@@ -120,13 +120,13 @@ typedef struct {
  * @brief    Flags defines which can be used with LL_SPI_ReadReg function
  * @{
  */
-#  define LL_SPI_SR_RXNE      SPI_SR_RXNE	/*!< Rx buffer not empty flag         */
-#  define LL_SPI_SR_TXE       SPI_SR_TXE	/*!< Tx buffer empty flag             */
-#  define LL_SPI_SR_BSY       SPI_SR_BSY	/*!< Busy flag                        */
-#  define LL_SPI_SR_CRCERR    SPI_SR_CRCERR	/*!< CRC error flag                   */
-#  define LL_SPI_SR_MODF      SPI_SR_MODF	/*!< Mode fault flag                  */
-#  define LL_SPI_SR_OVR       SPI_SR_OVR	/*!< Overrun flag                     */
-#  define LL_SPI_SR_FRE       SPI_SR_FRE	/*!< TI mode frame format error flag  */
+#define LL_SPI_SR_RXNE      SPI_SR_RXNE		/*!< Rx buffer not empty flag         */
+#define LL_SPI_SR_TXE       SPI_SR_TXE		/*!< Tx buffer empty flag             */
+#define LL_SPI_SR_BSY       SPI_SR_BSY		/*!< Busy flag                        */
+#define LL_SPI_SR_CRCERR    SPI_SR_CRCERR	/*!< CRC error flag                   */
+#define LL_SPI_SR_MODF      SPI_SR_MODF		/*!< Mode fault flag                  */
+#define LL_SPI_SR_OVR       SPI_SR_OVR		/*!< Overrun flag                     */
+#define LL_SPI_SR_FRE       SPI_SR_FRE		/*!< TI mode frame format error flag  */
 
 /**
  * @}
@@ -136,9 +136,9 @@ typedef struct {
  * @brief    IT defines which can be used with LL_SPI_ReadReg and  LL_SPI_WriteReg functions
  * @{
  */
-#  define LL_SPI_CR2_RXNEIE    SPI_CR2_RXNEIE	/*!< Rx buffer not empty interrupt enable */
-#  define LL_SPI_CR2_TXEIE     SPI_CR2_TXEIE	/*!< Tx buffer empty interrupt enable     */
-#  define LL_SPI_CR2_ERRIE     SPI_CR2_ERRIE	/*!< Error interrupt enable               */
+#define LL_SPI_CR2_RXNEIE    SPI_CR2_RXNEIE	/*!< Rx buffer not empty interrupt enable */
+#define LL_SPI_CR2_TXEIE     SPI_CR2_TXEIE	/*!< Tx buffer empty interrupt enable     */
+#define LL_SPI_CR2_ERRIE     SPI_CR2_ERRIE	/*!< Error interrupt enable               */
 
 /**
  * @}
@@ -147,8 +147,8 @@ typedef struct {
 /** @defgroup SPI_LL_EC_MODE Operation Mode
  * @{
  */
-#  define LL_SPI_MODE_MASTER    (SPI_CR1_MSTR | SPI_CR1_SSI)/*!< Master configuration  */
-#  define LL_SPI_MODE_SLAVE     0x00000000U					/*!< Slave configuration   */
+#define LL_SPI_MODE_MASTER    (SPI_CR1_MSTR | SPI_CR1_SSI)	/*!< Master configuration  */
+#define LL_SPI_MODE_SLAVE     0x00000000U	/*!< Slave configuration   */
 
 /**
  * @}
@@ -157,8 +157,8 @@ typedef struct {
 /** @defgroup SPI_LL_EC_PROTOCOL Serial Protocol
  * @{
  */
-#  define LL_SPI_PROTOCOL_MOTOROLA    0x00000000U	/*!< Motorola mode. Used as default value */
-#  define LL_SPI_PROTOCOL_TI          (SPI_CR2_FRF)	/*!< TI mode                              */
+#define LL_SPI_PROTOCOL_MOTOROLA    0x00000000U		/*!< Motorola mode. Used as default value */
+#define LL_SPI_PROTOCOL_TI          (SPI_CR2_FRF)	/*!< TI mode                              */
 
 /**
  * @}
@@ -167,8 +167,8 @@ typedef struct {
 /** @defgroup SPI_LL_EC_PHASE Clock Phase
  * @{
  */
-#  define LL_SPI_PHASE_1EDGE    0x00000000U		/*!< First clock transition is the first data capture edge  */
-#  define LL_SPI_PHASE_2EDGE    (SPI_CR1_CPHA)	/*!< Second clock transition is the first data capture edge */
+#define LL_SPI_PHASE_1EDGE    0x00000000U	/*!< First clock transition is the first data capture edge  */
+#define LL_SPI_PHASE_2EDGE    (SPI_CR1_CPHA)/*!< Second clock transition is the first data capture edge */
 
 /**
  * @}
@@ -177,8 +177,8 @@ typedef struct {
 /** @defgroup SPI_LL_EC_POLARITY Clock Polarity
  * @{
  */
-#  define LL_SPI_POLARITY_LOW     0x00000000U	/*!< Clock to 0 when idle */
-#  define LL_SPI_POLARITY_HIGH    (SPI_CR1_CPOL)/*!< Clock to 1 when idle */
+#define LL_SPI_POLARITY_LOW     0x00000000U	/*!< Clock to 0 when idle */
+#define LL_SPI_POLARITY_HIGH    (SPI_CR1_CPOL)	/*!< Clock to 1 when idle */
 
 /**
  * @}
@@ -187,14 +187,14 @@ typedef struct {
 /** @defgroup SPI_LL_EC_BAUDRATEPRESCALER Baud Rate Prescaler
  * @{
  */
-#  define LL_SPI_BAUDRATEPRESCALER_DIV2      0x00000000U									/*!< BaudRate control equal to fPCLK/2   */
-#  define LL_SPI_BAUDRATEPRESCALER_DIV4      (SPI_CR1_BR_0)									/*!< BaudRate control equal to fPCLK/4   */
-#  define LL_SPI_BAUDRATEPRESCALER_DIV8      (SPI_CR1_BR_1)									/*!< BaudRate control equal to fPCLK/8   */
-#  define LL_SPI_BAUDRATEPRESCALER_DIV16     (SPI_CR1_BR_1 | SPI_CR1_BR_0)					/*!< BaudRate control equal to fPCLK/16  */
-#  define LL_SPI_BAUDRATEPRESCALER_DIV32     (SPI_CR1_BR_2)									/*!< BaudRate control equal to fPCLK/32  */
-#  define LL_SPI_BAUDRATEPRESCALER_DIV64     (SPI_CR1_BR_2 | SPI_CR1_BR_0)					/*!< BaudRate control equal to fPCLK/64  */
-#  define LL_SPI_BAUDRATEPRESCALER_DIV128    (SPI_CR1_BR_2 | SPI_CR1_BR_1)					/*!< BaudRate control equal to fPCLK/128 */
-#  define LL_SPI_BAUDRATEPRESCALER_DIV256    (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)	/*!< BaudRate control equal to fPCLK/256 */
+#define LL_SPI_BAUDRATEPRESCALER_DIV2      0x00000000U									/*!< BaudRate control equal to fPCLK/2   */
+#define LL_SPI_BAUDRATEPRESCALER_DIV4      (SPI_CR1_BR_0)								/*!< BaudRate control equal to fPCLK/4   */
+#define LL_SPI_BAUDRATEPRESCALER_DIV8      (SPI_CR1_BR_1)								/*!< BaudRate control equal to fPCLK/8   */
+#define LL_SPI_BAUDRATEPRESCALER_DIV16     (SPI_CR1_BR_1 | SPI_CR1_BR_0)				/*!< BaudRate control equal to fPCLK/16  */
+#define LL_SPI_BAUDRATEPRESCALER_DIV32     (SPI_CR1_BR_2)								/*!< BaudRate control equal to fPCLK/32  */
+#define LL_SPI_BAUDRATEPRESCALER_DIV64     (SPI_CR1_BR_2 | SPI_CR1_BR_0)				/*!< BaudRate control equal to fPCLK/64  */
+#define LL_SPI_BAUDRATEPRESCALER_DIV128    (SPI_CR1_BR_2 | SPI_CR1_BR_1)				/*!< BaudRate control equal to fPCLK/128 */
+#define LL_SPI_BAUDRATEPRESCALER_DIV256    (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)	/*!< BaudRate control equal to fPCLK/256 */
 
 /**
  * @}
@@ -203,8 +203,8 @@ typedef struct {
 /** @defgroup SPI_LL_EC_BIT_ORDER Transmission Bit Order
  * @{
  */
-#  define LL_SPI_LSB_FIRST    (SPI_CR1_LSBFIRST)/*!< Data is transmitted/received with the LSB first */
-#  define LL_SPI_MSB_FIRST    0x00000000U		/*!< Data is transmitted/received with the MSB first */
+#define LL_SPI_LSB_FIRST    (SPI_CR1_LSBFIRST)	/*!< Data is transmitted/received with the LSB first */
+#define LL_SPI_MSB_FIRST    0x00000000U	/*!< Data is transmitted/received with the MSB first */
 
 /**
  * @}
@@ -213,10 +213,10 @@ typedef struct {
 /** @defgroup SPI_LL_EC_TRANSFER_MODE Transfer Mode
  * @{
  */
-#  define LL_SPI_FULL_DUPLEX       0x00000000U							/*!< Full-Duplex mode. Rx and Tx transfer on 2 lines */
-#  define LL_SPI_SIMPLEX_RX        (SPI_CR1_RXONLY)						/*!< Simplex Rx mode.  Rx transfer only on 1 line    */
-#  define LL_SPI_HALF_DUPLEX_RX    (SPI_CR1_BIDIMODE)					/*!< Half-Duplex Rx mode. Rx transfer on 1 line      */
-#  define LL_SPI_HALF_DUPLEX_TX    (SPI_CR1_BIDIMODE | SPI_CR1_BIDIOE)	/*!< Half-Duplex Tx mode. Tx transfer on 1 line      */
+#define LL_SPI_FULL_DUPLEX       0x00000000U						/*!< Full-Duplex mode. Rx and Tx transfer on 2 lines */
+#define LL_SPI_SIMPLEX_RX        (SPI_CR1_RXONLY)					/*!< Simplex Rx mode.  Rx transfer only on 1 line    */
+#define LL_SPI_HALF_DUPLEX_RX    (SPI_CR1_BIDIMODE)					/*!< Half-Duplex Rx mode. Rx transfer on 1 line      */
+#define LL_SPI_HALF_DUPLEX_TX    (SPI_CR1_BIDIMODE | SPI_CR1_BIDIOE)/*!< Half-Duplex Tx mode. Tx transfer on 1 line      */
 
 /**
  * @}
@@ -225,9 +225,9 @@ typedef struct {
 /** @defgroup SPI_LL_EC_NSS_MODE Slave Select Pin Mode
  * @{
  */
-#  define LL_SPI_NSS_SOFT           (SPI_CR1_SSM)						/*!< NSS managed internally. NSS pin not used and free              */
-#  define LL_SPI_NSS_HARD_INPUT     0x00000000U							/*!< NSS pin used in Input. Only used in Master mode                */
-#  define LL_SPI_NSS_HARD_OUTPUT    (((uint32_t) SPI_CR2_SSOE << 16U))	/*!< NSS pin used in Output. Only used in Slave mode as chip select */
+#define LL_SPI_NSS_SOFT           (SPI_CR1_SSM)						/*!< NSS managed internally. NSS pin not used and free              */
+#define LL_SPI_NSS_HARD_INPUT     0x00000000U						/*!< NSS pin used in Input. Only used in Master mode                */
+#define LL_SPI_NSS_HARD_OUTPUT    (((uint32_t) SPI_CR2_SSOE << 16U))/*!< NSS pin used in Output. Only used in Slave mode as chip select */
 
 /**
  * @}
@@ -236,41 +236,41 @@ typedef struct {
 /** @defgroup SPI_LL_EC_DATAWIDTH Datawidth
  * @{
  */
-#  define LL_SPI_DATAWIDTH_4BIT     (SPI_CR2_DS_0 | SPI_CR2_DS_1)								/*!< Data length for SPI transfer:  4 bits */
-#  define LL_SPI_DATAWIDTH_5BIT     (SPI_CR2_DS_2)												/*!< Data length for SPI transfer:  5 bits */
-#  define LL_SPI_DATAWIDTH_6BIT     (SPI_CR2_DS_2 | SPI_CR2_DS_0)								/*!< Data length for SPI transfer:  6 bits */
-#  define LL_SPI_DATAWIDTH_7BIT     (SPI_CR2_DS_2 | SPI_CR2_DS_1)								/*!< Data length for SPI transfer:  7 bits */
-#  define LL_SPI_DATAWIDTH_8BIT     (SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0)				/*!< Data length for SPI transfer:  8 bits */
-#  define LL_SPI_DATAWIDTH_9BIT     (SPI_CR2_DS_3)												/*!< Data length for SPI transfer:  9 bits */
-#  define LL_SPI_DATAWIDTH_10BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_0)								/*!< Data length for SPI transfer: 10 bits */
-#  define LL_SPI_DATAWIDTH_11BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_1)								/*!< Data length for SPI transfer: 11 bits */
-#  define LL_SPI_DATAWIDTH_12BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_1 | SPI_CR2_DS_0)				/*!< Data length for SPI transfer: 12 bits */
-#  define LL_SPI_DATAWIDTH_13BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_2)								/*!< Data length for SPI transfer: 13 bits */
-#  define LL_SPI_DATAWIDTH_14BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_2 | SPI_CR2_DS_0)				/*!< Data length for SPI transfer: 14 bits */
-#  define LL_SPI_DATAWIDTH_15BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_2 | SPI_CR2_DS_1)				/*!< Data length for SPI transfer: 15 bits */
-#  define LL_SPI_DATAWIDTH_16BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0)	/*!< Data length for SPI transfer: 16 bits */
+#define LL_SPI_DATAWIDTH_4BIT     (SPI_CR2_DS_0 | SPI_CR2_DS_1)									/*!< Data length for SPI transfer:  4 bits */
+#define LL_SPI_DATAWIDTH_5BIT     (SPI_CR2_DS_2)												/*!< Data length for SPI transfer:  5 bits */
+#define LL_SPI_DATAWIDTH_6BIT     (SPI_CR2_DS_2 | SPI_CR2_DS_0)									/*!< Data length for SPI transfer:  6 bits */
+#define LL_SPI_DATAWIDTH_7BIT     (SPI_CR2_DS_2 | SPI_CR2_DS_1)									/*!< Data length for SPI transfer:  7 bits */
+#define LL_SPI_DATAWIDTH_8BIT     (SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0)					/*!< Data length for SPI transfer:  8 bits */
+#define LL_SPI_DATAWIDTH_9BIT     (SPI_CR2_DS_3)												/*!< Data length for SPI transfer:  9 bits */
+#define LL_SPI_DATAWIDTH_10BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_0)									/*!< Data length for SPI transfer: 10 bits */
+#define LL_SPI_DATAWIDTH_11BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_1)									/*!< Data length for SPI transfer: 11 bits */
+#define LL_SPI_DATAWIDTH_12BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_1 | SPI_CR2_DS_0)					/*!< Data length for SPI transfer: 12 bits */
+#define LL_SPI_DATAWIDTH_13BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_2)									/*!< Data length for SPI transfer: 13 bits */
+#define LL_SPI_DATAWIDTH_14BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_2 | SPI_CR2_DS_0)					/*!< Data length for SPI transfer: 14 bits */
+#define LL_SPI_DATAWIDTH_15BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_2 | SPI_CR2_DS_1)					/*!< Data length for SPI transfer: 15 bits */
+#define LL_SPI_DATAWIDTH_16BIT    (SPI_CR2_DS_3 | SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0)	/*!< Data length for SPI transfer: 16 bits */
 
 /**
  * @}
  */
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup SPI_LL_EC_CRC_CALCULATION CRC Calculation
  * @{
  */
-#   define LL_SPI_CRCCALCULATION_DISABLE    0x00000000U		/*!< CRC calculation disabled */
-#   define LL_SPI_CRCCALCULATION_ENABLE     (SPI_CR1_CRCEN)	/*!< CRC calculation enabled  */
+#define LL_SPI_CRCCALCULATION_DISABLE    0x00000000U	/*!< CRC calculation disabled */
+#define LL_SPI_CRCCALCULATION_ENABLE     (SPI_CR1_CRCEN)/*!< CRC calculation enabled  */
 
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /** @defgroup SPI_LL_EC_CRC_LENGTH CRC Length
  * @{
  */
-#  define LL_SPI_CRC_8BIT     0x00000000U	/*!<  8-bit CRC length */
-#  define LL_SPI_CRC_16BIT    (SPI_CR1_CRCL)/*!< 16-bit CRC length */
+#define LL_SPI_CRC_8BIT     0x00000000U	/*!<  8-bit CRC length */
+#define LL_SPI_CRC_16BIT    (SPI_CR1_CRCL)	/*!< 16-bit CRC length */
 
 /**
  * @}
@@ -279,8 +279,8 @@ typedef struct {
 /** @defgroup SPI_LL_EC_RX_FIFO_TH RX FIFO Threshold
  * @{
  */
-#  define LL_SPI_RX_FIFO_TH_HALF       0x00000000U		/*!< RXNE event is generated if FIFO level is greater than or equel to 1/2 (16-bit) */
-#  define LL_SPI_RX_FIFO_TH_QUARTER    (SPI_CR2_FRXTH)	/*!< RXNE event is generated if FIFO level is greater than or equel to 1/4 (8-bit)  */
+#define LL_SPI_RX_FIFO_TH_HALF       0x00000000U	/*!< RXNE event is generated if FIFO level is greater than or equel to 1/2 (16-bit) */
+#define LL_SPI_RX_FIFO_TH_QUARTER    (SPI_CR2_FRXTH)/*!< RXNE event is generated if FIFO level is greater than or equel to 1/4 (8-bit)  */
 
 /**
  * @}
@@ -289,10 +289,10 @@ typedef struct {
 /** @defgroup SPI_LL_EC_RX_FIFO RX FIFO Level
  * @{
  */
-#  define LL_SPI_RX_FIFO_EMPTY           0x00000000U						/*!< FIFO reception empty */
-#  define LL_SPI_RX_FIFO_QUARTER_FULL    (SPI_SR_FRLVL_0)					/*!< FIFO reception 1/4   */
-#  define LL_SPI_RX_FIFO_HALF_FULL       (SPI_SR_FRLVL_1)					/*!< FIFO reception 1/2   */
-#  define LL_SPI_RX_FIFO_FULL            (SPI_SR_FRLVL_1 | SPI_SR_FRLVL_0)	/*!< FIFO reception full  */
+#define LL_SPI_RX_FIFO_EMPTY           0x00000000U						/*!< FIFO reception empty */
+#define LL_SPI_RX_FIFO_QUARTER_FULL    (SPI_SR_FRLVL_0)					/*!< FIFO reception 1/4   */
+#define LL_SPI_RX_FIFO_HALF_FULL       (SPI_SR_FRLVL_1)					/*!< FIFO reception 1/2   */
+#define LL_SPI_RX_FIFO_FULL            (SPI_SR_FRLVL_1 | SPI_SR_FRLVL_0)/*!< FIFO reception full  */
 
 /**
  * @}
@@ -301,10 +301,10 @@ typedef struct {
 /** @defgroup SPI_LL_EC_TX_FIFO TX FIFO Level
  * @{
  */
-#  define LL_SPI_TX_FIFO_EMPTY           0x00000000U						/*!< FIFO transmission empty */
-#  define LL_SPI_TX_FIFO_QUARTER_FULL    (SPI_SR_FTLVL_0)					/*!< FIFO transmission 1/4   */
-#  define LL_SPI_TX_FIFO_HALF_FULL       (SPI_SR_FTLVL_1)					/*!< FIFO transmission 1/2   */
-#  define LL_SPI_TX_FIFO_FULL            (SPI_SR_FTLVL_1 | SPI_SR_FTLVL_0)	/*!< FIFO transmission full  */
+#define LL_SPI_TX_FIFO_EMPTY           0x00000000U						/*!< FIFO transmission empty */
+#define LL_SPI_TX_FIFO_QUARTER_FULL    (SPI_SR_FTLVL_0)					/*!< FIFO transmission 1/4   */
+#define LL_SPI_TX_FIFO_HALF_FULL       (SPI_SR_FTLVL_1)					/*!< FIFO transmission 1/2   */
+#define LL_SPI_TX_FIFO_FULL            (SPI_SR_FTLVL_1 | SPI_SR_FTLVL_0)/*!< FIFO transmission full  */
 
 /**
  * @}
@@ -313,8 +313,8 @@ typedef struct {
 /** @defgroup SPI_LL_EC_DMA_PARITY DMA Parity
  * @{
  */
-#  define LL_SPI_DMA_PARITY_EVEN    0x00000000U	/*!< Select DMA parity Even */
-#  define LL_SPI_DMA_PARITY_ODD     0x00000001U	/*!< Select DMA parity Odd  */
+#define LL_SPI_DMA_PARITY_EVEN    0x00000000U	/*!< Select DMA parity Even */
+#define LL_SPI_DMA_PARITY_ODD     0x00000001U	/*!< Select DMA parity Odd  */
 
 /**
  * @}
@@ -341,7 +341,7 @@ typedef struct {
  * @param  __VALUE__ Value to be written in the register
  * @retval None
  */
-#  define LL_SPI_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
+#define LL_SPI_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
 
 /**
  * @brief  Read a value in SPI register
@@ -349,7 +349,7 @@ typedef struct {
  * @param  __REG__ Register to be read
  * @retval Register value
  */
-#  define LL_SPI_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
+#define LL_SPI_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
 
 /**
  * @}
@@ -1375,12 +1375,12 @@ __STATIC_INLINE uint16_t LL_SPI_ReceiveData16(SPI_TypeDef *SPIx)
  */
 __STATIC_INLINE void LL_SPI_TransmitData8(SPI_TypeDef *SPIx, uint8_t TxData)
 {
-	#  if defined(__GNUC__)
+	#if defined(__GNUC__)
 	__IO uint8_t *spidr = ((__IO uint8_t *) &SPIx->DR);
 	*spidr = TxData;
-	#  else
+	#else
 	*((__IO uint8_t *) &SPIx->DR) = TxData;
-	#  endif
+	#endif
 }
 
 /**
@@ -1392,18 +1392,18 @@ __STATIC_INLINE void LL_SPI_TransmitData8(SPI_TypeDef *SPIx, uint8_t TxData)
  */
 __STATIC_INLINE void LL_SPI_TransmitData16(SPI_TypeDef *SPIx, uint16_t TxData)
 {
-	#  if defined(__GNUC__)
+	#if defined(__GNUC__)
 	__IO uint16_t *spidr = ((__IO uint16_t *) &SPIx->DR);
 	*spidr = TxData;
-	#  else
+	#else
 	SPIx->DR = TxData;
-	#  endif
+	#endif
 }
 
 /**
  * @}
  */
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup SPI_LL_EF_Init Initialization and de-initialization functions
  * @{
@@ -1416,7 +1416,7 @@ void        LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct);
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /**
  * @}
@@ -1435,7 +1435,7 @@ void        LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct);
 /* Private macros ------------------------------------------------------------*/
 
 /* Exported types ------------------------------------------------------------*/
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup I2S_LL_ES_INIT I2S Exported Init structure
  * @{
@@ -1485,7 +1485,7 @@ typedef struct {
 /**
  * @}
  */
-#  endif/*USE_FULL_LL_DRIVER*/
+#endif	/*USE_FULL_LL_DRIVER*/
 
 /* Exported constants --------------------------------------------------------*/
 
@@ -1497,12 +1497,12 @@ typedef struct {
  * @brief    Flags defines which can be used with LL_I2S_ReadReg function
  * @{
  */
-#  define LL_I2S_SR_RXNE    LL_SPI_SR_RXNE	/*!< Rx buffer not empty flag         */
-#  define LL_I2S_SR_TXE     LL_SPI_SR_TXE	/*!< Tx buffer empty flag             */
-#  define LL_I2S_SR_BSY     LL_SPI_SR_BSY	/*!< Busy flag                        */
-#  define LL_I2S_SR_UDR     SPI_SR_UDR		/*!< Underrun flag                    */
-#  define LL_I2S_SR_OVR     LL_SPI_SR_OVR	/*!< Overrun flag                     */
-#  define LL_I2S_SR_FRE     LL_SPI_SR_FRE	/*!< TI mode frame format error flag  */
+#define LL_I2S_SR_RXNE    LL_SPI_SR_RXNE/*!< Rx buffer not empty flag         */
+#define LL_I2S_SR_TXE     LL_SPI_SR_TXE	/*!< Tx buffer empty flag             */
+#define LL_I2S_SR_BSY     LL_SPI_SR_BSY	/*!< Busy flag                        */
+#define LL_I2S_SR_UDR     SPI_SR_UDR	/*!< Underrun flag                    */
+#define LL_I2S_SR_OVR     LL_SPI_SR_OVR	/*!< Overrun flag                     */
+#define LL_I2S_SR_FRE     LL_SPI_SR_FRE	/*!< TI mode frame format error flag  */
 
 /**
  * @}
@@ -1512,9 +1512,9 @@ typedef struct {
  * @brief    IT defines which can be used with LL_SPI_ReadReg and  LL_SPI_WriteReg functions
  * @{
  */
-#  define LL_I2S_CR2_RXNEIE    LL_SPI_CR2_RXNEIE/*!< Rx buffer not empty interrupt enable */
-#  define LL_I2S_CR2_TXEIE     LL_SPI_CR2_TXEIE	/*!< Tx buffer empty interrupt enable     */
-#  define LL_I2S_CR2_ERRIE     LL_SPI_CR2_ERRIE	/*!< Error interrupt enable               */
+#define LL_I2S_CR2_RXNEIE    LL_SPI_CR2_RXNEIE	/*!< Rx buffer not empty interrupt enable */
+#define LL_I2S_CR2_TXEIE     LL_SPI_CR2_TXEIE	/*!< Tx buffer empty interrupt enable     */
+#define LL_I2S_CR2_ERRIE     LL_SPI_CR2_ERRIE	/*!< Error interrupt enable               */
 
 /**
  * @}
@@ -1523,10 +1523,10 @@ typedef struct {
 /** @defgroup I2S_LL_EC_DATA_FORMAT Data format
  * @{
  */
-#  define LL_I2S_DATAFORMAT_16B             0x00000000U									/*!< Data length 16 bits, Channel lenght 16bit */
-#  define LL_I2S_DATAFORMAT_16B_EXTENDED    (SPI_I2SCFGR_CHLEN)							/*!< Data length 16 bits, Channel lenght 32bit */
-#  define LL_I2S_DATAFORMAT_24B             (SPI_I2SCFGR_CHLEN | SPI_I2SCFGR_DATLEN_0)	/*!< Data length 24 bits, Channel lenght 32bit */
-#  define LL_I2S_DATAFORMAT_32B             (SPI_I2SCFGR_CHLEN | SPI_I2SCFGR_DATLEN_1)	/*!< Data length 16 bits, Channel lenght 32bit */
+#define LL_I2S_DATAFORMAT_16B             0x00000000U								/*!< Data length 16 bits, Channel lenght 16bit */
+#define LL_I2S_DATAFORMAT_16B_EXTENDED    (SPI_I2SCFGR_CHLEN)						/*!< Data length 16 bits, Channel lenght 32bit */
+#define LL_I2S_DATAFORMAT_24B             (SPI_I2SCFGR_CHLEN | SPI_I2SCFGR_DATLEN_0)/*!< Data length 24 bits, Channel lenght 32bit */
+#define LL_I2S_DATAFORMAT_32B             (SPI_I2SCFGR_CHLEN | SPI_I2SCFGR_DATLEN_1)/*!< Data length 16 bits, Channel lenght 32bit */
 
 /**
  * @}
@@ -1535,8 +1535,8 @@ typedef struct {
 /** @defgroup I2S_LL_EC_POLARITY Clock Polarity
  * @{
  */
-#  define LL_I2S_POLARITY_LOW     0x00000000U			/*!< Clock steady state is low level  */
-#  define LL_I2S_POLARITY_HIGH    (SPI_I2SCFGR_CKPOL)	/*!< Clock steady state is high level */
+#define LL_I2S_POLARITY_LOW     0x00000000U			/*!< Clock steady state is low level  */
+#define LL_I2S_POLARITY_HIGH    (SPI_I2SCFGR_CKPOL)	/*!< Clock steady state is high level */
 
 /**
  * @}
@@ -1545,11 +1545,11 @@ typedef struct {
 /** @defgroup I2S_LL_EC_STANDARD I2s Standard
  * @{
  */
-#  define LL_I2S_STANDARD_PHILIPS      0x00000000U															/*!< I2S standard philips                      */
-#  define LL_I2S_STANDARD_MSB          (SPI_I2SCFGR_I2SSTD_0)												/*!< MSB justified standard (left justified)   */
-#  define LL_I2S_STANDARD_LSB          (SPI_I2SCFGR_I2SSTD_1)												/*!< LSB justified standard (right justified)  */
-#  define LL_I2S_STANDARD_PCM_SHORT    (SPI_I2SCFGR_I2SSTD_0 | SPI_I2SCFGR_I2SSTD_1)						/*!< PCM standard, short frame synchronization */
-#  define LL_I2S_STANDARD_PCM_LONG     (SPI_I2SCFGR_I2SSTD_0 | SPI_I2SCFGR_I2SSTD_1 | SPI_I2SCFGR_PCMSYNC)	/*!< PCM standard, long frame synchronization  */
+#define LL_I2S_STANDARD_PHILIPS      0x00000000U														/*!< I2S standard philips                      */
+#define LL_I2S_STANDARD_MSB          (SPI_I2SCFGR_I2SSTD_0)												/*!< MSB justified standard (left justified)   */
+#define LL_I2S_STANDARD_LSB          (SPI_I2SCFGR_I2SSTD_1)												/*!< LSB justified standard (right justified)  */
+#define LL_I2S_STANDARD_PCM_SHORT    (SPI_I2SCFGR_I2SSTD_0 | SPI_I2SCFGR_I2SSTD_1)						/*!< PCM standard, short frame synchronization */
+#define LL_I2S_STANDARD_PCM_LONG     (SPI_I2SCFGR_I2SSTD_0 | SPI_I2SCFGR_I2SSTD_1 | SPI_I2SCFGR_PCMSYNC)/*!< PCM standard, long frame synchronization  */
 
 /**
  * @}
@@ -1558,10 +1558,10 @@ typedef struct {
 /** @defgroup I2S_LL_EC_MODE Operation Mode
  * @{
  */
-#  define LL_I2S_MODE_SLAVE_TX     0x00000000U									/*!< Slave Tx configuration  */
-#  define LL_I2S_MODE_SLAVE_RX     (SPI_I2SCFGR_I2SCFG_0)						/*!< Slave Rx configuration  */
-#  define LL_I2S_MODE_MASTER_TX    (SPI_I2SCFGR_I2SCFG_1)						/*!< Master Tx configuration */
-#  define LL_I2S_MODE_MASTER_RX    (SPI_I2SCFGR_I2SCFG_0 | SPI_I2SCFGR_I2SCFG_1)/*!< Master Rx configuration */
+#define LL_I2S_MODE_SLAVE_TX     0x00000000U			/*!< Slave Tx configuration  */
+#define LL_I2S_MODE_SLAVE_RX     (SPI_I2SCFGR_I2SCFG_0)	/*!< Slave Rx configuration  */
+#define LL_I2S_MODE_MASTER_TX    (SPI_I2SCFGR_I2SCFG_1)	/*!< Master Tx configuration */
+#define LL_I2S_MODE_MASTER_RX    (SPI_I2SCFGR_I2SCFG_0 | SPI_I2SCFGR_I2SCFG_1)	/*!< Master Rx configuration */
 
 /**
  * @}
@@ -1570,20 +1570,20 @@ typedef struct {
 /** @defgroup I2S_LL_EC_PRESCALER_FACTOR Prescaler Factor
  * @{
  */
-#  define LL_I2S_PRESCALER_PARITY_EVEN    0x00000000U			/*!< Odd factor: Real divider value is =  I2SDIV * 2    */
-#  define LL_I2S_PRESCALER_PARITY_ODD     (SPI_I2SPR_ODD >> 8U)	/*!< Odd factor: Real divider value is = (I2SDIV * 2)+1 */
+#define LL_I2S_PRESCALER_PARITY_EVEN    0x00000000U				/*!< Odd factor: Real divider value is =  I2SDIV * 2    */
+#define LL_I2S_PRESCALER_PARITY_ODD     (SPI_I2SPR_ODD >> 8U)	/*!< Odd factor: Real divider value is = (I2SDIV * 2)+1 */
 
 /**
  * @}
  */
 
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup I2S_LL_EC_MCLK_OUTPUT MCLK Output
  * @{
  */
-#   define LL_I2S_MCLK_OUTPUT_DISABLE    0x00000000U		/*!< Master clock output is disabled */
-#   define LL_I2S_MCLK_OUTPUT_ENABLE     (SPI_I2SPR_MCKOE)	/*!< Master clock output is enabled  */
+#define LL_I2S_MCLK_OUTPUT_DISABLE    0x00000000U		/*!< Master clock output is disabled */
+#define LL_I2S_MCLK_OUTPUT_ENABLE     (SPI_I2SPR_MCKOE)	/*!< Master clock output is enabled  */
 
 /**
  * @}
@@ -1593,21 +1593,21 @@ typedef struct {
  * @{
  */
 
-#   define LL_I2S_AUDIOFREQ_192K       192000U	/*!< Audio Frequency configuration 192000 Hz       */
-#   define LL_I2S_AUDIOFREQ_96K        96000U	/*!< Audio Frequency configuration  96000 Hz       */
-#   define LL_I2S_AUDIOFREQ_48K        48000U	/*!< Audio Frequency configuration  48000 Hz       */
-#   define LL_I2S_AUDIOFREQ_44K        44100U	/*!< Audio Frequency configuration  44100 Hz       */
-#   define LL_I2S_AUDIOFREQ_32K        32000U	/*!< Audio Frequency configuration  32000 Hz       */
-#   define LL_I2S_AUDIOFREQ_22K        22050U	/*!< Audio Frequency configuration  22050 Hz       */
-#   define LL_I2S_AUDIOFREQ_16K        16000U	/*!< Audio Frequency configuration  16000 Hz       */
-#   define LL_I2S_AUDIOFREQ_11K        11025U	/*!< Audio Frequency configuration  11025 Hz       */
-#   define LL_I2S_AUDIOFREQ_8K         8000U	/*!< Audio Frequency configuration   8000 Hz       */
-#   define LL_I2S_AUDIOFREQ_DEFAULT    2U		/*!< Audio Freq not specified. Register I2SDIV = 2 */
+#define LL_I2S_AUDIOFREQ_192K       192000U	/*!< Audio Frequency configuration 192000 Hz       */
+#define LL_I2S_AUDIOFREQ_96K        96000U	/*!< Audio Frequency configuration  96000 Hz       */
+#define LL_I2S_AUDIOFREQ_48K        48000U	/*!< Audio Frequency configuration  48000 Hz       */
+#define LL_I2S_AUDIOFREQ_44K        44100U	/*!< Audio Frequency configuration  44100 Hz       */
+#define LL_I2S_AUDIOFREQ_32K        32000U	/*!< Audio Frequency configuration  32000 Hz       */
+#define LL_I2S_AUDIOFREQ_22K        22050U	/*!< Audio Frequency configuration  22050 Hz       */
+#define LL_I2S_AUDIOFREQ_16K        16000U	/*!< Audio Frequency configuration  16000 Hz       */
+#define LL_I2S_AUDIOFREQ_11K        11025U	/*!< Audio Frequency configuration  11025 Hz       */
+#define LL_I2S_AUDIOFREQ_8K         8000U	/*!< Audio Frequency configuration   8000 Hz       */
+#define LL_I2S_AUDIOFREQ_DEFAULT    2U		/*!< Audio Freq not specified. Register I2SDIV = 2 */
 
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /**
  * @}
@@ -1630,7 +1630,7 @@ typedef struct {
  * @param  __VALUE__ Value to be written in the register
  * @retval None
  */
-#  define LL_I2S_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
+#define LL_I2S_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
 
 /**
  * @brief  Read a value in I2S register
@@ -1638,7 +1638,7 @@ typedef struct {
  * @param  __REG__ Register to be read
  * @retval Register value
  */
-#  define LL_I2S_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
+#define LL_I2S_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
 
 /**
  * @}
@@ -1902,7 +1902,7 @@ __STATIC_INLINE uint32_t LL_I2S_IsEnabledMasterClock(SPI_TypeDef *SPIx)
 	return ((READ_BIT(SPIx->I2SPR, SPI_I2SPR_MCKOE) == (SPI_I2SPR_MCKOE)) ? 1UL : 0UL);
 }
 
-#  if defined(SPI_I2SCFGR_ASTRTEN)
+#if defined(SPI_I2SCFGR_ASTRTEN)
 
 /**
  * @brief  Enable asynchronous start
@@ -1937,7 +1937,7 @@ __STATIC_INLINE uint32_t LL_I2S_IsEnabledAsyncStart(SPI_TypeDef *SPIx)
 	return ((READ_BIT(SPIx->I2SCFGR, SPI_I2SCFGR_ASTRTEN) == (SPI_I2SCFGR_ASTRTEN)) ? 1UL : 0UL);
 }
 
-#  endif/* SPI_I2SCFGR_ASTRTEN */
+#endif	/* SPI_I2SCFGR_ASTRTEN */
 
 /**
  * @}
@@ -2280,7 +2280,7 @@ __STATIC_INLINE void LL_I2S_TransmitData16(SPI_TypeDef *SPIx, uint16_t TxData)
  * @}
  */
 
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup I2S_LL_EF_Init Initialization and de-initialization functions
  * @{
@@ -2294,7 +2294,7 @@ void        LL_I2S_ConfigPrescaler(SPI_TypeDef *SPIx, uint32_t PrescalerLinear, 
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /**
  * @}
@@ -2304,15 +2304,15 @@ void        LL_I2S_ConfigPrescaler(SPI_TypeDef *SPIx, uint32_t PrescalerLinear, 
  * @}
  */
 
-# endif	/* defined (SPI1) || defined (SPI2) || defined (SPI3) || defined (SPI4) || defined (SPI5) || defined(SPI6) */
+#endif	/* defined (SPI1) || defined (SPI2) || defined (SPI3) || defined (SPI4) || defined (SPI5) || defined(SPI6) */
 
 /**
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* STM32F7xx_LL_SPI_H */
 

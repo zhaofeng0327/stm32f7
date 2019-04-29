@@ -4253,14 +4253,14 @@ arm_status arm_rfft_init_f32(
 	if (S->ifftFlagR) {
 		/* Initializes the CIFFT Module for fftLenreal/2 length */
 		arm_cfft_radix4_init_f32(S->pCfft, S->fftLenBy2, 1U, 0U);
-	} else   {
+	} else {
 		/* Initializes the CFFT Module for fftLenreal/2 length */
 		arm_cfft_radix4_init_f32(S->pCfft, S->fftLenBy2, 0U, 0U);
 	}
 
 	/* return the status of RFFT Init function */
 	return (status);
-} /* arm_rfft_init_f32 */
+}	/* arm_rfft_init_f32 */
 
 /**
  * @} end of RealFFT group

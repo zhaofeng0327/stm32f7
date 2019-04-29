@@ -95,7 +95,7 @@ void arm_conv_q15(
 
 		/* Initialization of inputB pointer */
 		pIn2 = pSrcB;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = pSrcB;
 
@@ -351,15 +351,15 @@ void arm_conv_q15(
 				/* Read y[srcBLen - 5] */
 				c0 = *(py + 1);
 
-				# ifdef  ARM_MATH_BIG_ENDIAN
+				#ifdef  ARM_MATH_BIG_ENDIAN
 
 				c0 = c0 << 16U;
 
-				# else
+				#else
 
 				c0 = c0 & 0x0000FFFF;
 
-				# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+				#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 				/* Read x[7] */
 				x3 = *__SIMD32(px);
 				px++;
@@ -407,13 +407,13 @@ void arm_conv_q15(
 
 				c0 = *(py - 1);
 
-				# ifdef  ARM_MATH_BIG_ENDIAN
+				#ifdef  ARM_MATH_BIG_ENDIAN
 
 				c0 = c0 << 16U;
-				# else
+				#else
 
 				c0 = c0 & 0x0000FFFF;
-				# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+				#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 				/* Read x[10] */
 				x3  = _SIMD32_OFFSET(px + 2);
 				px += 3U;
@@ -428,21 +428,21 @@ void arm_conv_q15(
 
 			/* Store the results in the accumulators in the destination buffer. */
 
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			*__SIMD32(pOut)++ =
 			  __PKHBT(__SSAT((acc0 >> 15), 16), __SSAT((acc1 >> 15), 16), 16);
 			*__SIMD32(pOut)++ =
 			  __PKHBT(__SSAT((acc2 >> 15), 16), __SSAT((acc3 >> 15), 16), 16);
 
-			# else
+			#else
 
 			*__SIMD32(pOut)++ =
 			  __PKHBT(__SSAT((acc1 >> 15), 16), __SSAT((acc0 >> 15), 16), 16);
 			*__SIMD32(pOut)++ =
 			  __PKHBT(__SSAT((acc3 >> 15), 16), __SSAT((acc2 >> 15), 16), 16);
 
-			# endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
+			#endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 			/* Increment the pointer pIn1 index, count by 4 */
 			count += 4U;
@@ -504,7 +504,7 @@ void arm_conv_q15(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* If the srcBLen is not a multiple of 4,
 		 * the blockSize2 loop cannot be unrolled by 4 */
 		blkCnt = blockSize2;
@@ -660,14 +660,14 @@ void arm_conv_q15(
 		blockSize3--;
 	}
 
-	#else  /* if (defined(ARM_MATH_CM7) || defined(ARM_MATH_CM4) || defined(ARM_MATH_CM3)) && !defined(UNALIGNED_SUPPORT_DISABLE) */
+	#else	/* if (defined(ARM_MATH_CM7) || defined(ARM_MATH_CM4) || defined(ARM_MATH_CM3)) && !defined(UNALIGNED_SUPPORT_DISABLE) */
 
 	/* Run the below code for Cortex-M0 */
 
 	q15_t *pIn1 = pSrcA;/* input pointer */
 	q15_t *pIn2 = pSrcB;/* coefficient pointer */
-	q63_t sum;			/* Accumulator */
-	uint32_t i, j;		/* loop counter */
+	q63_t sum;		/* Accumulator */
+	uint32_t i, j;	/* loop counter */
 
 	/* Loop to calculate output of convolution for output length number of times */
 	for (i = 0; i < (srcALen + srcBLen - 1); i++) {
@@ -688,7 +688,7 @@ void arm_conv_q15(
 	}
 
 	#endif	/* #if (defined(ARM_MATH_CM7) || defined(ARM_MATH_CM4) || defined(ARM_MATH_CM3)) && !defined(UNALIGNED_SUPPORT_DISABLE) */
-} /* arm_conv_q15 */
+}	/* arm_conv_q15 */
 
 /**
  * @} end of Conv group

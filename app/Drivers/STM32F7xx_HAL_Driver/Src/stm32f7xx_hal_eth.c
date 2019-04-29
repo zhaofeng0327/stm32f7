@@ -139,7 +139,7 @@
  */
 
 #ifdef HAL_ETH_MODULE_ENABLED
-# if defined(ETH)
+#if defined(ETH)
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -147,9 +147,9 @@
 /** @defgroup ETH_Private_Constants ETH Private Constants
  * @{
  */
-#  define ETH_TIMEOUT_SWRESET               ((uint32_t) 500)
-#  define ETH_TIMEOUT_LINKED_STATE          ((uint32_t) 5000)
-#  define ETH_TIMEOUT_AUTONEGO_COMPLETED    ((uint32_t) 5000)
+#define ETH_TIMEOUT_SWRESET               ((uint32_t) 500)
+#define ETH_TIMEOUT_LINKED_STATE          ((uint32_t) 5000)
+#define ETH_TIMEOUT_AUTONEGO_COMPLETED    ((uint32_t) 5000)
 
 /**
  * @}
@@ -172,9 +172,9 @@ static void ETH_DMATransmissionDisable(ETH_HandleTypeDef *heth);
 static void ETH_DMAReceptionEnable(ETH_HandleTypeDef *heth);
 static void ETH_DMAReceptionDisable(ETH_HandleTypeDef *heth);
 static void ETH_FlushTransmitFIFO(ETH_HandleTypeDef *heth);
-#  if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
 static void ETH_InitCallbacksToDefault(ETH_HandleTypeDef *heth);
-#  endif/* USE_HAL_ETH_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_ETH_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -228,7 +228,7 @@ HAL_StatusTypeDef HAL_ETH_Init(ETH_HandleTypeDef *heth)
 	if (heth->State == HAL_ETH_STATE_RESET) {
 		/* Allocate lock resource and initialize it */
 		heth->Lock = HAL_UNLOCKED;
-		#  if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
 		ETH_InitCallbacksToDefault(heth);
 
 		if (heth->MspInitCallback == NULL) {
@@ -237,10 +237,10 @@ HAL_StatusTypeDef HAL_ETH_Init(ETH_HandleTypeDef *heth)
 		}
 		heth->MspInitCallback(heth);
 
-		#  else
+		#else
 		/* Init the low level hardware : GPIO, CLOCK, NVIC. */
 		HAL_ETH_MspInit(heth);
-		#  endif/* USE_HAL_ETH_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_ETH_REGISTER_CALLBACKS */
 	}
 
 	/* Enable SYSCFG Clock */
@@ -453,7 +453,7 @@ HAL_StatusTypeDef HAL_ETH_Init(ETH_HandleTypeDef *heth)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ETH_Init */
+}	/* HAL_ETH_Init */
 
 /**
  * @brief  De-Initializes the ETH peripheral.
@@ -466,16 +466,16 @@ HAL_StatusTypeDef HAL_ETH_DeInit(ETH_HandleTypeDef *heth)
 	/* Set the ETH peripheral state to BUSY */
 	heth->State = HAL_ETH_STATE_BUSY;
 
-	#  if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
 	if (heth->MspDeInitCallback == NULL) {
 		heth->MspDeInitCallback = HAL_ETH_MspDeInit;
 	}
 	/* De-Init the low level hardware : GPIO, CLOCK, NVIC. */
 	heth->MspDeInitCallback(heth);
-	#  else
+	#else
 	/* De-Init the low level hardware : GPIO, CLOCK, NVIC. */
 	HAL_ETH_MspDeInit(heth);
-	#  endif
+	#endif
 
 	/* Set ETH HAL state to Disabled */
 	heth->State = HAL_ETH_STATE_RESET;
@@ -548,7 +548,7 @@ HAL_StatusTypeDef HAL_ETH_DMATxDescListInit(ETH_HandleTypeDef *heth, ETH_DMADesc
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ETH_DMATxDescListInit */
+}	/* HAL_ETH_DMATxDescListInit */
 
 /**
  * @brief  Initializes the DMA Rx descriptors in chain mode.
@@ -614,7 +614,7 @@ HAL_StatusTypeDef HAL_ETH_DMARxDescListInit(ETH_HandleTypeDef *heth, ETH_DMADesc
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ETH_DMARxDescListInit */
+}	/* HAL_ETH_DMARxDescListInit */
 
 /**
  * @brief  Initializes the ETH MSP.
@@ -648,7 +648,7 @@ __weak void HAL_ETH_MspDeInit(ETH_HandleTypeDef *heth)
 	 */
 }
 
-#  if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User ETH Callback
@@ -726,7 +726,7 @@ HAL_StatusTypeDef HAL_ETH_RegisterCallback(ETH_HandleTypeDef *heth, HAL_ETH_Call
 	__HAL_UNLOCK(heth);
 
 	return status;
-} /* HAL_ETH_RegisterCallback */
+}	/* HAL_ETH_RegisterCallback */
 
 /**
  * @brief  Unregister an ETH Callback
@@ -799,9 +799,9 @@ HAL_StatusTypeDef HAL_ETH_UnRegisterCallback(ETH_HandleTypeDef *heth, HAL_ETH_Ca
 	__HAL_UNLOCK(heth);
 
 	return status;
-} /* HAL_ETH_UnRegisterCallback */
+}	/* HAL_ETH_UnRegisterCallback */
 
-#  endif/* USE_HAL_ETH_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_ETH_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -929,7 +929,7 @@ HAL_StatusTypeDef HAL_ETH_TransmitFrame(ETH_HandleTypeDef *heth, uint32_t FrameL
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ETH_TransmitFrame */
+}	/* HAL_ETH_TransmitFrame */
 
 /**
  * @brief  Checks for received frames.
@@ -1004,7 +1004,7 @@ HAL_StatusTypeDef HAL_ETH_GetReceivedFrame(ETH_HandleTypeDef *heth)
 
 	/* Return function status */
 	return HAL_ERROR;
-} /* HAL_ETH_GetReceivedFrame */
+}	/* HAL_ETH_GetReceivedFrame */
 
 /**
  * @brief  Gets the Received frame in interrupt mode.
@@ -1085,7 +1085,7 @@ HAL_StatusTypeDef HAL_ETH_GetReceivedFrame_IT(ETH_HandleTypeDef *heth)
 
 	/* Return function status */
 	return HAL_ERROR;
-} /* HAL_ETH_GetReceivedFrame_IT */
+}	/* HAL_ETH_GetReceivedFrame_IT */
 
 /**
  * @brief  This function handles ETH interrupt request.
@@ -1097,13 +1097,13 @@ void HAL_ETH_IRQHandler(ETH_HandleTypeDef *heth)
 {
 	/* Frame received */
 	if (__HAL_ETH_DMA_GET_FLAG(heth, ETH_DMA_FLAG_R)) {
-		#  if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
 		/*Call registered Receive complete callback*/
 		heth->RxCpltCallback(heth);
-		#  else
+		#else
 		/* Receive complete callback */
 		HAL_ETH_RxCpltCallback(heth);
-		#  endif/* USE_HAL_ETH_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_ETH_REGISTER_CALLBACKS */
 
 		/* Clear the Eth DMA Rx IT pending bits */
 		__HAL_ETH_DMA_CLEAR_IT(heth, ETH_DMA_IT_R);
@@ -1116,13 +1116,13 @@ void HAL_ETH_IRQHandler(ETH_HandleTypeDef *heth)
 	}
 	/* Frame transmitted */
 	else if (__HAL_ETH_DMA_GET_FLAG(heth, ETH_DMA_FLAG_T)) {
-		#  if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
 		/*  Call resgistered Transfer complete callback*/
 		heth->TxCpltCallback(heth);
-		#  else
+		#else
 		/* Transfer complete callback */
 		HAL_ETH_TxCpltCallback(heth);
-		#  endif/* USE_HAL_ETH_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_ETH_REGISTER_CALLBACKS */
 
 		/* Clear the Eth DMA Tx IT pending bits */
 		__HAL_ETH_DMA_CLEAR_IT(heth, ETH_DMA_IT_T);
@@ -1139,12 +1139,12 @@ void HAL_ETH_IRQHandler(ETH_HandleTypeDef *heth)
 
 	/* ETH DMA Error */
 	if (__HAL_ETH_DMA_GET_FLAG(heth, ETH_DMA_FLAG_AIS)) {
-		#  if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
 		heth->DMAErrorCallback(heth);
-		#  else
+		#else
 		/* Ethernet Error callback */
 		HAL_ETH_ErrorCallback(heth);
-		#  endif/* USE_HAL_ETH_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_ETH_REGISTER_CALLBACKS */
 
 		/* Clear the interrupt flags */
 		__HAL_ETH_DMA_CLEAR_IT(heth, ETH_DMA_FLAG_AIS);
@@ -1155,7 +1155,7 @@ void HAL_ETH_IRQHandler(ETH_HandleTypeDef *heth)
 		/* Process Unlocked */
 		__HAL_UNLOCK(heth);
 	}
-} /* HAL_ETH_IRQHandler */
+}	/* HAL_ETH_IRQHandler */
 
 /**
  * @brief  Tx Transfer completed callbacks.
@@ -1273,7 +1273,7 @@ HAL_StatusTypeDef HAL_ETH_ReadPHYRegister(ETH_HandleTypeDef *heth, uint16_t PHYR
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ETH_ReadPHYRegister */
+}	/* HAL_ETH_ReadPHYRegister */
 
 /**
  * @brief  Writes to a PHY register.
@@ -1342,7 +1342,7 @@ HAL_StatusTypeDef HAL_ETH_WritePHYRegister(ETH_HandleTypeDef *heth, uint16_t PHY
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ETH_WritePHYRegister */
+}	/* HAL_ETH_WritePHYRegister */
 
 /**
  * @}
@@ -1609,7 +1609,7 @@ HAL_StatusTypeDef HAL_ETH_ConfigMAC(ETH_HandleTypeDef *heth, ETH_MACInitTypeDef 
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ETH_ConfigMAC */
+}	/* HAL_ETH_ConfigMAC */
 
 /**
  * @brief  Sets ETH DMA Configuration.
@@ -1695,7 +1695,7 @@ HAL_StatusTypeDef HAL_ETH_ConfigDMA(ETH_HandleTypeDef *heth, ETH_DMAInitTypeDef 
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ETH_ConfigDMA */
+}	/* HAL_ETH_ConfigDMA */
 
 /**
  * @}
@@ -1993,7 +1993,7 @@ static void ETH_MACDMAConfig(ETH_HandleTypeDef *heth, uint32_t err)
 
 	/* Initialize MAC address in ethernet MAC */
 	ETH_MACAddressConfig(heth, ETH_MAC_ADDRESS0, heth->Init.MACAddr);
-} /* ETH_MACDMAConfig */
+}	/* ETH_MACDMAConfig */
 
 /**
  * @brief  Configures the selected MAC address.
@@ -2174,7 +2174,7 @@ static void ETH_FlushTransmitFIFO(ETH_HandleTypeDef *heth)
 	(heth->Instance)->DMAOMR = tmpreg;
 }
 
-#  if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
 static void ETH_InitCallbacksToDefault(ETH_HandleTypeDef *heth)
 {
 	/* Init the ETH Callback settings */
@@ -2183,13 +2183,13 @@ static void ETH_InitCallbacksToDefault(ETH_HandleTypeDef *heth)
 	heth->DMAErrorCallback = HAL_ETH_ErrorCallback;	/* Legacy weak DMAErrorCallback */
 }
 
-#  endif/* USE_HAL_ETH_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_ETH_REGISTER_CALLBACKS */
 
 /**
  * @}
  */
 
-# endif	/* ETH */
+#endif	/* ETH */
 #endif	/* HAL_ETH_MODULE_ENABLED */
 
 /**

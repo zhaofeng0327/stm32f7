@@ -53,7 +53,7 @@ typedef struct JTEST_FW_struct {
  *  a different name.
  */
 #ifndef JTEST_FW
-# define JTEST_FW    JTEST_FW
+#define JTEST_FW    JTEST_FW
 #endif
 
 /**
@@ -63,7 +63,7 @@ typedef struct JTEST_FW_struct {
  *  a different name.
  */
 #ifndef JTEST_FW_STR_BUFFER
-# define JTEST_FW_STR_BUFFER    JTEST_FW_STR_BUFFER
+#define JTEST_FW_STR_BUFFER    JTEST_FW_STR_BUFFER
 #endif
 
 /**

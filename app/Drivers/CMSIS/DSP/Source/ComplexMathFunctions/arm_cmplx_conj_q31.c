@@ -57,7 +57,7 @@ void arm_cmplx_conj_q31(
 	uint32_t numSamples)
 {
 	uint32_t blkCnt;/* loop counter */
-	q31_t in;		/* Input value */
+	q31_t in;	/* Input value */
 
 	#if defined(ARM_MATH_DSP)
 
@@ -142,7 +142,7 @@ void arm_cmplx_conj_q31(
 	** No loop unrolling is used. */
 	blkCnt = numSamples % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 	blkCnt = numSamples;
@@ -161,7 +161,7 @@ void arm_cmplx_conj_q31(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_cmplx_conj_q31 */
+}	/* arm_cmplx_conj_q31 */
 
 /**
  * @} end of cmplx_conj group

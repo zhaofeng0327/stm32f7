@@ -77,7 +77,7 @@ arm_status arm_fir_interpolate_init_q31(
 	if ((numTaps % L) != 0U) {
 		/* Set status as ARM_MATH_LENGTH_ERROR */
 		status = ARM_MATH_LENGTH_ERROR;
-	} else   {
+	} else {
 		/* Assign coefficient pointer */
 		S->pCoeffs = pCoeffs;
 

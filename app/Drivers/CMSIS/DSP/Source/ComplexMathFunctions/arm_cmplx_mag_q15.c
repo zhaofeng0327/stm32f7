@@ -109,7 +109,7 @@ void arm_cmplx_mag_q15(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 	q15_t real, imag;	/* Temporary variables to hold input values */
@@ -130,7 +130,7 @@ void arm_cmplx_mag_q15(
 	}
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_cmplx_mag_q15 */
+}	/* arm_cmplx_mag_q15 */
 
 /**
  * @} end of cmplx_mag group

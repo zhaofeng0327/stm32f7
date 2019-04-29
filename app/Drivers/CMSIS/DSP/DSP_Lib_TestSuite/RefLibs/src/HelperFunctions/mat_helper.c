@@ -7,7 +7,7 @@ float32_t ref_detrm(float32_t *pSrc, float32_t *temp, uint32_t size)
 
 	if (size == 1) {
 		return ( pSrc[ 0 ] );
-	} else   {
+	} else {
 		det = 0;
 
 		for (c = 0; c < size; c++) {
@@ -23,7 +23,7 @@ float32_t ref_detrm(float32_t *pSrc, float32_t *temp, uint32_t size)
 
 						if (n < ( size - 2 ) ) {
 							n++;
-						} else   {
+						} else {
 							n = 0;
 							m++;
 						}
@@ -37,7 +37,7 @@ float32_t ref_detrm(float32_t *pSrc, float32_t *temp, uint32_t size)
 	}
 
 	return ( det );
-} /* ref_detrm */
+}	/* ref_detrm */
 
 void ref_cofact(float32_t *pSrc, float32_t *pDst, float32_t *temp, uint32_t size)
 {
@@ -62,7 +62,7 @@ void ref_cofact(float32_t *pSrc, float32_t *pDst, float32_t *temp, uint32_t size
 
 						if (n < ( size - 2 ) ) {
 							n++;
-						} else                     {
+						} else {
 							n = 0;
 							m++;
 						}
@@ -73,7 +73,7 @@ void ref_cofact(float32_t *pSrc, float32_t *pDst, float32_t *temp, uint32_t size
 			pDst[ q * size + p ] = ref_pow(-1, q + p) * ref_detrm(temp, temp + (size - 1) * (size - 1), size - 1);
 		}
 	}
-} /* ref_cofact */
+}	/* ref_cofact */
 
 float64_t ref_detrm64(float64_t *pSrc, float64_t *temp, uint32_t size)
 {
@@ -82,7 +82,7 @@ float64_t ref_detrm64(float64_t *pSrc, float64_t *temp, uint32_t size)
 
 	if (size == 1) {
 		return ( pSrc[ 0 ] );
-	} else   {
+	} else {
 		det = 0;
 
 		for (c = 0; c < size; c++) {
@@ -98,7 +98,7 @@ float64_t ref_detrm64(float64_t *pSrc, float64_t *temp, uint32_t size)
 
 						if (n < ( size - 2 ) ) {
 							n++;
-						} else   {
+						} else {
 							n = 0;
 							m++;
 						}
@@ -112,7 +112,7 @@ float64_t ref_detrm64(float64_t *pSrc, float64_t *temp, uint32_t size)
 	}
 
 	return ( det );
-} /* ref_detrm64 */
+}	/* ref_detrm64 */
 
 void ref_cofact64(float64_t *pSrc, float64_t *pDst, float64_t *temp, uint32_t size)
 {
@@ -137,7 +137,7 @@ void ref_cofact64(float64_t *pSrc, float64_t *pDst, float64_t *temp, uint32_t si
 
 						if (n < ( size - 2 ) ) {
 							n++;
-						} else                     {
+						} else {
 							n = 0;
 							m++;
 						}
@@ -148,4 +148,4 @@ void ref_cofact64(float64_t *pSrc, float64_t *pDst, float64_t *temp, uint32_t si
 			pDst[ q * size + p ] = ref_pow(-1, q + p) * ref_detrm64(temp, temp + (size - 1) * (size - 1), size - 1);
 		}
 	}
-} /* ref_cofact64 */
+}	/* ref_cofact64 */

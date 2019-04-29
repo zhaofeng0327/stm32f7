@@ -448,7 +448,7 @@ void arm_biquad_cas_df1_32x64_q31(
 		*pState++ = Yn2;
 	} while (--stage);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -537,7 +537,7 @@ void arm_biquad_cas_df1_32x64_q31(
 	} while (--stage);
 
 	#endif	/*    #if defined (ARM_MATH_DSP)     */
-} /* arm_biquad_cas_df1_32x64_q31 */
+}	/* arm_biquad_cas_df1_32x64_q31 */
 
 /**
  * @} end of BiquadCascadeDF1_32x64 group

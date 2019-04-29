@@ -19,12 +19,12 @@
 #include "ref_functions.h"
 
 void arm_fully_connected_mat_q7_vec_q15_ref(const q15_t *pV,// pointer to vector
-  const q7_t *pM,											// pointer to matrix
-  const uint16_t dim_vec,									// length of the vector
-  const uint16_t num_of_rows,								// numCol of A
-  const uint16_t bias_shift,								// amount of left-shift for bias
-  const uint16_t out_shift,									// amount of right-shift for output
-  const q7_t *bias, q15_t *pOut,							// output operand
+  const q7_t *pM,				// pointer to matrix
+  const uint16_t dim_vec,		// length of the vector
+  const uint16_t num_of_rows,	// numCol of A
+  const uint16_t bias_shift,	// amount of left-shift for bias
+  const uint16_t out_shift,		// amount of right-shift for output
+  const q7_t *bias, q15_t *pOut,// output operand
   q15_t *vec_buffer)
 {
 	for (int i = 0; i < num_of_rows; i++) {

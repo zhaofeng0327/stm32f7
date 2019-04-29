@@ -56,7 +56,7 @@ void arm_negate_q31(
 	q31_t    *pDst,
 	uint32_t blockSize)
 {
-	q31_t in;		/* Temporary variable */
+	q31_t in;	/* Temporary variable */
 	uint32_t blkCnt;/* loop counter */
 
 	#if defined(ARM_MATH_DSP)
@@ -90,7 +90,7 @@ void arm_negate_q31(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -109,7 +109,7 @@ void arm_negate_q31(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_negate_q31 */
+}	/* arm_negate_q31 */
 
 /**
  * @} end of negate group

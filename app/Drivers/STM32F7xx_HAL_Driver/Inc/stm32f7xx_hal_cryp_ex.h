@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_HAL_CRYP_EX_H
-# define __STM32F7xx_HAL_CRYP_EX_H
+#define __STM32F7xx_HAL_CRYP_EX_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -109,7 +109,7 @@ extern "C" {
 /** @defgroup CRYPEx_Exported_Functions CRYPEx Exported Functions
  * @{
  */
-# if defined(CRYP) || defined(AES)
+#if defined(CRYP) || defined(AES)
 
 /** @addtogroup CRYPEx_Exported_Functions_Group1
  * @{
@@ -120,9 +120,9 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 /**
  * @}
  */
-# endif	/* CRYP||AES */
+#endif	/* CRYP||AES */
 
-# if defined(AES)
+#if defined(AES)
 
 /** @addtogroup CRYPEx_Exported_Functions_Group2
  * @{
@@ -133,7 +133,7 @@ void  HAL_CRYPEx_DisableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp);
 /**
  * @}
  */
-# endif	/* AES */
+#endif	/* AES */
 
 /**
  * @}
@@ -147,9 +147,9 @@ void  HAL_CRYPEx_DisableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp);
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_HAL_CRYP_EX_H */
 

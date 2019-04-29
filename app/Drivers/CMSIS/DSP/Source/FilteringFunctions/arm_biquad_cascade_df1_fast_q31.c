@@ -283,7 +283,7 @@ void arm_biquad_cascade_df1_fast_q31(
 		*pState++ = Yn1;
 		*pState++ = Yn2;
 	} while (--stage);
-} /* arm_biquad_cascade_df1_fast_q31 */
+}	/* arm_biquad_cascade_df1_fast_q31 */
 
 /**
  * @} end of BiquadCascadeDF1 group

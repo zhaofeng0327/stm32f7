@@ -100,7 +100,7 @@ void arm_power_f32(
 	blkCnt = blockSize % 0x4U;
 
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
 	/* Loop over blockSize number of values */
@@ -121,7 +121,7 @@ void arm_power_f32(
 
 	/* Store the result to the destination */
 	*pResult = sum;
-} /* arm_power_f32 */
+}	/* arm_power_f32 */
 
 /**
  * @} end of power group

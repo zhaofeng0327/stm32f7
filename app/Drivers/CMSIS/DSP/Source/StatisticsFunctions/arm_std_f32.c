@@ -146,7 +146,7 @@ void arm_std_f32(
 	/* Compute standard deviation and then store the result to the destination */
 	arm_sqrt_f32((meanOfSquares - squareOfMean), pResult);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
 	/* Loop over blockSize number of values */
@@ -180,7 +180,7 @@ void arm_std_f32(
 	arm_sqrt_f32(var, pResult);
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_std_f32 */
+}	/* arm_std_f32 */
 
 /**
  * @} end of STD group

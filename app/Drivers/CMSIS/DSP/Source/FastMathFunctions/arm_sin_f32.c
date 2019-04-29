@@ -74,8 +74,8 @@ float32_t arm_sin_f32(
 	float32_t x)
 {
 	float32_t sinVal, fract, in;/* Temporary variables for input, output */
-	uint16_t index;				/* Index variable */
-	float32_t a, b;				/* Two nearest output values */
+	uint16_t index;	/* Index variable */
+	float32_t a, b;	/* Two nearest output values */
 	int32_t n;
 	float32_t findex;
 
@@ -116,7 +116,7 @@ float32_t arm_sin_f32(
 
 	/* Return the output value */
 	return (sinVal);
-} /* arm_sin_f32 */
+}	/* arm_sin_f32 */
 
 /**
  * @} end of sin group

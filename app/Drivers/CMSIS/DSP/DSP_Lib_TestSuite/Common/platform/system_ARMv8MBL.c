@@ -27,7 +27,7 @@
 #include "ARMv8MBL.h"
 
 #if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-# include "partition_ARMv8MBL.h"
+#include "partition_ARMv8MBL.h"
 #endif
 
 /*----------------------------------------------------------------------------

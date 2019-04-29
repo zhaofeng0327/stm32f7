@@ -87,13 +87,13 @@
  * @{
  */
 
-# define MCO1_CLK_ENABLE()    __HAL_RCC_GPIOA_CLK_ENABLE()
-# define MCO1_GPIO_PORT    GPIOA
-# define MCO1_PIN          GPIO_PIN_8
+#define MCO1_CLK_ENABLE()    __HAL_RCC_GPIOA_CLK_ENABLE()
+#define MCO1_GPIO_PORT    GPIOA
+#define MCO1_PIN          GPIO_PIN_8
 
-# define MCO2_CLK_ENABLE()    __HAL_RCC_GPIOC_CLK_ENABLE()
-# define MCO2_GPIO_PORT    GPIOC
-# define MCO2_PIN          GPIO_PIN_9
+#define MCO2_CLK_ENABLE()    __HAL_RCC_GPIOC_CLK_ENABLE()
+#define MCO2_GPIO_PORT    GPIOC
+#define MCO2_PIN          GPIO_PIN_9
 
 /**
  * @}
@@ -317,7 +317,7 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
 	} else {
 		return HAL_OK;
 	}
-} /* HAL_RCC_DeInit */
+}	/* HAL_RCC_DeInit */
 
 /**
  * @brief  Initializes the RCC Oscillators according to the specified parameters in the
@@ -544,9 +544,9 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef *RCC_OscInitStruct)
 				assert_param(IS_RCC_PLLN_VALUE(RCC_OscInitStruct->PLL.PLLN));
 				assert_param(IS_RCC_PLLP_VALUE(RCC_OscInitStruct->PLL.PLLP));
 				assert_param(IS_RCC_PLLQ_VALUE(RCC_OscInitStruct->PLL.PLLQ));
-				# if defined(RCC_PLLCFGR_PLLR)
+				#if defined(RCC_PLLCFGR_PLLR)
 				assert_param(IS_RCC_PLLR_VALUE(RCC_OscInitStruct->PLL.PLLR));
-				# endif
+				#endif
 
 				/* Disable the main PLL. */
 				__HAL_RCC_PLL_DISABLE();
@@ -562,20 +562,20 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef *RCC_OscInitStruct)
 				}
 
 				/* Configure the main PLL clock source, multiplication and division factors. */
-				# if defined(RCC_PLLCFGR_PLLR)
+				#if defined(RCC_PLLCFGR_PLLR)
 				__HAL_RCC_PLL_CONFIG(RCC_OscInitStruct->PLL.PLLSource,
 				  RCC_OscInitStruct->PLL.PLLM,
 				  RCC_OscInitStruct->PLL.PLLN,
 				  RCC_OscInitStruct->PLL.PLLP,
 				  RCC_OscInitStruct->PLL.PLLQ,
 				  RCC_OscInitStruct->PLL.PLLR);
-				# else
+				#else
 				__HAL_RCC_PLL_CONFIG(RCC_OscInitStruct->PLL.PLLSource,
 				  RCC_OscInitStruct->PLL.PLLM,
 				  RCC_OscInitStruct->PLL.PLLN,
 				  RCC_OscInitStruct->PLL.PLLP,
 				  RCC_OscInitStruct->PLL.PLLQ);
-				# endif	/* if defined(RCC_PLLCFGR_PLLR) */
+				#endif	/* if defined(RCC_PLLCFGR_PLLR) */
 
 				/* Enable the main PLL. */
 				__HAL_RCC_PLL_ENABLE();
@@ -608,7 +608,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef *RCC_OscInitStruct)
 		}
 	}
 	return HAL_OK;
-} /* HAL_RCC_OscConfig */
+}	/* HAL_RCC_OscConfig */
 
 /**
  * @brief  Initializes the CPU, AHB and APB busses clocks according to the specified
@@ -751,7 +751,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef *RCC_ClkInitStruct, uin
 	HAL_InitTick(TICK_INT_PRIORITY);
 
 	return HAL_OK;
-} /* HAL_RCC_ClockConfig */
+}	/* HAL_RCC_ClockConfig */
 
 /**
  * @}
@@ -838,7 +838,7 @@ void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_M
 		/* Mask MCO2 and MCO2PRE[2:0] bits then Select MCO2 clock source and prescaler */
 		MODIFY_REG(RCC->CFGR, (RCC_CFGR_MCO2 | RCC_CFGR_MCO2PRE), (RCC_MCOSource | (RCC_MCODiv << 3)));
 	}
-} /* HAL_RCC_MCOConfig */
+}	/* HAL_RCC_MCOConfig */
 
 /**
  * @brief  Enables the Clock Security System.
@@ -937,7 +937,7 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
 		}
 	}
 	return sysclockfreq;
-} /* HAL_RCC_GetSysClockFreq */
+}	/* HAL_RCC_GetSysClockFreq */
 
 /**
  * @brief  Returns the HCLK frequency
@@ -1034,10 +1034,10 @@ void HAL_RCC_GetOscConfig(RCC_OscInitTypeDef *RCC_OscInitStruct)
 	RCC_OscInitStruct->PLL.PLLP      =
 	  (uint32_t) ((((RCC->PLLCFGR & RCC_PLLCFGR_PLLP) + RCC_PLLCFGR_PLLP_0) << 1) >> RCC_PLLCFGR_PLLP_Pos);
 	RCC_OscInitStruct->PLL.PLLQ = (uint32_t) ((RCC->PLLCFGR & RCC_PLLCFGR_PLLQ) >> RCC_PLLCFGR_PLLQ_Pos);
-	# if defined(RCC_PLLCFGR_PLLR)
+	#if defined(RCC_PLLCFGR_PLLR)
 	RCC_OscInitStruct->PLL.PLLR = (uint32_t) ((RCC->PLLCFGR & RCC_PLLCFGR_PLLR) >> POSITION_VAL(RCC_PLLCFGR_PLLR));
-	# endif
-} /* HAL_RCC_GetOscConfig */
+	#endif
+}	/* HAL_RCC_GetOscConfig */
 
 /**
  * @brief  Configures the RCC_ClkInitStruct according to the internal

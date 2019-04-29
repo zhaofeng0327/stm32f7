@@ -171,7 +171,7 @@ arm_status arm_convolve_1x1_HWC_q7_fast_nonsquare(const q7_t *Im_in,
 		}
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
 
 	int i, j, k, l, m, n;
@@ -212,7 +212,7 @@ arm_status arm_convolve_1x1_HWC_q7_fast_nonsquare(const q7_t *Im_in,
 
 	/* Return to application */
 	return ARM_MATH_SUCCESS;
-} /* arm_convolve_1x1_HWC_q7_fast_nonsquare */
+}	/* arm_convolve_1x1_HWC_q7_fast_nonsquare */
 
 /**
  * @} end of NNConv group

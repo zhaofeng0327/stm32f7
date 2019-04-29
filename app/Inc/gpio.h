@@ -19,13 +19,13 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __gpio_H
-# define __gpio_H
-# ifdef __cplusplus
+#define __gpio_H
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "main.h"
+#include "main.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -41,9 +41,9 @@ void MX_GPIO_Init(void);
 
 /* USER CODE END Prototypes */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 #endif	/*__ pinoutConfig_H */
 
 /**

@@ -30,11 +30,11 @@
 #include CMSIS_device_header
 
 #ifndef GTIM_IRQ_PRIORITY
-# define GTIM_IRQ_PRIORITY    0xFFU
+#define GTIM_IRQ_PRIORITY    0xFFU
 #endif
 
 #ifndef GTIM_IRQ_NUM
-# define GTIM_IRQ_NUM    SecurePhyTimer_IRQn
+#define GTIM_IRQ_NUM    SecurePhyTimer_IRQn
 #endif
 
 // Timer interrupt pending flag
@@ -119,7 +119,7 @@ int32_t OS_Tick_Setup(uint32_t freq, IRQHandler_t handler)
 	PL1_SetControl(1U);
 
 	return (0);
-} /* OS_Tick_Setup */
+}	/* OS_Tick_Setup */
 
 /// Enable OS Tick.
 void OS_Tick_Enable(void)

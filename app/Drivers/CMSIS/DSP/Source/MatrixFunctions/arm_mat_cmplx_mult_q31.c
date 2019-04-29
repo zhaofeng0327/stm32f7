@@ -83,7 +83,7 @@ arm_status arm_mat_cmplx_mult_q31(
 	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
 	uint16_t col, i = 0U, j, row = numRowsA, colCnt;/* loop counters */
-	arm_status status;								/* status of matrix multiplication */
+	arm_status status;	/* status of matrix multiplication */
 
 	#ifdef ARM_MATH_MATRIX_CHECK
 
@@ -267,7 +267,7 @@ arm_status arm_mat_cmplx_mult_q31(
 
 	/* Return to application */
 	return (status);
-} /* arm_mat_cmplx_mult_q31 */
+}	/* arm_mat_cmplx_mult_q31 */
 
 /**
  * @} end of MatrixMult group

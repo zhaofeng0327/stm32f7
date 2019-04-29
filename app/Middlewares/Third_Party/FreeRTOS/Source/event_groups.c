@@ -49,15 +49,15 @@
  * item value.  It is important they don't clash with the
  * taskEVENT_LIST_ITEM_VALUE_IN_USE definition. */
 #if configUSE_16_BIT_TICKS == 1
-# define eventCLEAR_EVENTS_ON_EXIT_BIT    0x0100U
-# define eventUNBLOCKED_DUE_TO_BIT_SET    0x0200U
-# define eventWAIT_FOR_ALL_BITS           0x0400U
-# define eventEVENT_BITS_CONTROL_BYTES    0xff00U
+#define eventCLEAR_EVENTS_ON_EXIT_BIT    0x0100U
+#define eventUNBLOCKED_DUE_TO_BIT_SET    0x0200U
+#define eventWAIT_FOR_ALL_BITS           0x0400U
+#define eventEVENT_BITS_CONTROL_BYTES    0xff00U
 #else
-# define eventCLEAR_EVENTS_ON_EXIT_BIT    0x01000000UL
-# define eventUNBLOCKED_DUE_TO_BIT_SET    0x02000000UL
-# define eventWAIT_FOR_ALL_BITS           0x04000000UL
-# define eventEVENT_BITS_CONTROL_BYTES    0xff000000UL
+#define eventCLEAR_EVENTS_ON_EXIT_BIT    0x01000000UL
+#define eventUNBLOCKED_DUE_TO_BIT_SET    0x02000000UL
+#define eventWAIT_FOR_ALL_BITS           0x04000000UL
+#define eventEVENT_BITS_CONTROL_BYTES    0xff000000UL
 #endif
 
 typedef struct xEventGroupDefinition {
@@ -97,7 +97,7 @@ EventGroupHandle_t xEventGroupCreateStatic(StaticEventGroup_t *pxEventGroupBuffe
 	/* A StaticEventGroup_t object must be provided. */
 	configASSERT(pxEventGroupBuffer);
 
-	# if ( configASSERT_DEFINED == 1 )
+	#if ( configASSERT_DEFINED == 1 )
 	{
 		/* Sanity check that the size of the structure used to declare a
 		 * variable of type StaticEventGroup_t equals the size of the real
@@ -105,7 +105,7 @@ EventGroupHandle_t xEventGroupCreateStatic(StaticEventGroup_t *pxEventGroupBuffe
 		volatile size_t xSize = sizeof( StaticEventGroup_t );
 		configASSERT(xSize == sizeof( EventGroup_t ) );
 	}
-	# endif	/* configASSERT_DEFINED */
+	#endif	/* configASSERT_DEFINED */
 
 	/* The user has provided a statically allocated event group - use it. */
 	pxEventBits = (EventGroup_t *) pxEventGroupBuffer;	/*lint !e740 EventGroup_t and StaticEventGroup_t are guaranteed to have the same size and alignment requirement - checked by configASSERT(). */
@@ -114,14 +114,14 @@ EventGroupHandle_t xEventGroupCreateStatic(StaticEventGroup_t *pxEventGroupBuffe
 		pxEventBits->uxEventBits = 0;
 		vListInitialise(&( pxEventBits->xTasksWaitingForBits ) );
 
-		# if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+		#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 		{
 			/* Both static and dynamic allocation can be used, so note that
 			 * this event group was created statically in case the event group
 			 * is later deleted. */
 			pxEventBits->ucStaticallyAllocated = pdTRUE;
 		}
-		# endif	/* configSUPPORT_DYNAMIC_ALLOCATION */
+		#endif	/* configSUPPORT_DYNAMIC_ALLOCATION */
 
 		traceEVENT_GROUP_CREATE(pxEventBits);
 	} else {
@@ -129,7 +129,7 @@ EventGroupHandle_t xEventGroupCreateStatic(StaticEventGroup_t *pxEventGroupBuffe
 	}
 
 	return (EventGroupHandle_t) pxEventBits;
-} /* xEventGroupCreateStatic */
+}	/* xEventGroupCreateStatic */
 
 #endif	/* configSUPPORT_STATIC_ALLOCATION */
 /*-----------------------------------------------------------*/
@@ -147,14 +147,14 @@ EventGroupHandle_t xEventGroupCreate(void)
 		pxEventBits->uxEventBits = 0;
 		vListInitialise(&( pxEventBits->xTasksWaitingForBits ) );
 
-		# if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+		#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 		{
 			/* Both static and dynamic allocation can be used, so note this
 			 * event group was allocated statically in case the event group is
 			 * later deleted. */
 			pxEventBits->ucStaticallyAllocated = pdFALSE;
 		}
-		# endif	/* configSUPPORT_STATIC_ALLOCATION */
+		#endif	/* configSUPPORT_STATIC_ALLOCATION */
 
 		traceEVENT_GROUP_CREATE(pxEventBits);
 	} else {
@@ -270,7 +270,7 @@ EventBits_t xEventGroupSync(EventGroupHandle_t xEventGroup, const EventBits_t ux
 	(void) xTimeoutOccurred;
 
 	return uxReturn;
-} /* xEventGroupSync */
+}	/* xEventGroupSync */
 
 /*-----------------------------------------------------------*/
 
@@ -397,7 +397,7 @@ EventBits_t xEventGroupWaitBits(EventGroupHandle_t xEventGroup, const EventBits_
 	(void) xTimeoutOccurred;
 
 	return uxReturn;
-} /* xEventGroupWaitBits */
+}	/* xEventGroupWaitBits */
 
 /*-----------------------------------------------------------*/
 
@@ -442,7 +442,7 @@ BaseType_t xEventGroupClearBitsFromISR(EventGroupHandle_t xEventGroup, const Eve
 	return xReturn;
 }
 
-#endif /* if ( ( configUSE_TRACE_FACILITY == 1 ) && ( INCLUDE_xTimerPendFunctionCall == 1 ) && ( configUSE_TIMERS == 1 ) ) */
+#endif	/* if ( ( configUSE_TRACE_FACILITY == 1 ) && ( INCLUDE_xTimerPendFunctionCall == 1 ) && ( configUSE_TIMERS == 1 ) ) */
 /*-----------------------------------------------------------*/
 
 EventBits_t xEventGroupGetBitsFromISR(EventGroupHandle_t xEventGroup)
@@ -540,7 +540,7 @@ EventBits_t xEventGroupSetBits(EventGroupHandle_t xEventGroup, const EventBits_t
 	(void) xTaskResumeAll();
 
 	return pxEventBits->uxEventBits;
-} /* xEventGroupSetBits */
+}	/* xEventGroupSetBits */
 
 /*-----------------------------------------------------------*/
 
@@ -580,7 +580,7 @@ void vEventGroupDelete(EventGroupHandle_t xEventGroup)
 		#endif	/* configSUPPORT_DYNAMIC_ALLOCATION */
 	}
 	(void) xTaskResumeAll();
-}
+} /* vEventGroupDelete */
 
 /*-----------------------------------------------------------*/
 
@@ -644,7 +644,7 @@ BaseType_t xEventGroupSetBitsFromISR(EventGroupHandle_t xEventGroup, const Event
 	return xReturn;
 }
 
-#endif /* if ( ( configUSE_TRACE_FACILITY == 1 ) && ( INCLUDE_xTimerPendFunctionCall == 1 ) && ( configUSE_TIMERS == 1 ) ) */
+#endif	/* if ( ( configUSE_TRACE_FACILITY == 1 ) && ( INCLUDE_xTimerPendFunctionCall == 1 ) && ( configUSE_TIMERS == 1 ) ) */
 /*-----------------------------------------------------------*/
 
 #if (configUSE_TRACE_FACILITY == 1)

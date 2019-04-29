@@ -72,16 +72,16 @@ void arm_correlate_fast_q15(
 {
 	#ifndef UNALIGNED_SUPPORT_DISABLE
 
-	q15_t *pIn1;																		/* inputA pointer               */
-	q15_t *pIn2;																		/* inputB pointer               */
-	q15_t *pOut = pDst;																	/* output pointer               */
-	q31_t sum, acc0, acc1, acc2, acc3;													/* Accumulators                  */
-	q15_t *px;																			/* Intermediate inputA pointer  */
-	q15_t *py;																			/* Intermediate inputB pointer  */
-	q15_t *pSrc1;																		/* Intermediate pointers        */
-	q31_t x0, x1, x2, x3, c0;															/* temporary variables for holding input and coefficient values */
+	q15_t *pIn1;						/* inputA pointer               */
+	q15_t *pIn2;						/* inputB pointer               */
+	q15_t *pOut = pDst;					/* output pointer               */
+	q31_t sum, acc0, acc1, acc2, acc3;	/* Accumulators                  */
+	q15_t *px;							/* Intermediate inputA pointer  */
+	q15_t *py;							/* Intermediate inputB pointer  */
+	q15_t *pSrc1;						/* Intermediate pointers        */
+	q31_t x0, x1, x2, x3, c0;			/* temporary variables for holding input and coefficient values */
 	uint32_t j, k = 0U, count, blkCnt, outBlockSize, blockSize1, blockSize2, blockSize3;/* loop counter                 */
-	int32_t inc = 1;																	/* Destination address modifier */
+	int32_t inc = 1;/* Destination address modifier */
 
 
 	/* The algorithm implementation is based on the lengths of the inputs. */
@@ -118,7 +118,7 @@ void arm_correlate_fast_q15(
 
 		/* Updating the pointer position to non zero value */
 		pOut += j;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = (pSrcB);
 
@@ -330,15 +330,15 @@ void arm_correlate_fast_q15(
 			if (k == 1U) {
 				/* Read y[4] */
 				c0 = *py;
-				# ifdef  ARM_MATH_BIG_ENDIAN
+				#ifdef  ARM_MATH_BIG_ENDIAN
 
 				c0 = c0 << 16U;
 
-				# else
+				#else
 
 				c0 = c0 & 0x0000FFFF;
 
-				# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+				#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 
 				/* Read x[7] */
 				x3 = *__SIMD32(px);
@@ -387,13 +387,13 @@ void arm_correlate_fast_q15(
 
 				c0 = (*py);
 				/* Read y[6] */
-				# ifdef  ARM_MATH_BIG_ENDIAN
+				#ifdef  ARM_MATH_BIG_ENDIAN
 
 				c0 = c0 << 16U;
-				# else
+				#else
 
 				c0 = c0 & 0x0000FFFF;
-				# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+				#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 
 				/* Read x[10] */
 				x3  = _SIMD32_OFFSET(px + 2);
@@ -483,7 +483,7 @@ void arm_correlate_fast_q15(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* If the srcBLen is not a multiple of 4,
 		 * the blockSize2 loop cannot be unrolled by 4 */
 		blkCnt = blockSize2;
@@ -594,18 +594,18 @@ void arm_correlate_fast_q15(
 		blockSize3--;
 	}
 
-	#else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+	#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
-	q15_t *pIn1;																		/* inputA pointer               */
-	q15_t *pIn2;																		/* inputB pointer               */
-	q15_t *pOut = pDst;																	/* output pointer               */
-	q31_t sum, acc0, acc1, acc2, acc3;													/* Accumulators                  */
-	q15_t *px;																			/* Intermediate inputA pointer  */
-	q15_t *py;																			/* Intermediate inputB pointer  */
-	q15_t *pSrc1;																		/* Intermediate pointers        */
-	q31_t x0, x1, x2, x3, c0;															/* temporary variables for holding input and coefficient values */
+	q15_t *pIn1;						/* inputA pointer               */
+	q15_t *pIn2;						/* inputB pointer               */
+	q15_t *pOut = pDst;					/* output pointer               */
+	q31_t sum, acc0, acc1, acc2, acc3;	/* Accumulators                  */
+	q15_t *px;							/* Intermediate inputA pointer  */
+	q15_t *py;							/* Intermediate inputB pointer  */
+	q15_t *pSrc1;						/* Intermediate pointers        */
+	q31_t x0, x1, x2, x3, c0;			/* temporary variables for holding input and coefficient values */
 	uint32_t j, k = 0U, count, blkCnt, outBlockSize, blockSize1, blockSize2, blockSize3;/* loop counter                 */
-	int32_t inc = 1;																	/* Destination address modifier */
+	int32_t inc = 1;/* Destination address modifier */
 	q15_t a, b;
 
 
@@ -643,7 +643,7 @@ void arm_correlate_fast_q15(
 
 		/* Updating the pointer position to non zero value */
 		pOut += j;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = (pSrcB);
 
@@ -793,19 +793,19 @@ void arm_correlate_fast_q15(
 			a = *px;
 			b = *(px + 1);
 
-			# ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 
 			x0 = __PKHBT(a, b, 16);
 			a  = *(px + 2);
 			x1 = __PKHBT(b, a, 16);
 
-			# else
+			#else
 
 			x0 = __PKHBT(b, a, 16);
 			a  = *(px + 2);
 			x1 = __PKHBT(a, b, 16);
 
-			# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+			#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 			px += 2U;
 
@@ -820,15 +820,15 @@ void arm_correlate_fast_q15(
 				a = *py;
 				b = *(py + 1);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				c0 = __PKHBT(a, b, 16);
 
-				# else
+				#else
 
 				c0 = __PKHBT(b, a, 16);
 
-				# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+				#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 				/* acc0 +=  x[0] * y[0] + x[1] * y[1] */
 				acc0 = __SMLAD(x0, c0, acc0);
@@ -840,19 +840,19 @@ void arm_correlate_fast_q15(
 				a = *px;
 				b = *(px + 1);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				x2 = __PKHBT(a, b, 16);
 				a  = *(px + 2);
 				x3 = __PKHBT(b, a, 16);
 
-				# else
+				#else
 
 				x2 = __PKHBT(b, a, 16);
 				a  = *(px + 2);
 				x3 = __PKHBT(a, b, 16);
 
-				# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+				#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 				/* acc2 +=  x[2] * y[0] + x[3] * y[1] */
 				acc2 = __SMLAD(x2, c0, acc2);
@@ -866,15 +866,15 @@ void arm_correlate_fast_q15(
 
 				py += 4U;
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				c0 = __PKHBT(a, b, 16);
 
-				# else
+				#else
 
 				c0 = __PKHBT(b, a, 16);
 
-				# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+				#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 				/* acc0 +=  x[2] * y[2] + x[3] * y[3] */
 				acc0 = __SMLAD(x2, c0, acc0);
@@ -886,19 +886,19 @@ void arm_correlate_fast_q15(
 				a = *(px + 2);
 				b = *(px + 3);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				x0 = __PKHBT(a, b, 16);
 				a  = *(px + 4);
 				x1 = __PKHBT(b, a, 16);
 
-				# else
+				#else
 
 				x0 = __PKHBT(b, a, 16);
 				a  = *(px + 4);
 				x1 = __PKHBT(a, b, 16);
 
-				# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+				#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 				px += 4U;
 
@@ -919,15 +919,15 @@ void arm_correlate_fast_q15(
 			if (k == 1U) {
 				/* Read y[4] */
 				c0 = *py;
-				# ifdef  ARM_MATH_BIG_ENDIAN
+				#ifdef  ARM_MATH_BIG_ENDIAN
 
 				c0 = c0 << 16U;
 
-				# else
+				#else
 
 				c0 = c0 & 0x0000FFFF;
 
-				# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+				#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 
 				/* Read x[7] */
 				a = *px;
@@ -936,15 +936,15 @@ void arm_correlate_fast_q15(
 				px++;
 				;
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				x3 = __PKHBT(a, b, 16);
 
-				# else
+				#else
 
 				x3 = __PKHBT(b, a, 16);
 
-				# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+				#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 				px++;
 
@@ -960,33 +960,33 @@ void arm_correlate_fast_q15(
 				a = *py;
 				b = *(py + 1);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				c0 = __PKHBT(a, b, 16);
 
-				# else
+				#else
 
 				c0 = __PKHBT(b, a, 16);
 
-				# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+				#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 				/* Read x[7], x[8], x[9] */
 				a = *px;
 				b = *(px + 1);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				x3 = __PKHBT(a, b, 16);
 				a  = *(px + 2);
 				x2 = __PKHBT(b, a, 16);
 
-				# else
+				#else
 
 				x3 = __PKHBT(b, a, 16);
 				a  = *(px + 2);
 				x2 = __PKHBT(a, b, 16);
 
-				# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+				#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 				px += 2U;
 
@@ -1002,15 +1002,15 @@ void arm_correlate_fast_q15(
 				a = *py;
 				b = *(py + 1);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				c0 = __PKHBT(a, b, 16);
 
-				# else
+				#else
 
 				c0 = __PKHBT(b, a, 16);
 
-				# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+				#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 				py += 2U;
 
@@ -1018,19 +1018,19 @@ void arm_correlate_fast_q15(
 				a = *px;
 				b = *(px + 1);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				x3 = __PKHBT(a, b, 16);
 				a  = *(px + 2);
 				x2 = __PKHBT(b, a, 16);
 
-				# else
+				#else
 
 				x3 = __PKHBT(b, a, 16);
 				a  = *(px + 2);
 				x2 = __PKHBT(a, b, 16);
 
-				# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+				#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 				/* Perform the multiply-accumulates */
 				acc0 = __SMLAD(x0, c0, acc0);
@@ -1040,26 +1040,26 @@ void arm_correlate_fast_q15(
 
 				c0 = (*py);
 				/* Read y[6] */
-				# ifdef  ARM_MATH_BIG_ENDIAN
+				#ifdef  ARM_MATH_BIG_ENDIAN
 
 				c0 = c0 << 16U;
-				# else
+				#else
 
 				c0 = c0 & 0x0000FFFF;
-				# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+				#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 
 				/* Read x[10] */
 				b = *(px + 3);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				x3 = __PKHBT(a, b, 16);
 
-				# else
+				#else
 
 				x3 = __PKHBT(b, a, 16);
 
-				# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+				#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 				px += 3U;
 
@@ -1147,7 +1147,7 @@ void arm_correlate_fast_q15(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* If the srcBLen is not a multiple of 4,
 		 * the blockSize2 loop cannot be unrolled by 4 */
 		blkCnt = blockSize2;
@@ -1259,7 +1259,7 @@ void arm_correlate_fast_q15(
 	}
 
 	#endif	/*   #ifndef UNALIGNED_SUPPORT_DISABLE */
-} /* arm_correlate_fast_q15 */
+}	/* arm_correlate_fast_q15 */
 
 /**
  * @} end of Corr group

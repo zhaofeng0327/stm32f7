@@ -176,7 +176,7 @@ HAL_StatusTypeDef HAL_WWDG_Init(WWDG_HandleTypeDef *hwwdg)
 	assert_param(IS_WWDG_COUNTER(hwwdg->Init.Counter));
 	assert_param(IS_WWDG_EWI_MODE(hwwdg->Init.EWIMode));
 
-	# if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)
 	/* Reset Callback pointers */
 	if (hwwdg->EwiCallback == NULL) {
 		hwwdg->EwiCallback = HAL_WWDG_EarlyWakeupCallback;
@@ -188,10 +188,10 @@ HAL_StatusTypeDef HAL_WWDG_Init(WWDG_HandleTypeDef *hwwdg)
 
 	/* Init the low level hardware */
 	hwwdg->MspInitCallback(hwwdg);
-	# else  /* if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1) */
+	#else	/* if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1) */
 	/* Init the low level hardware */
 	HAL_WWDG_MspInit(hwwdg);
-	# endif	/* if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1) */
+	#endif	/* if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1) */
 
 	/* Set WWDG Counter */
 	WRITE_REG(hwwdg->Instance->CR, (WWDG_CR_WDGA | hwwdg->Init.Counter));
@@ -201,7 +201,7 @@ HAL_StatusTypeDef HAL_WWDG_Init(WWDG_HandleTypeDef *hwwdg)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_WWDG_Init */
+}	/* HAL_WWDG_Init */
 
 /**
  * @brief  Initialize the WWDG MSP.
@@ -222,7 +222,7 @@ __weak void HAL_WWDG_MspInit(WWDG_HandleTypeDef *hwwdg)
 	 */
 }
 
-# if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User WWDG Callback
@@ -292,7 +292,7 @@ HAL_StatusTypeDef HAL_WWDG_UnRegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWD
 	return status;
 }
 
-# endif	/* if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1) */
+#endif	/* if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1) */
 
 /**
  * @}
@@ -352,13 +352,13 @@ void HAL_WWDG_IRQHandler(WWDG_HandleTypeDef *hwwdg)
 			/* Clear the WWDG Early Wakeup flag */
 			__HAL_WWDG_CLEAR_FLAG(hwwdg, WWDG_FLAG_EWIF);
 
-			# if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)
 			/* Early Wakeup registered callback */
 			hwwdg->EwiCallback(hwwdg);
-			# else
+			#else
 			/* Early Wakeup callback */
 			HAL_WWDG_EarlyWakeupCallback(hwwdg);
-			# endif
+			#endif
 		}
 	}
 }

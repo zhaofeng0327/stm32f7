@@ -23,9 +23,9 @@
 #include "stm32f7xx_ll_bus.h"
 
 #ifdef USE_FULL_ASSERT
-# include "stm32_assert.h"
+#include "stm32_assert.h"
 #else
-# define assert_param(expr)    ((void) 0U)
+#define assert_param(expr)    ((void) 0U)
 #endif
 
 /** @addtogroup STM32F7xx_LL_Driver
@@ -47,13 +47,13 @@
  * @{
  */
 
-# define IS_LL_DAC_CHANNEL(__DACX__, __DAC_CHANNEL__)                           \
+#define IS_LL_DAC_CHANNEL(__DACX__, __DAC_CHANNEL__)                           \
 	(                                                                            \
 		((__DAC_CHANNEL__) == LL_DAC_CHANNEL_1)                                  \
 		|| ((__DAC_CHANNEL__) == LL_DAC_CHANNEL_2)                                  \
 	)
 
-# define IS_LL_DAC_TRIGGER_SOURCE(__TRIGGER_SOURCE__)                           \
+#define IS_LL_DAC_TRIGGER_SOURCE(__TRIGGER_SOURCE__)                           \
 	(   ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_SOFTWARE)                           \
 	|| ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_EXT_TIM2_TRGO)                      \
 	|| ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_EXT_TIM4_TRGO)                      \
@@ -64,13 +64,13 @@
 	|| ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_EXT_EXTI_LINE9)                     \
 	)
 
-# define IS_LL_DAC_WAVE_AUTO_GENER_MODE(__WAVE_AUTO_GENERATION_MODE__)           \
+#define IS_LL_DAC_WAVE_AUTO_GENER_MODE(__WAVE_AUTO_GENERATION_MODE__)           \
 	(   ((__WAVE_AUTO_GENERATION_MODE__) == LL_DAC_WAVE_AUTO_GENERATION_NONE)     \
 	|| ((__WAVE_AUTO_GENERATION_MODE__) == LL_DAC_WAVE_AUTO_GENERATION_NOISE)    \
 	|| ((__WAVE_AUTO_GENERATION_MODE__) == LL_DAC_WAVE_AUTO_GENERATION_TRIANGLE) \
 	)
 
-# define IS_LL_DAC_WAVE_AUTO_GENER_CONFIG(__WAVE_AUTO_GENERATION_CONFIG__)      \
+#define IS_LL_DAC_WAVE_AUTO_GENER_CONFIG(__WAVE_AUTO_GENERATION_CONFIG__)      \
 	(   ((__WAVE_AUTO_GENERATION_CONFIG__) == LL_DAC_NOISE_LFSR_UNMASK_BIT0)     \
 	|| ((__WAVE_AUTO_GENERATION_CONFIG__) == LL_DAC_NOISE_LFSR_UNMASK_BITS1_0)  \
 	|| ((__WAVE_AUTO_GENERATION_CONFIG__) == LL_DAC_NOISE_LFSR_UNMASK_BITS2_0)  \
@@ -97,7 +97,7 @@
 	|| ((__WAVE_AUTO_GENERATION_CONFIG__) == LL_DAC_TRIANGLE_AMPLITUDE_4095)    \
 	)
 
-# define IS_LL_DAC_OUTPUT_BUFFER(__OUTPUT_BUFFER__)                             \
+#define IS_LL_DAC_OUTPUT_BUFFER(__OUTPUT_BUFFER__)                             \
 	(   ((__OUTPUT_BUFFER__) == LL_DAC_OUTPUT_BUFFER_ENABLE)                     \
 	|| ((__OUTPUT_BUFFER__) == LL_DAC_OUTPUT_BUFFER_DISABLE)                    \
 	)
@@ -189,7 +189,7 @@ ErrorStatus LL_DAC_Init(DAC_TypeDef *DACx, uint32_t DAC_Channel, LL_DAC_InitType
 			  | DAC_InitStruct->OutputBuffer
 				) << (DAC_Channel & DAC_CR_CHX_BITOFFSET_MASK)
 			);
-		} else   {
+		} else {
 			MODIFY_REG(DACx->CR,
 			  (  DAC_CR_TSEL1
 			  | DAC_CR_WAVE1
@@ -202,12 +202,12 @@ ErrorStatus LL_DAC_Init(DAC_TypeDef *DACx, uint32_t DAC_Channel, LL_DAC_InitType
 				) << (DAC_Channel & DAC_CR_CHX_BITOFFSET_MASK)
 			);
 		}
-	} else   {
+	} else {
 		/* Initialization error: DAC instance is not disabled.                    */
 		status = ERROR;
 	}
 	return status;
-} /* LL_DAC_Init */
+}	/* LL_DAC_Init */
 
 /**
  * @brief Set each @ref LL_DAC_InitTypeDef field to default value.

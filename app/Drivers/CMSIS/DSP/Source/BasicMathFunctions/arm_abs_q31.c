@@ -58,7 +58,7 @@ void arm_abs_q31(
 	uint32_t blockSize)
 {
 	uint32_t blkCnt;/* loop counter */
-	q31_t in;		/* Input value */
+	q31_t in;	/* Input value */
 
 	#if defined(ARM_MATH_DSP)
 
@@ -91,7 +91,7 @@ void arm_abs_q31(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -109,7 +109,7 @@ void arm_abs_q31(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_abs_q31 */
+}	/* arm_abs_q31 */
 
 /**
  * @} end of BasicAbs group

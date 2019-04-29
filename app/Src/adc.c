@@ -66,7 +66,7 @@ void MX_ADC1_Init(void)
 	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK) {
 		Error_Handler();
 	}
-} /* MX_ADC1_Init */
+}	/* MX_ADC1_Init */
 
 void HAL_ADC_MspInit(ADC_HandleTypeDef *adcHandle)
 {

@@ -105,7 +105,7 @@ void arm_conv_fast_opt_q15(
 
 		/* Initialization of inputB pointer */
 		pIn2 = pSrcB;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = pSrcB;
 
@@ -290,11 +290,11 @@ void arm_conv_fast_opt_q15(
 			acc2 = __SMLAD(x2, y1, acc2);
 
 			/* pack input data */
-			# ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 			x3 = __PKHBT(x2, x1, 0);
-			# else
+			#else
 			x3 = __PKHBT(x1, x2, 0);
-			# endif
+			#endif
 
 			/* multiply and accumlate */
 			acc1 = __SMLADX(x3, y1, acc1);
@@ -307,75 +307,75 @@ void arm_conv_fast_opt_q15(
 			acc2 = __SMLAD(x1, y2, acc2);
 
 			/* pack input data */
-			# ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 			x3 = __PKHBT(x1, x2, 0);
-			# else
+			#else
 			x3 = __PKHBT(x2, x1, 0);
-			# endif
+			#endif
 
 			acc3 = __SMLADX(x3, y1, acc3);
 			acc1 = __SMLADX(x3, y2, acc1);
 
 			x2 = _SIMD32_OFFSET(pScr1 + 2U);
 
-			# ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 			x3 = __PKHBT(x2, x1, 0);
-			# else
+			#else
 			x3 = __PKHBT(x1, x2, 0);
-			# endif
+			#endif
 
 			acc3 = __SMLADX(x3, y2, acc3);
 
-			#else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+			#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
 			/* Read four samples from smaller buffer */
 			a = *pIn2;
 			b = *(pIn2 + 1);
 
-			# ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 			y1 = __PKHBT(a, b, 16);
-			# else
+			#else
 			y1 = __PKHBT(b, a, 16);
-			# endif
+			#endif
 
 			a = *(pIn2 + 2);
 			b = *(pIn2 + 3);
-			# ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 			y2 = __PKHBT(a, b, 16);
-			# else
+			#else
 			y2 = __PKHBT(b, a, 16);
-			# endif
+			#endif
 
 			acc0 = __SMLAD(x1, y1, acc0);
 
 			acc2 = __SMLAD(x2, y1, acc2);
 
-			# ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 			x3 = __PKHBT(x2, x1, 0);
-			# else
+			#else
 			x3 = __PKHBT(x1, x2, 0);
-			# endif
+			#endif
 
 			acc1 = __SMLADX(x3, y1, acc1);
 
 			a = *pScr1;
 			b = *(pScr1 + 1);
 
-			# ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 			x1 = __PKHBT(a, b, 16);
-			# else
+			#else
 			x1 = __PKHBT(b, a, 16);
-			# endif
+			#endif
 
 			acc0 = __SMLAD(x2, y2, acc0);
 
 			acc2 = __SMLAD(x1, y2, acc2);
 
-			# ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 			x3 = __PKHBT(x1, x2, 0);
-			# else
+			#else
 			x3 = __PKHBT(x2, x1, 0);
-			# endif
+			#endif
 
 			acc3 = __SMLADX(x3, y1, acc3);
 
@@ -384,17 +384,17 @@ void arm_conv_fast_opt_q15(
 			a = *(pScr1 + 2);
 			b = *(pScr1 + 3);
 
-			# ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 			x2 = __PKHBT(a, b, 16);
-			# else
+			#else
 			x2 = __PKHBT(b, a, 16);
-			# endif
+			#endif
 
-			# ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 			x3 = __PKHBT(x2, x1, 0);
-			# else
+			#else
 			x3 = __PKHBT(x1, x2, 0);
-			# endif
+			#endif
 
 			acc3 = __SMLADX(x3, y2, acc3);
 
@@ -502,7 +502,7 @@ void arm_conv_fast_opt_q15(
 
 		pScratch1 += 1U;
 	}
-} /* arm_conv_fast_opt_q15 */
+}	/* arm_conv_fast_opt_q15 */
 
 /**
  * @} end of Conv group

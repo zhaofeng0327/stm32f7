@@ -83,7 +83,7 @@ void arm_cfft_radix4_q31(
 	if (S->ifftFlag == 1U) {
 		/* Complex IFFT radix-4 */
 		arm_radix4_butterfly_inverse_q31(pSrc, S->fftLen, S->pTwiddle, S->twidCoefModifier);
-	} else   {
+	} else {
 		/* Complex FFT radix-4 */
 		arm_radix4_butterfly_q31(pSrc, S->fftLen, S->pTwiddle, S->twidCoefModifier);
 	}
@@ -380,7 +380,7 @@ void arm_radix4_butterfly_q31(
 		}
 		twidCoefModifier <<= 2U;
 	}
-	#else  /* if defined(ARM_MATH_CM7) */
+	#else	/* if defined(ARM_MATH_CM7) */
 	uint32_t n1, n2, ia1, ia2, ia3, i0, j, k;
 	q31_t t1, t2, r1, r2, s1, s2, co1, co2, co3, si1, si2, si3;
 
@@ -624,7 +624,7 @@ void arm_radix4_butterfly_q31(
 		}
 		twidCoefModifier <<= 2U;
 	}
-	#endif /* if defined(ARM_MATH_CM7) */
+	#endif	/* if defined(ARM_MATH_CM7) */
 
 	/* End of Middle stages process */
 
@@ -663,7 +663,7 @@ void arm_radix4_butterfly_q31(
 		xd   = (q31_t) xdyd;
 		yd   = (q31_t) (xdyd >> 32);
 
-		#else  /* ifndef ARM_MATH_BIG_ENDIAN */
+		#else	/* ifndef ARM_MATH_BIG_ENDIAN */
 
 		/* Read xa (real), ya(imag) input */
 		xaya = *__SIMD64(ptr1)++;
@@ -686,7 +686,7 @@ void arm_radix4_butterfly_q31(
 		xd   = (q31_t) (xdyd >> 32);
 
 
-		#endif /* ifndef ARM_MATH_BIG_ENDIAN */
+		#endif	/* ifndef ARM_MATH_BIG_ENDIAN */
 
 		/* xa' = xa + xb + xc + xd */
 		xa_out = xa + xb + xc + xd;
@@ -729,7 +729,7 @@ void arm_radix4_butterfly_q31(
 	/* output is in 5.27(q27) format for the 16 point */
 
 	/* End of last stage process */
-} /* arm_radix4_butterfly_q31 */
+}	/* arm_radix4_butterfly_q31 */
 
 /**
  * @brief  Core function for the Q31 CIFFT butterfly process.
@@ -1012,7 +1012,7 @@ void arm_radix4_butterfly_inverse_q31(
 		}
 		twidCoefModifier <<= 2U;
 	}
-	#else  /* if defined(ARM_MATH_CM7) */
+	#else	/* if defined(ARM_MATH_CM7) */
 	uint32_t n1, n2, ia1, ia2, ia3, i0, j, k;
 	q31_t t1, t2, r1, r2, s1, s2, co1, co2, co3, si1, si2, si3;
 	q31_t xa, xb, xc, xd;
@@ -1247,7 +1247,7 @@ void arm_radix4_butterfly_inverse_q31(
 		}
 		twidCoefModifier <<= 2U;
 	}
-	#endif /* if defined(ARM_MATH_CM7) */
+	#endif	/* if defined(ARM_MATH_CM7) */
 
 	/* End of Middle stages process */
 
@@ -1287,7 +1287,7 @@ void arm_radix4_butterfly_inverse_q31(
 		xd   = (q31_t) xdyd;
 		yd   = (q31_t) (xdyd >> 32);
 
-		#else  /* ifndef ARM_MATH_BIG_ENDIAN */
+		#else	/* ifndef ARM_MATH_BIG_ENDIAN */
 
 		/* Read xa (real), ya(imag) input */
 		xaya = *__SIMD64(ptr1)++;
@@ -1310,7 +1310,7 @@ void arm_radix4_butterfly_inverse_q31(
 		xd   = (q31_t) (xdyd >> 32);
 
 
-		#endif /* ifndef ARM_MATH_BIG_ENDIAN */
+		#endif	/* ifndef ARM_MATH_BIG_ENDIAN */
 
 		/* xa' = xa + xb + xc + xd */
 		xa_out = xa + xb + xc + xd;
@@ -1353,4 +1353,4 @@ void arm_radix4_butterfly_inverse_q31(
 	/* output is in 5.27(q27) format for the 16 point */
 
 	/* End of last stage process */
-} /* arm_radix4_butterfly_inverse_q31 */
+}	/* arm_radix4_butterfly_inverse_q31 */

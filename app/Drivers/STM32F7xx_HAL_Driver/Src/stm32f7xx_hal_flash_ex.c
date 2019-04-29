@@ -73,8 +73,8 @@
 /** @addtogroup FLASHEx_Private_Constants
  * @{
  */
-# define SECTOR_MASK            0xFFFFFF07U
-# define FLASH_TIMEOUT_VALUE    50000U	/* 50 s */
+#define SECTOR_MASK            0xFFFFFF07U
+#define FLASH_TIMEOUT_VALUE    50000U	/* 50 s */
 
 /**
  * @}
@@ -109,23 +109,23 @@ static uint8_t            FLASH_OB_GetRDP(void);
 static uint32_t           FLASH_OB_GetBOR(void);
 static uint32_t           FLASH_OB_GetBootAddress(uint32_t BootOption);
 
-# if defined(FLASH_OPTCR_nDBANK)
+#if defined(FLASH_OPTCR_nDBANK)
 static void               FLASH_MassErase(uint8_t VoltageRange, uint32_t Banks);
 static HAL_StatusTypeDef  FLASH_OB_UserConfig(uint32_t Wwdg, uint32_t Iwdg, uint32_t Stop, uint32_t Stdby,
   uint32_t Iwdgstop, \
 	uint32_t Iwdgstdby, uint32_t NDBank, uint32_t NDBoot);
-# else
+#else
 static void               FLASH_MassErase(uint8_t VoltageRange);
 static HAL_StatusTypeDef  FLASH_OB_UserConfig(uint32_t Wwdg, uint32_t Iwdg, uint32_t Stop, uint32_t Stdby,
   uint32_t Iwdgstop, uint32_t Iwdgstdby);
-# endif	/* FLASH_OPTCR_nDBANK */
+#endif	/* FLASH_OPTCR_nDBANK */
 
-# if defined(FLASH_OPTCR2_PCROP)
+#if defined(FLASH_OPTCR2_PCROP)
 static HAL_StatusTypeDef  FLASH_OB_PCROP_Config(uint32_t PCROPSector);
 static HAL_StatusTypeDef  FLASH_OB_PCROP_RDP_Config(uint32_t Pcrop_Rdp);
 static uint32_t           FLASH_OB_GetPCROP(void);
 static uint32_t           FLASH_OB_GetPCROPRDP(void);
-# endif	/* FLASH_OPTCR2_PCROP */
+#endif	/* FLASH_OPTCR2_PCROP */
 
 extern HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
 
@@ -185,11 +185,11 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t
 
 		if (pEraseInit->TypeErase == FLASH_TYPEERASE_MASSERASE) {
 			/*Mass erase to be done*/
-			# if defined(FLASH_OPTCR_nDBANK)
+			#if defined(FLASH_OPTCR_nDBANK)
 			FLASH_MassErase((uint8_t) pEraseInit->VoltageRange, pEraseInit->Banks);
-			# else
+			#else
 			FLASH_MassErase((uint8_t) pEraseInit->VoltageRange);
-			# endif	/* FLASH_OPTCR_nDBANK */
+			#endif	/* FLASH_OPTCR_nDBANK */
 
 			/* Wait for last operation to be completed */
 			status = FLASH_WaitForLastOperation((uint32_t) FLASH_TIMEOUT_VALUE);
@@ -223,7 +223,7 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t
 	__HAL_UNLOCK(&pFlash);
 
 	return status;
-} /* HAL_FLASHEx_Erase */
+}	/* HAL_FLASHEx_Erase */
 
 /**
  * @brief  Perform a mass erase or erase the specified FLASH memory sectors  with interrupt enabled
@@ -255,11 +255,11 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
 	if (pEraseInit->TypeErase == FLASH_TYPEERASE_MASSERASE) {
 		/*Mass erase to be done*/
 		pFlash.ProcedureOnGoing = FLASH_PROC_MASSERASE;
-		# if defined(FLASH_OPTCR_nDBANK)
+		#if defined(FLASH_OPTCR_nDBANK)
 		FLASH_MassErase((uint8_t) pEraseInit->VoltageRange, pEraseInit->Banks);
-		# else
+		#else
 		FLASH_MassErase((uint8_t) pEraseInit->VoltageRange);
-		# endif	/* FLASH_OPTCR_nDBANK */
+		#endif	/* FLASH_OPTCR_nDBANK */
 	} else {
 		/* Erase by sector to be done*/
 
@@ -276,7 +276,7 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
 	}
 
 	return status;
-} /* HAL_FLASHEx_Erase_IT */
+}	/* HAL_FLASHEx_Erase_IT */
 
 /**
  * @brief  Program option bytes
@@ -314,7 +314,7 @@ HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit)
 
 	/* USER  configuration */
 	if ((pOBInit->OptionType & OPTIONBYTE_USER) == OPTIONBYTE_USER) {
-		# if defined(FLASH_OPTCR_nDBANK)
+		#if defined(FLASH_OPTCR_nDBANK)
 		status = FLASH_OB_UserConfig(pOBInit->USERConfig & OB_WWDG_SW,
 			pOBInit->USERConfig & OB_IWDG_SW,
 			pOBInit->USERConfig & OB_STOP_NO_RST,
@@ -323,14 +323,14 @@ HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit)
 			pOBInit->USERConfig & OB_IWDG_STDBY_ACTIVE,
 			pOBInit->USERConfig & OB_NDBANK_SINGLE_BANK,
 			pOBInit->USERConfig & OB_DUAL_BOOT_DISABLE);
-		# else
+		#else
 		status = FLASH_OB_UserConfig(pOBInit->USERConfig & OB_WWDG_SW,
 			pOBInit->USERConfig & OB_IWDG_SW,
 			pOBInit->USERConfig & OB_STOP_NO_RST,
 			pOBInit->USERConfig & OB_STDBY_NO_RST,
 			pOBInit->USERConfig & OB_IWDG_STOP_ACTIVE,
 			pOBInit->USERConfig & OB_IWDG_STDBY_ACTIVE);
-		# endif	/* FLASH_OPTCR_nDBANK */
+		#endif	/* FLASH_OPTCR_nDBANK */
 	}
 
 	/* BOR Level  configuration */
@@ -348,7 +348,7 @@ HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit)
 		status = FLASH_OB_BootAddressConfig(OPTIONBYTE_BOOTADDR_1, pOBInit->BootAddr1);
 	}
 
-	# if defined(FLASH_OPTCR2_PCROP)
+	#if defined(FLASH_OPTCR2_PCROP)
 	/* PCROP configuration */
 	if ((pOBInit->OptionType & OPTIONBYTE_PCROP) == OPTIONBYTE_PCROP) {
 		status = FLASH_OB_PCROP_Config(pOBInit->PCROPSector);
@@ -358,13 +358,13 @@ HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit)
 	if ((pOBInit->OptionType & OPTIONBYTE_PCROP_RDP) == OPTIONBYTE_PCROP_RDP) {
 		status = FLASH_OB_PCROP_RDP_Config(pOBInit->PCROPRdp);
 	}
-	# endif	/* FLASH_OPTCR2_PCROP */
+	#endif	/* FLASH_OPTCR2_PCROP */
 
 	/* Process Unlocked */
 	__HAL_UNLOCK(&pFlash);
 
 	return status;
-} /* HAL_FLASHEx_OBProgram */
+}	/* HAL_FLASHEx_OBProgram */
 
 /**
  * @brief  Get the Option byte configuration
@@ -396,20 +396,20 @@ void HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit)
 	/*Get Boot Address when Boot pin = 1 */
 	pOBInit->BootAddr1 = FLASH_OB_GetBootAddress(OPTIONBYTE_BOOTADDR_1);
 
-	# if defined(FLASH_OPTCR2_PCROP)
+	#if defined(FLASH_OPTCR2_PCROP)
 	/*Get PCROP Sectors */
 	pOBInit->PCROPSector = FLASH_OB_GetPCROP();
 
 	/*Get PCROP_RDP Value */
 	pOBInit->PCROPRdp = FLASH_OB_GetPCROPRDP();
-	# endif	/* FLASH_OPTCR2_PCROP */
+	#endif	/* FLASH_OPTCR2_PCROP */
 }
 
 /**
  * @}
  */
 
-# if defined(FLASH_OPTCR_nDBANK)
+#if defined(FLASH_OPTCR_nDBANK)
 
 /**
  * @brief  Full erase of FLASH memory sectors
@@ -602,7 +602,7 @@ static uint32_t FLASH_OB_GetUser(void)
 	return ((uint32_t) (FLASH->OPTCR & 0xF00000F0U));
 }
 
-# else  /* if defined(FLASH_OPTCR_nDBANK) */
+#else	/* if defined(FLASH_OPTCR_nDBANK) */
 
 /**
  * @brief  Full erase of FLASH memory sectors
@@ -762,7 +762,7 @@ static uint32_t FLASH_OB_GetUser(void)
 	return ((uint32_t) (FLASH->OPTCR & 0xC00000F0U));
 }
 
-# endif	/* FLASH_OPTCR_nDBANK */
+#endif	/* FLASH_OPTCR_nDBANK */
 
 /**
  * @brief  Enable the write protection of the desired bank1 or bank2 sectors
@@ -991,7 +991,7 @@ static uint32_t FLASH_OB_GetBootAddress(uint32_t BootOption)
 	return Address;
 }
 
-# if defined(FLASH_OPTCR2_PCROP)
+#if defined(FLASH_OPTCR2_PCROP)
 
 /**
  * @brief  Set the PCROP protection for sectors.
@@ -1062,7 +1062,7 @@ static uint32_t FLASH_OB_GetPCROPRDP(void)
 	return ((uint32_t) (FLASH->OPTCR2 & FLASH_OPTCR2_PCROP_RDP));
 }
 
-# endif	/* FLASH_OPTCR2_PCROP */
+#endif	/* FLASH_OPTCR2_PCROP */
 
 /**
  * @}

@@ -1,33 +1,33 @@
 /*----------------------------------------------------------------------------/
-*  /  FatFs - Generic FAT file system module  R0.12c                             /
-*  /-----------------------------------------------------------------------------/
-*  /
-*  / Copyright (C) 2017, ChaN, all right reserved.
-*  / Portions Copyright (C) STMicroelectronics, all right reserved.
-*  /
-*  / FatFs module is an open source software. Redistribution and use of FatFs in
-*  / source and binary forms, with or without modification, are permitted provided
-*  / that the following condition is met:
-*
-*  / 1. Redistributions of source code must retain the above copyright notice,
-*  /    this condition and the following disclaimer.
-*  /
-*  / This software is provided by the copyright holder and contributors "AS IS"
-*  / and any warranties related to this software are DISCLAIMED.
-*  / The copyright owner or contributors be NOT LIABLE for any damages caused
-*  / by use of this software.
-*  /----------------------------------------------------------------------------*/
+ *  /  FatFs - Generic FAT file system module  R0.12c                             /
+ *  /-----------------------------------------------------------------------------/
+ *  /
+ *  / Copyright (C) 2017, ChaN, all right reserved.
+ *  / Portions Copyright (C) STMicroelectronics, all right reserved.
+ *  /
+ *  / FatFs module is an open source software. Redistribution and use of FatFs in
+ *  / source and binary forms, with or without modification, are permitted provided
+ *  / that the following condition is met:
+ *
+ *  / 1. Redistributions of source code must retain the above copyright notice,
+ *  /    this condition and the following disclaimer.
+ *  /
+ *  / This software is provided by the copyright holder and contributors "AS IS"
+ *  / and any warranties related to this software are DISCLAIMED.
+ *  / The copyright owner or contributors be NOT LIABLE for any damages caused
+ *  / by use of this software.
+ *  /----------------------------------------------------------------------------*/
 
 
 /*---------------------------------------------------------------------------/
-*  /  FatFs - FAT file system module configuration file
-*  /---------------------------------------------------------------------------*/
+ *  /  FatFs - FAT file system module configuration file
+ *  /---------------------------------------------------------------------------*/
 
 #define _FFCONF    68300/* Revision ID */
 
 /*---------------------------------------------------------------------------/
-*  / Function Configurations
-*  /---------------------------------------------------------------------------*/
+ *  / Function Configurations
+ *  /---------------------------------------------------------------------------*/
 
 #define _FS_READONLY    0
 
@@ -93,8 +93,8 @@
 
 
 /*---------------------------------------------------------------------------/
-*  / Locale and Namespace Configurations
-*  /---------------------------------------------------------------------------*/
+ *  / Locale and Namespace Configurations
+ *  /---------------------------------------------------------------------------*/
 
 #define _CODE_PAGE    850
 
@@ -176,8 +176,8 @@
 
 
 /*---------------------------------------------------------------------------/
-*  / Drive/Volume Configurations
-*  /---------------------------------------------------------------------------*/
+ *  / Drive/Volume Configurations
+ *  /---------------------------------------------------------------------------*/
 
 #define _VOLUMES    2
 /* Number of volumes (logical drives) to be used. */
@@ -235,8 +235,8 @@
 
 
 /*---------------------------------------------------------------------------/
-*  / System Configurations
-*  /---------------------------------------------------------------------------*/
+ *  / System Configurations
+ *  /---------------------------------------------------------------------------*/
 
 #define _FS_TINY    0
 
@@ -259,13 +259,13 @@
 #define _NORTC_YEAR    2016
 
 /* The option _FS_NORTC switches timestamp functiton. If the system does not have
-*  /  any RTC function or valid timestamp is not needed, set _FS_NORTC = 1 to disable
-*  /  the timestamp function. All objects modified by FatFs will have a fixed timestamp
-*  /  defined by _NORTC_MON, _NORTC_MDAY and _NORTC_YEAR in local time.
-*  /  To enable timestamp function (_FS_NORTC = 0), get_fattime() function need to be
-*  /  added to the project to get current time form real-time clock. _NORTC_MON,
-*  /  _NORTC_MDAY and _NORTC_YEAR have no effect.
-*  /  These options have no effect at read-only configuration (_FS_READONLY = 1). */
+ *  /  any RTC function or valid timestamp is not needed, set _FS_NORTC = 1 to disable
+ *  /  the timestamp function. All objects modified by FatFs will have a fixed timestamp
+ *  /  defined by _NORTC_MON, _NORTC_MDAY and _NORTC_YEAR in local time.
+ *  /  To enable timestamp function (_FS_NORTC = 0), get_fattime() function need to be
+ *  /  added to the project to get current time form real-time clock. _NORTC_MON,
+ *  /  _NORTC_MDAY and _NORTC_YEAR have no effect.
+ *  /  These options have no effect at read-only configuration (_FS_READONLY = 1). */
 
 
 #define _FS_LOCK    2
@@ -283,9 +283,9 @@
 #define _FS_REENTRANT    1
 
 #if _FS_REENTRANT
-# include "cmsis_os.h"
-# define _FS_TIMEOUT    1000
-# define _SYNC_t        osSemaphoreId
+#include "cmsis_os.h"
+#define _FS_TIMEOUT    1000
+#define _SYNC_t        osSemaphoreId
 #endif
 
 /* The option _FS_REENTRANT switches the re-entrancy (thread safe) of the FatFs
@@ -308,16 +308,16 @@
 /* #include <windows.h>	// O/S definitions  */
 
 #if _USE_LFN == 3
-# if !defined(ff_malloc) || !defined(ff_free)
-#  include <stdlib.h>
-# endif
+#if !defined(ff_malloc) || !defined(ff_free)
+#include <stdlib.h>
+#endif
 
-# if !defined(ff_malloc)
-#  define ff_malloc    malloc
-# endif
+#if !defined(ff_malloc)
+#define ff_malloc    malloc
+#endif
 
-# if !defined(ff_free)
-#  define ff_free    free
-# endif
-#endif // if _USE_LFN == 3
+#if !defined(ff_free)
+#define ff_free    free
+#endif
+#endif	// if _USE_LFN == 3
 /*--- End of configuration options ---*/

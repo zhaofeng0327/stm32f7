@@ -35,7 +35,7 @@
 #include "gpio.h"
 
 #ifdef STM32F730xx
-# include "aes.h"
+#include "aes.h"
 #endif
 
 /* Private includes ----------------------------------------------------------*/
@@ -148,7 +148,7 @@ int main(void)
 		/* USER CODE BEGIN 3 */
 	}
 	/* USER CODE END 3 */
-} /* main */
+}	/* main */
 
 /**
  * @brief System Clock Configuration
@@ -229,7 +229,7 @@ void SystemClock_Config(void)
 	if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
 		Error_Handler();
 	}
-} /* SystemClock_Config */
+}	/* SystemClock_Config */
 
 /**
  * @brief NVIC Configuration.
@@ -279,7 +279,7 @@ static void MX_NVIC_Init(void)
 	/* TIM6_DAC_IRQn interrupt configuration */
 	HAL_NVIC_SetPriority(TIM6_DAC_IRQn, 5, 0);
 	HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);
-} /* MX_NVIC_Init */
+}	/* MX_NVIC_Init */
 
 /* USER CODE BEGIN 4 */
 

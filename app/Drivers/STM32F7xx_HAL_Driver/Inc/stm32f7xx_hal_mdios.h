@@ -19,16 +19,16 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_HAL_MDIOS_H
-# define __STM32F7xx_HAL_MDIOS_H
+#define __STM32F7xx_HAL_MDIOS_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
-# if defined(MDIOS)
+#if defined(MDIOS)
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -67,7 +67,7 @@ typedef struct {
 	uint32_t PortAddress;	/*!< Specifies the MDIOS port address.
 							 *   This parameter can be a value from 0 to 31 */
 	uint32_t PreambleCheck;	/*!< Specifies whether the preamble check is enabled or disabled.
-							 *   This parameter can be a value of @ref MDIOS_Preamble_Check */
+							*   This parameter can be a value of @ref MDIOS_Preamble_Check */
 } MDIOS_InitTypeDef;
 
 /**
@@ -78,11 +78,11 @@ typedef struct {
  * @{
  */
 
-#  if ( USE_HAL_MDIOS_REGISTER_CALLBACKS == 1 )
+#if ( USE_HAL_MDIOS_REGISTER_CALLBACKS == 1 )
 typedef struct __MDIOS_HandleTypeDef
-#  else
+#else
 typedef struct
-#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 {
 	MDIOS_TypeDef               *Instance;	/*!< Register base address       */
 
@@ -92,7 +92,7 @@ typedef struct
 
 	HAL_LockTypeDef             Lock;	/*!< MDIOS Lock                  */
 
-	#  if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
 
 	void (*WriteCpltCallback)(struct __MDIOS_HandleTypeDef *hmdios);/*!< MDIOS Write Complete Callback */
 	void (*ReadCpltCallback)(struct __MDIOS_HandleTypeDef *hmdios);	/*!< MDIOS Read  Complete Callback */
@@ -101,10 +101,10 @@ typedef struct
 	void (*MspInitCallback)(struct __MDIOS_HandleTypeDef *hmdios);	/*!< MDIOS Msp Init callback       */
 	void (*MspDeInitCallback)(struct __MDIOS_HandleTypeDef *hmdios);/*!< MDIOS Msp DeInit callback     */
 
-	#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 } MDIOS_HandleTypeDef;
 
-#  if ( USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+#if ( USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  HAL MDIOS Callback ID enumeration definition
@@ -123,7 +123,7 @@ typedef enum {
  */
 typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< pointer to an MDIOS callback function */
 
-#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -142,8 +142,8 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
 /** @defgroup MDIOS_Preamble_Check  MDIOS Preamble Check
  * @{
  */
-#  define MDIOS_PREAMBLE_CHECK_ENABLE     ((uint32_t) 0x00000000U)
-#  define MDIOS_PREAMBLE_CHECK_DISABLE    MDIOS_CR_DPC
+#define MDIOS_PREAMBLE_CHECK_ENABLE     ((uint32_t) 0x00000000U)
+#define MDIOS_PREAMBLE_CHECK_DISABLE    MDIOS_CR_DPC
 
 /**
  * @}
@@ -152,38 +152,38 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
 /** @defgroup MDIOS_Input_Output_Registers_Definitions MDIOS Input Output Registers Definitions
  * @{
  */
-#  define MDIOS_REG0     ((uint32_t) 0x00000000U)
-#  define MDIOS_REG1     ((uint32_t) 0x00000001U)
-#  define MDIOS_REG2     ((uint32_t) 0x00000002U)
-#  define MDIOS_REG3     ((uint32_t) 0x00000003U)
-#  define MDIOS_REG4     ((uint32_t) 0x00000004U)
-#  define MDIOS_REG5     ((uint32_t) 0x00000005U)
-#  define MDIOS_REG6     ((uint32_t) 0x00000006U)
-#  define MDIOS_REG7     ((uint32_t) 0x00000007U)
-#  define MDIOS_REG8     ((uint32_t) 0x00000008U)
-#  define MDIOS_REG9     ((uint32_t) 0x00000009U)
-#  define MDIOS_REG10    ((uint32_t) 0x0000000AU)
-#  define MDIOS_REG11    ((uint32_t) 0x0000000BU)
-#  define MDIOS_REG12    ((uint32_t) 0x0000000CU)
-#  define MDIOS_REG13    ((uint32_t) 0x0000000DU)
-#  define MDIOS_REG14    ((uint32_t) 0x0000000EU)
-#  define MDIOS_REG15    ((uint32_t) 0x0000000FU)
-#  define MDIOS_REG16    ((uint32_t) 0x00000010U)
-#  define MDIOS_REG17    ((uint32_t) 0x00000011U)
-#  define MDIOS_REG18    ((uint32_t) 0x00000012U)
-#  define MDIOS_REG19    ((uint32_t) 0x00000013U)
-#  define MDIOS_REG20    ((uint32_t) 0x00000014U)
-#  define MDIOS_REG21    ((uint32_t) 0x00000015U)
-#  define MDIOS_REG22    ((uint32_t) 0x00000016U)
-#  define MDIOS_REG23    ((uint32_t) 0x00000017U)
-#  define MDIOS_REG24    ((uint32_t) 0x00000018U)
-#  define MDIOS_REG25    ((uint32_t) 0x00000019U)
-#  define MDIOS_REG26    ((uint32_t) 0x0000001AU)
-#  define MDIOS_REG27    ((uint32_t) 0x0000001BU)
-#  define MDIOS_REG28    ((uint32_t) 0x0000001CU)
-#  define MDIOS_REG29    ((uint32_t) 0x0000001DU)
-#  define MDIOS_REG30    ((uint32_t) 0x0000001EU)
-#  define MDIOS_REG31    ((uint32_t) 0x0000001FU)
+#define MDIOS_REG0     ((uint32_t) 0x00000000U)
+#define MDIOS_REG1     ((uint32_t) 0x00000001U)
+#define MDIOS_REG2     ((uint32_t) 0x00000002U)
+#define MDIOS_REG3     ((uint32_t) 0x00000003U)
+#define MDIOS_REG4     ((uint32_t) 0x00000004U)
+#define MDIOS_REG5     ((uint32_t) 0x00000005U)
+#define MDIOS_REG6     ((uint32_t) 0x00000006U)
+#define MDIOS_REG7     ((uint32_t) 0x00000007U)
+#define MDIOS_REG8     ((uint32_t) 0x00000008U)
+#define MDIOS_REG9     ((uint32_t) 0x00000009U)
+#define MDIOS_REG10    ((uint32_t) 0x0000000AU)
+#define MDIOS_REG11    ((uint32_t) 0x0000000BU)
+#define MDIOS_REG12    ((uint32_t) 0x0000000CU)
+#define MDIOS_REG13    ((uint32_t) 0x0000000DU)
+#define MDIOS_REG14    ((uint32_t) 0x0000000EU)
+#define MDIOS_REG15    ((uint32_t) 0x0000000FU)
+#define MDIOS_REG16    ((uint32_t) 0x00000010U)
+#define MDIOS_REG17    ((uint32_t) 0x00000011U)
+#define MDIOS_REG18    ((uint32_t) 0x00000012U)
+#define MDIOS_REG19    ((uint32_t) 0x00000013U)
+#define MDIOS_REG20    ((uint32_t) 0x00000014U)
+#define MDIOS_REG21    ((uint32_t) 0x00000015U)
+#define MDIOS_REG22    ((uint32_t) 0x00000016U)
+#define MDIOS_REG23    ((uint32_t) 0x00000017U)
+#define MDIOS_REG24    ((uint32_t) 0x00000018U)
+#define MDIOS_REG25    ((uint32_t) 0x00000019U)
+#define MDIOS_REG26    ((uint32_t) 0x0000001AU)
+#define MDIOS_REG27    ((uint32_t) 0x0000001BU)
+#define MDIOS_REG28    ((uint32_t) 0x0000001CU)
+#define MDIOS_REG29    ((uint32_t) 0x0000001DU)
+#define MDIOS_REG30    ((uint32_t) 0x0000001EU)
+#define MDIOS_REG31    ((uint32_t) 0x0000001FU)
 
 /**
  * @}
@@ -192,39 +192,39 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
 /** @defgroup MDIOS_Registers_Flags  MDIOS Registers Flags
  * @{
  */
-#  define MDIOS_REG0_FLAG      ((uint32_t) 0x00000001U)
-#  define MDIOS_REG1_FLAG      ((uint32_t) 0x00000002U)
-#  define MDIOS_REG2_FLAG      ((uint32_t) 0x00000004U)
-#  define MDIOS_REG3_FLAG      ((uint32_t) 0x00000008U)
-#  define MDIOS_REG4_FLAG      ((uint32_t) 0x00000010U)
-#  define MDIOS_REG5_FLAG      ((uint32_t) 0x00000020U)
-#  define MDIOS_REG6_FLAG      ((uint32_t) 0x00000040U)
-#  define MDIOS_REG7_FLAG      ((uint32_t) 0x00000080U)
-#  define MDIOS_REG8_FLAG      ((uint32_t) 0x00000100U)
-#  define MDIOS_REG9_FLAG      ((uint32_t) 0x00000200U)
-#  define MDIOS_REG10_FLAG     ((uint32_t) 0x00000400U)
-#  define MDIOS_REG11_FLAG     ((uint32_t) 0x00000800U)
-#  define MDIOS_REG12_FLAG     ((uint32_t) 0x00001000U)
-#  define MDIOS_REG13_FLAG     ((uint32_t) 0x00002000U)
-#  define MDIOS_REG14_FLAG     ((uint32_t) 0x00004000U)
-#  define MDIOS_REG15_FLAG     ((uint32_t) 0x00008000U)
-#  define MDIOS_REG16_FLAG     ((uint32_t) 0x00010000U)
-#  define MDIOS_REG17_FLAG     ((uint32_t) 0x00020000U)
-#  define MDIOS_REG18_FLAG     ((uint32_t) 0x00040000U)
-#  define MDIOS_REG19_FLAG     ((uint32_t) 0x00080000U)
-#  define MDIOS_REG20_FLAG     ((uint32_t) 0x00100000U)
-#  define MDIOS_REG21_FLAG     ((uint32_t) 0x00200000U)
-#  define MDIOS_REG22_FLAG     ((uint32_t) 0x00400000U)
-#  define MDIOS_REG23_FLAG     ((uint32_t) 0x00800000U)
-#  define MDIOS_REG24_FLAG     ((uint32_t) 0x01000000U)
-#  define MDIOS_REG25_FLAG     ((uint32_t) 0x02000000U)
-#  define MDIOS_REG26_FLAG     ((uint32_t) 0x04000000U)
-#  define MDIOS_REG27_FLAG     ((uint32_t) 0x08000000U)
-#  define MDIOS_REG28_FLAG     ((uint32_t) 0x10000000U)
-#  define MDIOS_REG29_FLAG     ((uint32_t) 0x20000000U)
-#  define MDIOS_REG30_FLAG     ((uint32_t) 0x40000000U)
-#  define MDIOS_REG31_FLAG     ((uint32_t) 0x80000000U)
-#  define MDIOS_ALLREG_FLAG    ((uint32_t) 0xFFFFFFFFU)
+#define MDIOS_REG0_FLAG      ((uint32_t) 0x00000001U)
+#define MDIOS_REG1_FLAG      ((uint32_t) 0x00000002U)
+#define MDIOS_REG2_FLAG      ((uint32_t) 0x00000004U)
+#define MDIOS_REG3_FLAG      ((uint32_t) 0x00000008U)
+#define MDIOS_REG4_FLAG      ((uint32_t) 0x00000010U)
+#define MDIOS_REG5_FLAG      ((uint32_t) 0x00000020U)
+#define MDIOS_REG6_FLAG      ((uint32_t) 0x00000040U)
+#define MDIOS_REG7_FLAG      ((uint32_t) 0x00000080U)
+#define MDIOS_REG8_FLAG      ((uint32_t) 0x00000100U)
+#define MDIOS_REG9_FLAG      ((uint32_t) 0x00000200U)
+#define MDIOS_REG10_FLAG     ((uint32_t) 0x00000400U)
+#define MDIOS_REG11_FLAG     ((uint32_t) 0x00000800U)
+#define MDIOS_REG12_FLAG     ((uint32_t) 0x00001000U)
+#define MDIOS_REG13_FLAG     ((uint32_t) 0x00002000U)
+#define MDIOS_REG14_FLAG     ((uint32_t) 0x00004000U)
+#define MDIOS_REG15_FLAG     ((uint32_t) 0x00008000U)
+#define MDIOS_REG16_FLAG     ((uint32_t) 0x00010000U)
+#define MDIOS_REG17_FLAG     ((uint32_t) 0x00020000U)
+#define MDIOS_REG18_FLAG     ((uint32_t) 0x00040000U)
+#define MDIOS_REG19_FLAG     ((uint32_t) 0x00080000U)
+#define MDIOS_REG20_FLAG     ((uint32_t) 0x00100000U)
+#define MDIOS_REG21_FLAG     ((uint32_t) 0x00200000U)
+#define MDIOS_REG22_FLAG     ((uint32_t) 0x00400000U)
+#define MDIOS_REG23_FLAG     ((uint32_t) 0x00800000U)
+#define MDIOS_REG24_FLAG     ((uint32_t) 0x01000000U)
+#define MDIOS_REG25_FLAG     ((uint32_t) 0x02000000U)
+#define MDIOS_REG26_FLAG     ((uint32_t) 0x04000000U)
+#define MDIOS_REG27_FLAG     ((uint32_t) 0x08000000U)
+#define MDIOS_REG28_FLAG     ((uint32_t) 0x10000000U)
+#define MDIOS_REG29_FLAG     ((uint32_t) 0x20000000U)
+#define MDIOS_REG30_FLAG     ((uint32_t) 0x40000000U)
+#define MDIOS_REG31_FLAG     ((uint32_t) 0x80000000U)
+#define MDIOS_ALLREG_FLAG    ((uint32_t) 0xFFFFFFFFU)
 
 /**
  * @}
@@ -233,9 +233,9 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
 /** @defgroup MDIOS_Interrupt_sources Interrupt Sources
  * @{
  */
-#  define MDIOS_IT_WRITE    MDIOS_CR_WRIE
-#  define MDIOS_IT_READ     MDIOS_CR_RDIE
-#  define MDIOS_IT_ERROR    MDIOS_CR_EIE
+#define MDIOS_IT_WRITE    MDIOS_CR_WRIE
+#define MDIOS_IT_READ     MDIOS_CR_RDIE
+#define MDIOS_IT_ERROR    MDIOS_CR_EIE
 
 /**
  * @}
@@ -244,9 +244,9 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
 /** @defgroup MDIOS_Interrupt_Flags  MDIOS Interrupt Flags
  * @{
  */
-#  define MDIOS_TURNAROUND_ERROR_FLAG    MDIOS_SR_TERF
-#  define MDIOS_START_ERROR_FLAG         MDIOS_SR_SERF
-#  define MDIOS_PREAMBLE_ERROR_FLAG      MDIOS_SR_PERF
+#define MDIOS_TURNAROUND_ERROR_FLAG    MDIOS_SR_TERF
+#define MDIOS_START_ERROR_FLAG         MDIOS_SR_SERF
+#define MDIOS_PREAMBLE_ERROR_FLAG      MDIOS_SR_PERF
 
 /**
  * @}
@@ -255,7 +255,7 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
 /** @defgroup MDIOS_Wakeup_Line  MDIOS Wakeup Line
  * @{
  */
-#  define MDIOS_WAKEUP_EXTI_LINE    ((uint32_t) 0x01000000)	/* !<  EXTI Line 24 */
+#define MDIOS_WAKEUP_EXTI_LINE    ((uint32_t) 0x01000000)	/* !<  EXTI Line 24 */
 
 /**
  * @}
@@ -274,24 +274,24 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
  * @param  __HANDLE__ MDIOS handle.
  * @retval None
  */
-#  if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
-#   define __HAL_MDIOS_RESET_HANDLE_STATE(__HANDLE__) \
+#if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+#define __HAL_MDIOS_RESET_HANDLE_STATE(__HANDLE__) \
 	do {                                                  \
 		(__HANDLE__)->State = HAL_MDIOS_STATE_RESET;      \
 		(__HANDLE__)->MspInitCallback   = NULL;             \
 		(__HANDLE__)->MspDeInitCallback = NULL;           \
 	} while (0)
-#  else
-#   define __HAL_MDIOS_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_MDIOS_STATE_RESET)
-#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+#else
+#define __HAL_MDIOS_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_MDIOS_STATE_RESET)
+#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 
 /**
  * @brief  Enable/Disable the MDIOS peripheral.
  * @param  __HANDLE__ specifies the MDIOS handle.
  * @retval None
  */
-#  define __HAL_MDIOS_ENABLE(__HANDLE__)     ((__HANDLE__)->Instance->CR |= MDIOS_CR_EN)
-#  define __HAL_MDIOS_DISABLE(__HANDLE__)    ((__HANDLE__)->Instance->CR &= ~MDIOS_CR_EN)
+#define __HAL_MDIOS_ENABLE(__HANDLE__)     ((__HANDLE__)->Instance->CR |= MDIOS_CR_EN)
+#define __HAL_MDIOS_DISABLE(__HANDLE__)    ((__HANDLE__)->Instance->CR &= ~MDIOS_CR_EN)
 
 
 /**
@@ -304,7 +304,7 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
  *            @arg MDIOS_IT_ERROR: Error interrupt
  * @retval None
  */
-#  define __HAL_MDIOS_ENABLE_IT(__HANDLE__, __INTERRUPT__)    ((__HANDLE__)->Instance->CR |= (__INTERRUPT__))
+#define __HAL_MDIOS_ENABLE_IT(__HANDLE__, __INTERRUPT__)    ((__HANDLE__)->Instance->CR |= (__INTERRUPT__))
 
 /**
  * @brief  Disable the MDIOS device interrupt.
@@ -316,21 +316,21 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
  *            @arg MDIOS_IT_ERROR: Error interrupt
  * @retval None
  */
-#  define __HAL_MDIOS_DISABLE_IT(__HANDLE__, __INTERRUPT__)    ((__HANDLE__)->Instance->CR &= ~(__INTERRUPT__))
+#define __HAL_MDIOS_DISABLE_IT(__HANDLE__, __INTERRUPT__)    ((__HANDLE__)->Instance->CR &= ~(__INTERRUPT__))
 
 /** @brief Set MDIOS slave get write register flag
  * @param  __HANDLE__ specifies the MDIOS handle.
  * @param  __FLAG__ specifies the write register flag
  * @retval The state of write flag
  */
-#  define __HAL_MDIOS_GET_WRITE_FLAG(__HANDLE__, __FLAG__)    ((__HANDLE__)->Instance->WRFR & (__FLAG__))
+#define __HAL_MDIOS_GET_WRITE_FLAG(__HANDLE__, __FLAG__)    ((__HANDLE__)->Instance->WRFR & (__FLAG__))
 
 /** @brief MDIOS slave get read register flag
  * @param  __HANDLE__ specifies the MDIOS handle.
  * @param  __FLAG__ specifies the read register flag
  * @retval The state of read flag
  */
-#  define __HAL_MDIOS_GET_READ_FLAG(__HANDLE__, __FLAG__)    ((__HANDLE__)->Instance->RDFR & (__FLAG__))
+#define __HAL_MDIOS_GET_READ_FLAG(__HANDLE__, __FLAG__)    ((__HANDLE__)->Instance->RDFR & (__FLAG__))
 
 /** @brief MDIOS slave get interrupt
  * @param  __HANDLE__ specifies the MDIOS handle.
@@ -341,7 +341,7 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
  *            @arg MDIOS_PREAMBLE_ERROR_FLAG: Error interrupt
  * @retval The state of the error flag
  */
-#  define __HAL_MDIOS_GET_ERROR_FLAG(__HANDLE__, __FLAG__)    ((__HANDLE__)->Instance->SR & (__FLAG__))
+#define __HAL_MDIOS_GET_ERROR_FLAG(__HANDLE__, __FLAG__)    ((__HANDLE__)->Instance->SR & (__FLAG__))
 
 /** @brief  MDIOS slave clear interrupt
  * @param  __HANDLE__ specifies the MDIOS handle.
@@ -352,7 +352,7 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
  *            @arg MDIOS_PREAMBLE_ERROR_FLAG: Error interrupt
  * @retval none
  */
-#  define __HAL_MDIOS_CLEAR_ERROR_FLAG(__HANDLE__, __FLAG__)    ((__HANDLE__)->Instance->CLRFR) |= (__FLAG__)
+#define __HAL_MDIOS_CLEAR_ERROR_FLAG(__HANDLE__, __FLAG__)    ((__HANDLE__)->Instance->CLRFR) |= (__FLAG__)
 
 /**
  * @brief  Checks whether the specified MDIOS interrupt is set or not.
@@ -364,73 +364,73 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
  *            @arg MDIOS_IT_ERROR: Error interrupt
  * @retval The state of the interrupt source
  */
-#  define __HAL_MDIOS_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)    ((__HANDLE__)->Instance->CR & (__INTERRUPT__))
+#define __HAL_MDIOS_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)    ((__HANDLE__)->Instance->CR & (__INTERRUPT__))
 
 /**
  * @brief Enable the MDIOS WAKEUP Exti Line.
  * @retval None.
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_ENABLE_IT()    (EXTI->IMR |= (MDIOS_WAKEUP_EXTI_LINE))
+#define __HAL_MDIOS_WAKEUP_EXTI_ENABLE_IT()    (EXTI->IMR |= (MDIOS_WAKEUP_EXTI_LINE))
 
 /**
  * @brief Disable the MDIOS WAKEUP Exti Line.
  * @retval None.
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_DISABLE_IT()    (EXTI->IMR &= ~(MDIOS_WAKEUP_EXTI_LINE))
+#define __HAL_MDIOS_WAKEUP_EXTI_DISABLE_IT()    (EXTI->IMR &= ~(MDIOS_WAKEUP_EXTI_LINE))
 
 /**
  * @brief Enable event on MDIOS WAKEUP Exti Line.
  * @retval None.
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_ENABLE_EVENT()    (EXTI->EMR |= (MDIOS_WAKEUP_EXTI_LINE))
+#define __HAL_MDIOS_WAKEUP_EXTI_ENABLE_EVENT()    (EXTI->EMR |= (MDIOS_WAKEUP_EXTI_LINE))
 
 /**
  * @brief Disable event on MDIOS WAKEUP Exti Line.
  * @retval None.
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_DISABLE_EVENT()    (EXTI->EMR &= ~(MDIOS_WAKEUP_EXTI_LINE))
+#define __HAL_MDIOS_WAKEUP_EXTI_DISABLE_EVENT()    (EXTI->EMR &= ~(MDIOS_WAKEUP_EXTI_LINE))
 
 /**
  * @brief checks whether the specified MDIOS WAKEUP Exti interrupt flag is set or not.
  * @retval EXTI MDIOS WAKEUP Line Status.
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_GET_FLAG()    (EXTI->PR & (MDIOS_WAKEUP_EXTI_LINE))
+#define __HAL_MDIOS_WAKEUP_EXTI_GET_FLAG()    (EXTI->PR & (MDIOS_WAKEUP_EXTI_LINE))
 
 /**
  * @brief Clear the MDIOS WAKEUP Exti flag.
  * @retval None.
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_CLEAR_FLAG()    (EXTI->PR = (MDIOS_WAKEUP_EXTI_LINE))
+#define __HAL_MDIOS_WAKEUP_EXTI_CLEAR_FLAG()    (EXTI->PR = (MDIOS_WAKEUP_EXTI_LINE))
 
 /**
  * @brief  Enables rising edge trigger to the MDIOS External interrupt line.
  * @retval None
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_ENABLE_RISING_EDGE_TRIGGER()    EXTI->RTSR |= MDIOS_WAKEUP_EXTI_LINE
+#define __HAL_MDIOS_WAKEUP_EXTI_ENABLE_RISING_EDGE_TRIGGER()    EXTI->RTSR |= MDIOS_WAKEUP_EXTI_LINE
 
 /**
  * @brief  Disables the rising edge trigger to the MDIOS External interrupt line.
  * @retval None
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_DISABLE_RISING_EDGE_TRIGGER()    EXTI->RTSR &= ~(MDIOS_WAKEUP_EXTI_LINE)
+#define __HAL_MDIOS_WAKEUP_EXTI_DISABLE_RISING_EDGE_TRIGGER()    EXTI->RTSR &= ~(MDIOS_WAKEUP_EXTI_LINE)
 
 /**
  * @brief  Enables falling edge trigger to the MDIOS External interrupt line.
  * @retval None
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_ENABLE_FALLING_EDGE_TRIGGER()    EXTI->FTSR |= (MDIOS_WAKEUP_EXTI_LINE)
+#define __HAL_MDIOS_WAKEUP_EXTI_ENABLE_FALLING_EDGE_TRIGGER()    EXTI->FTSR |= (MDIOS_WAKEUP_EXTI_LINE)
 
 /**
  * @brief  Disables falling edge trigger to the MDIOS External interrupt line.
  * @retval None
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_DISABLE_FALLING_EDGE_TRIGGER()    EXTI->FTSR &= ~(MDIOS_WAKEUP_EXTI_LINE)
+#define __HAL_MDIOS_WAKEUP_EXTI_DISABLE_FALLING_EDGE_TRIGGER()    EXTI->FTSR &= ~(MDIOS_WAKEUP_EXTI_LINE)
 
 /**
  * @brief  Enables rising/falling edge trigger to the MDIOS External interrupt line.
  * @retval None
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_ENABLE_FALLINGRISING_TRIGGER() \
+#define __HAL_MDIOS_WAKEUP_EXTI_ENABLE_FALLINGRISING_TRIGGER() \
 	EXTI->RTSR |= MDIOS_WAKEUP_EXTI_LINE; \
 	EXTI->FTSR |= MDIOS_WAKEUP_EXTI_LINE
 
@@ -438,7 +438,7 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
  * @brief  Disables rising/falling edge trigger to the MDIOS External interrupt line.
  * @retval None
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_DISABLE_FALLINGRISING_TRIGGER() \
+#define __HAL_MDIOS_WAKEUP_EXTI_DISABLE_FALLINGRISING_TRIGGER() \
 	EXTI->RTSR &= ~(MDIOS_WAKEUP_EXTI_LINE); \
 	EXTI->FTSR &= ~(MDIOS_WAKEUP_EXTI_LINE)
 
@@ -446,7 +446,7 @@ typedef  void (*pMDIOS_CallbackTypeDef)(MDIOS_HandleTypeDef *hmdios);	/*!< point
  * @brief  Generates a Software interrupt on selected EXTI line.
  * @retval None
  */
-#  define __HAL_MDIOS_WAKEUP_EXTI_GENERATE_SWIT()    (EXTI->SWIER |= (MDIOS_WAKEUP_EXTI_LINE))
+#define __HAL_MDIOS_WAKEUP_EXTI_GENERATE_SWIT()    (EXTI->SWIER |= (MDIOS_WAKEUP_EXTI_LINE))
 
 /**
  * @}
@@ -466,11 +466,11 @@ HAL_StatusTypeDef HAL_MDIOS_DeInit(MDIOS_HandleTypeDef *hmdios);
 void HAL_MDIOS_MspInit(MDIOS_HandleTypeDef *hmdios);
 void  HAL_MDIOS_MspDeInit(MDIOS_HandleTypeDef *hmdios);
 /* Callbacks Register/UnRegister functions  ***********************************/
-#  if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
 HAL_StatusTypeDef HAL_MDIOS_RegisterCallback(MDIOS_HandleTypeDef *hmdios, HAL_MDIOS_CallbackIDTypeDef CallbackID,
   pMDIOS_CallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_MDIOS_UnRegisterCallback(MDIOS_HandleTypeDef *hmdios, HAL_MDIOS_CallbackIDTypeDef CallbackID);
-#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -548,11 +548,11 @@ HAL_MDIOS_StateTypeDef HAL_MDIOS_GetState(MDIOS_HandleTypeDef *hmdios);
  * @{
  */
 
-#  define IS_MDIOS_PORTADDRESS(__ADDR__)     ((__ADDR__) < 32)
+#define IS_MDIOS_PORTADDRESS(__ADDR__)     ((__ADDR__) < 32)
 
-#  define IS_MDIOS_REGISTER(__REGISTER__)    ((__REGISTER__) < 32)
+#define IS_MDIOS_REGISTER(__REGISTER__)    ((__REGISTER__) < 32)
 
-#  define IS_MDIOS_PREAMBLECHECK(__PREAMBLECHECK__) \
+#define IS_MDIOS_PREAMBLECHECK(__PREAMBLECHECK__) \
 	(((__PREAMBLECHECK__) == MDIOS_PREAMBLE_CHECK_ENABLE) || \
 	((__PREAMBLECHECK__) == MDIOS_PREAMBLE_CHECK_DISABLE))
 
@@ -579,11 +579,11 @@ HAL_MDIOS_StateTypeDef HAL_MDIOS_GetState(MDIOS_HandleTypeDef *hmdios);
  * @}
  */
 
-# endif	/* MDIOS */
+#endif	/* MDIOS */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_HAL_MDIOS_H */
 

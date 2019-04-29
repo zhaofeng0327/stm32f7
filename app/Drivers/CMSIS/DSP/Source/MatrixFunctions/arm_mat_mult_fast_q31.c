@@ -74,15 +74,15 @@ arm_status arm_mat_mult_fast_q31(
 	const arm_matrix_instance_q31 *pSrcB,
 	arm_matrix_instance_q31       *pDst)
 {
-	q31_t *pInA = pSrcA->pData;						/* input data matrix pointer A */
-	q31_t *pInB = pSrcB->pData;						/* input data matrix pointer B */
-	q31_t *px;										/* Temporary output data matrix pointer */
-	q31_t sum;										/* Accumulator */
-	uint16_t numRowsA = pSrcA->numRows;				/* number of rows of input matrix A    */
-	uint16_t numColsB = pSrcB->numCols;				/* number of columns of input matrix B */
-	uint16_t numColsA = pSrcA->numCols;				/* number of columns of input matrix A */
+	q31_t *pInA = pSrcA->pData;			/* input data matrix pointer A */
+	q31_t *pInB = pSrcB->pData;			/* input data matrix pointer B */
+	q31_t *px;							/* Temporary output data matrix pointer */
+	q31_t sum;							/* Accumulator */
+	uint16_t numRowsA = pSrcA->numRows;	/* number of rows of input matrix A    */
+	uint16_t numColsB = pSrcB->numCols;	/* number of columns of input matrix B */
+	uint16_t numColsA = pSrcA->numCols;	/* number of columns of input matrix A */
 	uint32_t col, i = 0U, j, row = numRowsA, colCnt;/* loop counters */
-	arm_status status;								/* status of matrix multiplication */
+	arm_status status;	/* status of matrix multiplication */
 	q31_t inA1, inB1;
 
 	#if defined(ARM_MATH_DSP)
@@ -161,7 +161,7 @@ arm_status arm_mat_mult_fast_q31(
 					sum2 = __SMMLA(inA1, inB2, sum2);
 					sum3 = __SMMLA(inA2, inB1, sum3);
 					sum4 = __SMMLA(inA2, inB2, sum4);
-					#else  /* if defined(ARM_MATH_DSP) */
+					#else	/* if defined(ARM_MATH_DSP) */
 					/* c(m,n) = a(1,1)*b(1,1) + a(1,2) * b(2,1) + .... + a(m,p)*b(p,n) */
 					/* Perform the multiply-accumulates */
 					inB1  = *pInB;
@@ -185,7 +185,7 @@ arm_status arm_mat_mult_fast_q31(
 					sum   = __SMMLA(inA1, inB1, sum);
 
 					pInA += 4U;
-					#endif /* if defined(ARM_MATH_DSP) */
+					#endif	/* if defined(ARM_MATH_DSP) */
 
 					/* Decrement the loop counter */
 					colCnt--;
@@ -360,7 +360,7 @@ arm_status arm_mat_mult_fast_q31(
 
 	/* Return to application */
 	return (status);
-} /* arm_mat_mult_fast_q31 */
+}	/* arm_mat_mult_fast_q31 */
 
 /**
  * @} end of MatrixMult group

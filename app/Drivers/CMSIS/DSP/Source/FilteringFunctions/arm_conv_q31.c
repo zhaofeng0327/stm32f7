@@ -95,7 +95,7 @@ void arm_conv_q31(
 
 		/* Initialization of inputB pointer */
 		pIn2 = pSrcB;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = (q31_t *) pSrcB;
 
@@ -385,7 +385,7 @@ void arm_conv_q31(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* If the srcBLen is not a multiple of 4,
 		 * the blockSize2 loop cannot be unrolled by 4 */
 		blkCnt = blockSize2;
@@ -493,14 +493,14 @@ void arm_conv_q31(
 		blockSize3--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
 	q31_t *pIn1 = pSrcA;/* input pointer */
 	q31_t *pIn2 = pSrcB;/* coefficient pointer */
-	q63_t sum;			/* Accumulator */
-	uint32_t i, j;		/* loop counter */
+	q63_t sum;		/* Accumulator */
+	uint32_t i, j;	/* loop counter */
 
 	/* Loop to calculate output of convolution for output length number of times */
 	for (i = 0; i < (srcALen + srcBLen - 1); i++) {
@@ -521,7 +521,7 @@ void arm_conv_q31(
 	}
 
 	#endif	/*     #if defined (ARM_MATH_DSP) */
-} /* arm_conv_q31 */
+}	/* arm_conv_q31 */
 
 /**
  * @} end of Conv group

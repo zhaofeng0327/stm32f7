@@ -366,9 +366,9 @@ void arm_fir_interpolate_q31(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* arm_fir_interpolate_q31 */
+}	/* arm_fir_interpolate_q31 */
 
-#else  /* if defined(ARM_MATH_DSP) */
+#else	/* if defined(ARM_MATH_DSP) */
 
 void arm_fir_interpolate_q31(
 	const arm_fir_interpolate_instance_q31 *S,
@@ -378,8 +378,8 @@ void arm_fir_interpolate_q31(
 {
 	q31_t *pState  = S->pState;	/* State pointer */
 	q31_t *pCoeffs = S->pCoeffs;/* Coefficient pointer */
-	q31_t *pStateCurnt;			/* Points to the current sample of the state */
-	q31_t *ptr1, *ptr2;			/* Temporary pointers for state and coefficient buffers */
+	q31_t *pStateCurnt;	/* Points to the current sample of the state */
+	q31_t *ptr1, *ptr2;	/* Temporary pointers for state and coefficient buffers */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -464,7 +464,7 @@ void arm_fir_interpolate_q31(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* arm_fir_interpolate_q31 */
+}	/* arm_fir_interpolate_q31 */
 
 #endif	/*   #if defined (ARM_MATH_DSP) */
 

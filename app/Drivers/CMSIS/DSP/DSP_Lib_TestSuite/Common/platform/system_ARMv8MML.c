@@ -25,23 +25,23 @@
  */
 
 #if defined(ARMv8MML)
-# include "ARMv8MML.h"
+#include "ARMv8MML.h"
 #elif defined(ARMv8MML_DSP)
-# include "ARMv8MML_DSP.h"
+#include "ARMv8MML_DSP.h"
 #elif defined(ARMv8MML_SP)
-# include "ARMv8MML_SP.h"
+#include "ARMv8MML_SP.h"
 #elif defined(ARMv8MML_DSP_SP)
-# include "ARMv8MML_DSP_SP.h"
+#include "ARMv8MML_DSP_SP.h"
 #elif defined(ARMv8MML_DP)
-# include "ARMv8MML_DP.h"
+#include "ARMv8MML_DP.h"
 #elif defined(ARMv8MML_DSP_DP)
-# include "ARMv8MML_DSP_DP.h"
-#else  /* if defined(ARMv8MML) */
-# error device not specified!
-#endif /* if defined(ARMv8MML) */
+#include "ARMv8MML_DSP_DP.h"
+#else	/* if defined(ARMv8MML) */
+#error device not specified!
+#endif	/* if defined(ARMv8MML) */
 
 #if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-# include "partition_ARMv8MML.h"
+#include "partition_ARMv8MML.h"
 #endif
 
 /*----------------------------------------------------------------------------

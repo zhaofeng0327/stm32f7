@@ -124,33 +124,33 @@
  */
 
 /* Constants to define address to set to write a command */
-# define NOR_CMD_ADDRESS_FIRST        (uint16_t) 0x0555
-# define NOR_CMD_ADDRESS_FIRST_CFI    (uint16_t) 0x0055
-# define NOR_CMD_ADDRESS_SECOND       (uint16_t) 0x02AA
-# define NOR_CMD_ADDRESS_THIRD        (uint16_t) 0x0555
-# define NOR_CMD_ADDRESS_FOURTH       (uint16_t) 0x0555
-# define NOR_CMD_ADDRESS_FIFTH        (uint16_t) 0x02AA
-# define NOR_CMD_ADDRESS_SIXTH        (uint16_t) 0x0555
+#define NOR_CMD_ADDRESS_FIRST        (uint16_t) 0x0555
+#define NOR_CMD_ADDRESS_FIRST_CFI    (uint16_t) 0x0055
+#define NOR_CMD_ADDRESS_SECOND       (uint16_t) 0x02AA
+#define NOR_CMD_ADDRESS_THIRD        (uint16_t) 0x0555
+#define NOR_CMD_ADDRESS_FOURTH       (uint16_t) 0x0555
+#define NOR_CMD_ADDRESS_FIFTH        (uint16_t) 0x02AA
+#define NOR_CMD_ADDRESS_SIXTH        (uint16_t) 0x0555
 
 /* Constants to define data to program a command */
-# define NOR_CMD_DATA_READ_RESET                 (uint16_t) 0x00F0
-# define NOR_CMD_DATA_FIRST                      (uint16_t) 0x00AA
-# define NOR_CMD_DATA_SECOND                     (uint16_t) 0x0055
-# define NOR_CMD_DATA_AUTO_SELECT                (uint16_t) 0x0090
-# define NOR_CMD_DATA_PROGRAM                    (uint16_t) 0x00A0
-# define NOR_CMD_DATA_CHIP_BLOCK_ERASE_THIRD     (uint16_t) 0x0080
-# define NOR_CMD_DATA_CHIP_BLOCK_ERASE_FOURTH    (uint16_t) 0x00AA
-# define NOR_CMD_DATA_CHIP_BLOCK_ERASE_FIFTH     (uint16_t) 0x0055
-# define NOR_CMD_DATA_CHIP_ERASE                 (uint16_t) 0x0010
-# define NOR_CMD_DATA_CFI                        (uint16_t) 0x0098
+#define NOR_CMD_DATA_READ_RESET                 (uint16_t) 0x00F0
+#define NOR_CMD_DATA_FIRST                      (uint16_t) 0x00AA
+#define NOR_CMD_DATA_SECOND                     (uint16_t) 0x0055
+#define NOR_CMD_DATA_AUTO_SELECT                (uint16_t) 0x0090
+#define NOR_CMD_DATA_PROGRAM                    (uint16_t) 0x00A0
+#define NOR_CMD_DATA_CHIP_BLOCK_ERASE_THIRD     (uint16_t) 0x0080
+#define NOR_CMD_DATA_CHIP_BLOCK_ERASE_FOURTH    (uint16_t) 0x00AA
+#define NOR_CMD_DATA_CHIP_BLOCK_ERASE_FIFTH     (uint16_t) 0x0055
+#define NOR_CMD_DATA_CHIP_ERASE                 (uint16_t) 0x0010
+#define NOR_CMD_DATA_CFI                        (uint16_t) 0x0098
 
-# define NOR_CMD_DATA_BUFFER_AND_PROG            (uint8_t) 0x25
-# define NOR_CMD_DATA_BUFFER_AND_PROG_CONFIRM    (uint8_t) 0x29
-# define NOR_CMD_DATA_BLOCK_ERASE                (uint8_t) 0x30
+#define NOR_CMD_DATA_BUFFER_AND_PROG            (uint8_t) 0x25
+#define NOR_CMD_DATA_BUFFER_AND_PROG_CONFIRM    (uint8_t) 0x29
+#define NOR_CMD_DATA_BLOCK_ERASE                (uint8_t) 0x30
 
 /* Mask on NOR STATUS REGISTER */
-# define NOR_MASK_STATUS_DQ5    (uint16_t) 0x0020
-# define NOR_MASK_STATUS_DQ6    (uint16_t) 0x0040
+#define NOR_MASK_STATUS_DQ5    (uint16_t) 0x0020
+#define NOR_MASK_STATUS_DQ6    (uint16_t) 0x0040
 
 /**
  * @}
@@ -211,17 +211,17 @@ HAL_StatusTypeDef HAL_NOR_Init(NOR_HandleTypeDef *hnor, FMC_NORSRAM_TimingTypeDe
 		/* Allocate lock resource and initialize it */
 		hnor->Lock = HAL_UNLOCKED;
 
-		# if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
 		if (hnor->MspInitCallback == NULL) {
 			hnor->MspInitCallback = HAL_NOR_MspInit;
 		}
 
 		/* Init the low level hardware */
 		hnor->MspInitCallback(hnor);
-		# else
+		#else
 		/* Initialize the low level hardware (MSP) */
 		HAL_NOR_MspInit(hnor);
-		# endif	/* (USE_HAL_NOR_REGISTER_CALLBACKS) */
+		#endif	/* (USE_HAL_NOR_REGISTER_CALLBACKS) */
 	}
 
 	/* Initialize NOR control Interface */
@@ -247,7 +247,7 @@ HAL_StatusTypeDef HAL_NOR_Init(NOR_HandleTypeDef *hnor, FMC_NORSRAM_TimingTypeDe
 	hnor->State = HAL_NOR_STATE_READY;
 
 	return HAL_OK;
-} /* HAL_NOR_Init */
+}	/* HAL_NOR_Init */
 
 /**
  * @brief  Perform NOR memory De-Initialization sequence
@@ -257,17 +257,17 @@ HAL_StatusTypeDef HAL_NOR_Init(NOR_HandleTypeDef *hnor, FMC_NORSRAM_TimingTypeDe
  */
 HAL_StatusTypeDef HAL_NOR_DeInit(NOR_HandleTypeDef *hnor)
 {
-	# if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
 	if (hnor->MspDeInitCallback == NULL) {
 		hnor->MspDeInitCallback = HAL_NOR_MspDeInit;
 	}
 
 	/* DeInit the low level hardware */
 	hnor->MspDeInitCallback(hnor);
-	# else
+	#else
 	/* De-Initialize the low level hardware (MSP) */
 	HAL_NOR_MspDeInit(hnor);
-	# endif	/* (USE_HAL_NOR_REGISTER_CALLBACKS) */
+	#endif	/* (USE_HAL_NOR_REGISTER_CALLBACKS) */
 
 	/* Configure the NOR registers with their reset values */
 	FMC_NORSRAM_DeInit(hnor->Instance, hnor->Extended, hnor->Init.NSBank);
@@ -403,7 +403,7 @@ HAL_StatusTypeDef HAL_NOR_Read_ID(NOR_HandleTypeDef *hnor, NOR_IDTypeDef *pNOR_I
 	__HAL_UNLOCK(hnor);
 
 	return HAL_OK;
-} /* HAL_NOR_Read_ID */
+}	/* HAL_NOR_Read_ID */
 
 /**
  * @brief  Returns the NOR memory to Read mode.
@@ -494,7 +494,7 @@ HAL_StatusTypeDef HAL_NOR_Read(NOR_HandleTypeDef *hnor, uint32_t *pAddress, uint
 	__HAL_UNLOCK(hnor);
 
 	return HAL_OK;
-} /* HAL_NOR_Read */
+}	/* HAL_NOR_Read */
 
 /**
  * @brief  Program data to NOR memory
@@ -545,7 +545,7 @@ HAL_StatusTypeDef HAL_NOR_Program(NOR_HandleTypeDef *hnor, uint32_t *pAddress, u
 	__HAL_UNLOCK(hnor);
 
 	return HAL_OK;
-} /* HAL_NOR_Program */
+}	/* HAL_NOR_Program */
 
 /**
  * @brief  Reads a half-word buffer from the NOR memory.
@@ -602,7 +602,7 @@ HAL_StatusTypeDef HAL_NOR_ReadBuffer(NOR_HandleTypeDef *hnor, uint32_t uwAddress
 	__HAL_UNLOCK(hnor);
 
 	return HAL_OK;
-} /* HAL_NOR_ReadBuffer */
+}	/* HAL_NOR_ReadBuffer */
 
 /**
  * @brief  Writes a half-word buffer to the NOR memory. This function must be used
@@ -674,7 +674,7 @@ HAL_StatusTypeDef HAL_NOR_ProgramBuffer(NOR_HandleTypeDef *hnor, uint32_t uwAddr
 	__HAL_UNLOCK(hnor);
 
 	return HAL_OK;
-} /* HAL_NOR_ProgramBuffer */
+}	/* HAL_NOR_ProgramBuffer */
 
 /**
  * @brief  Erase the specified block of the NOR memory
@@ -728,7 +728,7 @@ HAL_StatusTypeDef HAL_NOR_Erase_Block(NOR_HandleTypeDef *hnor, uint32_t BlockAdd
 	__HAL_UNLOCK(hnor);
 
 	return HAL_OK;
-} /* HAL_NOR_Erase_Block */
+}	/* HAL_NOR_Erase_Block */
 
 /**
  * @brief  Erase the entire NOR chip.
@@ -781,7 +781,7 @@ HAL_StatusTypeDef HAL_NOR_Erase_Chip(NOR_HandleTypeDef *hnor, uint32_t Address)
 	__HAL_UNLOCK(hnor);
 
 	return HAL_OK;
-} /* HAL_NOR_Erase_Chip */
+}	/* HAL_NOR_Erase_Chip */
 
 /**
  * @brief  Read NOR flash CFI IDs
@@ -832,9 +832,9 @@ HAL_StatusTypeDef HAL_NOR_Read_CFI(NOR_HandleTypeDef *hnor, NOR_CFITypeDef *pNOR
 	__HAL_UNLOCK(hnor);
 
 	return HAL_OK;
-} /* HAL_NOR_Read_CFI */
+}	/* HAL_NOR_Read_CFI */
 
-# if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User NOR Callback
@@ -882,7 +882,7 @@ HAL_StatusTypeDef HAL_NOR_RegisterCallback(NOR_HandleTypeDef *hnor, HAL_NOR_Call
 	/* Release Lock */
 	__HAL_UNLOCK(hnor);
 	return status;
-} /* HAL_NOR_RegisterCallback */
+}	/* HAL_NOR_RegisterCallback */
 
 /**
  * @brief  Unregister a User NOR Callback
@@ -926,7 +926,7 @@ HAL_StatusTypeDef HAL_NOR_UnRegisterCallback(NOR_HandleTypeDef *hnor, HAL_NOR_Ca
 	return status;
 }
 
-# endif	/* (USE_HAL_NOR_REGISTER_CALLBACKS) */
+#endif	/* (USE_HAL_NOR_REGISTER_CALLBACKS) */
 
 /**
  * @}
@@ -1083,7 +1083,7 @@ HAL_NOR_StatusTypeDef HAL_NOR_GetStatus(NOR_HandleTypeDef *hnor, uint32_t Addres
 
 	/* Return the operation status */
 	return status;
-} /* HAL_NOR_GetStatus */
+}	/* HAL_NOR_GetStatus */
 
 /**
  * @}

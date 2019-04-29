@@ -102,7 +102,7 @@ void arm_dot_prod_q31(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -123,7 +123,7 @@ void arm_dot_prod_q31(
 
 	/* Store the result in the destination buffer in 16.48 format */
 	*result = sum;
-} /* arm_dot_prod_q31 */
+}	/* arm_dot_prod_q31 */
 
 /**
  * @} end of dot_prod group

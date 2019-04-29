@@ -93,7 +93,7 @@ void arm_rfft_q31(
 		for (i = 0; i < S->fftLenReal; i++) {
 			pDst[i] = pDst[i] << 1;
 		}
-	} else   {
+	} else {
 		/* Calculation of RFFT of input */
 
 		/* Complex FFT process */
@@ -198,7 +198,7 @@ void arm_split_rfft_q31(
 
 	pDst[0] = (pSrc[0] + pSrc[1]) >> 1;
 	pDst[1] = 0;
-} /* arm_split_rfft_q31 */
+}	/* arm_split_rfft_q31 */
 
 /**
  * @brief  Core Real IFFT process
@@ -275,4 +275,4 @@ void arm_split_rifft_q31(
 		/* Decrement loop count */
 		fftLen--;
 	}
-} /* arm_split_rifft_q31 */
+}	/* arm_split_rifft_q31 */

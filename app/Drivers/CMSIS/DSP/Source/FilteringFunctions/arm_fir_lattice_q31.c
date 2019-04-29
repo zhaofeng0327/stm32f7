@@ -238,9 +238,9 @@ void arm_fir_lattice_q31(
 
 		blkCnt--;
 	}
-} /* arm_fir_lattice_q31 */
+}	/* arm_fir_lattice_q31 */
 
-#else  /* if defined(ARM_MATH_DSP) */
+#else	/* if defined(ARM_MATH_DSP) */
 
 /* Run the below code for Cortex-M0 */
 
@@ -315,7 +315,7 @@ void arm_fir_lattice_q31(
 
 		blkCnt--;
 	}
-} /* arm_fir_lattice_q31 */
+}	/* arm_fir_lattice_q31 */
 
 #endif	/*   #if defined (ARM_MATH_DSP) */
 

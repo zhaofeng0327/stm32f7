@@ -65,7 +65,7 @@ void ref_lms_f32(
 	for (i = 0; i < numTaps - 1; i++) {
 		S->pState[i] = pState[i];
 	}
-} /* ref_lms_f32 */
+}	/* ref_lms_f32 */
 
 void ref_lms_norm_f32(
 	arm_lms_norm_instance_f32 *S,
@@ -147,7 +147,7 @@ void ref_lms_norm_f32(
 	for (i = 0; i < numTaps - 1; i++) {
 		S->pState[i] = pState[i];
 	}
-} /* ref_lms_norm_f32 */
+}	/* ref_lms_norm_f32 */
 
 void ref_lms_q31(
 	const arm_lms_instance_q31 *S,
@@ -259,7 +259,7 @@ void ref_lms_q31(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* ref_lms_q31 */
+}	/* ref_lms_q31 */
 
 void ref_lms_norm_q31(
 	arm_lms_norm_instance_q31 *S,
@@ -398,7 +398,7 @@ void ref_lms_norm_q31(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* ref_lms_norm_q31 */
+}	/* ref_lms_norm_q31 */
 
 void ref_lms_q15(
 	const arm_lms_instance_q15 *S,
@@ -512,7 +512,7 @@ void ref_lms_q15(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* ref_lms_q15 */
+}	/* ref_lms_q15 */
 
 void ref_lms_norm_q15(
 	arm_lms_norm_instance_q15 *S,
@@ -537,7 +537,7 @@ void ref_lms_norm_q15(
 	q15_t errorXmu, oneByEnergy;	/* Temporary variables to store error and mu product and reciprocal of energy */
 	// q31_t errorXmu;                                   /* Temporary variables to store error and mu product and reciprocal of energy */
 	q15_t postShift;/* Post shift to be applied to weight after reciprocal calculation */
-	q31_t coef;		/* Teporary variable for coefficient */
+	q31_t coef;	/* Teporary variable for coefficient */
 	q31_t acc_l, acc_h;
 	int32_t lShift = 15 - (int32_t) S->postShift;	/*  Post shift  */
 	int32_t uShift = 32 - lShift;
@@ -667,4 +667,4 @@ void ref_lms_norm_q15(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* ref_lms_norm_q15 */
+}	/* ref_lms_norm_q15 */

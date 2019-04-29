@@ -66,7 +66,7 @@
 
 #ifdef HAL_HCD_MODULE_ENABLED
 
-# if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
 
 /** @defgroup HCD HCD
  * @brief HCD HAL module driver
@@ -129,7 +129,7 @@ HAL_StatusTypeDef HAL_HCD_Init(HCD_HandleTypeDef *hhcd)
 		/* Allocate lock resource and initialize it */
 		hhcd->Lock = HAL_UNLOCKED;
 
-		#  if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
+		#if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
 		hhcd->SOFCallback                = HAL_HCD_SOF_Callback;
 		hhcd->ConnectCallback            = HAL_HCD_Connect_Callback;
 		hhcd->DisconnectCallback         = HAL_HCD_Disconnect_Callback;
@@ -143,10 +143,10 @@ HAL_StatusTypeDef HAL_HCD_Init(HCD_HandleTypeDef *hhcd)
 
 		/* Init the low level hardware */
 		hhcd->MspInitCallback(hhcd);
-		#  else	 /* if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U) */
+		#else	/* if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U) */
 		/* Init the low level hardware : GPIO, CLOCK, NVIC... */
 		HAL_HCD_MspInit(hhcd);
-		#  endif/* (USE_HAL_HCD_REGISTER_CALLBACKS) */
+		#endif	/* (USE_HAL_HCD_REGISTER_CALLBACKS) */
 	}
 
 	hhcd->State = HAL_HCD_STATE_BUSY;
@@ -166,7 +166,7 @@ HAL_StatusTypeDef HAL_HCD_Init(HCD_HandleTypeDef *hhcd)
 	hhcd->State = HAL_HCD_STATE_READY;
 
 	return HAL_OK;
-} /* HAL_HCD_Init */
+}	/* HAL_HCD_Init */
 
 /**
  * @brief  Initialize a host channel.
@@ -262,17 +262,17 @@ HAL_StatusTypeDef HAL_HCD_DeInit(HCD_HandleTypeDef *hhcd)
 
 	hhcd->State = HAL_HCD_STATE_BUSY;
 
-	#  if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
+	#if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
 	if (hhcd->MspDeInitCallback == NULL) {
 		hhcd->MspDeInitCallback = HAL_HCD_MspDeInit;/* Legacy weak MspDeInit  */
 	}
 
 	/* DeInit the low level hardware */
 	hhcd->MspDeInitCallback(hhcd);
-	#  else
+	#else
 	/* DeInit the low level hardware: CLOCK, NVIC.*/
 	HAL_HCD_MspDeInit(hhcd);
-	#  endif/* USE_HAL_HCD_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_HCD_REGISTER_CALLBACKS */
 
 	__HAL_HCD_DISABLE(hhcd);
 
@@ -447,7 +447,7 @@ HAL_StatusTypeDef HAL_HCD_HC_SubmitRequest(HCD_HandleTypeDef *hhcd,
 	hhcd->hc[ch_num].state      = HC_IDLE;
 
 	return USB_HC_StartXfer(hhcd->Instance, &hhcd->hc[ch_num], (uint8_t) hhcd->Init.dma_enable);
-} /* HAL_HCD_HC_SubmitRequest */
+}	/* HAL_HCD_HC_SubmitRequest */
 
 /**
  * @brief  Handle HCD interrupt request.
@@ -494,11 +494,11 @@ void HAL_HCD_IRQHandler(HCD_HandleTypeDef *hhcd)
 			  | USB_OTG_HPRT_PENCHNG | USB_OTG_HPRT_POCCHNG);
 
 			/* Handle Host Port Disconnect Interrupt */
-			#  if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
 			hhcd->DisconnectCallback(hhcd);
-			#  else
+			#else
 			HAL_HCD_Disconnect_Callback(hhcd);
-			#  endif/* USE_HAL_HCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_HCD_REGISTER_CALLBACKS */
 
 			(void) USB_InitFSLSPClkSel(hhcd->Instance, HCFG_48_MHZ);
 			__HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_DISCINT);
@@ -511,11 +511,11 @@ void HAL_HCD_IRQHandler(HCD_HandleTypeDef *hhcd)
 
 		/* Handle Host SOF Interrupt */
 		if (__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_SOF)) {
-			#  if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
 			hhcd->SOFCallback(hhcd);
-			#  else
+			#else
 			HAL_HCD_SOF_Callback(hhcd);
-			#  endif/* USE_HAL_HCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_HCD_REGISTER_CALLBACKS */
 
 			__HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_SOF);
 		}
@@ -544,7 +544,7 @@ void HAL_HCD_IRQHandler(HCD_HandleTypeDef *hhcd)
 			USB_UNMASK_INTERRUPT(hhcd->Instance, USB_OTG_GINTSTS_RXFLVL);
 		}
 	}
-} /* HAL_HCD_IRQHandler */
+}	/* HAL_HCD_IRQHandler */
 
 /**
  * @brief  SOF callback.
@@ -648,7 +648,7 @@ __weak void HAL_HCD_HC_NotifyURBChange_Callback(HCD_HandleTypeDef *hhcd, uint8_t
 	 */
 }
 
-#  if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
+#if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
 
 /**
  * @brief  Register a User USB HCD Callback
@@ -743,7 +743,7 @@ HAL_StatusTypeDef HAL_HCD_RegisterCallback(HCD_HandleTypeDef *hhcd, HAL_HCD_Call
 	/* Release Lock */
 	__HAL_UNLOCK(hhcd);
 	return status;
-} /* HAL_HCD_RegisterCallback */
+}	/* HAL_HCD_RegisterCallback */
 
 /**
  * @brief  Unregister an USB HCD Callback
@@ -835,7 +835,7 @@ HAL_StatusTypeDef HAL_HCD_UnRegisterCallback(HCD_HandleTypeDef *hhcd, HAL_HCD_Ca
 	/* Release Lock */
 	__HAL_UNLOCK(hhcd);
 	return status;
-} /* HAL_HCD_UnRegisterCallback */
+}	/* HAL_HCD_UnRegisterCallback */
 
 /**
  * @brief  Register USB HCD Host Channel Notify URB Change Callback
@@ -904,7 +904,7 @@ HAL_StatusTypeDef HAL_HCD_UnRegisterHC_NotifyURBChangeCallback(HCD_HandleTypeDef
 	return status;
 }
 
-#  endif/* USE_HAL_HCD_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_HCD_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -1137,11 +1137,11 @@ static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
 			USBx_HC(ch_num)->HCCHAR   |= USB_OTG_HCCHAR_ODDFRM;
 			hhcd->hc[ch_num].urb_state = URB_DONE;
 
-			#  if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
 			hhcd->HC_NotifyURBChangeCallback(hhcd, (uint8_t) ch_num, hhcd->hc[ch_num].urb_state);
-			#  else
+			#else
 			HAL_HCD_HC_NotifyURBChange_Callback(hhcd, (uint8_t) ch_num, hhcd->hc[ch_num].urb_state);
-			#  endif/* USE_HAL_HCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_HCD_REGISTER_CALLBACKS */
 		} else {
 			/* ... */
 		}
@@ -1208,7 +1208,7 @@ static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
 	} else {
 		/* ... */
 	}
-} /* HCD_HC_IN_IRQHandler */
+}	/* HCD_HC_IN_IRQHandler */
 
 /**
  * @brief  Handle Host Channel OUT interrupt requests.
@@ -1323,7 +1323,7 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
 	} else {
 		/* ... */
 	}
-} /* HCD_HC_OUT_IRQHandler */
+}	/* HCD_HC_OUT_IRQHandler */
 
 /**
  * @brief  Handle Rx Queue Level interrupt requests.
@@ -1374,7 +1374,7 @@ static void HCD_RXQLVL_IRQHandler(HCD_HandleTypeDef *hhcd)
 		default:
 			break;
 	}
-} /* HCD_RXQLVL_IRQHandler */
+}	/* HCD_RXQLVL_IRQHandler */
 
 /**
  * @brief  Handle Host Port interrupt requests.
@@ -1399,11 +1399,11 @@ static void HCD_Port_IRQHandler(HCD_HandleTypeDef *hhcd)
 		if ((hprt0 & USB_OTG_HPRT_PCSTS) == USB_OTG_HPRT_PCSTS) {
 			USB_MASK_INTERRUPT(hhcd->Instance, USB_OTG_GINTSTS_DISCINT);
 
-			#  if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
 			hhcd->ConnectCallback(hhcd);
-			#  else
+			#else
 			HAL_HCD_Connect_Callback(hhcd);
-			#  endif/* USE_HAL_HCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_HCD_REGISTER_CALLBACKS */
 		}
 		hprt0_dup |= USB_OTG_HPRT_PCDET;
 	}
@@ -1424,19 +1424,19 @@ static void HCD_Port_IRQHandler(HCD_HandleTypeDef *hhcd)
 					USBx_HOST->HFIR = 60000U;
 				}
 			}
-			#  if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
 			hhcd->PortEnabledCallback(hhcd);
 			hhcd->ConnectCallback(hhcd);
-			#  else
+			#else
 			HAL_HCD_PortEnabled_Callback(hhcd);
 			HAL_HCD_Connect_Callback(hhcd);
-			#  endif/* USE_HAL_HCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_HCD_REGISTER_CALLBACKS */
 		} else {
-			#  if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
 			hhcd->PortDisabledCallback(hhcd);
-			#  else
+			#else
 			HAL_HCD_PortDisabled_Callback(hhcd);
-			#  endif/* USE_HAL_HCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_HCD_REGISTER_CALLBACKS */
 
 			/* Cleanup HPRT */
 			USBx_HPRT0 &= ~(USB_OTG_HPRT_PENA | USB_OTG_HPRT_PCDET   \
@@ -1453,7 +1453,7 @@ static void HCD_Port_IRQHandler(HCD_HandleTypeDef *hhcd)
 
 	/* Clear Port Interrupts */
 	USBx_HPRT0 = hprt0_dup;
-} /* HCD_Port_IRQHandler */
+}	/* HCD_Port_IRQHandler */
 
 /**
  * @}
@@ -1463,7 +1463,7 @@ static void HCD_Port_IRQHandler(HCD_HandleTypeDef *hhcd)
  * @}
  */
 
-# endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+#endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 #endif	/* HAL_HCD_MODULE_ENABLED */
 
 /**

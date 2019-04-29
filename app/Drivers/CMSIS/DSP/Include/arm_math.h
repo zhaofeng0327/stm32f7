@@ -289,111 +289,111 @@
  * @defgroup groupExamples Examples
  */
 #ifndef _ARM_MATH_H
-# define _ARM_MATH_H
+#define _ARM_MATH_H
 
 /* Compiler specific diagnostic adjustment */
-# if   defined( __CC_ARM )
+#if   defined( __CC_ARM )
 
-# elif defined( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 )
+#elif defined( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 )
 
-# elif defined( __GNUC__ )
-#  pragma GCC diagnostic push
-#  pragma GCC diagnostic ignored "-Wsign-conversion"
-#  pragma GCC diagnostic ignored "-Wconversion"
-#  pragma GCC diagnostic ignored "-Wunused-parameter"
+#elif defined( __GNUC__ )
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-conversion"
+#pragma GCC diagnostic ignored "-Wconversion"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 
-# elif defined( __ICCARM__ )
+#elif defined( __ICCARM__ )
 
-# elif defined( __TI_ARM__ )
+#elif defined( __TI_ARM__ )
 
-# elif defined( __CSMC__ )
+#elif defined( __CSMC__ )
 
-# elif defined( __TASKING__ )
+#elif defined( __TASKING__ )
 
-# else // if   defined( __CC_ARM )
-#  error Unknown compiler
-# endif	// if   defined( __CC_ARM )
+#else	// if   defined( __CC_ARM )
+#error Unknown compiler
+#endif	// if   defined( __CC_ARM )
 
 
-# define __CMSIS_GENERIC/* disable NVIC and Systick functions */
+#define __CMSIS_GENERIC		/* disable NVIC and Systick functions */
 
-# if defined(ARM_MATH_CM7)
-#  include "core_cm7.h"
-#  define ARM_MATH_DSP
-# elif defined(ARM_MATH_CM4)
-#  include "core_cm4.h"
-#  define ARM_MATH_DSP
-# elif defined(ARM_MATH_CM3)
-#  include "core_cm3.h"
-# elif defined(ARM_MATH_CM0)
-#  include "core_cm0.h"
-#  define ARM_MATH_CM0_FAMILY
-# elif defined(ARM_MATH_CM0PLUS)
-#  include "core_cm0plus.h"
-#  define ARM_MATH_CM0_FAMILY
-# elif defined(ARM_MATH_ARMV8MBL)
-#  include "core_armv8mbl.h"
-#  define ARM_MATH_CM0_FAMILY
-# elif defined(ARM_MATH_ARMV8MML)
-#  include "core_armv8mml.h"
-#  if (defined(__DSP_PRESENT) && (__DSP_PRESENT == 1))
-#   define ARM_MATH_DSP
-#  endif
-# else // if defined(ARM_MATH_CM7)
-#  error \
+#if defined(ARM_MATH_CM7)
+#include "core_cm7.h"
+#define ARM_MATH_DSP
+#elif defined(ARM_MATH_CM4)
+#include "core_cm4.h"
+#define ARM_MATH_DSP
+#elif defined(ARM_MATH_CM3)
+#include "core_cm3.h"
+#elif defined(ARM_MATH_CM0)
+#include "core_cm0.h"
+#define ARM_MATH_CM0_FAMILY
+#elif defined(ARM_MATH_CM0PLUS)
+#include "core_cm0plus.h"
+#define ARM_MATH_CM0_FAMILY
+#elif defined(ARM_MATH_ARMV8MBL)
+#include "core_armv8mbl.h"
+#define ARM_MATH_CM0_FAMILY
+#elif defined(ARM_MATH_ARMV8MML)
+#include "core_armv8mml.h"
+#if (defined(__DSP_PRESENT) && (__DSP_PRESENT == 1))
+#define ARM_MATH_DSP
+#endif
+#else	// if defined(ARM_MATH_CM7)
+#error \
 	"Define according the used Cortex core ARM_MATH_CM7, ARM_MATH_CM4, ARM_MATH_CM3, ARM_MATH_CM0PLUS, ARM_MATH_CM0, ARM_MATH_ARMV8MBL, ARM_MATH_ARMV8MML"
-# endif	// if defined(ARM_MATH_CM7)
+#endif	// if defined(ARM_MATH_CM7)
 
-# undef  __CMSIS_GENERIC/* enable NVIC and Systick functions */
-# include "string.h"
-# include "math.h"
-# ifdef   __cplusplus
+#undef  __CMSIS_GENERIC	/* enable NVIC and Systick functions */
+#include "string.h"
+#include "math.h"
+#ifdef   __cplusplus
 extern "C"
 {
-# endif
+#endif
 
 
 /**
  * @brief Macros required for reciprocal calculation in Normalized LMS
  */
 
-# define DELTA_Q31     (0x100)
-# define DELTA_Q15     0x5
-# define INDEX_MASK    0x0000003F
-# ifndef PI
-#  define PI           3.14159265358979f
-# endif
+#define DELTA_Q31     (0x100)
+#define DELTA_Q15     0x5
+#define INDEX_MASK    0x0000003F
+#ifndef PI
+#define PI            3.14159265358979f
+#endif
 
 /**
  * @brief Macros required for SINE and COSINE Fast math approximations
  */
 
-# define FAST_MATH_TABLE_SIZE    512
-# define FAST_MATH_Q31_SHIFT     (32 - 10)
-# define FAST_MATH_Q15_SHIFT     (16 - 10)
-# define CONTROLLER_Q31_SHIFT    (32 - 9)
-# define TABLE_SPACING_Q31       0x400000
-# define TABLE_SPACING_Q15       0x80
+#define FAST_MATH_TABLE_SIZE    512
+#define FAST_MATH_Q31_SHIFT     (32 - 10)
+#define FAST_MATH_Q15_SHIFT     (16 - 10)
+#define CONTROLLER_Q31_SHIFT    (32 - 9)
+#define TABLE_SPACING_Q31       0x400000
+#define TABLE_SPACING_Q15       0x80
 
 /**
  * @brief Macros required for SINE and COSINE Controller functions
  */
 /* 1.31(q31) Fixed value of 2/360 */
 /* -1 to +1 is divided into 360 values so total spacing is (2/360) */
-# define INPUT_SPACING    0xB60B61
+#define INPUT_SPACING    0xB60B61
 
 /**
  * @brief Macro for Unaligned Support
  */
-# ifndef UNALIGNED_SUPPORT_DISABLE
-#  define ALIGN4
-# else
-#  if defined(__GNUC__)
-#   define ALIGN4    __attribute__((aligned(4)))
-#  else
-#   define ALIGN4    __align(4)
-#  endif
-# endif	/* #ifndef UNALIGNED_SUPPORT_DISABLE */
+#ifndef UNALIGNED_SUPPORT_DISABLE
+#define ALIGN4
+#else
+#if defined(__GNUC__)
+#define ALIGN4    __attribute__((aligned(4)))
+#else
+#define ALIGN4    __align(4)
+#endif
+#endif	/* #ifndef UNALIGNED_SUPPORT_DISABLE */
 
 /**
  * @brief Error status returned by some functions in the library.
@@ -442,83 +442,83 @@ typedef double float64_t;
 /**
  * @brief definition to read/write two 16 bit values.
  */
-# if   defined( __CC_ARM )
-#  define __SIMD32_TYPE    int32_t __packed
-#  define CMSIS_UNUSED     __attribute__((unused))
-#  define CMSIS_INLINE     __attribute__((always_inline))
+#if   defined( __CC_ARM )
+#define __SIMD32_TYPE    int32_t __packed
+#define CMSIS_UNUSED     __attribute__((unused))
+#define CMSIS_INLINE     __attribute__((always_inline))
 
-# elif defined( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 )
-#  define __SIMD32_TYPE    int32_t
-#  define CMSIS_UNUSED     __attribute__((unused))
-#  define CMSIS_INLINE     __attribute__((always_inline))
+#elif defined( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 )
+#define __SIMD32_TYPE    int32_t
+#define CMSIS_UNUSED     __attribute__((unused))
+#define CMSIS_INLINE     __attribute__((always_inline))
 
-# elif defined( __GNUC__ )
-#  define __SIMD32_TYPE    int32_t
-#  define CMSIS_UNUSED     __attribute__((unused))
-#  define CMSIS_INLINE     __attribute__((always_inline))
+#elif defined( __GNUC__ )
+#define __SIMD32_TYPE    int32_t
+#define CMSIS_UNUSED     __attribute__((unused))
+#define CMSIS_INLINE     __attribute__((always_inline))
 
-# elif defined( __ICCARM__ )
-#  define __SIMD32_TYPE    int32_t __packed
-#  define CMSIS_UNUSED
-#  define CMSIS_INLINE
+#elif defined( __ICCARM__ )
+#define __SIMD32_TYPE    int32_t __packed
+#define CMSIS_UNUSED
+#define CMSIS_INLINE
 
-# elif defined( __TI_ARM__ )
-#  define __SIMD32_TYPE    int32_t
-#  define CMSIS_UNUSED     __attribute__((unused))
-#  define CMSIS_INLINE
+#elif defined( __TI_ARM__ )
+#define __SIMD32_TYPE    int32_t
+#define CMSIS_UNUSED     __attribute__((unused))
+#define CMSIS_INLINE
 
-# elif defined( __CSMC__ )
-#  define __SIMD32_TYPE    int32_t
-#  define CMSIS_UNUSED
-#  define CMSIS_INLINE
+#elif defined( __CSMC__ )
+#define __SIMD32_TYPE    int32_t
+#define CMSIS_UNUSED
+#define CMSIS_INLINE
 
-# elif defined( __TASKING__ )
-#  define __SIMD32_TYPE    __unaligned int32_t
-#  define CMSIS_UNUSED
-#  define CMSIS_INLINE
+#elif defined( __TASKING__ )
+#define __SIMD32_TYPE    __unaligned int32_t
+#define CMSIS_UNUSED
+#define CMSIS_INLINE
 
-# else // if   defined( __CC_ARM )
-#  error Unknown compiler
-# endif	// if   defined( __CC_ARM )
+#else	// if   defined( __CC_ARM )
+#error Unknown compiler
+#endif	// if   defined( __CC_ARM )
 
-# define __SIMD32(addr)          (*(__SIMD32_TYPE **) &(addr))
-# define __SIMD32_CONST(addr)    ((__SIMD32_TYPE *) (addr))
-# define _SIMD32_OFFSET(addr)    (*(__SIMD32_TYPE *)  (addr))
-# define __SIMD64(addr)          (*(int64_t **) &(addr))
+#define __SIMD32(addr)          (*(__SIMD32_TYPE **) &(addr))
+#define __SIMD32_CONST(addr)    ((__SIMD32_TYPE *) (addr))
+#define _SIMD32_OFFSET(addr)    (*(__SIMD32_TYPE *)  (addr))
+#define __SIMD64(addr)          (*(int64_t **) &(addr))
 
-# if !defined(ARM_MATH_DSP)
+#if !defined(ARM_MATH_DSP)
 
 /**
  * @brief definition to pack two 16 bit values.
  */
-#  define __PKHBT(ARG1, ARG2, ARG3) \
+#define __PKHBT(ARG1, ARG2, ARG3) \
 	( (((int32_t) (ARG1) << 0) & (int32_t) 0x0000FFFF)   \
 	| (((int32_t) (ARG2) << ARG3) & (int32_t) 0xFFFF0000)  )
-#  define __PKHTB(ARG1, ARG2, ARG3) \
+#define __PKHTB(ARG1, ARG2, ARG3) \
 	( (((int32_t) (ARG1) << 0) & (int32_t) 0xFFFF0000)   \
 	| (((int32_t) (ARG2) >> ARG3) & (int32_t) 0x0000FFFF)  )
 
-# endif	/* !defined (ARM_MATH_DSP) */
+#endif	/* !defined (ARM_MATH_DSP) */
 
 /**
  * @brief definition to pack four 8 bit values.
  */
-# ifndef ARM_MATH_BIG_ENDIAN
+#ifndef ARM_MATH_BIG_ENDIAN
 
-#  define __PACKq7(v0, v1, v2, v3) \
+#define __PACKq7(v0, v1, v2, v3) \
 	( (((int32_t) (v0) << 0) & (int32_t) 0x000000FF)   \
 	| (((int32_t) (v1) << 8) & (int32_t) 0x0000FF00)   \
 	| (((int32_t) (v2) << 16) & (int32_t) 0x00FF0000)   \
 	| (((int32_t) (v3) << 24) & (int32_t) 0xFF000000)  )
-# else
+#else
 
-#  define __PACKq7(v0, v1, v2, v3) \
+#define __PACKq7(v0, v1, v2, v3) \
 	( (((int32_t) (v3) << 0) & (int32_t) 0x000000FF)   \
 	| (((int32_t) (v2) << 8) & (int32_t) 0x0000FF00)   \
 	| (((int32_t) (v1) << 16) & (int32_t) 0x00FF0000)   \
 	| (((int32_t) (v0) << 24) & (int32_t) 0xFF000000)  )
 
-# endif	// ifndef ARM_MATH_BIG_ENDIAN
+#endif	// ifndef ARM_MATH_BIG_ENDIAN
 
 
 /**
@@ -618,7 +618,7 @@ CMSIS_INLINE __STATIC_INLINE uint32_t arm_recip_q31(
 
 	/* return num of signbits of out = 1/in value */
 	return (signBits + 1U);
-} // arm_recip_q31
+}	// arm_recip_q31
 
 /**
  * @brief Function to Calculates 1/in (reciprocal) value of Q15 Data type.
@@ -664,12 +664,12 @@ CMSIS_INLINE __STATIC_INLINE uint32_t arm_recip_q15(
 
 	/* return num of signbits of out = 1/in value */
 	return (signBits + 1);
-} // arm_recip_q15
+}	// arm_recip_q15
 
 /*
  * @brief C custom defined intrinsic function for M3 and M0 processors
  */
-# if !defined(ARM_MATH_DSP)
+#if !defined(ARM_MATH_DSP)
 
 /*
  * @brief C custom defined QADD8 for M3 and M0 processors
@@ -978,7 +978,7 @@ CMSIS_INLINE __STATIC_INLINE int32_t __SMMLA(
 	return (sum + (int32_t) (((int64_t) x * y) >> 32));
 }
 
-# endif	/* !defined (ARM_MATH_DSP) */
+#endif	/* !defined (ARM_MATH_DSP) */
 
 
 /**
@@ -1682,12 +1682,12 @@ void arm_mat_init_f32(
  */
 typedef struct {
 	q15_t A0;	/**< The derived gain, A0 = Kp + Ki + Kd . */
-	# if !defined(ARM_MATH_DSP)
+	#if !defined(ARM_MATH_DSP)
 	q15_t A1;
 	q15_t A2;
-	# else
+	#else
 	q31_t A1;	/**< The derived gain A1 = -Kp - 2Kd | Kd.*/
-	# endif
+	#endif
 	q15_t state[3];	/**< The state array of length 3. */
 	q15_t Kp;		/**< The proportional gain. */
 	q15_t Ki;		/**< The integral gain. */
@@ -4773,7 +4773,7 @@ CMSIS_INLINE __STATIC_INLINE q15_t arm_pid_q15(
 	q63_t acc;
 	q15_t out;
 
-	# if defined(ARM_MATH_DSP)
+	#if defined(ARM_MATH_DSP)
 	__SIMD32_TYPE *vstate;
 
 	/* Implementation of PID controller */
@@ -4784,14 +4784,14 @@ CMSIS_INLINE __STATIC_INLINE q15_t arm_pid_q15(
 	/* acc += A1 * x[n-1] + A2 * x[n-2]  */
 	vstate = __SIMD32_CONST(S->state);
 	acc    = (q63_t) __SMLALD((uint32_t) S->A1, (uint32_t) *vstate, (uint64_t) acc);
-	# else // if defined(ARM_MATH_DSP)
+	#else	// if defined(ARM_MATH_DSP)
 	/* acc = A0 * x[n]  */
 	acc = ((q31_t) S->A0) * in;
 
 	/* acc += A1 * x[n-1] + A2 * x[n-2]  */
 	acc += (q31_t) S->A1 * S->state[0];
 	acc += (q31_t) S->A2 * S->state[1];
-	# endif	// if defined(ARM_MATH_DSP)
+	#endif	// if defined(ARM_MATH_DSP)
 
 	/* acc += y[n-1] */
 	acc += (q31_t) S->state[2] << 15;
@@ -4806,7 +4806,7 @@ CMSIS_INLINE __STATIC_INLINE q15_t arm_pid_q15(
 
 	/* return to application */
 	return (out);
-} // arm_pid_q15
+}	// arm_pid_q15
 
 /**
  * @} end of PID group
@@ -5351,7 +5351,7 @@ CMSIS_INLINE __STATIC_INLINE float32_t arm_linear_interp_f32(
 
 	/* returns output value */
 	return (y);
-} // arm_linear_interp_f32
+}	// arm_linear_interp_f32
 
 /**
  *
@@ -5403,7 +5403,7 @@ CMSIS_INLINE __STATIC_INLINE q31_t arm_linear_interp_q31(
 		/* Convert y to 1.31 format */
 		return (y << 1U);
 	}
-} // arm_linear_interp_q31
+}	// arm_linear_interp_q31
 
 /**
  *
@@ -5455,7 +5455,7 @@ CMSIS_INLINE __STATIC_INLINE q15_t arm_linear_interp_q15(
 		/* convert y to 1.15 format */
 		return (q15_t) (y >> 20);
 	}
-} // arm_linear_interp_q15
+}	// arm_linear_interp_q15
 
 /**
  *
@@ -5507,7 +5507,7 @@ CMSIS_INLINE __STATIC_INLINE q7_t arm_linear_interp_q7(
 		/* convert y to 1.7(q7) format */
 		return (q7_t) (y >> 20);
 	}
-} // arm_linear_interp_q7
+}	// arm_linear_interp_q7
 
 /**
  * @} end of LinearInterpolate group
@@ -5610,17 +5610,17 @@ CMSIS_INLINE __STATIC_INLINE arm_status arm_sqrt_f32(
 	float32_t *pOut)
 {
 	if (in >= 0.0f) {
-		# if   (__FPU_USED == 1) && defined( __CC_ARM   )
+		#if   (__FPU_USED == 1) && defined( __CC_ARM   )
 		*pOut = __sqrtf(in);
-		# elif (__FPU_USED == 1) && (defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050))
+		#elif (__FPU_USED == 1) && (defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050))
 		*pOut = __builtin_sqrtf(in);
-		# elif (__FPU_USED == 1) && defined(__GNUC__)
+		#elif (__FPU_USED == 1) && defined(__GNUC__)
 		*pOut = __builtin_sqrtf(in);
-		# elif (__FPU_USED == 1) && defined( __ICCARM__ ) && (__VER__ >= 6040000)
+		#elif (__FPU_USED == 1) && defined( __ICCARM__ ) && (__VER__ >= 6040000)
 		__ASM("VSQRT.F32 %0,%1" : "=t" (*pOut) : "t" (in));
-		# else
+		#else
 		*pOut = sqrtf(in);
-		# endif
+		#endif
 
 		return (ARM_MATH_SUCCESS);
 	} else {
@@ -5748,7 +5748,7 @@ CMSIS_INLINE __STATIC_INLINE void arm_circularRead_f32(
 
 	/* Update the index pointer */
 	*readOffset = rOffset;
-} // arm_circularRead_f32
+}	// arm_circularRead_f32
 
 /**
  * @brief Q15 Circular write function.
@@ -5842,7 +5842,7 @@ CMSIS_INLINE __STATIC_INLINE void arm_circularRead_q15(
 
 	/* Update the index pointer */
 	*readOffset = rOffset;
-} // arm_circularRead_q15
+}	// arm_circularRead_q15
 
 /**
  * @brief Q7 Circular write function.
@@ -5936,7 +5936,7 @@ CMSIS_INLINE __STATIC_INLINE void arm_circularRead_q7(
 
 	/* Update the index pointer */
 	*readOffset = rOffset;
-} // arm_circularRead_q7
+}	// arm_circularRead_q7
 
 /**
  * @brief  Sum of the squares of the elements of a Q31 vector.
@@ -6642,7 +6642,7 @@ CMSIS_INLINE __STATIC_INLINE float32_t arm_bilinear_interp_f32(
 
 	/* return to application */
 	return (out);
-} // arm_bilinear_interp_f32
+}	// arm_bilinear_interp_f32
 
 /**
  *
@@ -6715,7 +6715,7 @@ CMSIS_INLINE __STATIC_INLINE q31_t arm_bilinear_interp_q31(
 
 	/* Convert acc to 1.31(q31) format */
 	return ((q31_t) (acc << 2));
-} // arm_bilinear_interp_q31
+}	// arm_bilinear_interp_q31
 
 /**
  * @brief  Q15 bilinear interpolation.
@@ -6791,7 +6791,7 @@ CMSIS_INLINE __STATIC_INLINE q15_t arm_bilinear_interp_q15(
 	/* acc is in 13.51 format and down shift acc by 36 times */
 	/* Convert out to 1.15 format */
 	return ((q15_t) (acc >> 36));
-} // arm_bilinear_interp_q15
+}	// arm_bilinear_interp_q15
 
 /**
  * @brief  Q7 bilinear interpolation.
@@ -6863,7 +6863,7 @@ CMSIS_INLINE __STATIC_INLINE q7_t arm_bilinear_interp_q7(
 
 	/* acc in 16.47 format and down shift by 40 to convert to 1.7 format */
 	return ((q7_t) (acc >> 40));
-} // arm_bilinear_interp_q7
+}	// arm_bilinear_interp_q7
 
 /**
  * @} end of BilinearInterpolate group
@@ -6871,134 +6871,134 @@ CMSIS_INLINE __STATIC_INLINE q7_t arm_bilinear_interp_q7(
 
 
 /* SMMLAR */
-# define multAcc_32x32_keep32_R(a, x, y) \
+#define multAcc_32x32_keep32_R(a, x, y) \
 	a = (q31_t) (((((q63_t) a) << 32) + ((q63_t) x * y) + 0x80000000LL ) >> 32)
 
 /* SMMLSR */
-# define multSub_32x32_keep32_R(a, x, y) \
+#define multSub_32x32_keep32_R(a, x, y) \
 	a = (q31_t) (((((q63_t) a) << 32) - ((q63_t) x * y) + 0x80000000LL ) >> 32)
 
 /* SMMULR */
-# define mult_32x32_keep32_R(a, x, y) \
+#define mult_32x32_keep32_R(a, x, y) \
 	a = (q31_t) (((q63_t) x * y + 0x80000000LL ) >> 32)
 
 /* SMMLA */
-# define multAcc_32x32_keep32(a, x, y) \
+#define multAcc_32x32_keep32(a, x, y) \
 	a += (q31_t) (((q63_t) x * y) >> 32)
 
 /* SMMLS */
-# define multSub_32x32_keep32(a, x, y) \
+#define multSub_32x32_keep32(a, x, y) \
 	a -= (q31_t) (((q63_t) x * y) >> 32)
 
 /* SMMUL */
-# define mult_32x32_keep32(a, x, y) \
+#define mult_32x32_keep32(a, x, y) \
 	a = (q31_t) (((q63_t) x * y ) >> 32)
 
 
-# if   defined( __CC_ARM )
+#if   defined( __CC_ARM )
 /* Enter low optimization region - place directly above function definition */
-#  if defined( ARM_MATH_CM4 ) || defined( ARM_MATH_CM7)
-#   define LOW_OPTIMIZATION_ENTER \
+#if defined( ARM_MATH_CM4 ) || defined( ARM_MATH_CM7)
+#define LOW_OPTIMIZATION_ENTER \
 	_Pragma("push")         \
 	_Pragma("O1")
-#  else
-#   define LOW_OPTIMIZATION_ENTER
-#  endif
+#else
+#define LOW_OPTIMIZATION_ENTER
+#endif
 
 /* Exit low optimization region - place directly after end of function definition */
-#  if defined( ARM_MATH_CM4 ) || defined( ARM_MATH_CM7 )
-#   define LOW_OPTIMIZATION_EXIT \
+#if defined( ARM_MATH_CM4 ) || defined( ARM_MATH_CM7 )
+#define LOW_OPTIMIZATION_EXIT \
 	_Pragma("pop")
-#  else
-#   define LOW_OPTIMIZATION_EXIT
-#  endif
+#else
+#define LOW_OPTIMIZATION_EXIT
+#endif
 
 /* Enter low optimization region - place directly above function definition */
-#  define IAR_ONLY_LOW_OPTIMIZATION_ENTER
+#define IAR_ONLY_LOW_OPTIMIZATION_ENTER
 
 /* Exit low optimization region - place directly after end of function definition */
-#  define IAR_ONLY_LOW_OPTIMIZATION_EXIT
+#define IAR_ONLY_LOW_OPTIMIZATION_EXIT
 
-# elif defined(__ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 )
-#  define LOW_OPTIMIZATION_ENTER
-#  define LOW_OPTIMIZATION_EXIT
-#  define IAR_ONLY_LOW_OPTIMIZATION_ENTER
-#  define IAR_ONLY_LOW_OPTIMIZATION_EXIT
+#elif defined(__ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 )
+#define LOW_OPTIMIZATION_ENTER
+#define LOW_OPTIMIZATION_EXIT
+#define IAR_ONLY_LOW_OPTIMIZATION_ENTER
+#define IAR_ONLY_LOW_OPTIMIZATION_EXIT
 
-# elif defined( __GNUC__ )
-#  define LOW_OPTIMIZATION_ENTER \
+#elif defined( __GNUC__ )
+#define LOW_OPTIMIZATION_ENTER \
 	__attribute__(( optimize("-O1") ))
-#  define LOW_OPTIMIZATION_EXIT
-#  define IAR_ONLY_LOW_OPTIMIZATION_ENTER
-#  define IAR_ONLY_LOW_OPTIMIZATION_EXIT
+#define LOW_OPTIMIZATION_EXIT
+#define IAR_ONLY_LOW_OPTIMIZATION_ENTER
+#define IAR_ONLY_LOW_OPTIMIZATION_EXIT
 
-# elif defined( __ICCARM__ )
+#elif defined( __ICCARM__ )
 /* Enter low optimization region - place directly above function definition */
-#  if defined( ARM_MATH_CM4 ) || defined( ARM_MATH_CM7 )
-#   define LOW_OPTIMIZATION_ENTER \
+#if defined( ARM_MATH_CM4 ) || defined( ARM_MATH_CM7 )
+#define LOW_OPTIMIZATION_ENTER \
 	_Pragma("optimize=low")
-#  else
-#   define LOW_OPTIMIZATION_ENTER
-#  endif
+#else
+#define LOW_OPTIMIZATION_ENTER
+#endif
 
 /* Exit low optimization region - place directly after end of function definition */
-#  define LOW_OPTIMIZATION_EXIT
+#define LOW_OPTIMIZATION_EXIT
 
 /* Enter low optimization region - place directly above function definition */
-#  if defined( ARM_MATH_CM4 ) || defined( ARM_MATH_CM7 )
-#   define IAR_ONLY_LOW_OPTIMIZATION_ENTER \
+#if defined( ARM_MATH_CM4 ) || defined( ARM_MATH_CM7 )
+#define IAR_ONLY_LOW_OPTIMIZATION_ENTER \
 	_Pragma("optimize=low")
-#  else
-#   define IAR_ONLY_LOW_OPTIMIZATION_ENTER
-#  endif
+#else
+#define IAR_ONLY_LOW_OPTIMIZATION_ENTER
+#endif
 
 /* Exit low optimization region - place directly after end of function definition */
-#  define IAR_ONLY_LOW_OPTIMIZATION_EXIT
+#define IAR_ONLY_LOW_OPTIMIZATION_EXIT
 
-# elif defined( __TI_ARM__ )
-#  define LOW_OPTIMIZATION_ENTER
-#  define LOW_OPTIMIZATION_EXIT
-#  define IAR_ONLY_LOW_OPTIMIZATION_ENTER
-#  define IAR_ONLY_LOW_OPTIMIZATION_EXIT
+#elif defined( __TI_ARM__ )
+#define LOW_OPTIMIZATION_ENTER
+#define LOW_OPTIMIZATION_EXIT
+#define IAR_ONLY_LOW_OPTIMIZATION_ENTER
+#define IAR_ONLY_LOW_OPTIMIZATION_EXIT
 
-# elif defined( __CSMC__ )
-#  define LOW_OPTIMIZATION_ENTER
-#  define LOW_OPTIMIZATION_EXIT
-#  define IAR_ONLY_LOW_OPTIMIZATION_ENTER
-#  define IAR_ONLY_LOW_OPTIMIZATION_EXIT
+#elif defined( __CSMC__ )
+#define LOW_OPTIMIZATION_ENTER
+#define LOW_OPTIMIZATION_EXIT
+#define IAR_ONLY_LOW_OPTIMIZATION_ENTER
+#define IAR_ONLY_LOW_OPTIMIZATION_EXIT
 
-# elif defined( __TASKING__ )
-#  define LOW_OPTIMIZATION_ENTER
-#  define LOW_OPTIMIZATION_EXIT
-#  define IAR_ONLY_LOW_OPTIMIZATION_ENTER
-#  define IAR_ONLY_LOW_OPTIMIZATION_EXIT
+#elif defined( __TASKING__ )
+#define LOW_OPTIMIZATION_ENTER
+#define LOW_OPTIMIZATION_EXIT
+#define IAR_ONLY_LOW_OPTIMIZATION_ENTER
+#define IAR_ONLY_LOW_OPTIMIZATION_EXIT
 
-# endif	// if   defined( __CC_ARM )
+#endif	// if   defined( __CC_ARM )
 
 
-# ifdef   __cplusplus
+#ifdef   __cplusplus
 }
-# endif
+#endif
 
 /* Compiler specific diagnostic adjustment */
-# if   defined( __CC_ARM )
+#if   defined( __CC_ARM )
 
-# elif defined( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 )
+#elif defined( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 )
 
-# elif defined( __GNUC__ )
-#  pragma GCC diagnostic pop
+#elif defined( __GNUC__ )
+#pragma GCC diagnostic pop
 
-# elif defined( __ICCARM__ )
+#elif defined( __ICCARM__ )
 
-# elif defined( __TI_ARM__ )
+#elif defined( __TI_ARM__ )
 
-# elif defined( __CSMC__ )
+#elif defined( __CSMC__ )
 
-# elif defined( __TASKING__ )
+#elif defined( __TASKING__ )
 
-# else // if   defined( __CC_ARM )
-#  error Unknown compiler
-# endif	// if   defined( __CC_ARM )
+#else	// if   defined( __CC_ARM )
+#error Unknown compiler
+#endif	// if   defined( __CC_ARM )
 
 #endif	/* _ARM_MATH_H */
 

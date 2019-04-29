@@ -19,20 +19,20 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_LL_GPIO_H
-# define __STM32F7xx_LL_GPIO_H
+#define __STM32F7xx_LL_GPIO_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx.h"
+#include "stm32f7xx.h"
 
 /** @addtogroup STM32F7xx_LL_Driver
  * @{
  */
 
-# if defined(GPIOA) || defined(GPIOB) || defined(GPIOC) || defined(GPIOD) || defined(GPIOE) || defined(GPIOF) || \
+#if defined(GPIOA) || defined(GPIOB) || defined(GPIOC) || defined(GPIOD) || defined(GPIOE) || defined(GPIOF) || \
 	defined(GPIOG) || defined(GPIOH) || defined(GPIOI) || defined(GPIOJ) || defined(GPIOK)
 
 /** @defgroup GPIO_LL GPIO
@@ -43,7 +43,7 @@ extern "C" {
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup GPIO_LL_Private_Macros GPIO Private Macros
  * @{
@@ -52,10 +52,10 @@ extern "C" {
 /**
  * @}
  */
-#  endif/*USE_FULL_LL_DRIVER*/
+#endif	/*USE_FULL_LL_DRIVER*/
 
 /* Exported types ------------------------------------------------------------*/
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup GPIO_LL_ES_INIT GPIO Exported Init structures
  * @{
@@ -97,7 +97,7 @@ typedef struct {
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /* Exported constants --------------------------------------------------------*/
 
@@ -108,23 +108,23 @@ typedef struct {
 /** @defgroup GPIO_LL_EC_PIN PIN
  * @{
  */
-#  define LL_GPIO_PIN_0     GPIO_BSRR_BS_0	/*!< Select pin 0 */
-#  define LL_GPIO_PIN_1     GPIO_BSRR_BS_1	/*!< Select pin 1 */
-#  define LL_GPIO_PIN_2     GPIO_BSRR_BS_2	/*!< Select pin 2 */
-#  define LL_GPIO_PIN_3     GPIO_BSRR_BS_3	/*!< Select pin 3 */
-#  define LL_GPIO_PIN_4     GPIO_BSRR_BS_4	/*!< Select pin 4 */
-#  define LL_GPIO_PIN_5     GPIO_BSRR_BS_5	/*!< Select pin 5 */
-#  define LL_GPIO_PIN_6     GPIO_BSRR_BS_6	/*!< Select pin 6 */
-#  define LL_GPIO_PIN_7     GPIO_BSRR_BS_7	/*!< Select pin 7 */
-#  define LL_GPIO_PIN_8     GPIO_BSRR_BS_8	/*!< Select pin 8 */
-#  define LL_GPIO_PIN_9     GPIO_BSRR_BS_9	/*!< Select pin 9 */
-#  define LL_GPIO_PIN_10    GPIO_BSRR_BS_10	/*!< Select pin 10 */
-#  define LL_GPIO_PIN_11    GPIO_BSRR_BS_11	/*!< Select pin 11 */
-#  define LL_GPIO_PIN_12    GPIO_BSRR_BS_12	/*!< Select pin 12 */
-#  define LL_GPIO_PIN_13    GPIO_BSRR_BS_13	/*!< Select pin 13 */
-#  define LL_GPIO_PIN_14    GPIO_BSRR_BS_14	/*!< Select pin 14 */
-#  define LL_GPIO_PIN_15    GPIO_BSRR_BS_15	/*!< Select pin 15 */
-#  define LL_GPIO_PIN_ALL \
+#define LL_GPIO_PIN_0     GPIO_BSRR_BS_0	/*!< Select pin 0 */
+#define LL_GPIO_PIN_1     GPIO_BSRR_BS_1	/*!< Select pin 1 */
+#define LL_GPIO_PIN_2     GPIO_BSRR_BS_2	/*!< Select pin 2 */
+#define LL_GPIO_PIN_3     GPIO_BSRR_BS_3	/*!< Select pin 3 */
+#define LL_GPIO_PIN_4     GPIO_BSRR_BS_4	/*!< Select pin 4 */
+#define LL_GPIO_PIN_5     GPIO_BSRR_BS_5	/*!< Select pin 5 */
+#define LL_GPIO_PIN_6     GPIO_BSRR_BS_6	/*!< Select pin 6 */
+#define LL_GPIO_PIN_7     GPIO_BSRR_BS_7	/*!< Select pin 7 */
+#define LL_GPIO_PIN_8     GPIO_BSRR_BS_8	/*!< Select pin 8 */
+#define LL_GPIO_PIN_9     GPIO_BSRR_BS_9	/*!< Select pin 9 */
+#define LL_GPIO_PIN_10    GPIO_BSRR_BS_10	/*!< Select pin 10 */
+#define LL_GPIO_PIN_11    GPIO_BSRR_BS_11	/*!< Select pin 11 */
+#define LL_GPIO_PIN_12    GPIO_BSRR_BS_12	/*!< Select pin 12 */
+#define LL_GPIO_PIN_13    GPIO_BSRR_BS_13	/*!< Select pin 13 */
+#define LL_GPIO_PIN_14    GPIO_BSRR_BS_14	/*!< Select pin 14 */
+#define LL_GPIO_PIN_15    GPIO_BSRR_BS_15	/*!< Select pin 15 */
+#define LL_GPIO_PIN_ALL \
 	(GPIO_BSRR_BS_0 | GPIO_BSRR_BS_1 | GPIO_BSRR_BS_2    \
 	| GPIO_BSRR_BS_3 | GPIO_BSRR_BS_4 | GPIO_BSRR_BS_5    \
 	| GPIO_BSRR_BS_6 | GPIO_BSRR_BS_7 | GPIO_BSRR_BS_8    \
@@ -139,10 +139,10 @@ typedef struct {
 /** @defgroup GPIO_LL_EC_MODE Mode
  * @{
  */
-#  define LL_GPIO_MODE_INPUT        (0x00000000U)		/*!< Select input mode */
-#  define LL_GPIO_MODE_OUTPUT       GPIO_MODER_MODER0_0	/*!< Select output mode */
-#  define LL_GPIO_MODE_ALTERNATE    GPIO_MODER_MODER0_1	/*!< Select alternate function mode */
-#  define LL_GPIO_MODE_ANALOG       GPIO_MODER_MODER0	/*!< Select analog mode */
+#define LL_GPIO_MODE_INPUT        (0x00000000U)			/*!< Select input mode */
+#define LL_GPIO_MODE_OUTPUT       GPIO_MODER_MODER0_0	/*!< Select output mode */
+#define LL_GPIO_MODE_ALTERNATE    GPIO_MODER_MODER0_1	/*!< Select alternate function mode */
+#define LL_GPIO_MODE_ANALOG       GPIO_MODER_MODER0		/*!< Select analog mode */
 
 /**
  * @}
@@ -151,8 +151,8 @@ typedef struct {
 /** @defgroup GPIO_LL_EC_OUTPUT Output Type
  * @{
  */
-#  define LL_GPIO_OUTPUT_PUSHPULL     (0x00000000U)		/*!< Select push-pull as output type */
-#  define LL_GPIO_OUTPUT_OPENDRAIN    GPIO_OTYPER_OT_0	/*!< Select open-drain as output type */
+#define LL_GPIO_OUTPUT_PUSHPULL     (0x00000000U)	/*!< Select push-pull as output type */
+#define LL_GPIO_OUTPUT_OPENDRAIN    GPIO_OTYPER_OT_0/*!< Select open-drain as output type */
 
 /**
  * @}
@@ -161,10 +161,10 @@ typedef struct {
 /** @defgroup GPIO_LL_EC_SPEED Output Speed
  * @{
  */
-#  define LL_GPIO_SPEED_FREQ_LOW          (0x00000000U)				/*!< Select I/O low output speed    */
-#  define LL_GPIO_SPEED_FREQ_MEDIUM       GPIO_OSPEEDER_OSPEEDR0_0	/*!< Select I/O medium output speed */
-#  define LL_GPIO_SPEED_FREQ_HIGH         GPIO_OSPEEDER_OSPEEDR0_1	/*!< Select I/O fast output speed   */
-#  define LL_GPIO_SPEED_FREQ_VERY_HIGH    GPIO_OSPEEDER_OSPEEDR0	/*!< Select I/O high output speed   */
+#define LL_GPIO_SPEED_FREQ_LOW          (0x00000000U)			/*!< Select I/O low output speed    */
+#define LL_GPIO_SPEED_FREQ_MEDIUM       GPIO_OSPEEDER_OSPEEDR0_0/*!< Select I/O medium output speed */
+#define LL_GPIO_SPEED_FREQ_HIGH         GPIO_OSPEEDER_OSPEEDR0_1/*!< Select I/O fast output speed   */
+#define LL_GPIO_SPEED_FREQ_VERY_HIGH    GPIO_OSPEEDER_OSPEEDR0	/*!< Select I/O high output speed   */
 
 /**
  * @}
@@ -173,9 +173,9 @@ typedef struct {
 /** @defgroup GPIO_LL_EC_PULL Pull Up Pull Down
  * @{
  */
-#  define LL_GPIO_PULL_NO      (0x00000000U)		/*!< Select I/O no pull */
-#  define LL_GPIO_PULL_UP      GPIO_PUPDR_PUPDR0_0	/*!< Select I/O pull up */
-#  define LL_GPIO_PULL_DOWN    GPIO_PUPDR_PUPDR0_1	/*!< Select I/O pull down */
+#define LL_GPIO_PULL_NO      (0x00000000U)		/*!< Select I/O no pull */
+#define LL_GPIO_PULL_UP      GPIO_PUPDR_PUPDR0_0/*!< Select I/O pull up */
+#define LL_GPIO_PULL_DOWN    GPIO_PUPDR_PUPDR0_1/*!< Select I/O pull down */
 
 /**
  * @}
@@ -184,22 +184,22 @@ typedef struct {
 /** @defgroup GPIO_LL_EC_AF Alternate Function
  * @{
  */
-#  define LL_GPIO_AF_0     (0x0000000U)	/*!< Select alternate function 0 */
-#  define LL_GPIO_AF_1     (0x0000001U)	/*!< Select alternate function 1 */
-#  define LL_GPIO_AF_2     (0x0000002U)	/*!< Select alternate function 2 */
-#  define LL_GPIO_AF_3     (0x0000003U)	/*!< Select alternate function 3 */
-#  define LL_GPIO_AF_4     (0x0000004U)	/*!< Select alternate function 4 */
-#  define LL_GPIO_AF_5     (0x0000005U)	/*!< Select alternate function 5 */
-#  define LL_GPIO_AF_6     (0x0000006U)	/*!< Select alternate function 6 */
-#  define LL_GPIO_AF_7     (0x0000007U)	/*!< Select alternate function 7 */
-#  define LL_GPIO_AF_8     (0x0000008U)	/*!< Select alternate function 8 */
-#  define LL_GPIO_AF_9     (0x0000009U)	/*!< Select alternate function 9 */
-#  define LL_GPIO_AF_10    (0x000000AU)	/*!< Select alternate function 10 */
-#  define LL_GPIO_AF_11    (0x000000BU)	/*!< Select alternate function 11 */
-#  define LL_GPIO_AF_12    (0x000000CU)	/*!< Select alternate function 12 */
-#  define LL_GPIO_AF_13    (0x000000DU)	/*!< Select alternate function 13 */
-#  define LL_GPIO_AF_14    (0x000000EU)	/*!< Select alternate function 14 */
-#  define LL_GPIO_AF_15    (0x000000FU)	/*!< Select alternate function 15 */
+#define LL_GPIO_AF_0     (0x0000000U)	/*!< Select alternate function 0 */
+#define LL_GPIO_AF_1     (0x0000001U)	/*!< Select alternate function 1 */
+#define LL_GPIO_AF_2     (0x0000002U)	/*!< Select alternate function 2 */
+#define LL_GPIO_AF_3     (0x0000003U)	/*!< Select alternate function 3 */
+#define LL_GPIO_AF_4     (0x0000004U)	/*!< Select alternate function 4 */
+#define LL_GPIO_AF_5     (0x0000005U)	/*!< Select alternate function 5 */
+#define LL_GPIO_AF_6     (0x0000006U)	/*!< Select alternate function 6 */
+#define LL_GPIO_AF_7     (0x0000007U)	/*!< Select alternate function 7 */
+#define LL_GPIO_AF_8     (0x0000008U)	/*!< Select alternate function 8 */
+#define LL_GPIO_AF_9     (0x0000009U)	/*!< Select alternate function 9 */
+#define LL_GPIO_AF_10    (0x000000AU)	/*!< Select alternate function 10 */
+#define LL_GPIO_AF_11    (0x000000BU)	/*!< Select alternate function 11 */
+#define LL_GPIO_AF_12    (0x000000CU)	/*!< Select alternate function 12 */
+#define LL_GPIO_AF_13    (0x000000DU)	/*!< Select alternate function 13 */
+#define LL_GPIO_AF_14    (0x000000EU)	/*!< Select alternate function 14 */
+#define LL_GPIO_AF_15    (0x000000FU)	/*!< Select alternate function 15 */
 
 /**
  * @}
@@ -226,7 +226,7 @@ typedef struct {
  * @param  __VALUE__ Value to be written in the register
  * @retval None
  */
-#  define LL_GPIO_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
+#define LL_GPIO_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
 
 /**
  * @brief  Read a value in GPIO register
@@ -234,7 +234,7 @@ typedef struct {
  * @param  __REG__ Register to be read
  * @retval Register value
  */
-#  define LL_GPIO_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
+#define LL_GPIO_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
 
 /**
  * @}
@@ -958,7 +958,7 @@ __STATIC_INLINE void LL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint32_t PinMask)
  * @}
  */
 
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup GPIO_LL_EF_Init Initialization and de-initialization functions
  * @{
@@ -971,7 +971,7 @@ void        LL_GPIO_StructInit(LL_GPIO_InitTypeDef *GPIO_InitStruct);
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /**
  * @}
@@ -981,15 +981,15 @@ void        LL_GPIO_StructInit(LL_GPIO_InitTypeDef *GPIO_InitStruct);
  * @}
  */
 
-# endif	/* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || defined (GPIOF) || defined (GPIOG) || defined (GPIOH) || defined (GPIOI) || defined (GPIOJ) || defined (GPIOK) */
+#endif	/* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || defined (GPIOF) || defined (GPIOG) || defined (GPIOH) || defined (GPIOI) || defined (GPIOJ) || defined (GPIOK) */
 
 /**
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_LL_GPIO_H */
 

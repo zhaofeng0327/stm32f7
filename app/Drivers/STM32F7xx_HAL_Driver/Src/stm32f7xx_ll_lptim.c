@@ -23,9 +23,9 @@
 #include "stm32f7xx_ll_bus.h"
 
 #ifdef  USE_FULL_ASSERT
-# include "stm32_assert.h"
+#include "stm32_assert.h"
 #else
-# define assert_param(expr)    ((void) 0U)
+#define assert_param(expr)    ((void) 0U)
 #endif
 
 /** @addtogroup STM32F7xx_LL_Driver
@@ -46,11 +46,11 @@
 /** @addtogroup LPTIM_LL_Private_Macros
  * @{
  */
-# define IS_LL_LPTIM_CLOCK_SOURCE(__VALUE__) \
+#define IS_LL_LPTIM_CLOCK_SOURCE(__VALUE__) \
 	(((__VALUE__) == LL_LPTIM_CLK_SOURCE_INTERNAL) \
 	|| ((__VALUE__) == LL_LPTIM_CLK_SOURCE_EXTERNAL))
 
-# define IS_LL_LPTIM_CLOCK_PRESCALER(__VALUE__) \
+#define IS_LL_LPTIM_CLOCK_PRESCALER(__VALUE__) \
 	(((__VALUE__) == LL_LPTIM_PRESCALER_DIV1)   \
 	|| ((__VALUE__) == LL_LPTIM_PRESCALER_DIV2)   \
 	|| ((__VALUE__) == LL_LPTIM_PRESCALER_DIV4)   \
@@ -60,11 +60,11 @@
 	|| ((__VALUE__) == LL_LPTIM_PRESCALER_DIV64)  \
 	|| ((__VALUE__) == LL_LPTIM_PRESCALER_DIV128))
 
-# define IS_LL_LPTIM_WAVEFORM(__VALUE__) \
+#define IS_LL_LPTIM_WAVEFORM(__VALUE__) \
 	(((__VALUE__) == LL_LPTIM_OUTPUT_WAVEFORM_PWM) \
 	|| ((__VALUE__) == LL_LPTIM_OUTPUT_WAVEFORM_SETONCE))
 
-# define IS_LL_LPTIM_OUTPUT_POLARITY(__VALUE__) \
+#define IS_LL_LPTIM_OUTPUT_POLARITY(__VALUE__) \
 	(((__VALUE__) == LL_LPTIM_OUTPUT_POLARITY_REGULAR) \
 	|| ((__VALUE__) == LL_LPTIM_OUTPUT_POLARITY_INVERSE))
 
@@ -102,12 +102,12 @@ ErrorStatus LL_LPTIM_DeInit(LPTIM_TypeDef *LPTIMx)
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_LPTIM1);
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_LPTIM1);
 	}
-	# if defined(LPTIM2)
+	#if defined(LPTIM2)
 	else if (LPTIMx == LPTIM2) {
 		LL_APB1_GRP2_ForceReset(LL_APB1_GRP2_PERIPH_LPTIM2);
 		LL_APB1_GRP2_ReleaseReset(LL_APB1_GRP2_PERIPH_LPTIM2);
 	}
-	# endif
+	#endif
 	else {
 		result = ERROR;
 	}
@@ -149,7 +149,7 @@ ErrorStatus LL_LPTIM_Init(LPTIM_TypeDef *LPTIMx, LL_LPTIM_InitTypeDef *LPTIM_Ini
 	 */
 	if (LL_LPTIM_IsEnabled(LPTIMx)) {
 		result = ERROR;
-	} else   {
+	} else {
 		/* Check the parameters */
 		assert_param(IS_LPTIM_INSTANCE(LPTIMx));
 		assert_param(IS_LL_LPTIM_CLOCK_SOURCE(LPTIM_InitStruct->ClockSource));

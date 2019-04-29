@@ -329,7 +329,7 @@ void arm_biquad_cascade_df1_f32(
 		stage--;
 	} while (stage > 0U);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -396,7 +396,7 @@ void arm_biquad_cascade_df1_f32(
 	} while (stage > 0U);
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_biquad_cascade_df1_f32 */
+}	/* arm_biquad_cascade_df1_f32 */
 
 /**
  * @} end of BiquadCascadeDF1 group

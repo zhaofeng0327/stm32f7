@@ -24,13 +24,13 @@
  */
 
 #if   defined( __ICCARM__ )
-# pragma system_include         /* treat file as system include file for MISRA check */
+#pragma system_include         /* treat file as system include file for MISRA check */
 #elif defined(__clang__)
-# pragma clang system_header   /* treat file as system include file */
+#pragma clang system_header   /* treat file as system include file */
 #endif
 
 #ifndef __CMSIS_CP15_H
-# define __CMSIS_CP15_H
+#define __CMSIS_CP15_H
 
 /** \brief  Get ACTLR
  *  \return               Auxiliary Control register value
@@ -272,7 +272,7 @@ __STATIC_FORCEINLINE void __set_MVBAR(uint32_t mvbar)
 	__set_CP(15, 0, mvbar, 12, 0, 1);
 }
 
-# if (defined(__CORTEX_A) && (__CORTEX_A == 7U) && \
+#if (defined(__CORTEX_A) && (__CORTEX_A == 7U) && \
 	defined(__TIM_PRESENT) && (__TIM_PRESENT == 1U)) || \
 	defined(DOXYGEN)
 
@@ -382,7 +382,7 @@ __STATIC_FORCEINLINE uint32_t __get_CNTP_CTL(void)
 	return result;
 }
 
-# endif	// if (defined(__CORTEX_A) && (__CORTEX_A == 7U) && defined(__TIM_PRESENT) && (__TIM_PRESENT == 1U)) || defined(DOXYGEN)
+#endif	// if (defined(__CORTEX_A) && (__CORTEX_A == 7U) && defined(__TIM_PRESENT) && (__TIM_PRESENT == 1U)) || defined(DOXYGEN)
 
 /** \brief  Set TLBIALL
  *
@@ -512,4 +512,4 @@ __STATIC_FORCEINLINE void __set_DCCISW(uint32_t value)
 	__set_CP(15, 0, value, 7, 14, 2);
 }
 
-#endif // ifndef __CMSIS_CP15_H
+#endif	// ifndef __CMSIS_CP15_H

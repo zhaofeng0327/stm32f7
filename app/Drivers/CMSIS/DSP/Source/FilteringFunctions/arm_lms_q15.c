@@ -117,12 +117,12 @@ void arm_lms_q15(
 		while (tapCnt > 0U) {
 			/* acc +=  b[N] * x[n-N] + b[N-1] * x[n-N-1] */
 			/* Perform the multiply-accumulate */
-			# ifndef UNALIGNED_SUPPORT_DISABLE
+			#ifndef UNALIGNED_SUPPORT_DISABLE
 
 			acc = __SMLALD(*__SIMD32(px)++, (*__SIMD32(pb)++), acc);
 			acc = __SMLALD(*__SIMD32(px)++, (*__SIMD32(pb)++), acc);
 
-			# else
+			#else
 
 			acc += (q63_t) (((q31_t) (*px++) * (*pb++)));
 			acc += (q63_t) (((q31_t) (*px++) * (*pb++)));
@@ -130,7 +130,7 @@ void arm_lms_q15(
 			acc += (q63_t) (((q31_t) (*px++) * (*pb++)));
 
 
-			# endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
+			#endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
 
 			/* Decrement the loop counter */
 			tapCnt--;
@@ -222,16 +222,16 @@ void arm_lms_q15(
 	tapCnt = (numTaps - 1U) >> 2;
 
 	while (tapCnt > 0U) {
-		# ifndef UNALIGNED_SUPPORT_DISABLE
+		#ifndef UNALIGNED_SUPPORT_DISABLE
 
 		*__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
 		*__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
-		# else
+		#else
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
-		# endif
+		#endif
 
 		tapCnt--;
 	}
@@ -247,7 +247,7 @@ void arm_lms_q15(
 		tapCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -347,7 +347,7 @@ void arm_lms_q15(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_lms_q15 */
+}	/* arm_lms_q15 */
 
 /**
  * @} end of LMS group

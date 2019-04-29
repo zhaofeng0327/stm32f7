@@ -82,17 +82,17 @@ void arm_q15_to_q7(
 		in1 = *__SIMD32(pIn)++;
 		in2 = *__SIMD32(pIn)++;
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		out1 = __PKHTB(in2, in1, 16);
 		out2 = __PKHBT(in2, in1, 16);
 
-		# else
+		#else
 
 		out1 = __PKHTB(in1, in2, 16);
 		out2 = __PKHBT(in1, in2, 16);
 
-		# endif	//      #ifndef ARM_MATH_BIG_ENDIAN
+		#endif	//      #ifndef ARM_MATH_BIG_ENDIAN
 
 		/* rotate packed value by 24 */
 		out2 = ((uint32_t) out2 << 8) | ((uint32_t) out2 >> 24);
@@ -116,7 +116,7 @@ void arm_q15_to_q7(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -133,7 +133,7 @@ void arm_q15_to_q7(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_q15_to_q7 */
+}	/* arm_q15_to_q7 */
 
 /**
  * @} end of q15_to_x group

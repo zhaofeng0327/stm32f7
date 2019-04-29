@@ -73,7 +73,7 @@ void MX_RTC_Init(void)
 	if (HAL_RTCEx_SetTimeStamp(&hrtc, RTC_TIMESTAMPEDGE_RISING, RTC_TIMESTAMPPIN_DEFAULT) != HAL_OK) {
 		Error_Handler();
 	}
-} /* MX_RTC_Init */
+}	/* MX_RTC_Init */
 
 void HAL_RTC_MspInit(RTC_HandleTypeDef *rtcHandle)
 {

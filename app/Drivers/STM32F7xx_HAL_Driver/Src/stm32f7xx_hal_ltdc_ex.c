@@ -31,7 +31,7 @@
  * @{
  */
 
-# if defined(HAL_LTDC_MODULE_ENABLED) && defined(HAL_DSI_MODULE_ENABLED)
+#if defined(HAL_LTDC_MODULE_ENABLED) && defined(HAL_DSI_MODULE_ENABLED)
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -84,8 +84,8 @@ HAL_StatusTypeDef HAL_LTDCEx_StructInitFromVideoConfig(LTDC_HandleTypeDef *hltdc
 	/* Note 2: Code to be used in case LTDC polarities inversion updated in the specification */
 
 	/* hltdc->Init.DEPolarity = VidCfg->DEPolarity << 29;
-	*  hltdc->Init.VSPolarity = VidCfg->VSPolarity << 29;
-	*  hltdc->Init.HSPolarity = VidCfg->HSPolarity << 29; */
+	 *  hltdc->Init.VSPolarity = VidCfg->VSPolarity << 29;
+	 *  hltdc->Init.HSPolarity = VidCfg->HSPolarity << 29; */
 
 	/* Retrieve vertical timing parameters from DSI */
 	hltdc->Init.VerticalSync       = VidCfg->VerticalSyncActive - 1U;
@@ -126,8 +126,8 @@ HAL_StatusTypeDef HAL_LTDCEx_StructInitFromAdaptedCommandConfig(LTDC_HandleTypeD
 	/* Note 2: Code to be used in case LTDC polarities inversion updated in the specification */
 
 	/* hltdc->Init.DEPolarity = CmdCfg->DEPolarity << 29;
-	*  hltdc->Init.VSPolarity = CmdCfg->VSPolarity << 29;
-	*  hltdc->Init.HSPolarity = CmdCfg->HSPolarity << 29; */
+	 *  hltdc->Init.VSPolarity = CmdCfg->VSPolarity << 29;
+	 *  hltdc->Init.HSPolarity = CmdCfg->HSPolarity << 29; */
 
 	return HAL_OK;
 }
@@ -140,7 +140,7 @@ HAL_StatusTypeDef HAL_LTDCEx_StructInitFromAdaptedCommandConfig(LTDC_HandleTypeD
  * @}
  */
 
-# endif	/* HAL_LTCD_MODULE_ENABLED && HAL_DSI_MODULE_ENABLED */
+#endif	/* HAL_LTCD_MODULE_ENABLED && HAL_DSI_MODULE_ENABLED */
 
 /**
  * @}

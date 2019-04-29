@@ -38,7 +38,7 @@ void ref_correlate_f32(
 		/* Calculating the number of zeros to be padded to the output */
 		/* Initialise the pointer after zero padding */
 		pDst += srcALen - srcBLen;
-	} else if (srcALen < srcBLen)   {
+	} else if (srcALen < srcBLen) {
 		/* Initialization to inputB pointer */
 		pIn1 = pSrcB;
 
@@ -76,7 +76,7 @@ void ref_correlate_f32(
 		else
 			*pDst++ = sum;
 	}
-} /* ref_correlate_f32 */
+}	/* ref_correlate_f32 */
 
 void ref_correlate_q31(
 	q31_t    *pSrcA,
@@ -101,7 +101,7 @@ void ref_correlate_q31(
 
 		/* Initialise the pointer after zero padding */
 		pDst += j;
-	} else if (srcALen < srcBLen)   {
+	} else if (srcALen < srcBLen) {
 		/* Initialization to inputB pointer */
 		pIn1 = pSrcB;
 
@@ -139,7 +139,7 @@ void ref_correlate_q31(
 		else
 			*pDst++ = (q31_t) (sum >> 31U);
 	}
-} /* ref_correlate_q31 */
+}	/* ref_correlate_q31 */
 
 void ref_correlate_fast_q31(
 	q31_t    *pSrcA,
@@ -164,7 +164,7 @@ void ref_correlate_fast_q31(
 
 		/* Initialise the pointer after zero padding */
 		pDst += j;
-	} else if (srcALen < srcBLen)   {
+	} else if (srcALen < srcBLen) {
 		/* Initialization to inputB pointer */
 		pIn1 = pSrcB;
 
@@ -203,7 +203,7 @@ void ref_correlate_fast_q31(
 		else
 			*pDst++ = (q31_t) (sum << 1U);
 	}
-} /* ref_correlate_fast_q31 */
+}	/* ref_correlate_fast_q31 */
 
 void ref_correlate_q15(
 	q15_t    *pSrcA,
@@ -228,7 +228,7 @@ void ref_correlate_q15(
 
 		/* Initialise the pointer after zero padding */
 		pDst += j;
-	} else if (srcALen < srcBLen)   {
+	} else if (srcALen < srcBLen) {
 		/* Initialization to inputB pointer */
 		pIn1 = pSrcB;
 
@@ -266,7 +266,7 @@ void ref_correlate_q15(
 		else
 			*pDst++ = (q15_t) ref_sat_q15(sum >> 15U);
 	}
-} /* ref_correlate_q15 */
+}	/* ref_correlate_q15 */
 
 void ref_correlate_fast_q15(
 	q15_t    *pSrcA,
@@ -291,7 +291,7 @@ void ref_correlate_fast_q15(
 
 		/* Initialise the pointer after zero padding */
 		pDst += j;
-	} else if (srcALen < srcBLen)   {
+	} else if (srcALen < srcBLen) {
 		/* Initialization to inputB pointer */
 		pIn1 = pSrcB;
 
@@ -329,7 +329,7 @@ void ref_correlate_fast_q15(
 		else
 			*pDst++ = (q15_t) (sum >> 15U);
 	}
-} /* ref_correlate_fast_q15 */
+}	/* ref_correlate_fast_q15 */
 
 void ref_correlate_fast_opt_q15(
 	q15_t    *pSrcA,
@@ -355,7 +355,7 @@ void ref_correlate_fast_opt_q15(
 
 		/* Initialise the pointer after zero padding */
 		pDst += j;
-	} else if (srcALen < srcBLen)   {
+	} else if (srcALen < srcBLen) {
 		/* Initialization to inputB pointer */
 		pIn1 = pSrcB;
 
@@ -393,7 +393,7 @@ void ref_correlate_fast_opt_q15(
 		else
 			*pDst++ = (q15_t) ref_sat_q15(sum >> 15U);
 	}
-} /* ref_correlate_fast_opt_q15 */
+}	/* ref_correlate_fast_opt_q15 */
 
 void ref_correlate_q7(
 	q7_t     *pSrcA,
@@ -402,12 +402,12 @@ void ref_correlate_q7(
 	uint32_t srcBLen,
 	q7_t     *pDst)
 {
-	q7_t *pIn1 = pSrcA;					/* inputA pointer */
+	q7_t *pIn1 = pSrcA;	/* inputA pointer */
 	q7_t *pIn2 = pSrcB + (srcBLen - 1U);/* inputB pointer */
-	q31_t sum;							/* Accumulator */
-	uint32_t i = 0U, j;					/* loop counters */
-	uint32_t inv = 0U;					/* Reverse order flag */
-	uint32_t tot = 0U;					/* Length */
+	q31_t sum;			/* Accumulator */
+	uint32_t i = 0U, j;	/* loop counters */
+	uint32_t inv = 0U;	/* Reverse order flag */
+	uint32_t tot = 0U;	/* Length */
 
 	/* Calculate the length of the remaining sequence */
 	tot = ((srcALen + srcBLen) - 2U);
@@ -418,7 +418,7 @@ void ref_correlate_q7(
 
 		/* Initialise the pointer after zero padding */
 		pDst += j;
-	} else if (srcALen < srcBLen)   {
+	} else if (srcALen < srcBLen) {
 		/* Initialization to inputB pointer */
 		pIn1 = pSrcB;
 
@@ -456,4 +456,4 @@ void ref_correlate_q7(
 		else
 			*pDst++ = (q7_t) __SSAT((sum >> 7U), 8U);
 	}
-} /* ref_correlate_q7 */
+}	/* ref_correlate_q7 */

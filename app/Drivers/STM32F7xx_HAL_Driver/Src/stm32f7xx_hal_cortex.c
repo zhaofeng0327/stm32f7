@@ -251,7 +251,7 @@ uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb)
  * @{
  */
 
-# if (__MPU_PRESENT == 1)
+#if (__MPU_PRESENT == 1)
 
 /**
  * @brief  Disables the MPU
@@ -329,13 +329,13 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init)
 		  | ((uint32_t) MPU_Init->SubRegionDisable << MPU_RASR_SRD_Pos)
 		  | ((uint32_t) MPU_Init->Size << MPU_RASR_SIZE_Pos)
 		  | ((uint32_t) MPU_Init->Enable << MPU_RASR_ENABLE_Pos);
-	} else   {
+	} else {
 		MPU->RBAR = 0x00;
 		MPU->RASR = 0x00;
 	}
-} /* HAL_MPU_ConfigRegion */
+}	/* HAL_MPU_ConfigRegion */
 
-# endif	/* __MPU_PRESENT */
+#endif	/* __MPU_PRESENT */
 
 /**
  * @brief  Gets the priority grouping field from the NVIC Interrupt Controller.
@@ -457,7 +457,7 @@ void HAL_SYSTICK_CLKSourceConfig(uint32_t CLKSource)
 	assert_param(IS_SYSTICK_CLK_SOURCE(CLKSource));
 	if (CLKSource == SYSTICK_CLKSOURCE_HCLK) {
 		SysTick->CTRL |= SYSTICK_CLKSOURCE_HCLK;
-	} else   {
+	} else {
 		SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
 	}
 }

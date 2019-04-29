@@ -170,7 +170,7 @@ arm_status arm_convolve_HWC_q7_basic(const q7_t *Im_in,
 			*pOut++ = (q7_t) __SSAT((sum >> out_shift), 8);
 		}
 	}
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
 
 	uint16_t i, j, k, l, m, n;
@@ -205,7 +205,7 @@ arm_status arm_convolve_HWC_q7_basic(const q7_t *Im_in,
 
 	/* Return to application */
 	return ARM_MATH_SUCCESS;
-} /* arm_convolve_HWC_q7_basic */
+}	/* arm_convolve_HWC_q7_basic */
 
 /**
  * @} end of NNConv group

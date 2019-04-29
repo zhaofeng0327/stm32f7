@@ -84,32 +84,32 @@ void arm_shift_q15(
 			in2 = *pSrc++;
 			/* C = A << shiftBits */
 			/* Shift the inputs and then store the results in the destination buffer. */
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			*__SIMD32(pDst)++ = __PKHBT(__SSAT((in1 << shiftBits), 16),
 				__SSAT((in2 << shiftBits), 16), 16);
 
-			# else
+			#else
 
 			*__SIMD32(pDst)++ = __PKHBT(__SSAT((in2 << shiftBits), 16),
 				__SSAT((in1 << shiftBits), 16), 16);
 
-			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
+			#endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 			in1 = *pSrc++;
 			in2 = *pSrc++;
 
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			*__SIMD32(pDst)++ = __PKHBT(__SSAT((in1 << shiftBits), 16),
 				__SSAT((in2 << shiftBits), 16), 16);
 
-			# else
+			#else
 
 			*__SIMD32(pDst)++ = __PKHBT(__SSAT((in2 << shiftBits), 16),
 				__SSAT((in1 << shiftBits), 16), 16);
 
-			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
+			#endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 			/* Decrement the loop counter */
 			blkCnt--;
@@ -127,7 +127,7 @@ void arm_shift_q15(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
 		** a second loop below computes the remaining 1 to 3 samples. */
 		while (blkCnt > 0U) {
@@ -137,32 +137,32 @@ void arm_shift_q15(
 
 			/* C = A >> shiftBits */
 			/* Shift the inputs and then store the results in the destination buffer. */
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			*__SIMD32(pDst)++ = __PKHBT((in1 >> -shiftBits),
 				(in2 >> -shiftBits), 16);
 
-			# else
+			#else
 
 			*__SIMD32(pDst)++ = __PKHBT((in2 >> -shiftBits),
 				(in1 >> -shiftBits), 16);
 
-			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
+			#endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 			in1 = *pSrc++;
 			in2 = *pSrc++;
 
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			*__SIMD32(pDst)++ = __PKHBT((in1 >> -shiftBits),
 				(in2 >> -shiftBits), 16);
 
-			# else
+			#else
 
 			*__SIMD32(pDst)++ = __PKHBT((in2 >> -shiftBits),
 				(in1 >> -shiftBits), 16);
 
-			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
+			#endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 			/* Decrement the loop counter */
 			blkCnt--;
@@ -182,7 +182,7 @@ void arm_shift_q15(
 		}
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -202,7 +202,7 @@ void arm_shift_q15(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* Initialize blkCnt with number of samples */
 		blkCnt = blockSize;
 
@@ -217,7 +217,7 @@ void arm_shift_q15(
 	}
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_shift_q15 */
+}	/* arm_shift_q15 */
 
 /**
  * @} end of shift group

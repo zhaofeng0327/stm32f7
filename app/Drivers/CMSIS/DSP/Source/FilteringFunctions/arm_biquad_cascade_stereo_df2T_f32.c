@@ -471,7 +471,7 @@ void arm_biquad_cascade_stereo_df2T_f32(
 		stage--;
 	} while (stage > 0U);
 
-	#else  /* if defined(ARM_MATH_CM7) */
+	#else	/* if defined(ARM_MATH_CM7) */
 
 	float32_t Xn2a, Xn3a, Xn4a;		/*  Input State variables     */
 	float32_t Xn2b, Xn3b, Xn4b;		/*  Input State variables     */
@@ -651,8 +651,8 @@ void arm_biquad_cascade_stereo_df2T_f32(
 		stage--;
 	} while (stage > 0U);
 
-	#endif /* if defined(ARM_MATH_CM7) */
-} /* arm_biquad_cascade_stereo_df2T_f32 */
+	#endif	/* if defined(ARM_MATH_CM7) */
+}	/* arm_biquad_cascade_stereo_df2T_f32 */
 
 LOW_OPTIMIZATION_EXIT
 

@@ -348,7 +348,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
 	}
 
 	if (hadc->State == HAL_ADC_STATE_RESET) {
-		# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 		/* Init the ADC Callback settings */
 		hadc->ConvCpltCallback         = HAL_ADC_ConvCpltCallback;			/* Legacy weak callback */
 		hadc->ConvHalfCpltCallback     = HAL_ADC_ConvHalfCpltCallback;		/* Legacy weak callback */
@@ -361,10 +361,10 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
 
 		/* Init the low level hardware */
 		hadc->MspInitCallback(hadc);
-		# else  /* if (USE_HAL_ADC_REGISTER_CALLBACKS == 1) */
+		#else	/* if (USE_HAL_ADC_REGISTER_CALLBACKS == 1) */
 		/* Init the low level hardware */
 		HAL_ADC_MspInit(hadc);
-		# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 
 		/* Initialize ADC error code */
 		ADC_CLEAR_ERRORCODE(hadc);
@@ -400,7 +400,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
 
 	/* Return function status */
 	return tmp_hal_status;
-} /* HAL_ADC_Init */
+}	/* HAL_ADC_Init */
 
 /**
  * @brief  Deinitializes the ADCx peripheral registers to their default reset values.
@@ -430,17 +430,17 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef *hadc)
 	/* Configuration of ADC parameters if previous preliminary actions are      */
 	/* correctly completed.                                                     */
 	if (HAL_IS_BIT_CLR(hadc->Instance->CR2, ADC_CR2_ADON)) {
-		# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 		if (hadc->MspDeInitCallback == NULL) {
 			hadc->MspDeInitCallback = HAL_ADC_MspDeInit;/* Legacy weak MspDeInit  */
 		}
 
 		/* DeInit the low level hardware: RCC clock, NVIC */
 		hadc->MspDeInitCallback(hadc);
-		# else
+		#else
 		/* DeInit the low level hardware: RCC clock, NVIC */
 		HAL_ADC_MspDeInit(hadc);
-		# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 
 		/* Set ADC error code to none */
 		ADC_CLEAR_ERRORCODE(hadc);
@@ -454,7 +454,7 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef *hadc)
 
 	/* Return function status */
 	return tmp_hal_status;
-} /* HAL_ADC_DeInit */
+}	/* HAL_ADC_DeInit */
 
 /**
  * @brief  Initializes the ADC MSP.
@@ -488,7 +488,7 @@ __weak void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
 	 */
 }
 
-# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User ADC Callback
@@ -585,7 +585,7 @@ HAL_StatusTypeDef HAL_ADC_RegisterCallback(ADC_HandleTypeDef *hadc, HAL_ADC_Call
 	}
 
 	return status;
-} /* HAL_ADC_RegisterCallback */
+}	/* HAL_ADC_RegisterCallback */
 
 /**
  * @brief  Unregister a ADC Callback
@@ -673,9 +673,9 @@ HAL_StatusTypeDef HAL_ADC_UnRegisterCallback(ADC_HandleTypeDef *hadc, HAL_ADC_Ca
 	}
 
 	return status;
-} /* HAL_ADC_UnRegisterCallback */
+}	/* HAL_ADC_UnRegisterCallback */
 
-# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 
 
 /**
@@ -796,7 +796,7 @@ HAL_StatusTypeDef HAL_ADC_Start(ADC_HandleTypeDef *hadc)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ADC_Start */
+}	/* HAL_ADC_Start */
 
 /**
  * @brief  Disables ADC and stop conversion of regular channels.
@@ -918,7 +918,7 @@ HAL_StatusTypeDef HAL_ADC_PollForConversion(ADC_HandleTypeDef *hadc, uint32_t Ti
 
 	/* Return ADC state */
 	return HAL_OK;
-} /* HAL_ADC_PollForConversion */
+}	/* HAL_ADC_PollForConversion */
 
 /**
  * @brief  Poll for conversion event
@@ -979,7 +979,7 @@ HAL_StatusTypeDef HAL_ADC_PollForEvent(ADC_HandleTypeDef *hadc, uint32_t EventTy
 
 	/* Return ADC state */
 	return HAL_OK;
-} /* HAL_ADC_PollForEvent */
+}	/* HAL_ADC_PollForEvent */
 
 /**
  * @brief  Enables the interrupt and starts ADC conversion of regular channels.
@@ -1078,7 +1078,7 @@ HAL_StatusTypeDef HAL_ADC_Start_IT(ADC_HandleTypeDef *hadc)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ADC_Start_IT */
+}	/* HAL_ADC_Start_IT */
 
 /**
  * @brief  Disables the interrupt and stop ADC conversion of regular channels.
@@ -1170,11 +1170,11 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef *hadc)
 		}
 
 		/* Conversion complete callback */
-		# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 		hadc->ConvCpltCallback(hadc);
-		# else
+		#else
 		HAL_ADC_ConvCpltCallback(hadc);
-		# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 
 		/* Clear regular group conversion flag */
 		__HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_STRT | ADC_FLAG_EOC);
@@ -1213,11 +1213,11 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef *hadc)
 		}
 
 		/* Conversion complete callback */
-		# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 		hadc->InjectedConvCpltCallback(hadc);
-		# else
+		#else
 		HAL_ADCEx_InjectedConvCpltCallback(hadc);
-		# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 
 		/* Clear injected group conversion flag */
 		__HAL_ADC_CLEAR_FLAG(hadc, (ADC_FLAG_JSTRT | ADC_FLAG_JEOC));
@@ -1232,11 +1232,11 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef *hadc)
 			SET_BIT(hadc->State, HAL_ADC_STATE_AWD1);
 
 			/* Level out of window callback */
-			# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 			hadc->LevelOutOfWindowCallback(hadc);
-			# else
+			#else
 			HAL_ADC_LevelOutOfWindowCallback(hadc);
-			# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 
 
 			/* Clear the ADC analog watchdog flag */
@@ -1259,16 +1259,16 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef *hadc)
 		__HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_OVR);
 
 		/* Error callback */
-		# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 		hadc->ErrorCallback(hadc);
-		# else
+		#else
 		HAL_ADC_ErrorCallback(hadc);
-		# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 
 		/* Clear the Overrun flag */
 		__HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_OVR);
 	}
-} /* HAL_ADC_IRQHandler */
+}	/* HAL_ADC_IRQHandler */
 
 /**
  * @brief  Enables ADC DMA request after last transfer (Single-ADC mode) and enables ADC peripheral
@@ -1387,7 +1387,7 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef *hadc, uint32_t *pData, ui
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ADC_Start_DMA */
+}	/* HAL_ADC_Start_DMA */
 
 /**
  * @brief  Disables ADC DMA (Single-ADC mode) and disables ADC peripheral
@@ -1432,7 +1432,7 @@ HAL_StatusTypeDef HAL_ADC_Stop_DMA(ADC_HandleTypeDef *hadc)
 
 	/* Return function status */
 	return tmp_hal_status;
-} /* HAL_ADC_Stop_DMA */
+}	/* HAL_ADC_Stop_DMA */
 
 /**
  * @brief  Gets the converted value from data register of regular channel.
@@ -1630,7 +1630,7 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, ADC_ChannelConf
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ADC_ConfigChannel */
+}	/* HAL_ADC_ConfigChannel */
 
 /**
  * @brief  Configures the analog watchdog.
@@ -1650,20 +1650,20 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, ADC_ChannelConf
  */
 HAL_StatusTypeDef HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, ADC_AnalogWDGConfTypeDef *AnalogWDGConfig)
 {
-	# ifdef USE_FULL_ASSERT
+	#ifdef USE_FULL_ASSERT
 	uint32_t tmp = 0;
-	# endif	/* USE_FULL_ASSERT  */
+	#endif	/* USE_FULL_ASSERT  */
 
 	/* Check the parameters */
 	assert_param(IS_ADC_ANALOG_WATCHDOG(AnalogWDGConfig->WatchdogMode));
 	assert_param(IS_ADC_CHANNEL(AnalogWDGConfig->Channel));
 	assert_param(IS_FUNCTIONAL_STATE(AnalogWDGConfig->ITMode));
 
-	# ifdef USE_FULL_ASSERT
+	#ifdef USE_FULL_ASSERT
 	tmp = ADC_GET_RESOLUTION(hadc);
 	assert_param(IS_ADC_RANGE(tmp, AnalogWDGConfig->HighThreshold));
 	assert_param(IS_ADC_RANGE(tmp, AnalogWDGConfig->LowThreshold));
-	# endif	/* USE_FULL_ASSERT  */
+	#endif	/* USE_FULL_ASSERT  */
 
 	/* Process locked */
 	__HAL_LOCK(hadc);
@@ -1699,7 +1699,7 @@ HAL_StatusTypeDef HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, ADC_AnalogWDG
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ADC_AnalogWDGConfig */
+}	/* HAL_ADC_AnalogWDGConfig */
 
 /**
  * @}
@@ -1832,7 +1832,7 @@ static void ADC_Init(ADC_HandleTypeDef *hadc)
 	/* Enable or disable ADC end of conversion selection */
 	hadc->Instance->CR2 &= ~(ADC_CR2_EOCS);
 	hadc->Instance->CR2 |= ADC_CR2_EOCSelection(hadc->Init.EOCSelection);
-} /* ADC_Init */
+}	/* ADC_Init */
 
 /**
  * @brief  DMA transfer complete callback.
@@ -1876,25 +1876,25 @@ static void ADC_DMAConvCplt(DMA_HandleTypeDef *hdma)
 		}
 
 		/* Conversion complete callback */
-		# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 		hadc->ConvCpltCallback(hadc);
-		# else
+		#else
 		HAL_ADC_ConvCpltCallback(hadc);
-		# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 	} else {/* DMA and-or internal error occurred */
 		if ((hadc->State & HAL_ADC_STATE_ERROR_INTERNAL) != 0UL) {
 			/* Call HAL ADC Error Callback function */
-			# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 			hadc->ErrorCallback(hadc);
-			# else
+			#else
 			HAL_ADC_ErrorCallback(hadc);
-			# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 		} else {
 			/* Call DMA error callback */
 			hadc->DMA_Handle->XferErrorCallback(hdma);
 		}
 	}
-} /* ADC_DMAConvCplt */
+}	/* ADC_DMAConvCplt */
 
 /**
  * @brief  DMA half transfer complete callback.
@@ -1906,11 +1906,11 @@ static void ADC_DMAHalfConvCplt(DMA_HandleTypeDef *hdma)
 {
 	ADC_HandleTypeDef *hadc = (ADC_HandleTypeDef *) ((DMA_HandleTypeDef *) hdma)->Parent;
 	/* Half conversion callback */
-	# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 	hadc->ConvHalfCpltCallback(hadc);
-	# else
+	#else
 	HAL_ADC_ConvHalfCpltCallback(hadc);
-	# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1926,11 +1926,11 @@ static void ADC_DMAError(DMA_HandleTypeDef *hdma)
 	/* Set ADC error code to DMA error */
 	hadc->ErrorCode |= HAL_ADC_ERROR_DMA;
 	/* Error callback */
-	# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 	hadc->ErrorCallback(hadc);
-	# else
+	#else
 	HAL_ADC_ErrorCallback(hadc);
-	# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 }
 
 /**

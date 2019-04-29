@@ -90,19 +90,19 @@
  */
 
 #ifndef _ARM_NNFUNCTIONS_H
-# define _ARM_NNFUNCTIONS_H
+#define _ARM_NNFUNCTIONS_H
 
-# include "arm_nnsupportfunctions.h"
-# include "arm_nn_tables.h"
+#include "arm_nnsupportfunctions.h"
+#include "arm_nn_tables.h"
 
-# define USE_INTRINSIC
+#define USE_INTRINSIC
 
 // #define ARM_NN_TRUNCATE /* This config the rounding model to floor or round to the nearest int */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern    "C"
 {
-# endif
+#endif
 
 /**
  * @defgroup NNConv Neural Network Convolution Functions
@@ -851,9 +851,9 @@ q7_t *arm_nn_mat_mult_kernel_q7_q15_reordered(const q7_t *pA,
   const q7_t                                             *bias,
   q7_t                                                   *pOut);
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 /*
  *  Other functions
@@ -861,10 +861,10 @@ q7_t *arm_nn_mat_mult_kernel_q7_q15_reordered(const q7_t *pA,
  *  Basic implementation is supported here
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern    "C"
 {
-# endif
+#endif
 
 /**
  * @defgroup Acti Neural Network Activation Functions
@@ -1002,8 +1002,8 @@ void      arm_softmax_q7(const q7_t *vec_in, const uint16_t dim_vec, q7_t *p_out
 
 void      arm_softmax_q15(const q15_t *vec_in, const uint16_t dim_vec, q15_t *p_out);
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
-#endif // ifndef _ARM_NNFUNCTIONS_H
+#endif	// ifndef _ARM_NNFUNCTIONS_H

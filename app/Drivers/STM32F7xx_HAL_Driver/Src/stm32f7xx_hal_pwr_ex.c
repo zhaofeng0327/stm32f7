@@ -41,10 +41,10 @@
 /** @addtogroup PWREx_Private_Constants
  * @{
  */
-# define PWR_OVERDRIVE_TIMEOUT_VALUE    1000
-# define PWR_UDERDRIVE_TIMEOUT_VALUE    1000
-# define PWR_BKPREG_TIMEOUT_VALUE       1000
-# define PWR_VOSRDY_TIMEOUT_VALUE       1000
+#define PWR_OVERDRIVE_TIMEOUT_VALUE    1000
+#define PWR_UDERDRIVE_TIMEOUT_VALUE    1000
+#define PWR_BKPREG_TIMEOUT_VALUE       1000
+#define PWR_VOSRDY_TIMEOUT_VALUE       1000
 
 /**
  * @}
@@ -413,7 +413,7 @@ HAL_StatusTypeDef HAL_PWREx_EnterUnderDriveSTOPMode(uint32_t Regulator, uint8_t 
 	if (STOPEntry == PWR_SLEEPENTRY_WFI) {
 		/* Request Wait For Interrupt */
 		__WFI();
-	} else   {
+	} else {
 		/* Request Wait For Event */
 		__WFE();
 	}
@@ -421,7 +421,7 @@ HAL_StatusTypeDef HAL_PWREx_EnterUnderDriveSTOPMode(uint32_t Regulator, uint8_t 
 	SCB->SCR &= (uint32_t) ~((uint32_t) SCB_SCR_SLEEPDEEP_Msk);
 
 	return HAL_OK;
-} /* HAL_PWREx_EnterUnderDriveSTOPMode */
+}	/* HAL_PWREx_EnterUnderDriveSTOPMode */
 
 /**
  * @brief Returns Voltage Scaling Range.
@@ -505,11 +505,11 @@ HAL_StatusTypeDef HAL_PWREx_ControlVoltageScaling(uint32_t VoltageScaling)
 				return HAL_TIMEOUT;
 			}
 		}
-	} else   {
+	} else {
 		return HAL_ERROR;
 	}
 	return HAL_OK;
-} /* HAL_PWREx_ControlVoltageScaling */
+}	/* HAL_PWREx_ControlVoltageScaling */
 
 /**
  * @}

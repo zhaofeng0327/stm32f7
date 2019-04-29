@@ -230,7 +230,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStart(ADC_HandleTypeDef *hadc)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ADCEx_InjectedStart */
+}	/* HAL_ADCEx_InjectedStart */
 
 /**
  * @brief  Enables the interrupt and starts ADC conversion of injected channels.
@@ -313,7 +313,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStart_IT(ADC_HandleTypeDef *hadc)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ADCEx_InjectedStart_IT */
+}	/* HAL_ADCEx_InjectedStart_IT */
 
 /**
  * @brief  Stop conversion of injected channels. Disable ADC peripheral if
@@ -369,7 +369,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStop(ADC_HandleTypeDef *hadc)
 
 	/* Return function status */
 	return tmp_hal_status;
-} /* HAL_ADCEx_InjectedStop */
+}	/* HAL_ADCEx_InjectedStop */
 
 /**
  * @brief  Poll for injected conversion complete
@@ -427,7 +427,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedPollForConversion(ADC_HandleTypeDef *hadc, u
 
 	/* Return ADC state */
 	return HAL_OK;
-} /* HAL_ADCEx_InjectedPollForConversion */
+}	/* HAL_ADCEx_InjectedPollForConversion */
 
 /**
  * @brief  Stop conversion of injected channels, disable interruption of
@@ -486,7 +486,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStop_IT(ADC_HandleTypeDef *hadc)
 
 	/* Return function status */
 	return tmp_hal_status;
-} /* HAL_ADCEx_InjectedStop_IT */
+}	/* HAL_ADCEx_InjectedStop_IT */
 
 /**
  * @brief  Gets the converted value from data register of injected channel.
@@ -533,7 +533,7 @@ uint32_t HAL_ADCEx_InjectedGetValue(ADC_HandleTypeDef *hadc, uint32_t InjectedRa
 			break;
 	}
 	return tmp;
-} /* HAL_ADCEx_InjectedGetValue */
+}	/* HAL_ADCEx_InjectedGetValue */
 
 /**
  * @brief  Enables ADC DMA request after last transfer (Multi-ADC mode) and enables ADC peripheral
@@ -640,7 +640,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, uint32_t
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ADCEx_MultiModeStart_DMA */
+}	/* HAL_ADCEx_MultiModeStart_DMA */
 
 /**
  * @brief  Disables ADC DMA (multi-ADC mode) and disables ADC peripheral
@@ -685,7 +685,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStop_DMA(ADC_HandleTypeDef *hadc)
 
 	/* Return function status */
 	return tmp_hal_status;
-} /* HAL_ADCEx_MultiModeStop_DMA */
+}	/* HAL_ADCEx_MultiModeStop_DMA */
 
 /**
  * @brief  Returns the last ADC1, ADC2 and ADC3 regular conversions results
@@ -726,9 +726,9 @@ __weak void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
  */
 HAL_StatusTypeDef HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef *hadc, ADC_InjectionConfTypeDef *sConfigInjected)
 {
-	# ifdef USE_FULL_ASSERT
+	#ifdef USE_FULL_ASSERT
 	uint32_t tmp = 0;
-	# endif	/* USE_FULL_ASSERT  */
+	#endif	/* USE_FULL_ASSERT  */
 
 	/* Check the parameters */
 	assert_param(IS_ADC_CHANNEL(sConfigInjected->InjectedChannel));
@@ -739,10 +739,10 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef *hadc, ADC_I
 	assert_param(IS_FUNCTIONAL_STATE(sConfigInjected->AutoInjectedConv));
 	assert_param(IS_FUNCTIONAL_STATE(sConfigInjected->InjectedDiscontinuousConvMode));
 
-	# ifdef USE_FULL_ASSERT
+	#ifdef USE_FULL_ASSERT
 	tmp = ADC_GET_RESOLUTION(hadc);
 	assert_param(IS_ADC_RANGE(tmp, sConfigInjected->InjectedOffset));
-	# endif	/* USE_FULL_ASSERT  */
+	#endif	/* USE_FULL_ASSERT  */
 
 	if (sConfigInjected->ExternalTrigInjecConv != ADC_INJECTED_SOFTWARE_START) {
 		assert_param(IS_ADC_EXT_INJEC_TRIG_EDGE(sConfigInjected->ExternalTrigInjecConvEdge));
@@ -858,7 +858,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef *hadc, ADC_I
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_ADCEx_InjectedConfigChannel */
+}	/* HAL_ADCEx_InjectedConfigChannel */
 
 /**
  * @brief  Configures the ADC multi-mode
@@ -948,7 +948,7 @@ static void ADC_MultiModeDMAConvCplt(DMA_HandleTypeDef *hdma)
 		/* Call DMA error callback */
 		hadc->DMA_Handle->XferErrorCallback(hdma);
 	}
-} /* ADC_MultiModeDMAConvCplt */
+}	/* ADC_MultiModeDMAConvCplt */
 
 /**
  * @brief  DMA half transfer complete callback.

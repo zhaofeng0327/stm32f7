@@ -255,7 +255,7 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
 	assert_param(IS_RTC_OUTPUT_POL(hrtc->Init.OutPutPolarity));
 	assert_param(IS_RTC_OUTPUT_TYPE(hrtc->Init.OutPutType));
 
-	# if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
 	if (hrtc->State == HAL_RTC_STATE_RESET) {
 		/* Allocate lock resource and initialize it */
 		hrtc->Lock = HAL_UNLOCKED;
@@ -264,9 +264,9 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
 		hrtc->AlarmBEventCallback      = HAL_RTCEx_AlarmBEventCallback;		/* Legacy weak AlarmBEventCallback      */
 		hrtc->TimeStampEventCallback   = HAL_RTCEx_TimeStampEventCallback;	/* Legacy weak TimeStampEventCallback   */
 		hrtc->WakeUpTimerEventCallback = HAL_RTCEx_WakeUpTimerEventCallback;/* Legacy weak WakeUpTimerEventCallback */
-		hrtc->Tamper1EventCallback     = HAL_RTCEx_Tamper1EventCallback;	/* Legacy weak Tamper1EventCallback     */
-		hrtc->Tamper2EventCallback     = HAL_RTCEx_Tamper2EventCallback;	/* Legacy weak Tamper2EventCallback     */
-		hrtc->Tamper3EventCallback     = HAL_RTCEx_Tamper3EventCallback;	/* Legacy weak Tamper3EventCallback     */
+		hrtc->Tamper1EventCallback     = HAL_RTCEx_Tamper1EventCallback;/* Legacy weak Tamper1EventCallback     */
+		hrtc->Tamper2EventCallback     = HAL_RTCEx_Tamper2EventCallback;/* Legacy weak Tamper2EventCallback     */
+		hrtc->Tamper3EventCallback     = HAL_RTCEx_Tamper3EventCallback;/* Legacy weak Tamper3EventCallback     */
 
 		if (hrtc->MspInitCallback == NULL) {
 			hrtc->MspInitCallback = HAL_RTC_MspInit;
@@ -278,7 +278,7 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
 			hrtc->MspDeInitCallback = HAL_RTC_MspDeInit;
 		}
 	}
-	# else  /* if (USE_HAL_RTC_REGISTER_CALLBACKS == 1) */
+	#else	/* if (USE_HAL_RTC_REGISTER_CALLBACKS == 1) */
 	if (hrtc->State == HAL_RTC_STATE_RESET) {
 		/* Allocate lock resource and initialize it */
 		hrtc->Lock = HAL_UNLOCKED;
@@ -286,7 +286,7 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
 		/* Initialize RTC MSP */
 		HAL_RTC_MspInit(hrtc);
 	}
-	# endif	/* (USE_HAL_RTC_REGISTER_CALLBACKS) */
+	#endif	/* (USE_HAL_RTC_REGISTER_CALLBACKS) */
 
 	/* Set RTC state */
 	hrtc->State = HAL_RTC_STATE_BUSY;
@@ -327,7 +327,7 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
 
 		return HAL_OK;
 	}
-} /* HAL_RTC_Init */
+}	/* HAL_RTC_Init */
 
 /**
  * @brief  DeInitializes the RTC peripheral
@@ -417,7 +417,7 @@ HAL_StatusTypeDef HAL_RTC_DeInit(RTC_HandleTypeDef *hrtc)
 	/* Enable the write protection for RTC registers */
 	__HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
 
-	# if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
 	if (hrtc->MspDeInitCallback == NULL) {
 		hrtc->MspDeInitCallback = HAL_RTC_MspDeInit;
 	}
@@ -425,10 +425,10 @@ HAL_StatusTypeDef HAL_RTC_DeInit(RTC_HandleTypeDef *hrtc)
 	/* DeInit the low level hardware: CLOCK, NVIC.*/
 	hrtc->MspDeInitCallback(hrtc);
 
-	# else
+	#else
 	/* De-Initialize RTC MSP */
 	HAL_RTC_MspDeInit(hrtc);
-	# endif	/* (USE_HAL_RTC_REGISTER_CALLBACKS) */
+	#endif	/* (USE_HAL_RTC_REGISTER_CALLBACKS) */
 
 	hrtc->State = HAL_RTC_STATE_RESET;
 
@@ -436,9 +436,9 @@ HAL_StatusTypeDef HAL_RTC_DeInit(RTC_HandleTypeDef *hrtc)
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTC_DeInit */
+}	/* HAL_RTC_DeInit */
 
-# if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User RTC Callback
@@ -537,7 +537,7 @@ HAL_StatusTypeDef HAL_RTC_RegisterCallback(RTC_HandleTypeDef *hrtc, HAL_RTC_Call
 	__HAL_UNLOCK(hrtc);
 
 	return status;
-} /* HAL_RTC_RegisterCallback */
+}	/* HAL_RTC_RegisterCallback */
 
 /**
  * @brief  Unregister an RTC Callback
@@ -630,9 +630,9 @@ HAL_StatusTypeDef HAL_RTC_UnRegisterCallback(RTC_HandleTypeDef *hrtc, HAL_RTC_Ca
 	__HAL_UNLOCK(hrtc);
 
 	return status;
-} /* HAL_RTC_UnRegisterCallback */
+}	/* HAL_RTC_UnRegisterCallback */
 
-# endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
 
 /**
  * @brief  Initializes the RTC MSP.
@@ -792,7 +792,7 @@ HAL_StatusTypeDef HAL_RTC_SetTime(RTC_HandleTypeDef *hrtc, RTC_TimeTypeDef *sTim
 
 		return HAL_OK;
 	}
-} /* HAL_RTC_SetTime */
+}	/* HAL_RTC_SetTime */
 
 /**
  * @brief  Gets RTC current time.
@@ -944,7 +944,7 @@ HAL_StatusTypeDef HAL_RTC_SetDate(RTC_HandleTypeDef *hrtc, RTC_DateTypeDef *sDat
 
 		return HAL_OK;
 	}
-} /* HAL_RTC_SetDate */
+}	/* HAL_RTC_SetDate */
 
 /**
  * @brief  Gets RTC current date.
@@ -1163,7 +1163,7 @@ HAL_StatusTypeDef HAL_RTC_SetAlarm(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef *sA
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTC_SetAlarm */
+}	/* HAL_RTC_SetAlarm */
 
 /**
  * @brief  Sets the specified RTC Alarm with Interrupt
@@ -1326,7 +1326,7 @@ HAL_StatusTypeDef HAL_RTC_SetAlarm_IT(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef 
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTC_SetAlarm_IT */
+}	/* HAL_RTC_SetAlarm_IT */
 
 /**
  * @brief  Deactivate the specified RTC Alarm
@@ -1411,7 +1411,7 @@ HAL_StatusTypeDef HAL_RTC_DeactivateAlarm(RTC_HandleTypeDef *hrtc, uint32_t Alar
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTC_DeactivateAlarm */
+}	/* HAL_RTC_DeactivateAlarm */
 
 /**
  * @brief  Gets the RTC Alarm value and masks.
@@ -1467,7 +1467,7 @@ HAL_StatusTypeDef HAL_RTC_GetAlarm(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef *sA
 	}
 
 	return HAL_OK;
-} /* HAL_RTC_GetAlarm */
+}	/* HAL_RTC_GetAlarm */
 
 /**
  * @brief  This function handles Alarm interrupt request.
@@ -1481,11 +1481,11 @@ void HAL_RTC_AlarmIRQHandler(RTC_HandleTypeDef *hrtc)
 		/* Get the status of the Interrupt */
 		if ((uint32_t) (hrtc->Instance->CR & RTC_IT_ALRA) != (uint32_t) RESET) {
 			/* AlarmA callback */
-			# if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
 			hrtc->AlarmAEventCallback(hrtc);
-			# else
+			#else
 			HAL_RTC_AlarmAEventCallback(hrtc);
-			# endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
 
 			/* Clear the Alarm interrupt pending bit */
 			__HAL_RTC_ALARM_CLEAR_FLAG(hrtc, RTC_FLAG_ALRAF);
@@ -1496,11 +1496,11 @@ void HAL_RTC_AlarmIRQHandler(RTC_HandleTypeDef *hrtc)
 		/* Get the status of the Interrupt */
 		if ((uint32_t) (hrtc->Instance->CR & RTC_IT_ALRB) != (uint32_t) RESET) {
 			/* AlarmB callback */
-			# if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
 			hrtc->AlarmBEventCallback(hrtc);
-			# else
+			#else
 			HAL_RTCEx_AlarmBEventCallback(hrtc);
-			# endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
 
 			/* Clear the Alarm interrupt pending bit */
 			__HAL_RTC_ALARM_CLEAR_FLAG(hrtc, RTC_FLAG_ALRBF);
@@ -1512,7 +1512,7 @@ void HAL_RTC_AlarmIRQHandler(RTC_HandleTypeDef *hrtc)
 
 	/* Change RTC state */
 	hrtc->State = HAL_RTC_STATE_READY;
-} /* HAL_RTC_AlarmIRQHandler */
+}	/* HAL_RTC_AlarmIRQHandler */
 
 /**
  * @brief  Alarm A callback.

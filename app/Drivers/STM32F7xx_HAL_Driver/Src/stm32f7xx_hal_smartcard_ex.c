@@ -121,7 +121,7 @@ HAL_StatusTypeDef HAL_SMARTCARDEx_EnableReceiverTimeOut(SMARTCARD_HandleTypeDef 
 		__HAL_UNLOCK(hsmartcard);
 
 		return HAL_OK;
-	} else   {
+	} else {
 		return HAL_BUSY;
 	}
 }
@@ -148,7 +148,7 @@ HAL_StatusTypeDef HAL_SMARTCARDEx_DisableReceiverTimeOut(SMARTCARD_HandleTypeDef
 		__HAL_UNLOCK(hsmartcard);
 
 		return HAL_OK;
-	} else   {
+	} else {
 		return HAL_BUSY;
 	}
 }

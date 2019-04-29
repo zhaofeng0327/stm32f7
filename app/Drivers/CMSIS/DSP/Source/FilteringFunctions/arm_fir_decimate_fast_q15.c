@@ -74,15 +74,15 @@ void arm_fir_decimate_fast_q15(
 {
 	q15_t *pState  = S->pState;	/* State pointer */
 	q15_t *pCoeffs = S->pCoeffs;/* Coefficient pointer */
-	q15_t *pStateCurnt;			/* Points to the current sample of the state */
-	q15_t *px;					/* Temporary pointer for state buffer */
-	q15_t *pb;					/* Temporary pointer coefficient buffer */
-	q31_t x0, x1, c0, c1;		/* Temporary variables to hold state and coefficient values */
-	q31_t sum0;					/* Accumulators */
+	q15_t *pStateCurnt;		/* Points to the current sample of the state */
+	q15_t *px;				/* Temporary pointer for state buffer */
+	q15_t *pb;				/* Temporary pointer coefficient buffer */
+	q31_t x0, x1, c0, c1;	/* Temporary variables to hold state and coefficient values */
+	q31_t sum0;				/* Accumulators */
 	q31_t acc0, acc1;
 	q15_t *px0, *px1;
 	uint32_t blkCntN3;
-	uint32_t numTaps = S->numTaps;								/* Number of taps */
+	uint32_t numTaps = S->numTaps;	/* Number of taps */
 	uint32_t i, blkCnt, tapCnt, outBlockSize = blockSize / S->M;/* Loop counters */
 
 
@@ -288,9 +288,9 @@ void arm_fir_decimate_fast_q15(
 		/* Decrement the loop counter */
 		i--;
 	}
-} /* arm_fir_decimate_fast_q15 */
+}	/* arm_fir_decimate_fast_q15 */
 
-#else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
 
 void arm_fir_decimate_fast_q15(
@@ -301,15 +301,15 @@ void arm_fir_decimate_fast_q15(
 {
 	q15_t *pState  = S->pState;	/* State pointer */
 	q15_t *pCoeffs = S->pCoeffs;/* Coefficient pointer */
-	q15_t *pStateCurnt;			/* Points to the current sample of the state */
-	q15_t *px;					/* Temporary pointer for state buffer */
-	q15_t *pb;					/* Temporary pointer coefficient buffer */
-	q15_t x0, x1, c0;			/* Temporary variables to hold state and coefficient values */
-	q31_t sum0;					/* Accumulators */
+	q15_t *pStateCurnt;	/* Points to the current sample of the state */
+	q15_t *px;			/* Temporary pointer for state buffer */
+	q15_t *pb;			/* Temporary pointer coefficient buffer */
+	q15_t x0, x1, c0;	/* Temporary variables to hold state and coefficient values */
+	q31_t sum0;			/* Accumulators */
 	q31_t acc0, acc1;
 	q15_t *px0, *px1;
 	uint32_t blkCntN3;
-	uint32_t numTaps = S->numTaps;								/* Number of taps */
+	uint32_t numTaps = S->numTaps;	/* Number of taps */
 	uint32_t i, blkCnt, tapCnt, outBlockSize = blockSize / S->M;/* Loop counters */
 
 
@@ -552,7 +552,7 @@ void arm_fir_decimate_fast_q15(
 		/* Decrement the loop counter */
 		i--;
 	}
-} /* arm_fir_decimate_fast_q15 */
+}	/* arm_fir_decimate_fast_q15 */
 
 #endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
 

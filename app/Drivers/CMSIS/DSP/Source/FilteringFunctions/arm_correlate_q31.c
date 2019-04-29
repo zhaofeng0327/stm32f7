@@ -75,16 +75,16 @@ void arm_correlate_q31(
 
 	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
-	q31_t *pIn1;																		/* inputA pointer               */
-	q31_t *pIn2;																		/* inputB pointer               */
-	q31_t *pOut = pDst;																	/* output pointer               */
-	q31_t *px;																			/* Intermediate inputA pointer  */
-	q31_t *py;																			/* Intermediate inputB pointer  */
-	q31_t *pSrc1;																		/* Intermediate pointers        */
-	q63_t sum, acc0, acc1, acc2;														/* Accumulators                  */
-	q31_t x0, x1, x2, c0;																/* temporary variables for holding input and coefficient values */
+	q31_t *pIn1;				/* inputA pointer               */
+	q31_t *pIn2;				/* inputB pointer               */
+	q31_t *pOut = pDst;			/* output pointer               */
+	q31_t *px;					/* Intermediate inputA pointer  */
+	q31_t *py;					/* Intermediate inputB pointer  */
+	q31_t *pSrc1;				/* Intermediate pointers        */
+	q63_t sum, acc0, acc1, acc2;/* Accumulators                  */
+	q31_t x0, x1, x2, c0;		/* temporary variables for holding input and coefficient values */
 	uint32_t j, k = 0U, count, blkCnt, outBlockSize, blockSize1, blockSize2, blockSize3;/* loop counter                 */
-	int32_t inc = 1;																	/* Destination address modifier */
+	int32_t inc = 1;/* Destination address modifier */
 
 
 	/* The algorithm implementation is based on the lengths of the inputs. */
@@ -121,7 +121,7 @@ void arm_correlate_q31(
 
 		/* Updating the pointer position to non zero value */
 		pOut += j;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = (pSrcB);
 
@@ -427,7 +427,7 @@ void arm_correlate_q31(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* If the srcBLen is not a multiple of 4,
 		 * the blockSize2 loop cannot be unrolled by 4 */
 		blkCnt = blockSize2;
@@ -542,7 +542,7 @@ void arm_correlate_q31(
 		blockSize3--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -582,7 +582,7 @@ void arm_correlate_q31(
 
 		/* Initialise the pointer after zero padding */
 		pDst += j;
-	} else if (srcALen < srcBLen)   {
+	} else if (srcALen < srcBLen) {
 		/* Initialization to inputB pointer */
 		pIn1 = pSrcB;
 
@@ -622,7 +622,7 @@ void arm_correlate_q31(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_correlate_q31 */
+}	/* arm_correlate_q31 */
 
 /**
  * @} end of Corr group

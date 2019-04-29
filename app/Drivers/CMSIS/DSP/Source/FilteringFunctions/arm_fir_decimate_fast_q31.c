@@ -68,14 +68,14 @@ void arm_fir_decimate_fast_q31(
 	q31_t                         *pDst,
 	uint32_t                      blockSize)
 {
-	q31_t *pState  = S->pState;									/* State pointer */
-	q31_t *pCoeffs = S->pCoeffs;								/* Coefficient pointer */
-	q31_t *pStateCurnt;											/* Points to the current sample of the state */
-	q31_t x0, c0;												/* Temporary variables to hold state and coefficient values */
-	q31_t *px;													/* Temporary pointers for state buffer */
-	q31_t *pb;													/* Temporary pointers for coefficient buffer */
-	q31_t sum0;													/* Accumulator */
-	uint32_t numTaps = S->numTaps;								/* Number of taps */
+	q31_t *pState  = S->pState;		/* State pointer */
+	q31_t *pCoeffs = S->pCoeffs;	/* Coefficient pointer */
+	q31_t *pStateCurnt;				/* Points to the current sample of the state */
+	q31_t x0, c0;					/* Temporary variables to hold state and coefficient values */
+	q31_t *px;						/* Temporary pointers for state buffer */
+	q31_t *pb;						/* Temporary pointers for coefficient buffer */
+	q31_t sum0;						/* Accumulator */
+	uint32_t numTaps = S->numTaps;	/* Number of taps */
 	uint32_t i, tapCnt, blkCnt, outBlockSize = blockSize / S->M;/* Loop counters */
 	uint32_t blkCntN2;
 	q31_t x1;
@@ -321,7 +321,7 @@ void arm_fir_decimate_fast_q31(
 		/* Decrement the loop counter */
 		i--;
 	}
-} /* arm_fir_decimate_fast_q31 */
+}	/* arm_fir_decimate_fast_q31 */
 
 /**
  * @} end of FIR_decimate group

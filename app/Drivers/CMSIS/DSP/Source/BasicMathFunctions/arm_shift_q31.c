@@ -128,7 +128,7 @@ void arm_shift_q31(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
 		** a second loop below computes the remaining 1 to 3 samples. */
 		while (blkCnt > 0U) {
@@ -156,7 +156,7 @@ void arm_shift_q31(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -176,7 +176,7 @@ void arm_shift_q31(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_shift_q31 */
+}	/* arm_shift_q31 */
 
 /**
  * @} end of shift group

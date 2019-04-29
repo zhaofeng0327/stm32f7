@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_ADC_H
-# define __STM32F7xx_ADC_H
+#define __STM32F7xx_ADC_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -153,44 +153,44 @@ typedef struct {
  * @brief  HAL ADC state machine: ADC states definition (bitfields)
  */
 /* States of ADC global scope */
-# define HAL_ADC_STATE_RESET            ((uint32_t) 0x00000000U)/*!< ADC not yet initialized or disabled */
-# define HAL_ADC_STATE_READY            ((uint32_t) 0x00000001U)/*!< ADC peripheral ready for use */
-# define HAL_ADC_STATE_BUSY_INTERNAL    ((uint32_t) 0x00000002U)/*!< ADC is busy to internal process (initialization, calibration) */
-# define HAL_ADC_STATE_TIMEOUT          ((uint32_t) 0x00000004U)/*!< TimeOut occurrence */
+#define HAL_ADC_STATE_RESET            ((uint32_t) 0x00000000U)	/*!< ADC not yet initialized or disabled */
+#define HAL_ADC_STATE_READY            ((uint32_t) 0x00000001U)	/*!< ADC peripheral ready for use */
+#define HAL_ADC_STATE_BUSY_INTERNAL    ((uint32_t) 0x00000002U)	/*!< ADC is busy to internal process (initialization, calibration) */
+#define HAL_ADC_STATE_TIMEOUT          ((uint32_t) 0x00000004U)	/*!< TimeOut occurrence */
 
 /* States of ADC errors */
-# define HAL_ADC_STATE_ERROR_INTERNAL    ((uint32_t) 0x00000010U)	/*!< Internal error occurrence */
-# define HAL_ADC_STATE_ERROR_CONFIG      ((uint32_t) 0x00000020U)	/*!< Configuration error occurrence */
-# define HAL_ADC_STATE_ERROR_DMA         ((uint32_t) 0x00000040U)	/*!< DMA error occurrence */
+#define HAL_ADC_STATE_ERROR_INTERNAL    ((uint32_t) 0x00000010U)/*!< Internal error occurrence */
+#define HAL_ADC_STATE_ERROR_CONFIG      ((uint32_t) 0x00000020U)/*!< Configuration error occurrence */
+#define HAL_ADC_STATE_ERROR_DMA         ((uint32_t) 0x00000040U)/*!< DMA error occurrence */
 
 /* States of ADC group regular */
-# define HAL_ADC_STATE_REG_BUSY    ((uint32_t) 0x00000100U)	/*!< A conversion on group regular is ongoing or can occur (either by continuous mode,
+#define HAL_ADC_STATE_REG_BUSY    ((uint32_t) 0x00000100U)	/*!< A conversion on group regular is ongoing or can occur (either by continuous mode,
 															 *  external trigger, low power auto power-on (if feature available), multimode ADC master control (if feature available)) */
-# define HAL_ADC_STATE_REG_EOC     ((uint32_t) 0x00000200U)	/*!< Conversion data available on group regular */
-# define HAL_ADC_STATE_REG_OVR     ((uint32_t) 0x00000400U)	/*!< Overrun occurrence */
+#define HAL_ADC_STATE_REG_EOC     ((uint32_t) 0x00000200U)	/*!< Conversion data available on group regular */
+#define HAL_ADC_STATE_REG_OVR     ((uint32_t) 0x00000400U)	/*!< Overrun occurrence */
 
 /* States of ADC group injected */
-# define HAL_ADC_STATE_INJ_BUSY    ((uint32_t) 0x00001000U)	/*!< A conversion on group injected is ongoing or can occur (either by auto-injection mode,
+#define HAL_ADC_STATE_INJ_BUSY    ((uint32_t) 0x00001000U)	/*!< A conversion on group injected is ongoing or can occur (either by auto-injection mode,
 															 *  external trigger, low power auto power-on (if feature available), multimode ADC master control (if feature available)) */
-# define HAL_ADC_STATE_INJ_EOC     ((uint32_t) 0x00002000U)	/*!< Conversion data available on group injected */
+#define HAL_ADC_STATE_INJ_EOC     ((uint32_t) 0x00002000U)	/*!< Conversion data available on group injected */
 
 /* States of ADC analog watchdogs */
-# define HAL_ADC_STATE_AWD1    ((uint32_t) 0x00010000U)	/*!< Out-of-window occurrence of analog watchdog 1 */
-# define HAL_ADC_STATE_AWD2    ((uint32_t) 0x00020000U)	/*!< Not available on STM32F7 device: Out-of-window occurrence of analog watchdog 2 */
-# define HAL_ADC_STATE_AWD3    ((uint32_t) 0x00040000U)	/*!< Not available on STM32F7 device: Out-of-window occurrence of analog watchdog 3 */
+#define HAL_ADC_STATE_AWD1    ((uint32_t) 0x00010000U)	/*!< Out-of-window occurrence of analog watchdog 1 */
+#define HAL_ADC_STATE_AWD2    ((uint32_t) 0x00020000U)	/*!< Not available on STM32F7 device: Out-of-window occurrence of analog watchdog 2 */
+#define HAL_ADC_STATE_AWD3    ((uint32_t) 0x00040000U)	/*!< Not available on STM32F7 device: Out-of-window occurrence of analog watchdog 3 */
 
 /* States of ADC multi-mode */
-# define HAL_ADC_STATE_MULTIMODE_SLAVE    ((uint32_t) 0x00100000U)	/*!< Not available on STM32F7 device: ADC in multimode slave state, controlled by another ADC master ( */
+#define HAL_ADC_STATE_MULTIMODE_SLAVE    ((uint32_t) 0x00100000U)	/*!< Not available on STM32F7 device: ADC in multimode slave state, controlled by another ADC master ( */
 
 
 /**
  * @brief  ADC handle Structure definition
  */
-# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 typedef struct __ADC_HandleTypeDef
-# else
+#else
 typedef struct
-# endif
+#endif
 {
 	ADC_TypeDef       *Instance;/*!< Register base address */
 
@@ -205,7 +205,7 @@ typedef struct
 	__IO uint32_t     State;/*!< ADC communication state */
 
 	__IO uint32_t     ErrorCode;/*!< ADC Error code */
-	# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 	void (*ConvCpltCallback)(struct __ADC_HandleTypeDef *hadc);			/*!< ADC conversion complete callback */
 	void (*ConvHalfCpltCallback)(struct __ADC_HandleTypeDef *hadc);		/*!< ADC conversion DMA half-transfer callback */
 	void (*LevelOutOfWindowCallback)(struct __ADC_HandleTypeDef *hadc);	/*!< ADC analog watchdog 1 callback */
@@ -213,11 +213,11 @@ typedef struct
 	void (*InjectedConvCpltCallback)(struct __ADC_HandleTypeDef *hadc);	/*!< ADC group injected conversion complete callback */
 	void (*MspInitCallback)(struct __ADC_HandleTypeDef *hadc);			/*!< ADC Msp Init callback */
 	void (*MspDeInitCallback)(struct __ADC_HandleTypeDef *hadc);		/*!< ADC Msp DeInit callback */
-	# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 } ADC_HandleTypeDef;
 
 
-# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  HAL ADC Callback ID enumeration definition
@@ -237,7 +237,7 @@ typedef enum {
  */
 typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to a ADC callback function */
 
-# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -252,14 +252,14 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_Error_Code ADC Error Code
  * @{
  */
-# define HAL_ADC_ERROR_NONE                 ((uint32_t) 0x00U)	/*!< No error                                              */
-# define HAL_ADC_ERROR_INTERNAL             ((uint32_t) 0x01U)	/*!< ADC IP internal error: if problem of clocking,
-																 *  enable/disable, erroneous state                       */
-# define HAL_ADC_ERROR_OVR                  ((uint32_t) 0x02U)	/*!< Overrun error                                         */
-# define HAL_ADC_ERROR_DMA                  ((uint32_t) 0x04U)	/*!< DMA transfer error                                    */
-# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
-#  define HAL_ADC_ERROR_INVALID_CALLBACK    (0x10U)	/*!< Invalid Callback error */
-# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+#define HAL_ADC_ERROR_NONE                ((uint32_t) 0x00U)/*!< No error                                              */
+#define HAL_ADC_ERROR_INTERNAL            ((uint32_t) 0x01U)/*!< ADC IP internal error: if problem of clocking,
+															 *  enable/disable, erroneous state                       */
+#define HAL_ADC_ERROR_OVR                 ((uint32_t) 0x02U)/*!< Overrun error                                         */
+#define HAL_ADC_ERROR_DMA                 ((uint32_t) 0x04U)/*!< DMA transfer error                                    */
+#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+#define HAL_ADC_ERROR_INVALID_CALLBACK    (0x10U)	/*!< Invalid Callback error */
+#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -269,10 +269,10 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_ClockPrescaler  ADC Clock Prescaler
  * @{
  */
-# define ADC_CLOCK_SYNC_PCLK_DIV2    ((uint32_t) 0x00000000U)
-# define ADC_CLOCK_SYNC_PCLK_DIV4    ((uint32_t) ADC_CCR_ADCPRE_0)
-# define ADC_CLOCK_SYNC_PCLK_DIV6    ((uint32_t) ADC_CCR_ADCPRE_1)
-# define ADC_CLOCK_SYNC_PCLK_DIV8    ((uint32_t) ADC_CCR_ADCPRE)
+#define ADC_CLOCK_SYNC_PCLK_DIV2    ((uint32_t) 0x00000000U)
+#define ADC_CLOCK_SYNC_PCLK_DIV4    ((uint32_t) ADC_CCR_ADCPRE_0)
+#define ADC_CLOCK_SYNC_PCLK_DIV6    ((uint32_t) ADC_CCR_ADCPRE_1)
+#define ADC_CLOCK_SYNC_PCLK_DIV8    ((uint32_t) ADC_CCR_ADCPRE)
 
 /**
  * @}
@@ -281,22 +281,22 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_delay_between_2_sampling_phases ADC Delay Between 2 Sampling Phases
  * @{
  */
-# define ADC_TWOSAMPLINGDELAY_5CYCLES     ((uint32_t) 0x00000000U)
-# define ADC_TWOSAMPLINGDELAY_6CYCLES     ((uint32_t) ADC_CCR_DELAY_0)
-# define ADC_TWOSAMPLINGDELAY_7CYCLES     ((uint32_t) ADC_CCR_DELAY_1)
-# define ADC_TWOSAMPLINGDELAY_8CYCLES     ((uint32_t) (ADC_CCR_DELAY_1 | ADC_CCR_DELAY_0))
-# define ADC_TWOSAMPLINGDELAY_9CYCLES     ((uint32_t) ADC_CCR_DELAY_2)
-# define ADC_TWOSAMPLINGDELAY_10CYCLES    ((uint32_t) (ADC_CCR_DELAY_2 | ADC_CCR_DELAY_0))
-# define ADC_TWOSAMPLINGDELAY_11CYCLES    ((uint32_t) (ADC_CCR_DELAY_2 | ADC_CCR_DELAY_1))
-# define ADC_TWOSAMPLINGDELAY_12CYCLES    ((uint32_t) (ADC_CCR_DELAY_2 | ADC_CCR_DELAY_1 | ADC_CCR_DELAY_0))
-# define ADC_TWOSAMPLINGDELAY_13CYCLES    ((uint32_t) ADC_CCR_DELAY_3)
-# define ADC_TWOSAMPLINGDELAY_14CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_0))
-# define ADC_TWOSAMPLINGDELAY_15CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_1))
-# define ADC_TWOSAMPLINGDELAY_16CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_1 | ADC_CCR_DELAY_0))
-# define ADC_TWOSAMPLINGDELAY_17CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_2))
-# define ADC_TWOSAMPLINGDELAY_18CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_2 | ADC_CCR_DELAY_0))
-# define ADC_TWOSAMPLINGDELAY_19CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_2 | ADC_CCR_DELAY_1))
-# define ADC_TWOSAMPLINGDELAY_20CYCLES    ((uint32_t) ADC_CCR_DELAY)
+#define ADC_TWOSAMPLINGDELAY_5CYCLES     ((uint32_t) 0x00000000U)
+#define ADC_TWOSAMPLINGDELAY_6CYCLES     ((uint32_t) ADC_CCR_DELAY_0)
+#define ADC_TWOSAMPLINGDELAY_7CYCLES     ((uint32_t) ADC_CCR_DELAY_1)
+#define ADC_TWOSAMPLINGDELAY_8CYCLES     ((uint32_t) (ADC_CCR_DELAY_1 | ADC_CCR_DELAY_0))
+#define ADC_TWOSAMPLINGDELAY_9CYCLES     ((uint32_t) ADC_CCR_DELAY_2)
+#define ADC_TWOSAMPLINGDELAY_10CYCLES    ((uint32_t) (ADC_CCR_DELAY_2 | ADC_CCR_DELAY_0))
+#define ADC_TWOSAMPLINGDELAY_11CYCLES    ((uint32_t) (ADC_CCR_DELAY_2 | ADC_CCR_DELAY_1))
+#define ADC_TWOSAMPLINGDELAY_12CYCLES    ((uint32_t) (ADC_CCR_DELAY_2 | ADC_CCR_DELAY_1 | ADC_CCR_DELAY_0))
+#define ADC_TWOSAMPLINGDELAY_13CYCLES    ((uint32_t) ADC_CCR_DELAY_3)
+#define ADC_TWOSAMPLINGDELAY_14CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_0))
+#define ADC_TWOSAMPLINGDELAY_15CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_1))
+#define ADC_TWOSAMPLINGDELAY_16CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_1 | ADC_CCR_DELAY_0))
+#define ADC_TWOSAMPLINGDELAY_17CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_2))
+#define ADC_TWOSAMPLINGDELAY_18CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_2 | ADC_CCR_DELAY_0))
+#define ADC_TWOSAMPLINGDELAY_19CYCLES    ((uint32_t) (ADC_CCR_DELAY_3 | ADC_CCR_DELAY_2 | ADC_CCR_DELAY_1))
+#define ADC_TWOSAMPLINGDELAY_20CYCLES    ((uint32_t) ADC_CCR_DELAY)
 
 /**
  * @}
@@ -305,10 +305,10 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_Resolution ADC Resolution
  * @{
  */
-# define ADC_RESOLUTION_12B    ((uint32_t) 0x00000000U)
-# define ADC_RESOLUTION_10B    ((uint32_t) ADC_CR1_RES_0)
-# define ADC_RESOLUTION_8B     ((uint32_t) ADC_CR1_RES_1)
-# define ADC_RESOLUTION_6B     ((uint32_t) ADC_CR1_RES)
+#define ADC_RESOLUTION_12B    ((uint32_t) 0x00000000U)
+#define ADC_RESOLUTION_10B    ((uint32_t) ADC_CR1_RES_0)
+#define ADC_RESOLUTION_8B     ((uint32_t) ADC_CR1_RES_1)
+#define ADC_RESOLUTION_6B     ((uint32_t) ADC_CR1_RES)
 
 /**
  * @}
@@ -317,10 +317,10 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_External_trigger_edge_Regular ADC External Trigger Edge Regular
  * @{
  */
-# define ADC_EXTERNALTRIGCONVEDGE_NONE             ((uint32_t) 0x00000000U)
-# define ADC_EXTERNALTRIGCONVEDGE_RISING           ((uint32_t) ADC_CR2_EXTEN_0)
-# define ADC_EXTERNALTRIGCONVEDGE_FALLING          ((uint32_t) ADC_CR2_EXTEN_1)
-# define ADC_EXTERNALTRIGCONVEDGE_RISINGFALLING    ((uint32_t) ADC_CR2_EXTEN)
+#define ADC_EXTERNALTRIGCONVEDGE_NONE             ((uint32_t) 0x00000000U)
+#define ADC_EXTERNALTRIGCONVEDGE_RISING           ((uint32_t) ADC_CR2_EXTEN_0)
+#define ADC_EXTERNALTRIGCONVEDGE_FALLING          ((uint32_t) ADC_CR2_EXTEN_1)
+#define ADC_EXTERNALTRIGCONVEDGE_RISINGFALLING    ((uint32_t) ADC_CR2_EXTEN)
 
 /**
  * @}
@@ -333,23 +333,23 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /*       compatibility with other STM32 devices.                              */
 
 
-# define ADC_EXTERNALTRIGCONV_T1_CC1      ((uint32_t) 0x00000000U)
-# define ADC_EXTERNALTRIGCONV_T1_CC2      ((uint32_t) ADC_CR2_EXTSEL_0)
-# define ADC_EXTERNALTRIGCONV_T1_CC3      ((uint32_t) ADC_CR2_EXTSEL_1)
-# define ADC_EXTERNALTRIGCONV_T2_CC2      ((uint32_t) (ADC_CR2_EXTSEL_1 | ADC_CR2_EXTSEL_0))
-# define ADC_EXTERNALTRIGCONV_T5_TRGO     ((uint32_t) ADC_CR2_EXTSEL_2)
-# define ADC_EXTERNALTRIGCONV_T4_CC4      ((uint32_t) (ADC_CR2_EXTSEL_2 | ADC_CR2_EXTSEL_0))
-# define ADC_EXTERNALTRIGCONV_T3_CC4      ((uint32_t) (ADC_CR2_EXTSEL_2 | ADC_CR2_EXTSEL_1))
-# define ADC_EXTERNALTRIGCONV_T8_TRGO     ((uint32_t) (ADC_CR2_EXTSEL_2 | ADC_CR2_EXTSEL_1 | ADC_CR2_EXTSEL_0))
-# define ADC_EXTERNALTRIGCONV_T8_TRGO2    ((uint32_t) ADC_CR2_EXTSEL_3)
-# define ADC_EXTERNALTRIGCONV_T1_TRGO     ((uint32_t) (ADC_CR2_EXTSEL_3 | ADC_CR2_EXTSEL_0))
-# define ADC_EXTERNALTRIGCONV_T1_TRGO2    ((uint32_t) (ADC_CR2_EXTSEL_3 | ADC_CR2_EXTSEL_1))
-# define ADC_EXTERNALTRIGCONV_T2_TRGO     ((uint32_t) (ADC_CR2_EXTSEL_3 | ADC_CR2_EXTSEL_1 | ADC_CR2_EXTSEL_0))
-# define ADC_EXTERNALTRIGCONV_T4_TRGO     ((uint32_t) (ADC_CR2_EXTSEL_3 | ADC_CR2_EXTSEL_2))
-# define ADC_EXTERNALTRIGCONV_T6_TRGO     ((uint32_t) (ADC_CR2_EXTSEL_3 | ADC_CR2_EXTSEL_2 | ADC_CR2_EXTSEL_0))
+#define ADC_EXTERNALTRIGCONV_T1_CC1      ((uint32_t) 0x00000000U)
+#define ADC_EXTERNALTRIGCONV_T1_CC2      ((uint32_t) ADC_CR2_EXTSEL_0)
+#define ADC_EXTERNALTRIGCONV_T1_CC3      ((uint32_t) ADC_CR2_EXTSEL_1)
+#define ADC_EXTERNALTRIGCONV_T2_CC2      ((uint32_t) (ADC_CR2_EXTSEL_1 | ADC_CR2_EXTSEL_0))
+#define ADC_EXTERNALTRIGCONV_T5_TRGO     ((uint32_t) ADC_CR2_EXTSEL_2)
+#define ADC_EXTERNALTRIGCONV_T4_CC4      ((uint32_t) (ADC_CR2_EXTSEL_2 | ADC_CR2_EXTSEL_0))
+#define ADC_EXTERNALTRIGCONV_T3_CC4      ((uint32_t) (ADC_CR2_EXTSEL_2 | ADC_CR2_EXTSEL_1))
+#define ADC_EXTERNALTRIGCONV_T8_TRGO     ((uint32_t) (ADC_CR2_EXTSEL_2 | ADC_CR2_EXTSEL_1 | ADC_CR2_EXTSEL_0))
+#define ADC_EXTERNALTRIGCONV_T8_TRGO2    ((uint32_t) ADC_CR2_EXTSEL_3)
+#define ADC_EXTERNALTRIGCONV_T1_TRGO     ((uint32_t) (ADC_CR2_EXTSEL_3 | ADC_CR2_EXTSEL_0))
+#define ADC_EXTERNALTRIGCONV_T1_TRGO2    ((uint32_t) (ADC_CR2_EXTSEL_3 | ADC_CR2_EXTSEL_1))
+#define ADC_EXTERNALTRIGCONV_T2_TRGO     ((uint32_t) (ADC_CR2_EXTSEL_3 | ADC_CR2_EXTSEL_1 | ADC_CR2_EXTSEL_0))
+#define ADC_EXTERNALTRIGCONV_T4_TRGO     ((uint32_t) (ADC_CR2_EXTSEL_3 | ADC_CR2_EXTSEL_2))
+#define ADC_EXTERNALTRIGCONV_T6_TRGO     ((uint32_t) (ADC_CR2_EXTSEL_3 | ADC_CR2_EXTSEL_2 | ADC_CR2_EXTSEL_0))
 
-# define ADC_EXTERNALTRIGCONV_EXT_IT11    ((uint32_t) ADC_CR2_EXTSEL)
-# define ADC_SOFTWARE_START               ((uint32_t) ADC_CR2_EXTSEL + 1)
+#define ADC_EXTERNALTRIGCONV_EXT_IT11    ((uint32_t) ADC_CR2_EXTSEL)
+#define ADC_SOFTWARE_START               ((uint32_t) ADC_CR2_EXTSEL + 1)
 
 /**
  * @}
@@ -358,8 +358,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_Data_Align ADC Data Align
  * @{
  */
-# define ADC_DATAALIGN_RIGHT    ((uint32_t) 0x00000000U)
-# define ADC_DATAALIGN_LEFT     ((uint32_t) ADC_CR2_ALIGN)
+#define ADC_DATAALIGN_RIGHT    ((uint32_t) 0x00000000U)
+#define ADC_DATAALIGN_LEFT     ((uint32_t) ADC_CR2_ALIGN)
 
 /**
  * @}
@@ -368,8 +368,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_Scan_mode ADC sequencer scan mode
  * @{
  */
-# define ADC_SCAN_DISABLE    ((uint32_t) 0x00000000)/*!< Scan mode disabled */
-# define ADC_SCAN_ENABLE     ((uint32_t) 0x00000001)/*!< Scan mode enabled  */
+#define ADC_SCAN_DISABLE    ((uint32_t) 0x00000000)	/*!< Scan mode disabled */
+#define ADC_SCAN_ENABLE     ((uint32_t) 0x00000001)	/*!< Scan mode enabled  */
 
 /**
  * @}
@@ -378,22 +378,22 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_regular_rank ADC group regular sequencer rank
  * @{
  */
-# define ADC_REGULAR_RANK_1     ((uint32_t) 0x00000001)	/*!< ADC regular conversion rank 1  */
-# define ADC_REGULAR_RANK_2     ((uint32_t) 0x00000002)	/*!< ADC regular conversion rank 2  */
-# define ADC_REGULAR_RANK_3     ((uint32_t) 0x00000003)	/*!< ADC regular conversion rank 3  */
-# define ADC_REGULAR_RANK_4     ((uint32_t) 0x00000004)	/*!< ADC regular conversion rank 4  */
-# define ADC_REGULAR_RANK_5     ((uint32_t) 0x00000005)	/*!< ADC regular conversion rank 5  */
-# define ADC_REGULAR_RANK_6     ((uint32_t) 0x00000006)	/*!< ADC regular conversion rank 6  */
-# define ADC_REGULAR_RANK_7     ((uint32_t) 0x00000007)	/*!< ADC regular conversion rank 7  */
-# define ADC_REGULAR_RANK_8     ((uint32_t) 0x00000008)	/*!< ADC regular conversion rank 8  */
-# define ADC_REGULAR_RANK_9     ((uint32_t) 0x00000009)	/*!< ADC regular conversion rank 9  */
-# define ADC_REGULAR_RANK_10    ((uint32_t) 0x0000000A)	/*!< ADC regular conversion rank 10 */
-# define ADC_REGULAR_RANK_11    ((uint32_t) 0x0000000B)	/*!< ADC regular conversion rank 11 */
-# define ADC_REGULAR_RANK_12    ((uint32_t) 0x0000000C)	/*!< ADC regular conversion rank 12 */
-# define ADC_REGULAR_RANK_13    ((uint32_t) 0x0000000D)	/*!< ADC regular conversion rank 13 */
-# define ADC_REGULAR_RANK_14    ((uint32_t) 0x0000000E)	/*!< ADC regular conversion rank 14 */
-# define ADC_REGULAR_RANK_15    ((uint32_t) 0x0000000F)	/*!< ADC regular conversion rank 15 */
-# define ADC_REGULAR_RANK_16    ((uint32_t) 0x00000010)	/*!< ADC regular conversion rank 16 */
+#define ADC_REGULAR_RANK_1     ((uint32_t) 0x00000001)	/*!< ADC regular conversion rank 1  */
+#define ADC_REGULAR_RANK_2     ((uint32_t) 0x00000002)	/*!< ADC regular conversion rank 2  */
+#define ADC_REGULAR_RANK_3     ((uint32_t) 0x00000003)	/*!< ADC regular conversion rank 3  */
+#define ADC_REGULAR_RANK_4     ((uint32_t) 0x00000004)	/*!< ADC regular conversion rank 4  */
+#define ADC_REGULAR_RANK_5     ((uint32_t) 0x00000005)	/*!< ADC regular conversion rank 5  */
+#define ADC_REGULAR_RANK_6     ((uint32_t) 0x00000006)	/*!< ADC regular conversion rank 6  */
+#define ADC_REGULAR_RANK_7     ((uint32_t) 0x00000007)	/*!< ADC regular conversion rank 7  */
+#define ADC_REGULAR_RANK_8     ((uint32_t) 0x00000008)	/*!< ADC regular conversion rank 8  */
+#define ADC_REGULAR_RANK_9     ((uint32_t) 0x00000009)	/*!< ADC regular conversion rank 9  */
+#define ADC_REGULAR_RANK_10    ((uint32_t) 0x0000000A)	/*!< ADC regular conversion rank 10 */
+#define ADC_REGULAR_RANK_11    ((uint32_t) 0x0000000B)	/*!< ADC regular conversion rank 11 */
+#define ADC_REGULAR_RANK_12    ((uint32_t) 0x0000000C)	/*!< ADC regular conversion rank 12 */
+#define ADC_REGULAR_RANK_13    ((uint32_t) 0x0000000D)	/*!< ADC regular conversion rank 13 */
+#define ADC_REGULAR_RANK_14    ((uint32_t) 0x0000000E)	/*!< ADC regular conversion rank 14 */
+#define ADC_REGULAR_RANK_15    ((uint32_t) 0x0000000F)	/*!< ADC regular conversion rank 15 */
+#define ADC_REGULAR_RANK_16    ((uint32_t) 0x00000010)	/*!< ADC regular conversion rank 16 */
 
 /**
  * @}
@@ -402,28 +402,28 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_channels ADC Common Channels
  * @{
  */
-# define ADC_CHANNEL_0          ((uint32_t) 0x00000000U)
-# define ADC_CHANNEL_1          ((uint32_t) ADC_CR1_AWDCH_0)
-# define ADC_CHANNEL_2          ((uint32_t) ADC_CR1_AWDCH_1)
-# define ADC_CHANNEL_3          ((uint32_t) (ADC_CR1_AWDCH_1 | ADC_CR1_AWDCH_0))
-# define ADC_CHANNEL_4          ((uint32_t) ADC_CR1_AWDCH_2)
-# define ADC_CHANNEL_5          ((uint32_t) (ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_0))
-# define ADC_CHANNEL_6          ((uint32_t) (ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_1))
-# define ADC_CHANNEL_7          ((uint32_t) (ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_1 | ADC_CR1_AWDCH_0))
-# define ADC_CHANNEL_8          ((uint32_t) ADC_CR1_AWDCH_3)
-# define ADC_CHANNEL_9          ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_0))
-# define ADC_CHANNEL_10         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_1))
-# define ADC_CHANNEL_11         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_1 | ADC_CR1_AWDCH_0))
-# define ADC_CHANNEL_12         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_2))
-# define ADC_CHANNEL_13         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_0))
-# define ADC_CHANNEL_14         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_1))
-# define ADC_CHANNEL_15         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_1 | ADC_CR1_AWDCH_0))
-# define ADC_CHANNEL_16         ((uint32_t) ADC_CR1_AWDCH_4)
-# define ADC_CHANNEL_17         ((uint32_t) (ADC_CR1_AWDCH_4 | ADC_CR1_AWDCH_0))
-# define ADC_CHANNEL_18         ((uint32_t) (ADC_CR1_AWDCH_4 | ADC_CR1_AWDCH_1))
+#define ADC_CHANNEL_0          ((uint32_t) 0x00000000U)
+#define ADC_CHANNEL_1          ((uint32_t) ADC_CR1_AWDCH_0)
+#define ADC_CHANNEL_2          ((uint32_t) ADC_CR1_AWDCH_1)
+#define ADC_CHANNEL_3          ((uint32_t) (ADC_CR1_AWDCH_1 | ADC_CR1_AWDCH_0))
+#define ADC_CHANNEL_4          ((uint32_t) ADC_CR1_AWDCH_2)
+#define ADC_CHANNEL_5          ((uint32_t) (ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_0))
+#define ADC_CHANNEL_6          ((uint32_t) (ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_1))
+#define ADC_CHANNEL_7          ((uint32_t) (ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_1 | ADC_CR1_AWDCH_0))
+#define ADC_CHANNEL_8          ((uint32_t) ADC_CR1_AWDCH_3)
+#define ADC_CHANNEL_9          ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_0))
+#define ADC_CHANNEL_10         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_1))
+#define ADC_CHANNEL_11         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_1 | ADC_CR1_AWDCH_0))
+#define ADC_CHANNEL_12         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_2))
+#define ADC_CHANNEL_13         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_0))
+#define ADC_CHANNEL_14         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_1))
+#define ADC_CHANNEL_15         ((uint32_t) (ADC_CR1_AWDCH_3 | ADC_CR1_AWDCH_2 | ADC_CR1_AWDCH_1 | ADC_CR1_AWDCH_0))
+#define ADC_CHANNEL_16         ((uint32_t) ADC_CR1_AWDCH_4)
+#define ADC_CHANNEL_17         ((uint32_t) (ADC_CR1_AWDCH_4 | ADC_CR1_AWDCH_0))
+#define ADC_CHANNEL_18         ((uint32_t) (ADC_CR1_AWDCH_4 | ADC_CR1_AWDCH_1))
 
-# define ADC_CHANNEL_VREFINT    ((uint32_t) ADC_CHANNEL_17)
-# define ADC_CHANNEL_VBAT       ((uint32_t) ADC_CHANNEL_18)
+#define ADC_CHANNEL_VREFINT    ((uint32_t) ADC_CHANNEL_17)
+#define ADC_CHANNEL_VBAT       ((uint32_t) ADC_CHANNEL_18)
 
 /**
  * @}
@@ -432,14 +432,14 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_sampling_times ADC Sampling Times
  * @{
  */
-# define ADC_SAMPLETIME_3CYCLES      ((uint32_t) 0x00000000U)
-# define ADC_SAMPLETIME_15CYCLES     ((uint32_t) ADC_SMPR1_SMP10_0)
-# define ADC_SAMPLETIME_28CYCLES     ((uint32_t) ADC_SMPR1_SMP10_1)
-# define ADC_SAMPLETIME_56CYCLES     ((uint32_t) (ADC_SMPR1_SMP10_1 | ADC_SMPR1_SMP10_0))
-# define ADC_SAMPLETIME_84CYCLES     ((uint32_t) ADC_SMPR1_SMP10_2)
-# define ADC_SAMPLETIME_112CYCLES    ((uint32_t) (ADC_SMPR1_SMP10_2 | ADC_SMPR1_SMP10_0))
-# define ADC_SAMPLETIME_144CYCLES    ((uint32_t) (ADC_SMPR1_SMP10_2 | ADC_SMPR1_SMP10_1))
-# define ADC_SAMPLETIME_480CYCLES    ((uint32_t) ADC_SMPR1_SMP10)
+#define ADC_SAMPLETIME_3CYCLES      ((uint32_t) 0x00000000U)
+#define ADC_SAMPLETIME_15CYCLES     ((uint32_t) ADC_SMPR1_SMP10_0)
+#define ADC_SAMPLETIME_28CYCLES     ((uint32_t) ADC_SMPR1_SMP10_1)
+#define ADC_SAMPLETIME_56CYCLES     ((uint32_t) (ADC_SMPR1_SMP10_1 | ADC_SMPR1_SMP10_0))
+#define ADC_SAMPLETIME_84CYCLES     ((uint32_t) ADC_SMPR1_SMP10_2)
+#define ADC_SAMPLETIME_112CYCLES    ((uint32_t) (ADC_SMPR1_SMP10_2 | ADC_SMPR1_SMP10_0))
+#define ADC_SAMPLETIME_144CYCLES    ((uint32_t) (ADC_SMPR1_SMP10_2 | ADC_SMPR1_SMP10_1))
+#define ADC_SAMPLETIME_480CYCLES    ((uint32_t) ADC_SMPR1_SMP10)
 
 /**
  * @}
@@ -448,9 +448,9 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_EOCSelection ADC EOC Selection
  * @{
  */
-# define ADC_EOC_SEQ_CONV           ((uint32_t) 0x00000000U)
-# define ADC_EOC_SINGLE_CONV        ((uint32_t) 0x00000001U)
-# define ADC_EOC_SINGLE_SEQ_CONV    ((uint32_t) 0x00000002U)/*!< reserved for future use */
+#define ADC_EOC_SEQ_CONV           ((uint32_t) 0x00000000U)
+#define ADC_EOC_SINGLE_CONV        ((uint32_t) 0x00000001U)
+#define ADC_EOC_SINGLE_SEQ_CONV    ((uint32_t) 0x00000002U)	/*!< reserved for future use */
 
 /**
  * @}
@@ -459,8 +459,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_Event_type ADC Event Type
  * @{
  */
-# define ADC_AWD_EVENT    ((uint32_t) ADC_FLAG_AWD)
-# define ADC_OVR_EVENT    ((uint32_t) ADC_FLAG_OVR)
+#define ADC_AWD_EVENT    ((uint32_t) ADC_FLAG_AWD)
+#define ADC_OVR_EVENT    ((uint32_t) ADC_FLAG_OVR)
 
 /**
  * @}
@@ -469,13 +469,13 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_analog_watchdog_selection ADC Analog Watchdog Selection
  * @{
  */
-# define ADC_ANALOGWATCHDOG_SINGLE_REG         ((uint32_t) (ADC_CR1_AWDSGL | ADC_CR1_AWDEN))
-# define ADC_ANALOGWATCHDOG_SINGLE_INJEC       ((uint32_t) (ADC_CR1_AWDSGL | ADC_CR1_JAWDEN))
-# define ADC_ANALOGWATCHDOG_SINGLE_REGINJEC    ((uint32_t) (ADC_CR1_AWDSGL | ADC_CR1_AWDEN | ADC_CR1_JAWDEN))
-# define ADC_ANALOGWATCHDOG_ALL_REG            ((uint32_t) ADC_CR1_AWDEN)
-# define ADC_ANALOGWATCHDOG_ALL_INJEC          ((uint32_t) ADC_CR1_JAWDEN)
-# define ADC_ANALOGWATCHDOG_ALL_REGINJEC       ((uint32_t) (ADC_CR1_AWDEN | ADC_CR1_JAWDEN))
-# define ADC_ANALOGWATCHDOG_NONE               ((uint32_t) 0x00000000U)
+#define ADC_ANALOGWATCHDOG_SINGLE_REG         ((uint32_t) (ADC_CR1_AWDSGL | ADC_CR1_AWDEN))
+#define ADC_ANALOGWATCHDOG_SINGLE_INJEC       ((uint32_t) (ADC_CR1_AWDSGL | ADC_CR1_JAWDEN))
+#define ADC_ANALOGWATCHDOG_SINGLE_REGINJEC    ((uint32_t) (ADC_CR1_AWDSGL | ADC_CR1_AWDEN | ADC_CR1_JAWDEN))
+#define ADC_ANALOGWATCHDOG_ALL_REG            ((uint32_t) ADC_CR1_AWDEN)
+#define ADC_ANALOGWATCHDOG_ALL_INJEC          ((uint32_t) ADC_CR1_JAWDEN)
+#define ADC_ANALOGWATCHDOG_ALL_REGINJEC       ((uint32_t) (ADC_CR1_AWDEN | ADC_CR1_JAWDEN))
+#define ADC_ANALOGWATCHDOG_NONE               ((uint32_t) 0x00000000U)
 
 /**
  * @}
@@ -484,10 +484,10 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_interrupts_definition ADC Interrupts Definition
  * @{
  */
-# define ADC_IT_EOC     ((uint32_t) ADC_CR1_EOCIE)
-# define ADC_IT_AWD     ((uint32_t) ADC_CR1_AWDIE)
-# define ADC_IT_JEOC    ((uint32_t) ADC_CR1_JEOCIE)
-# define ADC_IT_OVR     ((uint32_t) ADC_CR1_OVRIE)
+#define ADC_IT_EOC     ((uint32_t) ADC_CR1_EOCIE)
+#define ADC_IT_AWD     ((uint32_t) ADC_CR1_AWDIE)
+#define ADC_IT_JEOC    ((uint32_t) ADC_CR1_JEOCIE)
+#define ADC_IT_OVR     ((uint32_t) ADC_CR1_OVRIE)
 
 /**
  * @}
@@ -496,12 +496,12 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_flags_definition ADC Flags Definition
  * @{
  */
-# define ADC_FLAG_AWD      ((uint32_t) ADC_SR_AWD)
-# define ADC_FLAG_EOC      ((uint32_t) ADC_SR_EOC)
-# define ADC_FLAG_JEOC     ((uint32_t) ADC_SR_JEOC)
-# define ADC_FLAG_JSTRT    ((uint32_t) ADC_SR_JSTRT)
-# define ADC_FLAG_STRT     ((uint32_t) ADC_SR_STRT)
-# define ADC_FLAG_OVR      ((uint32_t) ADC_SR_OVR)
+#define ADC_FLAG_AWD      ((uint32_t) ADC_SR_AWD)
+#define ADC_FLAG_EOC      ((uint32_t) ADC_SR_EOC)
+#define ADC_FLAG_JEOC     ((uint32_t) ADC_SR_JEOC)
+#define ADC_FLAG_JSTRT    ((uint32_t) ADC_SR_JSTRT)
+#define ADC_FLAG_STRT     ((uint32_t) ADC_SR_STRT)
+#define ADC_FLAG_OVR      ((uint32_t) ADC_SR_OVR)
 
 /**
  * @}
@@ -510,9 +510,9 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
 /** @defgroup ADC_channels_type ADC Channels Type
  * @{
  */
-# define ADC_ALL_CHANNELS         ((uint32_t) 0x00000001U)
-# define ADC_REGULAR_CHANNELS     ((uint32_t) 0x00000002U)	/*!< reserved for future use */
-# define ADC_INJECTED_CHANNELS    ((uint32_t) 0x00000003U)	/*!< reserved for future use */
+#define ADC_ALL_CHANNELS         ((uint32_t) 0x00000001U)
+#define ADC_REGULAR_CHANNELS     ((uint32_t) 0x00000002U)	/*!< reserved for future use */
+#define ADC_INJECTED_CHANNELS    ((uint32_t) 0x00000003U)	/*!< reserved for future use */
 
 /**
  * @}
@@ -532,31 +532,31 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
  * @param  __HANDLE__ ADC handle
  * @retval None
  */
-# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
-#  define __HAL_ADC_RESET_HANDLE_STATE(__HANDLE__)                               \
+#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+#define __HAL_ADC_RESET_HANDLE_STATE(__HANDLE__)                               \
 	do {                                                                          \
 		(__HANDLE__)->State = HAL_ADC_STATE_RESET;                               \
 		(__HANDLE__)->MspInitCallback   = NULL;                                     \
 		(__HANDLE__)->MspDeInitCallback = NULL;                                   \
 	} while (0)
-# else
-#  define __HAL_ADC_RESET_HANDLE_STATE(__HANDLE__)                               \
+#else
+#define __HAL_ADC_RESET_HANDLE_STATE(__HANDLE__)                               \
 	((__HANDLE__)->State = HAL_ADC_STATE_RESET)
-# endif
+#endif
 
 /**
  * @brief  Enable the ADC peripheral.
  * @param  __HANDLE__ ADC handle
  * @retval None
  */
-# define __HAL_ADC_ENABLE(__HANDLE__)    ((__HANDLE__)->Instance->CR2 |= ADC_CR2_ADON)
+#define __HAL_ADC_ENABLE(__HANDLE__)    ((__HANDLE__)->Instance->CR2 |= ADC_CR2_ADON)
 
 /**
  * @brief  Disable the ADC peripheral.
  * @param  __HANDLE__ ADC handle
  * @retval None
  */
-# define __HAL_ADC_DISABLE(__HANDLE__)    ((__HANDLE__)->Instance->CR2 &= ~ADC_CR2_ADON)
+#define __HAL_ADC_DISABLE(__HANDLE__)    ((__HANDLE__)->Instance->CR2 &= ~ADC_CR2_ADON)
 
 /**
  * @brief  Enable the ADC end of conversion interrupt.
@@ -564,7 +564,7 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
  * @param  __INTERRUPT__ ADC Interrupt.
  * @retval None
  */
-# define __HAL_ADC_ENABLE_IT(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->CR1) |= (__INTERRUPT__))
+#define __HAL_ADC_ENABLE_IT(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->CR1) |= (__INTERRUPT__))
 
 /**
  * @brief  Disable the ADC end of conversion interrupt.
@@ -572,14 +572,14 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
  * @param  __INTERRUPT__ ADC interrupt.
  * @retval None
  */
-# define __HAL_ADC_DISABLE_IT(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->CR1) &= ~(__INTERRUPT__))
+#define __HAL_ADC_DISABLE_IT(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->CR1) &= ~(__INTERRUPT__))
 
 /** @brief  Check if the specified ADC interrupt source is enabled or disabled.
  * @param  __HANDLE__ specifies the ADC Handle.
  * @param  __INTERRUPT__ specifies the ADC interrupt source to check.
  * @retval The new state of __IT__ (TRUE or FALSE).
  */
-# define __HAL_ADC_GET_IT_SOURCE(__HANDLE__, \
+#define __HAL_ADC_GET_IT_SOURCE(__HANDLE__, \
 	  __INTERRUPT__)    (((__HANDLE__)->Instance->CR1 & (__INTERRUPT__)) == (__INTERRUPT__))
 
 /**
@@ -588,7 +588,7 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
  * @param  __FLAG__ ADC flag.
  * @retval None
  */
-# define __HAL_ADC_CLEAR_FLAG(__HANDLE__, __FLAG__)    (((__HANDLE__)->Instance->SR) = ~(__FLAG__))
+#define __HAL_ADC_CLEAR_FLAG(__HANDLE__, __FLAG__)    (((__HANDLE__)->Instance->SR) = ~(__FLAG__))
 
 /**
  * @brief  Get the selected ADC's flag status.
@@ -596,14 +596,14 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc);	/*!< pointer to 
  * @param  __FLAG__ ADC flag.
  * @retval None
  */
-# define __HAL_ADC_GET_FLAG(__HANDLE__, __FLAG__)    ((((__HANDLE__)->Instance->SR) & (__FLAG__)) == (__FLAG__))
+#define __HAL_ADC_GET_FLAG(__HANDLE__, __FLAG__)    ((((__HANDLE__)->Instance->SR) & (__FLAG__)) == (__FLAG__))
 
 /**
  * @}
  */
 
 /* Include ADC HAL Extension module */
-# include "stm32f7xx_hal_adc_ex.h"
+#include "stm32f7xx_hal_adc_ex.h"
 
 /* Exported functions --------------------------------------------------------*/
 
@@ -620,12 +620,12 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef *hadc);
 void       HAL_ADC_MspInit(ADC_HandleTypeDef *hadc);
 void       HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc);
 
-# if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 /* Callbacks Register/UnRegister functions  ***********************************/
 HAL_StatusTypeDef HAL_ADC_RegisterCallback(ADC_HandleTypeDef *hadc, HAL_ADC_CallbackIDTypeDef CallbackID,
   pADC_CallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_ADC_UnRegisterCallback(ADC_HandleTypeDef *hadc, HAL_ADC_CallbackIDTypeDef CallbackID);
-# endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_ADC_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -696,11 +696,11 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
 /* Delay for ADC stabilization time.                                        */
 /* Maximum delay is 1us (refer to device datasheet, parameter tSTAB).       */
 /* Unit: us                                                                 */
-# define ADC_STAB_DELAY_US    ((uint32_t) 3U)
+#define ADC_STAB_DELAY_US    ((uint32_t) 3U)
 /* Delay for temperature sensor stabilization time.                         */
 /* Maximum delay is 10us (refer to device datasheet, parameter tSTART).     */
 /* Unit: us                                                                 */
-# define ADC_TEMPSENSOR_DELAY_US    ((uint32_t) 10U)
+#define ADC_TEMPSENSOR_DELAY_US    ((uint32_t) 10U)
 
 /**
  * @}
@@ -720,7 +720,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
  * @param __HANDLE__ ADC handle
  * @retval SET (ADC enabled) or RESET (ADC disabled)
  */
-# define ADC_IS_ENABLE(__HANDLE__)                                              \
+#define ADC_IS_ENABLE(__HANDLE__)                                              \
 	((( ((__HANDLE__)->Instance->SR & ADC_SR_ADONS) == ADC_SR_ADONS )            \
 	) ? SET : RESET)
 
@@ -730,7 +730,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
  * @param __HANDLE__ ADC handle
  * @retval SET (software start) or RESET (external trigger)
  */
-# define ADC_IS_SOFTWARE_START_REGULAR(__HANDLE__)                              \
+#define ADC_IS_SOFTWARE_START_REGULAR(__HANDLE__)                              \
 	(((__HANDLE__)->Instance->CR2 & ADC_CR2_EXTEN) == RESET)
 
 /**
@@ -739,7 +739,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
  * @param __HANDLE__ ADC handle
  * @retval SET (software start) or RESET (external trigger)
  */
-# define ADC_IS_SOFTWARE_START_INJECTED(__HANDLE__)                             \
+#define ADC_IS_SOFTWARE_START_INJECTED(__HANDLE__)                             \
 	(((__HANDLE__)->Instance->CR2 & ADC_CR2_JEXTEN) == RESET)
 
 /**
@@ -749,21 +749,21 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
  *        bit field to clear, the third and last parameter is the bit field to set.
  * @retval None
  */
-# define ADC_STATE_CLR_SET    MODIFY_REG
+#define ADC_STATE_CLR_SET    MODIFY_REG
 
 /**
  * @brief Clear ADC error code (set it to error code: "no error")
  * @param __HANDLE__ ADC handle
  * @retval None
  */
-# define ADC_CLEAR_ERRORCODE(__HANDLE__)                                        \
+#define ADC_CLEAR_ERRORCODE(__HANDLE__)                                        \
 	((__HANDLE__)->ErrorCode = HAL_ADC_ERROR_NONE)
-# define IS_ADC_CLOCKPRESCALER(__ADC_CLOCK__) \
+#define IS_ADC_CLOCKPRESCALER(__ADC_CLOCK__) \
 	(((__ADC_CLOCK__) == ADC_CLOCK_SYNC_PCLK_DIV2) || \
 	((__ADC_CLOCK__) == ADC_CLOCK_SYNC_PCLK_DIV4) || \
 	((__ADC_CLOCK__) == ADC_CLOCK_SYNC_PCLK_DIV6) || \
 	((__ADC_CLOCK__) == ADC_CLOCK_SYNC_PCLK_DIV8))
-# define IS_ADC_SAMPLING_DELAY(__DELAY__) \
+#define IS_ADC_SAMPLING_DELAY(__DELAY__) \
 	(((__DELAY__) == ADC_TWOSAMPLINGDELAY_5CYCLES) || \
 	((__DELAY__) == ADC_TWOSAMPLINGDELAY_6CYCLES) || \
 	((__DELAY__) == ADC_TWOSAMPLINGDELAY_7CYCLES) || \
@@ -780,17 +780,17 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
 	((__DELAY__) == ADC_TWOSAMPLINGDELAY_18CYCLES) || \
 	((__DELAY__) == ADC_TWOSAMPLINGDELAY_19CYCLES) || \
 	((__DELAY__) == ADC_TWOSAMPLINGDELAY_20CYCLES))
-# define IS_ADC_RESOLUTION(__RESOLUTION__) \
+#define IS_ADC_RESOLUTION(__RESOLUTION__) \
 	(((__RESOLUTION__) == ADC_RESOLUTION_12B) || \
 	((__RESOLUTION__) == ADC_RESOLUTION_10B) || \
 	((__RESOLUTION__) == ADC_RESOLUTION_8B) || \
 	((__RESOLUTION__) == ADC_RESOLUTION_6B))
-# define IS_ADC_EXT_TRIG_EDGE(__EDGE__) \
+#define IS_ADC_EXT_TRIG_EDGE(__EDGE__) \
 	(((__EDGE__) == ADC_EXTERNALTRIGCONVEDGE_NONE) || \
 	((__EDGE__) == ADC_EXTERNALTRIGCONVEDGE_RISING) || \
 	((__EDGE__) == ADC_EXTERNALTRIGCONVEDGE_FALLING) || \
 	((__EDGE__) == ADC_EXTERNALTRIGCONVEDGE_RISINGFALLING))
-# define IS_ADC_EXT_TRIG(__REGTRIG__) \
+#define IS_ADC_EXT_TRIG(__REGTRIG__) \
 	(((__REGTRIG__) == ADC_EXTERNALTRIGCONV_T1_CC1) || \
 	((__REGTRIG__) == ADC_EXTERNALTRIGCONV_T1_CC2) || \
 	((__REGTRIG__) == ADC_EXTERNALTRIGCONV_T1_CC3) || \
@@ -807,12 +807,12 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
 	((__REGTRIG__) == ADC_EXTERNALTRIGCONV_T6_TRGO) || \
 	((__REGTRIG__) == ADC_EXTERNALTRIGCONV_EXT_IT11) || \
 	((__REGTRIG__) == ADC_SOFTWARE_START))
-# define IS_ADC_DATA_ALIGN(__ALIGN__) \
+#define IS_ADC_DATA_ALIGN(__ALIGN__) \
 	(((__ALIGN__) == ADC_DATAALIGN_RIGHT) || \
 	((__ALIGN__) == ADC_DATAALIGN_LEFT))
 
 
-# define IS_ADC_SAMPLE_TIME(__TIME__) \
+#define IS_ADC_SAMPLE_TIME(__TIME__) \
 	(((__TIME__) == ADC_SAMPLETIME_3CYCLES) || \
 	((__TIME__) == ADC_SAMPLETIME_15CYCLES) || \
 	((__TIME__) == ADC_SAMPLETIME_28CYCLES) || \
@@ -821,14 +821,14 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
 	((__TIME__) == ADC_SAMPLETIME_112CYCLES) || \
 	((__TIME__) == ADC_SAMPLETIME_144CYCLES) || \
 	((__TIME__) == ADC_SAMPLETIME_480CYCLES))
-# define IS_ADC_EOCSelection(__EOCSelection__) \
+#define IS_ADC_EOCSelection(__EOCSelection__) \
 	(((__EOCSelection__) == ADC_EOC_SINGLE_CONV) || \
 	((__EOCSelection__) == ADC_EOC_SEQ_CONV) || \
 	((__EOCSelection__) == ADC_EOC_SINGLE_SEQ_CONV))
-# define IS_ADC_EVENT_TYPE(__EVENT__) \
+#define IS_ADC_EVENT_TYPE(__EVENT__) \
 	(((__EVENT__) == ADC_AWD_EVENT) || \
 	((__EVENT__) == ADC_OVR_EVENT))
-# define IS_ADC_ANALOG_WATCHDOG(__WATCHDOG__) \
+#define IS_ADC_ANALOG_WATCHDOG(__WATCHDOG__) \
 	(((__WATCHDOG__) == ADC_ANALOGWATCHDOG_SINGLE_REG) || \
 	((__WATCHDOG__) == ADC_ANALOGWATCHDOG_SINGLE_INJEC) || \
 	((__WATCHDOG__) == ADC_ANALOGWATCHDOG_SINGLE_REGINJEC) || \
@@ -836,12 +836,12 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
 	((__WATCHDOG__) == ADC_ANALOGWATCHDOG_ALL_INJEC) || \
 	((__WATCHDOG__) == ADC_ANALOGWATCHDOG_ALL_REGINJEC) || \
 	((__WATCHDOG__) == ADC_ANALOGWATCHDOG_NONE))
-# define IS_ADC_CHANNELS_TYPE(CHANNEL_TYPE) \
+#define IS_ADC_CHANNELS_TYPE(CHANNEL_TYPE) \
 	(((CHANNEL_TYPE) == ADC_ALL_CHANNELS) || \
 	((CHANNEL_TYPE) == ADC_REGULAR_CHANNELS) || \
 	((CHANNEL_TYPE) == ADC_INJECTED_CHANNELS))
 
-# define IS_ADC_REGULAR_RANK(__RANK__) \
+#define IS_ADC_REGULAR_RANK(__RANK__) \
 	(((__RANK__) == ADC_REGULAR_RANK_1 ) || \
 	((__RANK__) == ADC_REGULAR_RANK_2 ) || \
 	((__RANK__) == ADC_REGULAR_RANK_3 ) || \
@@ -859,18 +859,18 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
 	((__RANK__) == ADC_REGULAR_RANK_15) || \
 	((__RANK__) == ADC_REGULAR_RANK_16))
 
-# define IS_ADC_SCAN_MODE(__SCAN_MODE__) \
+#define IS_ADC_SCAN_MODE(__SCAN_MODE__) \
 	(((__SCAN_MODE__) == ADC_SCAN_DISABLE) || \
 	((__SCAN_MODE__) == ADC_SCAN_ENABLE))
 
-# define IS_ADC_THRESHOLD(__THRESHOLD__)    ((__THRESHOLD__) <= ((uint32_t) 0xFFF))
-# define IS_ADC_REGULAR_LENGTH(__LENGTH__) \
-											(((__LENGTH__) >= ((uint32_t) 1)) && \
+#define IS_ADC_THRESHOLD(__THRESHOLD__)    ((__THRESHOLD__) <= ((uint32_t) 0xFFF))
+#define IS_ADC_REGULAR_LENGTH(__LENGTH__) \
+	(((__LENGTH__) >= ((uint32_t) 1)) && \
 	((__LENGTH__) <= ((uint32_t) 16)))
-# define IS_ADC_REGULAR_DISC_NUMBER(__NUMBER__) \
-											(((__NUMBER__) >= ((uint32_t) 1)) && \
+#define IS_ADC_REGULAR_DISC_NUMBER(__NUMBER__) \
+	(((__NUMBER__) >= ((uint32_t) 1)) && \
 	((__NUMBER__) <= ((uint32_t) 8)))
-# define IS_ADC_RANGE(__RESOLUTION__, __ADC_VALUE__)                                     \
+#define IS_ADC_RANGE(__RESOLUTION__, __ADC_VALUE__)                                     \
 	((((__RESOLUTION__) == ADC_RESOLUTION_12B) && ((__ADC_VALUE__) <= ((uint32_t) 0x0FFF))) || \
 	(((__RESOLUTION__) == ADC_RESOLUTION_10B) && ((__ADC_VALUE__) <= ((uint32_t) 0x03FF))) || \
 	(((__RESOLUTION__) == ADC_RESOLUTION_8B) && ((__ADC_VALUE__) <= ((uint32_t) 0x00FF))) || \
@@ -881,7 +881,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
  * @param  _NbrOfConversion_ Regular channel sequence length.
  * @retval None
  */
-# define ADC_SQR1(_NbrOfConversion_)    (((_NbrOfConversion_) - (uint8_t) 1) << 20)
+#define ADC_SQR1(_NbrOfConversion_)    (((_NbrOfConversion_) - (uint8_t) 1) << 20)
 
 /**
  * @brief  Set the ADC's sample time for channel numbers between 10 and 18.
@@ -889,7 +889,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
  * @param  _CHANNELNB_ Channel number.
  * @retval None
  */
-# define ADC_SMPR1(_SAMPLETIME_, \
+#define ADC_SMPR1(_SAMPLETIME_, \
 	  _CHANNELNB_)    ((_SAMPLETIME_) << (3 * (((uint32_t) ((uint16_t) (_CHANNELNB_))) - 10)))
 
 /**
@@ -898,7 +898,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
  * @param  _CHANNELNB_ Channel number.
  * @retval None
  */
-# define ADC_SMPR2(_SAMPLETIME_, _CHANNELNB_)    ((_SAMPLETIME_) << (3 * ((uint32_t) ((uint16_t) (_CHANNELNB_)))))
+#define ADC_SMPR2(_SAMPLETIME_, _CHANNELNB_)    ((_SAMPLETIME_) << (3 * ((uint32_t) ((uint16_t) (_CHANNELNB_)))))
 
 /**
  * @brief  Set the selected regular channel rank for rank between 1 and 6.
@@ -906,7 +906,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
  * @param  _RANKNB_ Rank number.
  * @retval None
  */
-# define ADC_SQR3_RK(_CHANNELNB_, _RANKNB_)    (((uint32_t) ((uint16_t) (_CHANNELNB_))) << (5 * ((_RANKNB_) -1)))
+#define ADC_SQR3_RK(_CHANNELNB_, _RANKNB_)    (((uint32_t) ((uint16_t) (_CHANNELNB_))) << (5 * ((_RANKNB_) -1)))
 
 /**
  * @brief  Set the selected regular channel rank for rank between 7 and 12.
@@ -914,7 +914,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
  * @param  _RANKNB_ Rank number.
  * @retval None
  */
-# define ADC_SQR2_RK(_CHANNELNB_, _RANKNB_)    (((uint32_t) ((uint16_t) (_CHANNELNB_))) << (5 * ((_RANKNB_) -7)))
+#define ADC_SQR2_RK(_CHANNELNB_, _RANKNB_)    (((uint32_t) ((uint16_t) (_CHANNELNB_))) << (5 * ((_RANKNB_) -7)))
 
 /**
  * @brief  Set the selected regular channel rank for rank between 13 and 16.
@@ -922,49 +922,49 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
  * @param  _RANKNB_ Rank number.
  * @retval None
  */
-# define ADC_SQR1_RK(_CHANNELNB_, _RANKNB_)    (((uint32_t) ((uint16_t) (_CHANNELNB_))) << (5 * ((_RANKNB_) -13)))
+#define ADC_SQR1_RK(_CHANNELNB_, _RANKNB_)    (((uint32_t) ((uint16_t) (_CHANNELNB_))) << (5 * ((_RANKNB_) -13)))
 
 /**
  * @brief  Enable ADC continuous conversion mode.
  * @param  _CONTINUOUS_MODE_ Continuous mode.
  * @retval None
  */
-# define ADC_CR2_CONTINUOUS(_CONTINUOUS_MODE_)    ((_CONTINUOUS_MODE_) << 1)
+#define ADC_CR2_CONTINUOUS(_CONTINUOUS_MODE_)    ((_CONTINUOUS_MODE_) << 1)
 
 /**
  * @brief  Configures the number of discontinuous conversions for the regular group channels.
  * @param  _NBR_DISCONTINUOUSCONV_ Number of discontinuous conversions.
  * @retval None
  */
-# define ADC_CR1_DISCONTINUOUS(_NBR_DISCONTINUOUSCONV_)    (((_NBR_DISCONTINUOUSCONV_) -1) << ADC_CR1_DISCNUM_Pos)
+#define ADC_CR1_DISCONTINUOUS(_NBR_DISCONTINUOUSCONV_)    (((_NBR_DISCONTINUOUSCONV_) -1) << ADC_CR1_DISCNUM_Pos)
 
 /**
  * @brief  Enable ADC scan mode.
  * @param  _SCANCONV_MODE_ Scan conversion mode.
  * @retval None
  */
-# define ADC_CR1_SCANCONV(_SCANCONV_MODE_)    ((_SCANCONV_MODE_) << 8)
+#define ADC_CR1_SCANCONV(_SCANCONV_MODE_)    ((_SCANCONV_MODE_) << 8)
 
 /**
  * @brief  Enable the ADC end of conversion selection.
  * @param  _EOCSelection_MODE_ End of conversion selection mode.
  * @retval None
  */
-# define ADC_CR2_EOCSelection(_EOCSelection_MODE_)    ((_EOCSelection_MODE_) << 10)
+#define ADC_CR2_EOCSelection(_EOCSelection_MODE_)    ((_EOCSelection_MODE_) << 10)
 
 /**
  * @brief  Enable the ADC DMA continuous request.
  * @param  _DMAContReq_MODE_ DMA continuous request mode.
  * @retval None
  */
-# define ADC_CR2_DMAContReq(_DMAContReq_MODE_)    ((_DMAContReq_MODE_) << 9)
+#define ADC_CR2_DMAContReq(_DMAContReq_MODE_)    ((_DMAContReq_MODE_) << 9)
 
 /**
  * @brief Return resolution bits in CR1 register.
  * @param __HANDLE__ ADC handle
  * @retval None
  */
-# define ADC_GET_RESOLUTION(__HANDLE__)    (((__HANDLE__)->Instance->CR1) & ADC_CR1_RES)
+#define ADC_GET_RESOLUTION(__HANDLE__)    (((__HANDLE__)->Instance->CR1) & ADC_CR1_RES)
 
 /**
  * @}
@@ -988,9 +988,9 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/*__STM32F7xx_ADC_H */
 

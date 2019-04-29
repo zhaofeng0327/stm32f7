@@ -129,7 +129,7 @@ void arm_std_q31(
 	 * and then store the result in a temporary variable, meanOfSquares. */
 	meanOfSquares = sumOfSquares / (q63_t) (blockSize - 1U);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
 	/* Loop over blockSize number of values */
@@ -162,7 +162,7 @@ void arm_std_q31(
 
 	/* Compute standard deviation and then store the result to the destination */
 	arm_sqrt_q31((meanOfSquares - squareOfMean) >> 15U, pResult);
-} /* arm_std_q31 */
+}	/* arm_std_q31 */
 
 /**
  * @} end of STD group

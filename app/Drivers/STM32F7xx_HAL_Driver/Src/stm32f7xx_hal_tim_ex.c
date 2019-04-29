@@ -152,7 +152,7 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Init(TIM_HandleTypeDef *htim, TIM_HallSen
 		/* Allocate lock resource and initialize it */
 		htim->Lock = HAL_UNLOCKED;
 
-		# if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
 		/* Reset interrupt callbacks to legacy week callbacks */
 		TIM_ResetCallback(htim);
 
@@ -161,10 +161,10 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Init(TIM_HandleTypeDef *htim, TIM_HallSen
 		}
 		/* Init the low level hardware : GPIO, CLOCK, NVIC */
 		htim->HallSensor_MspInitCallback(htim);
-		# else
+		#else
 		/* Init the low level hardware : GPIO, CLOCK, NVIC and DMA */
 		HAL_TIMEx_HallSensor_MspInit(htim);
-		# endif	/* USE_HAL_TIM_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_TIM_REGISTER_CALLBACKS */
 	}
 
 	/* Set the TIM state */
@@ -212,7 +212,7 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Init(TIM_HandleTypeDef *htim, TIM_HallSen
 	htim->State = HAL_TIM_STATE_READY;
 
 	return HAL_OK;
-} /* HAL_TIMEx_HallSensor_Init */
+}	/* HAL_TIMEx_HallSensor_Init */
 
 /**
  * @brief  DeInitializes the TIM Hall Sensor interface
@@ -229,16 +229,16 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_DeInit(TIM_HandleTypeDef *htim)
 	/* Disable the TIM Peripheral Clock */
 	__HAL_TIM_DISABLE(htim);
 
-	# if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
 	if (htim->HallSensor_MspDeInitCallback == NULL) {
 		htim->HallSensor_MspDeInitCallback = HAL_TIMEx_HallSensor_MspDeInit;
 	}
 	/* DeInit the low level hardware */
 	htim->HallSensor_MspDeInitCallback(htim);
-	# else
+	#else
 	/* DeInit the low level hardware: GPIO, CLOCK, NVIC */
 	HAL_TIMEx_HallSensor_MspDeInit(htim);
-	# endif	/* USE_HAL_TIM_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_TIM_REGISTER_CALLBACKS */
 
 	/* Change TIM state */
 	htim->State = HAL_TIM_STATE_RESET;
@@ -432,7 +432,7 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_DMA(TIM_HandleTypeDef *htim, uint32
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_TIMEx_HallSensor_Start_DMA */
+}	/* HAL_TIMEx_HallSensor_Start_DMA */
 
 /**
  * @brief  Stops the TIM Hall Sensor Interface in DMA mode.
@@ -606,7 +606,7 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Start_IT(TIM_HandleTypeDef *htim, uint32_t Chann
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_TIMEx_OCN_Start_IT */
+}	/* HAL_TIMEx_OCN_Start_IT */
 
 /**
  * @brief  Stops the TIM Output Compare signal generation in interrupt mode
@@ -665,7 +665,7 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channe
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_TIMEx_OCN_Stop_IT */
+}	/* HAL_TIMEx_OCN_Stop_IT */
 
 /**
  * @brief  Starts the TIM Output Compare signal generation in DMA mode
@@ -775,7 +775,7 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Chan
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_TIMEx_OCN_Start_DMA */
+}	/* HAL_TIMEx_OCN_Start_DMA */
 
 /**
  * @brief  Stops the TIM Output Compare signal generation in DMA mode
@@ -833,7 +833,7 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Chann
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_TIMEx_OCN_Stop_DMA */
+}	/* HAL_TIMEx_OCN_Stop_DMA */
 
 /**
  * @}
@@ -988,7 +988,7 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_IT(TIM_HandleTypeDef *htim, uint32_t Chan
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_TIMEx_PWMN_Start_IT */
+}	/* HAL_TIMEx_PWMN_Start_IT */
 
 /**
  * @brief  Stops the PWM signal generation in interrupt mode on the
@@ -1048,7 +1048,7 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Chann
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_TIMEx_PWMN_Stop_IT */
+}	/* HAL_TIMEx_PWMN_Stop_IT */
 
 /**
  * @brief  Starts the TIM PWM signal generation in DMA mode on the
@@ -1157,7 +1157,7 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Cha
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_TIMEx_PWMN_Start_DMA */
+}	/* HAL_TIMEx_PWMN_Start_DMA */
 
 /**
  * @brief  Stops the TIM PWM signal generation in DMA mode on the complementary
@@ -1215,7 +1215,7 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Chan
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_TIMEx_PWMN_Stop_DMA */
+}	/* HAL_TIMEx_PWMN_Stop_DMA */
 
 /**
  * @}
@@ -1556,7 +1556,7 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_DMA(TIM_HandleTypeDef *htim, uint3
 	__HAL_UNLOCK(htim);
 
 	return HAL_OK;
-} /* HAL_TIMEx_ConfigCommutEvent_DMA */
+}	/* HAL_TIMEx_ConfigCommutEvent_DMA */
 
 /**
  * @brief  Configures the TIM in master mode.
@@ -1622,7 +1622,7 @@ HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
 	__HAL_UNLOCK(htim);
 
 	return HAL_OK;
-} /* HAL_TIMEx_MasterConfigSynchronization */
+}	/* HAL_TIMEx_MasterConfigSynchronization */
 
 /**
  * @brief  Configures the Break feature, dead time, Lock level, OSSI/OSSR State
@@ -1683,9 +1683,9 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
 	__HAL_UNLOCK(htim);
 
 	return HAL_OK;
-} /* HAL_TIMEx_ConfigBreakDeadTime */
+}	/* HAL_TIMEx_ConfigBreakDeadTime */
 
-# if defined(TIM_BREAK_INPUT_SUPPORT)
+#if defined(TIM_BREAK_INPUT_SUPPORT)
 
 /**
  * @brief  Configures the break input source.
@@ -1713,13 +1713,13 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
 	assert_param(IS_TIM_BREAKINPUT(BreakInput));
 	assert_param(IS_TIM_BREAKINPUTSOURCE(sBreakInputConfig->Source));
 	assert_param(IS_TIM_BREAKINPUTSOURCE_STATE(sBreakInputConfig->Enable));
-	#  if defined(DFSDM1_Channel0)
+	#if defined(DFSDM1_Channel0)
 	if (sBreakInputConfig->Source != TIM_BREAKINPUTSOURCE_DFSDM1) {
 		assert_param(IS_TIM_BREAKINPUTSOURCE_POLARITY(sBreakInputConfig->Polarity));
 	}
-	#  else
+	#else
 	assert_param(IS_TIM_BREAKINPUTSOURCE_POLARITY(sBreakInputConfig->Polarity));
-	#  endif/* DFSDM1_Channel0 */
+	#endif	/* DFSDM1_Channel0 */
 
 	/* Check input state */
 	__HAL_LOCK(htim);
@@ -1753,9 +1753,9 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
 			tmporx |= (sBreakInputConfig->Enable << bkin_enable_bitpos) & bkin_enable_mask;
 
 			/* Set the break input polarity */
-			#  if defined(DFSDM1_Channel0)
+			#if defined(DFSDM1_Channel0)
 			if (sBreakInputConfig->Source != TIM_BREAKINPUTSOURCE_DFSDM1)
-			#  endif/* DFSDM1_Channel0 */
+			#endif	/* DFSDM1_Channel0 */
 			{
 				tmporx &= ~bkin_polarity_mask;
 				tmporx |= (sBreakInputConfig->Polarity << bkin_polarity_bitpos) & bkin_polarity_mask;
@@ -1774,9 +1774,9 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
 			tmporx |= (sBreakInputConfig->Enable << bkin_enable_bitpos) & bkin_enable_mask;
 
 			/* Set the break input polarity */
-			#  if defined(DFSDM1_Channel0)
+			#if defined(DFSDM1_Channel0)
 			if (sBreakInputConfig->Source != TIM_BREAKINPUTSOURCE_DFSDM1)
-			#  endif/* DFSDM1_Channel0 */
+			#endif	/* DFSDM1_Channel0 */
 			{
 				tmporx &= ~bkin_polarity_mask;
 				tmporx |= (sBreakInputConfig->Polarity << bkin_polarity_bitpos) & bkin_polarity_mask;
@@ -1793,9 +1793,9 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
 	__HAL_UNLOCK(htim);
 
 	return HAL_OK;
-} /* HAL_TIMEx_ConfigBreakInput */
+}	/* HAL_TIMEx_ConfigBreakInput */
 
-# endif	/*TIM_BREAK_INPUT_SUPPORT */
+#endif	/*TIM_BREAK_INPUT_SUPPORT */
 
 /**
  * @brief  Configures the TIMx Remapping input capabilities.
@@ -2007,11 +2007,11 @@ void TIMEx_DMACommutationCplt(DMA_HandleTypeDef *hdma)
 	/* Change the htim state */
 	htim->State = HAL_TIM_STATE_READY;
 
-	# if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
 	htim->CommutationCallback(htim);
-	# else
+	#else
 	HAL_TIMEx_CommutCallback(htim);
-	# endif	/* USE_HAL_TIM_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_TIM_REGISTER_CALLBACKS */
 }
 
 /**
@@ -2026,11 +2026,11 @@ void TIMEx_DMACommutationHalfCplt(DMA_HandleTypeDef *hdma)
 	/* Change the htim state */
 	htim->State = HAL_TIM_STATE_READY;
 
-	# if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
 	htim->CommutationHalfCpltCallback(htim);
-	# else
+	#else
 	HAL_TIMEx_CommutHalfCpltCallback(htim);
-	# endif	/* USE_HAL_TIM_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_TIM_REGISTER_CALLBACKS */
 }
 
 /**

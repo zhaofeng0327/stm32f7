@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_ADC_EX_H
-# define __STM32F7xx_ADC_EX_H
+#define __STM32F7xx_ADC_EX_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -134,21 +134,21 @@ typedef struct {
 /** @defgroup ADCEx_Common_mode ADC Common Mode
  * @{
  */
-# define ADC_MODE_INDEPENDENT                    ((uint32_t) 0x00000000U)
-# define ADC_DUALMODE_REGSIMULT_INJECSIMULT      ((uint32_t) ADC_CCR_MULTI_0)
-# define ADC_DUALMODE_REGSIMULT_ALTERTRIG        ((uint32_t) ADC_CCR_MULTI_1)
-# define ADC_DUALMODE_INJECSIMULT                ((uint32_t) (ADC_CCR_MULTI_2 | ADC_CCR_MULTI_0))
-# define ADC_DUALMODE_REGSIMULT                  ((uint32_t) (ADC_CCR_MULTI_2 | ADC_CCR_MULTI_1))
-# define ADC_DUALMODE_INTERL                     ((uint32_t) (ADC_CCR_MULTI_2 | ADC_CCR_MULTI_1 | ADC_CCR_MULTI_0))
-# define ADC_DUALMODE_ALTERTRIG                  ((uint32_t) (ADC_CCR_MULTI_3 | ADC_CCR_MULTI_0))
-# define ADC_TRIPLEMODE_REGSIMULT_INJECSIMULT    ((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_0))
-# define ADC_TRIPLEMODE_REGSIMULT_AlterTrig      ((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_1))
-# define ADC_TRIPLEMODE_INJECSIMULT              ((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_2 | ADC_CCR_MULTI_0))
-# define ADC_TRIPLEMODE_REGSIMULT                ((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_2 | ADC_CCR_MULTI_1))
-# define ADC_TRIPLEMODE_INTERL \
-												 ((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_2 | ADC_CCR_MULTI_1 \
+#define ADC_MODE_INDEPENDENT                    ((uint32_t) 0x00000000U)
+#define ADC_DUALMODE_REGSIMULT_INJECSIMULT      ((uint32_t) ADC_CCR_MULTI_0)
+#define ADC_DUALMODE_REGSIMULT_ALTERTRIG        ((uint32_t) ADC_CCR_MULTI_1)
+#define ADC_DUALMODE_INJECSIMULT                ((uint32_t) (ADC_CCR_MULTI_2 | ADC_CCR_MULTI_0))
+#define ADC_DUALMODE_REGSIMULT                  ((uint32_t) (ADC_CCR_MULTI_2 | ADC_CCR_MULTI_1))
+#define ADC_DUALMODE_INTERL                     ((uint32_t) (ADC_CCR_MULTI_2 | ADC_CCR_MULTI_1 | ADC_CCR_MULTI_0))
+#define ADC_DUALMODE_ALTERTRIG                  ((uint32_t) (ADC_CCR_MULTI_3 | ADC_CCR_MULTI_0))
+#define ADC_TRIPLEMODE_REGSIMULT_INJECSIMULT    ((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_0))
+#define ADC_TRIPLEMODE_REGSIMULT_AlterTrig      ((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_1))
+#define ADC_TRIPLEMODE_INJECSIMULT              ((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_2 | ADC_CCR_MULTI_0))
+#define ADC_TRIPLEMODE_REGSIMULT                ((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_2 | ADC_CCR_MULTI_1))
+#define ADC_TRIPLEMODE_INTERL \
+	((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_2 | ADC_CCR_MULTI_1 \
 	| ADC_CCR_MULTI_0))
-# define ADC_TRIPLEMODE_ALTERTRIG                ((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_3 | ADC_CCR_MULTI_0))
+#define ADC_TRIPLEMODE_ALTERTRIG                ((uint32_t) (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_3 | ADC_CCR_MULTI_0))
 
 /**
  * @}
@@ -157,10 +157,10 @@ typedef struct {
 /** @defgroup ADCEx_Direct_memory_access_mode_for_multi_mode ADC Direct Memory Access Mode For Multi Mode
  * @{
  */
-# define ADC_DMAACCESSMODE_DISABLED    ((uint32_t) 0x00000000U)		/*!< DMA mode disabled */
-# define ADC_DMAACCESSMODE_1           ((uint32_t) ADC_CCR_DMA_0)	/*!< DMA mode 1 enabled (2 / 3 half-words one by one - 1 then 2 then 3)*/
-# define ADC_DMAACCESSMODE_2           ((uint32_t) ADC_CCR_DMA_1)	/*!< DMA mode 2 enabled (2 / 3 half-words by pairs - 2&1 then 1&3 then 3&2)*/
-# define ADC_DMAACCESSMODE_3           ((uint32_t) ADC_CCR_DMA)		/*!< DMA mode 3 enabled (2 / 3 bytes by pairs - 2&1 then 1&3 then 3&2) */
+#define ADC_DMAACCESSMODE_DISABLED    ((uint32_t) 0x00000000U)	/*!< DMA mode disabled */
+#define ADC_DMAACCESSMODE_1           ((uint32_t) ADC_CCR_DMA_0)/*!< DMA mode 1 enabled (2 / 3 half-words one by one - 1 then 2 then 3)*/
+#define ADC_DMAACCESSMODE_2           ((uint32_t) ADC_CCR_DMA_1)/*!< DMA mode 2 enabled (2 / 3 half-words by pairs - 2&1 then 1&3 then 3&2)*/
+#define ADC_DMAACCESSMODE_3           ((uint32_t) ADC_CCR_DMA)	/*!< DMA mode 3 enabled (2 / 3 bytes by pairs - 2&1 then 1&3 then 3&2) */
 
 /**
  * @}
@@ -169,10 +169,10 @@ typedef struct {
 /** @defgroup ADCEx_External_trigger_edge_Injected ADC External Trigger Edge Injected
  * @{
  */
-# define ADC_EXTERNALTRIGINJECCONVEDGE_NONE             ((uint32_t) 0x00000000U)
-# define ADC_EXTERNALTRIGINJECCONVEDGE_RISING           ((uint32_t) ADC_CR2_JEXTEN_0)
-# define ADC_EXTERNALTRIGINJECCONVEDGE_FALLING          ((uint32_t) ADC_CR2_JEXTEN_1)
-# define ADC_EXTERNALTRIGINJECCONVEDGE_RISINGFALLING    ((uint32_t) ADC_CR2_JEXTEN)
+#define ADC_EXTERNALTRIGINJECCONVEDGE_NONE             ((uint32_t) 0x00000000U)
+#define ADC_EXTERNALTRIGINJECCONVEDGE_RISING           ((uint32_t) ADC_CR2_JEXTEN_0)
+#define ADC_EXTERNALTRIGINJECCONVEDGE_FALLING          ((uint32_t) ADC_CR2_JEXTEN_1)
+#define ADC_EXTERNALTRIGINJECCONVEDGE_RISINGFALLING    ((uint32_t) ADC_CR2_JEXTEN)
 
 /**
  * @}
@@ -181,22 +181,22 @@ typedef struct {
 /** @defgroup ADCEx_External_trigger_Source_Injected ADC External Trigger Source Injected
  * @{
  */
-# define ADC_EXTERNALTRIGINJECCONV_T1_TRGO     ((uint32_t) 0x00000000U)
-# define ADC_EXTERNALTRIGINJECCONV_T1_CC4      ((uint32_t) ADC_CR2_JEXTSEL_0)
-# define ADC_EXTERNALTRIGINJECCONV_T2_TRGO     ((uint32_t) ADC_CR2_JEXTSEL_1)
-# define ADC_EXTERNALTRIGINJECCONV_T2_CC1      ((uint32_t) (ADC_CR2_JEXTSEL_1 | ADC_CR2_JEXTSEL_0))
-# define ADC_EXTERNALTRIGINJECCONV_T3_CC4      ((uint32_t) ADC_CR2_JEXTSEL_2)
-# define ADC_EXTERNALTRIGINJECCONV_T4_TRGO     ((uint32_t) (ADC_CR2_JEXTSEL_2 | ADC_CR2_JEXTSEL_0))
+#define ADC_EXTERNALTRIGINJECCONV_T1_TRGO     ((uint32_t) 0x00000000U)
+#define ADC_EXTERNALTRIGINJECCONV_T1_CC4      ((uint32_t) ADC_CR2_JEXTSEL_0)
+#define ADC_EXTERNALTRIGINJECCONV_T2_TRGO     ((uint32_t) ADC_CR2_JEXTSEL_1)
+#define ADC_EXTERNALTRIGINJECCONV_T2_CC1      ((uint32_t) (ADC_CR2_JEXTSEL_1 | ADC_CR2_JEXTSEL_0))
+#define ADC_EXTERNALTRIGINJECCONV_T3_CC4      ((uint32_t) ADC_CR2_JEXTSEL_2)
+#define ADC_EXTERNALTRIGINJECCONV_T4_TRGO     ((uint32_t) (ADC_CR2_JEXTSEL_2 | ADC_CR2_JEXTSEL_0))
 
-# define ADC_EXTERNALTRIGINJECCONV_T8_CC4      ((uint32_t) (ADC_CR2_JEXTSEL_2 | ADC_CR2_JEXTSEL_1 | ADC_CR2_JEXTSEL_0))
-# define ADC_EXTERNALTRIGINJECCONV_T1_TRGO2    ((uint32_t) ADC_CR2_JEXTSEL_3)
-# define ADC_EXTERNALTRIGINJECCONV_T8_TRGO     ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_0))
-# define ADC_EXTERNALTRIGINJECCONV_T8_TRGO2    ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_1))
-# define ADC_EXTERNALTRIGINJECCONV_T3_CC3      ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_1 | ADC_CR2_JEXTSEL_0))
-# define ADC_EXTERNALTRIGINJECCONV_T5_TRGO     ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_2))
-# define ADC_EXTERNALTRIGINJECCONV_T3_CC1      ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_2 | ADC_CR2_JEXTSEL_0))
-# define ADC_EXTERNALTRIGINJECCONV_T6_TRGO     ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_2 | ADC_CR2_JEXTSEL_1))
-# define ADC_INJECTED_SOFTWARE_START           ((uint32_t) ADC_CR2_JEXTSEL + 1)
+#define ADC_EXTERNALTRIGINJECCONV_T8_CC4      ((uint32_t) (ADC_CR2_JEXTSEL_2 | ADC_CR2_JEXTSEL_1 | ADC_CR2_JEXTSEL_0))
+#define ADC_EXTERNALTRIGINJECCONV_T1_TRGO2    ((uint32_t) ADC_CR2_JEXTSEL_3)
+#define ADC_EXTERNALTRIGINJECCONV_T8_TRGO     ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_0))
+#define ADC_EXTERNALTRIGINJECCONV_T8_TRGO2    ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_1))
+#define ADC_EXTERNALTRIGINJECCONV_T3_CC3      ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_1 | ADC_CR2_JEXTSEL_0))
+#define ADC_EXTERNALTRIGINJECCONV_T5_TRGO     ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_2))
+#define ADC_EXTERNALTRIGINJECCONV_T3_CC1      ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_2 | ADC_CR2_JEXTSEL_0))
+#define ADC_EXTERNALTRIGINJECCONV_T6_TRGO     ((uint32_t) (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_2 | ADC_CR2_JEXTSEL_1))
+#define ADC_INJECTED_SOFTWARE_START           ((uint32_t) ADC_CR2_JEXTSEL + 1)
 
 /**
  * @}
@@ -205,10 +205,10 @@ typedef struct {
 /** @defgroup ADCEx_injected_rank ADC Injected Channel Rank
  * @{
  */
-# define ADC_INJECTED_RANK_1    ((uint32_t) 0x00000001U)
-# define ADC_INJECTED_RANK_2    ((uint32_t) 0x00000002U)
-# define ADC_INJECTED_RANK_3    ((uint32_t) 0x00000003U)
-# define ADC_INJECTED_RANK_4    ((uint32_t) 0x00000004U)
+#define ADC_INJECTED_RANK_1    ((uint32_t) 0x00000001U)
+#define ADC_INJECTED_RANK_2    ((uint32_t) 0x00000002U)
+#define ADC_INJECTED_RANK_3    ((uint32_t) 0x00000003U)
+#define ADC_INJECTED_RANK_4    ((uint32_t) 0x00000004U)
 
 /**
  * @}
@@ -217,7 +217,7 @@ typedef struct {
 /** @defgroup ADCEx_channels  ADC Specific Channels
  * @{
  */
-# define ADC_CHANNEL_TEMPSENSOR    ((uint32_t) ADC_CHANNEL_18 | 0x10000000U)
+#define ADC_CHANNEL_TEMPSENSOR    ((uint32_t) ADC_CHANNEL_18 | 0x10000000U)
 
 /**
  * @}
@@ -287,11 +287,11 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef *hadc, ADC_
 /** @defgroup ADCEx_Private_Macros ADC Private Macros
  * @{
  */
-# define IS_ADC_CHANNEL(CHANNEL) \
+#define IS_ADC_CHANNEL(CHANNEL) \
 	(((CHANNEL) <= ADC_CHANNEL_18) || \
 	((CHANNEL) == ADC_CHANNEL_TEMPSENSOR))
 
-# define IS_ADC_MODE(__MODE__) \
+#define IS_ADC_MODE(__MODE__) \
 	(((__MODE__) == ADC_MODE_INDEPENDENT) || \
 	((__MODE__) == ADC_DUALMODE_REGSIMULT_INJECSIMULT) || \
 	((__MODE__) == ADC_DUALMODE_REGSIMULT_ALTERTRIG) || \
@@ -305,17 +305,17 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef *hadc, ADC_
 	((__MODE__) == ADC_TRIPLEMODE_REGSIMULT) || \
 	((__MODE__) == ADC_TRIPLEMODE_INTERL) || \
 	((__MODE__) == ADC_TRIPLEMODE_ALTERTRIG))
-# define IS_ADC_DMA_ACCESS_MODE(__MODE__) \
+#define IS_ADC_DMA_ACCESS_MODE(__MODE__) \
 	(((__MODE__) == ADC_DMAACCESSMODE_DISABLED) || \
 	((__MODE__) == ADC_DMAACCESSMODE_1) || \
 	((__MODE__) == ADC_DMAACCESSMODE_2) || \
 	((__MODE__) == ADC_DMAACCESSMODE_3))
-# define IS_ADC_EXT_INJEC_TRIG_EDGE(__EDGE__) \
+#define IS_ADC_EXT_INJEC_TRIG_EDGE(__EDGE__) \
 	(((__EDGE__) == ADC_EXTERNALTRIGINJECCONVEDGE_NONE) || \
 	((__EDGE__) == ADC_EXTERNALTRIGINJECCONVEDGE_RISING) || \
 	((__EDGE__) == ADC_EXTERNALTRIGINJECCONVEDGE_FALLING) || \
 	((__EDGE__) == ADC_EXTERNALTRIGINJECCONVEDGE_RISINGFALLING))
-# define IS_ADC_EXT_INJEC_TRIG(__INJTRIG__) \
+#define IS_ADC_EXT_INJEC_TRIG(__INJTRIG__) \
 	(((__INJTRIG__) == ADC_EXTERNALTRIGINJECCONV_T1_TRGO) || \
 	((__INJTRIG__) == ADC_EXTERNALTRIGINJECCONV_T1_CC4) || \
 	((__INJTRIG__) == ADC_EXTERNALTRIGINJECCONV_T2_TRGO) || \
@@ -331,12 +331,12 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef *hadc, ADC_
 	((__INJTRIG__) == ADC_EXTERNALTRIGINJECCONV_T3_CC1) || \
 	((__INJTRIG__) == ADC_EXTERNALTRIGINJECCONV_T6_TRGO) || \
 	((__INJTRIG__) == ADC_INJECTED_SOFTWARE_START))
-# define IS_ADC_INJECTED_RANK(__RANK__) \
+#define IS_ADC_INJECTED_RANK(__RANK__) \
 	(((__RANK__) == ADC_INJECTED_RANK_1) || \
 	((__RANK__) == ADC_INJECTED_RANK_2) || \
 	((__RANK__) == ADC_INJECTED_RANK_3) || \
 	((__RANK__) == ADC_INJECTED_RANK_4))
-# define IS_ADC_INJECTED_LENGTH(__LENGTH__)    (((__LENGTH__) >= ((uint32_t) 1)) && ((__LENGTH__) <= ((uint32_t) 4)))
+#define IS_ADC_INJECTED_LENGTH(__LENGTH__)    (((__LENGTH__) >= ((uint32_t) 1)) && ((__LENGTH__) <= ((uint32_t) 4)))
 
 /**
  * @brief  Set the selected injected Channel rank.
@@ -345,7 +345,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef *hadc, ADC_
  * @param  _JSQR_JL_ Sequence length.
  * @retval None
  */
-# define   ADC_JSQR(_CHANNELNB_, _RANKNB_, \
+#define   ADC_JSQR(_CHANNELNB_, _RANKNB_, \
 	  _JSQR_JL_)    (((uint32_t) ((uint16_t) (_CHANNELNB_))) << (5 * (uint8_t) (((_RANKNB_) +3) - (_JSQR_JL_))))
 
 /**
@@ -370,9 +370,9 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef *hadc, ADC_
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/*__STM32F7xx_ADC_EX_H */
 

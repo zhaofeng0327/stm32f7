@@ -95,7 +95,7 @@ void arm_bitreversal_f32(
 		/*  Updating the bit reversal index depending on the fft length  */
 		pBitRevTab += bitRevFactor;
 	}
-} /* arm_bitreversal_f32 */
+}	/* arm_bitreversal_f32 */
 
 /*
  * @brief  In-place bit reversal function.
@@ -161,7 +161,7 @@ void arm_bitreversal_q31(
 		/*  Updating the bit reversal index depending on the fft length */
 		pBitRevTable += bitRevFactor;
 	}
-} /* arm_bitreversal_q31 */
+}	/* arm_bitreversal_q31 */
 
 /*
  * @brief  In-place bit reversal function.
@@ -216,4 +216,4 @@ void arm_bitreversal_q15(
 		/*  Updating the bit reversal index depending on the fft length  */
 		pBitRevTab += bitRevFactor;
 	}
-} /* arm_bitreversal_q15 */
+}	/* arm_bitreversal_q15 */

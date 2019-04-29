@@ -33,9 +33,9 @@
 #if defined(__GIC_PRESENT) && (__GIC_PRESENT == 1U)
 
 /// Number of implemented interrupt lines
-# ifndef IRQ_GIC_LINE_COUNT
-#  define IRQ_GIC_LINE_COUNT    (1020U)
-# endif
+#ifndef IRQ_GIC_LINE_COUNT
+#define IRQ_GIC_LINE_COUNT    (1020U)
+#endif
 
 static IRQHandler_t IRQTable[IRQ_GIC_LINE_COUNT] = { 0U };
 static uint32_t IRQ_ID0;
@@ -196,7 +196,7 @@ __WEAK int32_t IRQ_SetMode(IRQn_ID_t irqn, uint32_t mode)
 	}
 
 	return (status);
-} /* IRQ_SetMode */
+}	/* IRQ_SetMode */
 
 /// Get interrupt mode configuration.
 __WEAK uint32_t IRQ_GetMode(IRQn_ID_t irqn)
@@ -263,7 +263,7 @@ __WEAK IRQn_ID_t IRQ_GetActiveIRQ(void)
 	}
 
 	return (irqn);
-} /* IRQ_GetActiveIRQ */
+}	/* IRQ_GetActiveIRQ */
 
 /// Get ID number of current fast interrupt request (FIQ).
 __WEAK IRQn_ID_t IRQ_GetActiveFIQ(void)
@@ -409,4 +409,4 @@ __WEAK uint32_t IRQ_GetPriorityGroupBits(void)
 	return (7U - bp);
 }
 
-#endif /* if defined(__GIC_PRESENT) && (__GIC_PRESENT == 1U) */
+#endif	/* if defined(__GIC_PRESENT) && (__GIC_PRESENT == 1U) */

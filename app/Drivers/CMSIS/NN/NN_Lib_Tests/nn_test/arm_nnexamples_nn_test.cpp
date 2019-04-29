@@ -69,7 +69,7 @@ int main()
 	test_index = 0;
 
 	#ifdef TEST_NNMULT
-	# define NNMULT_DIM    128
+	#define NNMULT_DIM    128
 	test1 = new q7_t[NNMULT_DIM * 2];
 	test2 = new q15_t[NNMULT_DIM * 2];
 	test3 = new q7_t[NNMULT_DIM * 2];
@@ -111,11 +111,11 @@ int main()
 
 	verify_results_q15(mult_out_q15, mult_ref_q15, NNMULT_DIM);
 
-	#endif // ifdef TEST_NNMULT
+	#endif	// ifdef TEST_NNMULT
 
 	#ifdef TEST_SIGMOID
 
-	# define SIGMOID_DIM    128
+	#define SIGMOID_DIM    128
 
 	/* This part tests the running of sigmoid functions */
 
@@ -152,11 +152,11 @@ int main()
 	delete[]test3;
 	delete[]test4;
 
-	#endif // ifdef TEST_SIGMOID
+	#endif	// ifdef TEST_SIGMOID
 
 	#ifdef TEST_TANH
 
-	# define TANH_DIM    128
+	#define TANH_DIM    128
 
 	/* This part tests the running of sigmoid functions */
 
@@ -195,12 +195,12 @@ int main()
 	delete[]test3;
 	delete[]test4;
 
-	#endif // ifdef TEST_TANH
+	#endif	// ifdef TEST_TANH
 
 	#ifdef TEST_POOL
 
-	# define POOL_IM_DIM    32
-	# define POOL_IM_CH     8
+	#define POOL_IM_DIM    32
+	#define POOL_IM_CH     8
 
 	test1 = new q7_t[POOL_IM_DIM * POOL_IM_DIM * POOL_IM_CH * 2];
 	test2 = new q15_t[POOL_IM_DIM * POOL_IM_CH];
@@ -280,11 +280,11 @@ int main()
 	delete[]test2;
 	delete[]test3;
 
-	#endif // ifdef TEST_POOL
+	#endif	// ifdef TEST_POOL
 
 	#ifdef TEST_RELU
 
-	# define RELU_DIM    127
+	#define RELU_DIM    127
 
 	test1 = new q7_t[RELU_DIM];
 	test2 = new q15_t[RELU_DIM];
@@ -328,12 +328,12 @@ int main()
 	delete[]test3;
 	delete[]test4;
 
-	#endif // ifdef TEST_RELU
+	#endif	// ifdef TEST_RELU
 
 	#ifdef TEST_IP
 
-	# define IP_ROW_DIM    127
-	# define IP_COL_DIM    127
+	#define IP_ROW_DIM    127
+	#define IP_COL_DIM    127
 
 	q7_t ip_weights[IP_ROW_DIM * IP_COL_DIM]            = IP2_WEIGHT;
 	q7_t ip_q7_opt_weights[IP_ROW_DIM * IP_COL_DIM]     = IP4_WEIGHT;
@@ -451,24 +451,24 @@ int main()
 	delete[]test3;
 	delete[]test4;
 
-	#endif // ifdef TEST_IP
+	#endif	// ifdef TEST_IP
 
 	#ifdef TEST_NONSQUARE
 
 	/* Use RCONV to differential with square CONV */
 
-	# define RCONV_IM_DIM_X     10
-	# define RCONV_IM_DIM_Y     8
-	# define RCONV_IM_CH        4
-	# define RCONV_KER_DIM_X    5
-	# define RCONV_KER_DIM_Y    3
-	# define RCONV_STRIDE_X     1
-	# define RCONV_STRIDE_Y     1
-	# define RCONV_PADDING_X    2
-	# define RCONV_PADDING_Y    1
-	# define RCONV_OUT_CH       4
-	# define RCONV_OUT_DIM_X    10
-	# define RCONV_OUT_DIM_Y    8
+	#define RCONV_IM_DIM_X     10
+	#define RCONV_IM_DIM_Y     8
+	#define RCONV_IM_CH        4
+	#define RCONV_KER_DIM_X    5
+	#define RCONV_KER_DIM_Y    3
+	#define RCONV_STRIDE_X     1
+	#define RCONV_STRIDE_Y     1
+	#define RCONV_PADDING_X    2
+	#define RCONV_PADDING_Y    1
+	#define RCONV_OUT_CH       4
+	#define RCONV_OUT_DIM_X    10
+	#define RCONV_OUT_DIM_Y    8
 
 	test1 = new q7_t[RCONV_KER_DIM_Y * RCONV_KER_DIM_X * RCONV_IM_CH * RCONV_OUT_CH + RCONV_OUT_CH];
 	test2 = new q15_t[2 * RCONV_KER_DIM_Y * RCONV_KER_DIM_X * RCONV_IM_CH];
@@ -607,15 +607,15 @@ int main()
 
 	delete [] test2;
 	delete [] test4;
-	#endif // ifdef TEST_NONSQUARE
+	#endif	// ifdef TEST_NONSQUARE
 
 	#ifdef TEST_CONV
 
-	# define CONV_IM_DIM     16
-	# define CONV_IM_CH      16
-	# define CONV_KER_DIM    5
-	# define CONV_OUT_CH     16
-	# define CONV_OUT_DIM    16
+	#define CONV_IM_DIM     16
+	#define CONV_IM_CH      16
+	#define CONV_KER_DIM    5
+	#define CONV_OUT_CH     16
+	#define CONV_OUT_DIM    16
 
 	test1 = new q7_t[CONV_KER_DIM * CONV_KER_DIM * CONV_IM_CH * CONV_OUT_CH + CONV_OUT_CH];
 	test2 =
@@ -757,7 +757,7 @@ int main()
 	delete[]test3;
 	delete[]test4;
 
-	#endif // ifdef TEST_CONV
+	#endif	// ifdef TEST_CONV
 
 	test_pass  = true;
 	test_index = 0;
@@ -774,4 +774,4 @@ int main()
 	}
 
 	return 0;
-} // main
+}	// main

@@ -117,7 +117,7 @@ void arm_shift_q7(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		shiftBits = -shiftBits;
 
 		/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
@@ -156,7 +156,7 @@ void arm_shift_q7(
 		}
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -176,7 +176,7 @@ void arm_shift_q7(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* Initialize blkCnt with number of samples */
 		blkCnt = blockSize;
 
@@ -191,7 +191,7 @@ void arm_shift_q7(
 	}
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_shift_q7 */
+}	/* arm_shift_q7 */
 
 /**
  * @} end of shift group

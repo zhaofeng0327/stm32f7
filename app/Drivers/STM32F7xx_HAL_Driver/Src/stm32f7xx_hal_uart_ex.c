@@ -171,7 +171,7 @@ HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity,
 		/* Allocate lock resource and initialize it */
 		huart->Lock = HAL_UNLOCKED;
 
-		# if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
 		UART_InitCallbacksToDefault(huart);
 
 		if (huart->MspInitCallback == NULL) {
@@ -180,10 +180,10 @@ HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity,
 
 		/* Init the low level hardware */
 		huart->MspInitCallback(huart);
-		# else
+		#else
 		/* Init the low level hardware : GPIO, CLOCK, CORTEX */
 		HAL_UART_MspInit(huart);
-		# endif	/* (USE_HAL_UART_REGISTER_CALLBACKS) */
+		#endif	/* (USE_HAL_UART_REGISTER_CALLBACKS) */
 	}
 
 	huart->gState = HAL_UART_STATE_BUSY;
@@ -216,7 +216,7 @@ HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity,
 
 	/* TEACK and/or REACK to check before moving huart->gState and huart->RxState to Ready */
 	return (UART_CheckIdleState(huart));
-} /* HAL_RS485Ex_Init */
+}	/* HAL_RS485Ex_Init */
 
 /**
  * @}

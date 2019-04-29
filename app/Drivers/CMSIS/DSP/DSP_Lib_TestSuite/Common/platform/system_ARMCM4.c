@@ -25,11 +25,11 @@
  */
 
 #if defined(ARMCM4)
-# include "ARMCM4.h"
+#include "ARMCM4.h"
 #elif defined(ARMCM4_FP)
-# include "ARMCM4_FP.h"
+#include "ARMCM4_FP.h"
 #else
-# error device not specified!
+#error device not specified!
 #endif
 
 /*----------------------------------------------------------------------------

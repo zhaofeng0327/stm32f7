@@ -661,7 +661,7 @@ arm_status arm_conv_partial_q7(
 	/* Return to application */
 	return (status);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -699,7 +699,7 @@ arm_status arm_conv_partial_q7(
 	return (status);
 
 	#endif	/*  #if defined (ARM_MATH_DSP) */
-} /* arm_conv_partial_q7 */
+}	/* arm_conv_partial_q7 */
 
 /**
  * @} end of PartialConv group

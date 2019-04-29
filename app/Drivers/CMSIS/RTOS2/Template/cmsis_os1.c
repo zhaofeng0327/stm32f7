@@ -41,7 +41,7 @@ osThreadId osThreadCreate(const osThreadDef_t *thread_def, void *argument)
 
 // Signals
 
-# define SignalMask    ((1U << osFeature_Signals) - 1U)
+#define SignalMask    ((1U << osFeature_Signals) - 1U)
 
 int32_t osSignalSet(osThreadId thread_id, int32_t signals)
 {
@@ -120,7 +120,7 @@ osMutexId osMutexCreate(const osMutexDef_t *mutex_def)
 
 // Semaphore
 
-# if (defined(osFeature_Semaphore) && (osFeature_Semaphore != 0U))
+#if (defined(osFeature_Semaphore) && (osFeature_Semaphore != 0U))
 
 osSemaphoreId osSemaphoreCreate(const osSemaphoreDef_t *semaphore_def, int32_t count)
 {
@@ -151,12 +151,12 @@ int32_t osSemaphoreWait(osSemaphoreId semaphore_id, uint32_t millisec)
 	return -1;
 }
 
-# endif	// Semaphore
+#endif	// Semaphore
 
 
 // Memory Pool
 
-# if (defined(osFeature_Pool) && (osFeature_Pool != 0))
+#if (defined(osFeature_Pool) && (osFeature_Pool != 0))
 
 osPoolId osPoolCreate(const osPoolDef_t *pool_def)
 {
@@ -192,12 +192,12 @@ osStatus osPoolFree(osPoolId pool_id, void *block)
 	return osMemoryPoolFree((osMemoryPoolId_t) pool_id, block);
 }
 
-# endif	// Memory Pool
+#endif	// Memory Pool
 
 
 // Message Queue
 
-# if (defined(osFeature_MessageQ) && (osFeature_MessageQ != 0))
+#if (defined(osFeature_MessageQ) && (osFeature_MessageQ != 0))
 
 osMessageQId osMessageCreate(const osMessageQDef_t *queue_def, osThreadId thread_id)
 {
@@ -239,12 +239,12 @@ osEvent osMessageGet(osMessageQId queue_id, uint32_t millisec)
 	return event;
 }
 
-# endif	// Message Queue
+#endif	// Message Queue
 
 
 // Mail Queue
 
-# if (defined(osFeature_MailQ) && (osFeature_MailQ != 0))
+#if (defined(osFeature_MailQ) && (osFeature_MailQ != 0))
 
 typedef struct os_mail_queue_s {
 	osMemoryPoolId_t   mp_id;
@@ -368,7 +368,7 @@ osStatus osMailFree(osMailQId queue_id, void *mail)
 	return osMemoryPoolFree(ptr->mp_id, mail);
 }
 
-# endif	// Mail Queue
+#endif	// Mail Queue
 
 
 #endif	// osCMSIS

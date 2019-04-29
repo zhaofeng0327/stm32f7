@@ -85,9 +85,9 @@ arm_status arm_mat_mult_f32(
 
 	float32_t in1, in2, in3, in4;
 	uint16_t col, i = 0U, j, row = numRowsA, colCnt;/* loop counters */
-	arm_status status;								/* status of matrix multiplication */
+	arm_status status;	/* status of matrix multiplication */
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 
 
 	/* Check for matrix mismatch condition */
@@ -97,7 +97,7 @@ arm_status arm_mat_mult_f32(
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/*      #ifdef ARM_MATH_MATRIX_CHECK    */
+	#endif	/*      #ifdef ARM_MATH_MATRIX_CHECK    */
 
 	{
 		/* The following loop performs the dot-product of each row in pSrcA with each column in pSrcB */
@@ -176,7 +176,7 @@ arm_status arm_mat_mult_f32(
 				col--;
 			} while (col > 0U);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -184,7 +184,7 @@ arm_status arm_mat_mult_f32(
 	uint16_t col, i = 0U, row = numRowsA, colCnt;	/* loop counters */
 	arm_status status;								/* status of matrix multiplication */
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 
 	/* Check for matrix mismatch condition */
 	if ((pSrcA->numCols != pSrcB->numRows) ||
@@ -193,7 +193,7 @@ arm_status arm_mat_mult_f32(
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/*      #ifdef ARM_MATH_MATRIX_CHECK    */
+	#endif	/*      #ifdef ARM_MATH_MATRIX_CHECK    */
 
 	{
 		/* The following loop performs the dot-product of each row in pInA with each column in pInB */
@@ -254,7 +254,7 @@ arm_status arm_mat_mult_f32(
 
 	/* Return to application */
 	return (status);
-} /* arm_mat_mult_f32 */
+}	/* arm_mat_mult_f32 */
 
 /**
  * @} end of MatrixMult group

@@ -101,8 +101,8 @@
 /** @addtogroup FLASH_Private_Constants
  * @{
  */
-# define SECTOR_MASK            ((uint32_t) 0xFFFFFF07U)
-# define FLASH_TIMEOUT_VALUE    ((uint32_t) 50000U)	/* 50 s */
+#define SECTOR_MASK            ((uint32_t) 0xFFFFFF07U)
+#define FLASH_TIMEOUT_VALUE    ((uint32_t) 50000U)	/* 50 s */
 
 /**
  * @}
@@ -220,7 +220,7 @@ HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t Address, uint
 	__HAL_UNLOCK(&pFlash);
 
 	return status;
-} /* HAL_FLASH_Program */
+}	/* HAL_FLASH_Program */
 
 /**
  * @brief   Program byte, halfword, word or double word at a specified address  with interrupt enabled.
@@ -282,7 +282,7 @@ HAL_StatusTypeDef HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t Address, u
 			break;
 	}
 	return status;
-} /* HAL_FLASH_Program_IT */
+}	/* HAL_FLASH_Program_IT */
 
 /**
  * @brief This function handles FLASH interrupt request.
@@ -321,7 +321,7 @@ void HAL_FLASH_IRQHandler(void)
 					/* Increment sector number */
 					temp = ++pFlash.Sector;
 					FLASH_Erase_Sector(temp, pFlash.VoltageForErase);
-				} else   {
+				} else {
 					/* No more sectors to Erase, user callback can be called.*/
 					/* Reset Sector and stop Erase sectors procedure */
 					pFlash.Sector = temp = 0xFFFFFFFFU;
@@ -397,7 +397,7 @@ void HAL_FLASH_IRQHandler(void)
 		/* Process Unlocked */
 		__HAL_UNLOCK(&pFlash);
 	}
-} /* HAL_FLASH_IRQHandler */
+}	/* HAL_FLASH_IRQHandler */
 
 /**
  * @brief  FLASH end of operation interrupt callback
@@ -500,7 +500,7 @@ HAL_StatusTypeDef HAL_FLASH_OB_Unlock(void)
 		/* Authorizes the Option Byte register programming */
 		FLASH->OPTKEYR = FLASH_OPT_KEY1;
 		FLASH->OPTKEYR = FLASH_OPT_KEY2;
-	} else   {
+	} else {
 		return HAL_ERROR;
 	}
 
@@ -608,7 +608,7 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
 
 	/* If there is an error flag set */
 	return HAL_OK;
-} /* FLASH_WaitForLastOperation */
+}	/* FLASH_WaitForLastOperation */
 
 /**
  * @brief  Program a double word (64-bit) at a specified address.
@@ -754,11 +754,11 @@ static void FLASH_SetErrorCode(void)
 		pFlash.ErrorCode |= HAL_FLASH_ERROR_ERS;
 	}
 
-	# if defined(FLASH_OPTCR2_PCROP)
+	#if defined(FLASH_OPTCR2_PCROP)
 	if (__HAL_FLASH_GET_FLAG(FLASH_FLAG_RDERR) != RESET) {
 		pFlash.ErrorCode |= HAL_FLASH_ERROR_RD;
 	}
-	# endif	/* FLASH_OPTCR2_PCROP */
+	#endif	/* FLASH_OPTCR2_PCROP */
 
 	/* Clear error programming flags */
 	__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS);

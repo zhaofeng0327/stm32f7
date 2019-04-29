@@ -142,7 +142,7 @@ void arm_cmplx_dot_prod_q31(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -166,7 +166,7 @@ void arm_cmplx_dot_prod_q31(
 	/* Store the real and imaginary results in 16.48 format  */
 	*realResult = real_sum;
 	*imagResult = imag_sum;
-} /* arm_cmplx_dot_prod_q31 */
+}	/* arm_cmplx_dot_prod_q31 */
 
 /**
  * @} end of cmplx_dot_prod group

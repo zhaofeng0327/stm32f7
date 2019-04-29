@@ -94,7 +94,7 @@ void arm_q7_to_float(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -111,7 +111,7 @@ void arm_q7_to_float(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_q7_to_float */
+}	/* arm_q7_to_float */
 
 /**
  * @} end of q7_to_x group

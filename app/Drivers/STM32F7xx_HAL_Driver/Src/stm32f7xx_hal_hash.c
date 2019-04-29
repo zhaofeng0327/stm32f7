@@ -177,7 +177,7 @@
  * @{
  */
 
-# ifdef HAL_HASH_MODULE_ENABLED
+#ifdef HAL_HASH_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -189,8 +189,8 @@
 /** @defgroup HASH_Digest_Calculation_Status HASH Digest Calculation Status
  * @{
  */
-#  define HASH_DIGEST_CALCULATION_NOT_STARTED    ((uint32_t) 0x00000000U)	/*!< DCAL not set after input data written in DIN register */
-#  define HASH_DIGEST_CALCULATION_STARTED        ((uint32_t) 0x00000001U)	/*!< DCAL set after input data written in DIN register     */
+#define HASH_DIGEST_CALCULATION_NOT_STARTED    ((uint32_t) 0x00000000U)	/*!< DCAL not set after input data written in DIN register */
+#define HASH_DIGEST_CALCULATION_STARTED        ((uint32_t) 0x00000001U)	/*!< DCAL set after input data written in DIN register     */
 
 /**
  * @}
@@ -199,7 +199,7 @@
 /** @defgroup HASH_Number_Of_CSR_Registers HASH Number of Context Swap Registers
  * @{
  */
-#  define HASH_NUMBER_OF_CSR_REGISTERS    54U	/*!< Number of Context Swap Registers */
+#define HASH_NUMBER_OF_CSR_REGISTERS    54U	/*!< Number of Context Swap Registers */
 
 /**
  * @}
@@ -208,7 +208,7 @@
 /** @defgroup HASH_TimeOut_Value HASH TimeOut Value
  * @{
  */
-#  define HASH_TIMEOUTVALUE    1000U/*!< Time-out value  */
+#define HASH_TIMEOUTVALUE    1000U	/*!< Time-out value  */
 
 /**
  * @}
@@ -217,7 +217,7 @@
 /** @defgroup HASH_DMA_Suspension_Words_Limit HASH DMA suspension words limit
  * @{
  */
-#  define HASH_DMA_SUSPENSION_WORDS_LIMIT    20U/*!< Number of words below which DMA suspension is aborted */
+#define HASH_DMA_SUSPENSION_WORDS_LIMIT    20U	/*!< Number of words below which DMA suspension is aborted */
 
 /**
  * @}
@@ -300,7 +300,7 @@ HAL_StatusTypeDef HAL_HASH_Init(HASH_HandleTypeDef *hhash)
 		return HAL_ERROR;
 	}
 
-	#  if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
 	if (hhash->State == HAL_HASH_STATE_RESET) {
 		/* Allocate lock resource and initialize it */
 		hhash->Lock = HAL_UNLOCKED;
@@ -316,7 +316,7 @@ HAL_StatusTypeDef HAL_HASH_Init(HASH_HandleTypeDef *hhash)
 		/* Init the low level hardware */
 		hhash->MspInitCallback(hhash);
 	}
-	#  else	 /* if (USE_HAL_HASH_REGISTER_CALLBACKS == 1) */
+	#else	/* if (USE_HAL_HASH_REGISTER_CALLBACKS == 1) */
 	if (hhash->State == HAL_HASH_STATE_RESET) {
 		/* Allocate lock resource and initialize it */
 		hhash->Lock = HAL_UNLOCKED;
@@ -324,7 +324,7 @@ HAL_StatusTypeDef HAL_HASH_Init(HASH_HandleTypeDef *hhash)
 		/* Init the low level hardware */
 		HAL_HASH_MspInit(hhash);
 	}
-	#  endif/* (USE_HAL_HASH_REGISTER_CALLBACKS) */
+	#endif	/* (USE_HAL_HASH_REGISTER_CALLBACKS) */
 
 	/* Change the HASH state */
 	hhash->State = HAL_HASH_STATE_BUSY;
@@ -354,7 +354,7 @@ HAL_StatusTypeDef HAL_HASH_Init(HASH_HandleTypeDef *hhash)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_HASH_Init */
+}	/* HAL_HASH_Init */
 
 /**
  * @brief  DeInitialize the HASH peripheral.
@@ -381,17 +381,17 @@ HAL_StatusTypeDef HAL_HASH_DeInit(HASH_HandleTypeDef *hhash)
 	/* Reset digest calculation bridle (MDMAT bit control) */
 	hhash->DigestCalculationDisable = RESET;
 
-	#  if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
 	if (hhash->MspDeInitCallback == NULL) {
 		hhash->MspDeInitCallback = HAL_HASH_MspDeInit;
 	}
 
 	/* DeInit the low level hardware */
 	hhash->MspDeInitCallback(hhash);
-	#  else
+	#else
 	/* DeInit the low level hardware: CLOCK, NVIC */
 	HAL_HASH_MspDeInit(hhash);
-	#  endif/* (USE_HAL_HASH_REGISTER_CALLBACKS) */
+	#endif	/* (USE_HAL_HASH_REGISTER_CALLBACKS) */
 
 
 	/* Reset HASH handle status */
@@ -405,7 +405,7 @@ HAL_StatusTypeDef HAL_HASH_DeInit(HASH_HandleTypeDef *hhash)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_HASH_DeInit */
+}	/* HAL_HASH_DeInit */
 
 /**
  * @brief  Initialize the HASH MSP.
@@ -492,7 +492,7 @@ __weak void HAL_HASH_ErrorCallback(HASH_HandleTypeDef *hhash)
 	 */
 }
 
-#  if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User HASH Callback
@@ -577,7 +577,7 @@ HAL_StatusTypeDef HAL_HASH_RegisterCallback(HASH_HandleTypeDef *hhash, HAL_HASH_
 	/* Release Lock */
 	__HAL_UNLOCK(hhash);
 	return status;
-} /* HAL_HASH_RegisterCallback */
+}	/* HAL_HASH_RegisterCallback */
 
 /**
  * @brief  Unregister a HASH Callback
@@ -655,9 +655,9 @@ HAL_StatusTypeDef HAL_HASH_UnRegisterCallback(HASH_HandleTypeDef *hhash, HAL_HAS
 	/* Release Lock */
 	__HAL_UNLOCK(hhash);
 	return status;
-} /* HAL_HASH_UnRegisterCallback */
+}	/* HAL_HASH_UnRegisterCallback */
 
-#  endif/* USE_HAL_HASH_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_HASH_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -848,11 +848,11 @@ void HAL_HASH_IRQHandler(HASH_HandleTypeDef *hhash)
 	hhash->Status = HASH_IT(hhash);
 	if (hhash->Status != HAL_OK) {
 		hhash->ErrorCode |= HAL_HASH_ERROR_IT;
-		#  if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
 		hhash->ErrorCallback(hhash);
-		#  else
+		#else
 		HAL_HASH_ErrorCallback(hhash);
-		#  endif/* USE_HAL_HASH_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_HASH_REGISTER_CALLBACKS */
 		/* After error handling by code user, reset HASH handle HAL status */
 		hhash->Status = HAL_OK;
 	}
@@ -1412,7 +1412,7 @@ HAL_StatusTypeDef HAL_HASH_DMAFeed_ProcessSuspend(HASH_HandleTypeDef *hhash)
 
 		return HAL_OK;
 	}
-} /* HAL_HASH_DMAFeed_ProcessSuspend */
+}	/* HAL_HASH_DMAFeed_ProcessSuspend */
 
 /**
  * @brief  Return the HASH handle error code.
@@ -1463,11 +1463,11 @@ static void HASH_DMAXferCplt(DMA_HandleTypeDef *hdma)
 			hhash->State = HAL_HASH_STATE_READY;
 
 			/* Call Input data transfer complete call back */
-			#  if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
 			hhash->InCpltCallback(hhash);
-			#  else
+			#else
 			HAL_HASH_InCpltCallback(hhash);
-			#  endif/* USE_HAL_HASH_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_HASH_REGISTER_CALLBACKS */
 		} else {
 			/* HMAC processing: depending on the current HMAC step and whether or
 			 * not multi-buffer processing is on-going, the next step is initiated
@@ -1483,11 +1483,11 @@ static void HASH_DMAXferCplt(DMA_HandleTypeDef *hdma)
 				/* Call Input data transfer complete call back
 				 * (note that the last DMA transfer was that of the key
 				 * for the outer HASH operation). */
-				#  if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
+				#if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
 				hhash->InCpltCallback(hhash);
-				#  else
+				#else
 				HAL_HASH_InCpltCallback(hhash);
-				#  endif/* USE_HAL_HASH_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_HASH_REGISTER_CALLBACKS */
 
 				return;
 			} else if (hhash->Phase == HAL_HASH_PHASE_HMAC_STEP_1) {
@@ -1514,11 +1514,11 @@ static void HASH_DMAXferCplt(DMA_HandleTypeDef *hdma)
 					 * Phase remains in Step 2, MDMAT remains set at this point.
 					 * Change the HASH state to ready and call Input data transfer complete call back. */
 					hhash->State = HAL_HASH_STATE_READY;
-					#  if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
+					#if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
 					hhash->InCpltCallback(hhash);
-					#  else
+					#else
 					HAL_HASH_InCpltCallback(hhash);
-					#  endif/* USE_HAL_HASH_REGISTER_CALLBACKS */
+					#endif	/* USE_HAL_HASH_REGISTER_CALLBACKS */
 					return;
 				} else {
 					/* Digest calculation is not disabled (case of single buffer input or last buffer
@@ -1558,7 +1558,7 @@ static void HASH_DMAXferCplt(DMA_HandleTypeDef *hdma)
 			}
 		}
 	}
-} /* HASH_DMAXferCplt */
+}	/* HASH_DMAXferCplt */
 
 /**
  * @brief DMA HASH communication error callback.
@@ -1579,11 +1579,11 @@ static void HASH_DMAError(DMA_HandleTypeDef *hdma)
 		hhash->State = HAL_HASH_STATE_READY;
 		/* Set HASH handle status to error */
 		hhash->Status = HAL_ERROR;
-		#  if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
 		hhash->ErrorCallback(hhash);
-		#  else
+		#else
 		HAL_HASH_ErrorCallback(hhash);
-		#  endif/* USE_HAL_HASH_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_HASH_REGISTER_CALLBACKS */
 		/* After error handling by code user, reset HASH handle HAL status */
 		hhash->Status = HAL_OK;
 	}
@@ -1650,7 +1650,7 @@ static HAL_StatusTypeDef HASH_WriteData(HASH_HandleTypeDef *hhash, uint8_t *pInB
 
 	/* At this point, all the data have been entered to the IP: exit */
 	return HAL_OK;
-} /* HASH_WriteData */
+}	/* HASH_WriteData */
 
 /**
  * @brief  Retrieve the message digest.
@@ -1719,7 +1719,7 @@ static void HASH_GetDigest(uint8_t *pMsgDigest, uint8_t Size)
 		default:
 			break;
 	}
-} /* HASH_GetDigest */
+}	/* HASH_GetDigest */
 
 /**
  * @brief  Handle HASH processing Timeout.
@@ -1771,7 +1771,7 @@ static HAL_StatusTypeDef HASH_WaitOnFlagUntilTimeout(HASH_HandleTypeDef *hhash, 
 		}
 	}
 	return HAL_OK;
-} /* HASH_WaitOnFlagUntilTimeout */
+}	/* HASH_WaitOnFlagUntilTimeout */
 
 /**
  * @brief  HASH processing in interruption mode.
@@ -1801,7 +1801,7 @@ static HAL_StatusTypeDef HASH_IT(HASH_HandleTypeDef *hhash)
 			hhash->HashITCounter = 2U;
 		} else {
 			/* Cruise speed reached, HashITCounter remains equal to 3 until the end of
-			*  the HASH processing or the end of the current step for HMAC processing. */
+			 *  the HASH processing or the end of the current step for HMAC processing. */
 			hhash->HashITCounter = 3U;
 		}
 
@@ -1815,11 +1815,11 @@ static HAL_StatusTypeDef HASH_IT(HASH_HandleTypeDef *hhash)
 			/* Change the HASH state */
 			hhash->State = HAL_HASH_STATE_READY;
 			/* Call digest computation complete call back */
-			#  if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
 			hhash->DgstCpltCallback(hhash);
-			#  else
+			#else
 			HAL_HASH_DgstCpltCallback(hhash);
-			#  endif/* USE_HAL_HASH_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_HASH_REGISTER_CALLBACKS */
 
 			return HAL_OK;
 		}
@@ -1845,12 +1845,12 @@ static HAL_StatusTypeDef HASH_IT(HASH_HandleTypeDef *hhash)
 			 * check whether the digest calculation has been triggered */
 			if (HASH_Write_Block_Data(hhash) == HASH_DIGEST_CALCULATION_STARTED) {
 				/* Call Input data transfer complete call back
-				 * (called at the end of each step for HMAC) */
-				#  if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
+				* (called at the end of each step for HMAC) */
+				#if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)
 				hhash->InCpltCallback(hhash);
-				#  else
+				#else
 				HAL_HASH_InCpltCallback(hhash);
-				#  endif/* USE_HAL_HASH_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_HASH_REGISTER_CALLBACKS */
 
 				if (hhash->Phase == HAL_HASH_PHASE_HMAC_STEP_1) {
 					/* Wait until IP is not busy anymore */
@@ -1860,7 +1860,7 @@ static HAL_StatusTypeDef HASH_IT(HASH_HandleTypeDef *hhash)
 						return HAL_TIMEOUT;
 					}
 					/* Initialization start for HMAC STEP 2 */
-					hhash->Phase = HAL_HASH_PHASE_HMAC_STEP_2;		/* Move phase from Step 1 to Step 2 */
+					hhash->Phase = HAL_HASH_PHASE_HMAC_STEP_2;	/* Move phase from Step 1 to Step 2 */
 					__HAL_HASH_SET_NBVALIDBITS(hhash->HashBuffSize);/* Set NBLW for the input message */
 					hhash->HashInCount    = hhash->HashBuffSize;	/* Set the input data size (in bytes) */
 					hhash->pHashInBuffPtr = hhash->pHashMsgBuffPtr;	/* Set the input data address */
@@ -1874,12 +1874,12 @@ static HAL_StatusTypeDef HASH_IT(HASH_HandleTypeDef *hhash)
 						return HAL_TIMEOUT;
 					}
 					/* Initialization start for HMAC STEP 3 */
-					hhash->Phase = HAL_HASH_PHASE_HMAC_STEP_3;		/* Move phase from Step 2 to Step 3 */
+					hhash->Phase = HAL_HASH_PHASE_HMAC_STEP_3;	/* Move phase from Step 2 to Step 3 */
 					__HAL_HASH_SET_NBVALIDBITS(hhash->Init.KeySize);/* Set NBLW for the key */
-					hhash->HashInCount    = hhash->Init.KeySize;	/* Set the key size (in bytes) */
-					hhash->pHashInBuffPtr = hhash->Init.pKey;		/* Set the key address */
-					hhash->HashITCounter  = 1;						/* Set ITCounter to 1 to indicate the start of a new phase */
-					__HAL_HASH_ENABLE_IT(HASH_IT_DINI);				/* Enable IT (was disabled in HASH_Write_Block_Data) */
+					hhash->HashInCount    = hhash->Init.KeySize;/* Set the key size (in bytes) */
+					hhash->pHashInBuffPtr = hhash->Init.pKey;	/* Set the key address */
+					hhash->HashITCounter  = 1;					/* Set ITCounter to 1 to indicate the start of a new phase */
+					__HAL_HASH_ENABLE_IT(HASH_IT_DINI);			/* Enable IT (was disabled in HASH_Write_Block_Data) */
 				} else {
 					/* Nothing to do */
 				}
@@ -1891,7 +1891,7 @@ static HAL_StatusTypeDef HASH_IT(HASH_HandleTypeDef *hhash)
 	} else {
 		return HAL_BUSY;
 	}
-} /* HASH_IT */
+}	/* HASH_IT */
 
 /**
  * @brief  Write a block of data in HASH IP in interruption mode.
@@ -1968,7 +1968,7 @@ static uint32_t HASH_Write_Block_Data(HASH_HandleTypeDef *hhash)
 
 	/* Return whether or digest calculation has started */
 	return ret;
-} /* HASH_Write_Block_Data */
+}	/* HASH_Write_Block_Data */
 
 /**
  * @brief  HMAC processing in polling mode.
@@ -2114,7 +2114,7 @@ static HAL_StatusTypeDef HMAC_Processing(HASH_HandleTypeDef *hhash, uint32_t Tim
 
 	/* Return function status */
 	return HAL_OK;
-} /* HMAC_Processing */
+}	/* HMAC_Processing */
 
 /**
  * @brief  Initialize the HASH peripheral, next process pInBuffer then
@@ -2230,7 +2230,7 @@ HAL_StatusTypeDef HASH_Start(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint
 	} else {
 		return HAL_BUSY;
 	}
-} /* HASH_Start */
+}	/* HASH_Start */
 
 /**
  * @brief  If not already done, initialize the HASH peripheral then
@@ -2315,7 +2315,7 @@ HAL_StatusTypeDef HASH_Accumulate(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer,
 	} else {
 		return HAL_BUSY;
 	}
-} /* HASH_Accumulate */
+}	/* HASH_Accumulate */
 
 /**
  * @brief  Initialize the HASH peripheral, next process pInBuffer then
@@ -2386,7 +2386,7 @@ HAL_StatusTypeDef HASH_Start_IT(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, u
 	} else {
 		return HAL_BUSY;
 	}
-} /* HASH_Start_IT */
+}	/* HASH_Start_IT */
 
 /**
  * @brief  Initialize the HASH peripheral then initiate a DMA transfer
@@ -2505,7 +2505,7 @@ HAL_StatusTypeDef HASH_Start_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, 
 	} else {
 		return HAL_BUSY;
 	}
-} /* HASH_Start_DMA */
+}	/* HASH_Start_DMA */
 
 /**
  * @brief  Return the computed digest.
@@ -2548,7 +2548,7 @@ HAL_StatusTypeDef HASH_Finish(HASH_HandleTypeDef *hhash, uint8_t *pOutBuffer, ui
 	} else {
 		return HAL_BUSY;
 	}
-} /* HASH_Finish */
+}	/* HASH_Finish */
 
 /**
  * @brief  Initialize the HASH peripheral in HMAC mode, next process pInBuffer then
@@ -2614,7 +2614,7 @@ HAL_StatusTypeDef HMAC_Start(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint
 	} else {
 		return HAL_BUSY;
 	}
-} /* HMAC_Start */
+}	/* HMAC_Start */
 
 /**
  * @brief  Initialize the HASH peripheral in HMAC mode, next process pInBuffer then
@@ -2705,7 +2705,7 @@ HAL_StatusTypeDef HMAC_Start_IT(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, u
 	} else {
 		return HAL_BUSY;
 	}
-} /* HMAC_Start_IT */
+}	/* HMAC_Start_IT */
 
 /**
  * @brief  Initialize the HASH peripheral in HMAC mode then initiate the required
@@ -2856,13 +2856,13 @@ HAL_StatusTypeDef HMAC_Start_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, 
 	} else {
 		return HAL_BUSY;
 	}
-} /* HMAC_Start_DMA */
+}	/* HMAC_Start_DMA */
 
 /**
  * @}
  */
 
-# endif	/* HAL_HASH_MODULE_ENABLED */
+#endif	/* HAL_HASH_MODULE_ENABLED */
 
 /**
  * @}

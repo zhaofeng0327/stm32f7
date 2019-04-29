@@ -174,9 +174,9 @@ q7_t *arm_nn_mat_mult_kernel_q7_q15(const q7_t *pA,
 	/* return the new output pointer with offset */
 	return pOut;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* To be completed */
 	return NULL;
 
 	#endif	/* ARM_MATH_DSP */
-} /* arm_nn_mat_mult_kernel_q7_q15 */
+}	/* arm_nn_mat_mult_kernel_q7_q15 */

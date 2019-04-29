@@ -19,20 +19,20 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_LL_DMA_H
-# define __STM32F7xx_LL_DMA_H
+#define __STM32F7xx_LL_DMA_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx.h"
+#include "stm32f7xx.h"
 
 /** @addtogroup STM32F7xx_LL_Driver
  * @{
  */
 
-# if defined(DMA1) || defined(DMA2)
+#if defined(DMA1) || defined(DMA2)
 
 /** @defgroup DMA_LL DMA
  * @{
@@ -66,9 +66,9 @@ static const uint8_t STREAM_OFFSET_TAB[] =
 /** @defgroup DMA_LL_Private_Constants DMA Private Constants
  * @{
  */
-#  if defined(DMA_SxCR_CHSEL_3)
-#   define DMA_CHANNEL_SELECTION_8_15
-#  endif/* DMA_SxCR_CHSEL_3 */
+#if defined(DMA_SxCR_CHSEL_3)
+#define DMA_CHANNEL_SELECTION_8_15
+#endif	/* DMA_SxCR_CHSEL_3 */
 
 /**
  * @}
@@ -77,7 +77,7 @@ static const uint8_t STREAM_OFFSET_TAB[] =
 
 /* Private macros ------------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup DMA_LL_ES_INIT DMA Exported Init structure
  * @{
@@ -179,7 +179,7 @@ typedef struct {
 /**
  * @}
  */
-#  endif/*USE_FULL_LL_DRIVER*/
+#endif	/*USE_FULL_LL_DRIVER*/
 /* Exported constants --------------------------------------------------------*/
 
 /** @defgroup DMA_LL_Exported_Constants DMA Exported Constants
@@ -189,15 +189,15 @@ typedef struct {
 /** @defgroup DMA_LL_EC_STREAM STREAM
  * @{
  */
-#  define LL_DMA_STREAM_0      0x00000000U
-#  define LL_DMA_STREAM_1      0x00000001U
-#  define LL_DMA_STREAM_2      0x00000002U
-#  define LL_DMA_STREAM_3      0x00000003U
-#  define LL_DMA_STREAM_4      0x00000004U
-#  define LL_DMA_STREAM_5      0x00000005U
-#  define LL_DMA_STREAM_6      0x00000006U
-#  define LL_DMA_STREAM_7      0x00000007U
-#  define LL_DMA_STREAM_ALL    0xFFFF0000U
+#define LL_DMA_STREAM_0      0x00000000U
+#define LL_DMA_STREAM_1      0x00000001U
+#define LL_DMA_STREAM_2      0x00000002U
+#define LL_DMA_STREAM_3      0x00000003U
+#define LL_DMA_STREAM_4      0x00000004U
+#define LL_DMA_STREAM_5      0x00000005U
+#define LL_DMA_STREAM_6      0x00000006U
+#define LL_DMA_STREAM_7      0x00000007U
+#define LL_DMA_STREAM_ALL    0xFFFF0000U
 
 /**
  * @}
@@ -206,9 +206,9 @@ typedef struct {
 /** @defgroup DMA_LL_EC_DIRECTION DIRECTION
  * @{
  */
-#  define LL_DMA_DIRECTION_PERIPH_TO_MEMORY    0x00000000U		/*!< Peripheral to memory direction */
-#  define LL_DMA_DIRECTION_MEMORY_TO_PERIPH    DMA_SxCR_DIR_0	/*!< Memory to peripheral direction */
-#  define LL_DMA_DIRECTION_MEMORY_TO_MEMORY    DMA_SxCR_DIR_1	/*!< Memory to memory direction     */
+#define LL_DMA_DIRECTION_PERIPH_TO_MEMORY    0x00000000U	/*!< Peripheral to memory direction */
+#define LL_DMA_DIRECTION_MEMORY_TO_PERIPH    DMA_SxCR_DIR_0	/*!< Memory to peripheral direction */
+#define LL_DMA_DIRECTION_MEMORY_TO_MEMORY    DMA_SxCR_DIR_1	/*!< Memory to memory direction     */
 
 /**
  * @}
@@ -217,9 +217,9 @@ typedef struct {
 /** @defgroup DMA_LL_EC_MODE MODE
  * @{
  */
-#  define LL_DMA_MODE_NORMAL      0x00000000U		/*!< Normal Mode                  */
-#  define LL_DMA_MODE_CIRCULAR    DMA_SxCR_CIRC		/*!< Circular Mode                */
-#  define LL_DMA_MODE_PFCTRL      DMA_SxCR_PFCTRL	/*!< Peripheral flow control mode */
+#define LL_DMA_MODE_NORMAL      0x00000000U		/*!< Normal Mode                  */
+#define LL_DMA_MODE_CIRCULAR    DMA_SxCR_CIRC	/*!< Circular Mode                */
+#define LL_DMA_MODE_PFCTRL      DMA_SxCR_PFCTRL	/*!< Peripheral flow control mode */
 
 /**
  * @}
@@ -228,8 +228,8 @@ typedef struct {
 /** @defgroup DMA_LL_EC_DOUBLEBUFFER_MODE DOUBLE BUFFER MODE
  * @{
  */
-#  define LL_DMA_DOUBLEBUFFER_MODE_DISABLE    0x00000000U	/*!< Disable double buffering mode */
-#  define LL_DMA_DOUBLEBUFFER_MODE_ENABLE     DMA_SxCR_DBM	/*!< Enable double buffering mode  */
+#define LL_DMA_DOUBLEBUFFER_MODE_DISABLE    0x00000000U	/*!< Disable double buffering mode */
+#define LL_DMA_DOUBLEBUFFER_MODE_ENABLE     DMA_SxCR_DBM/*!< Enable double buffering mode  */
 
 /**
  * @}
@@ -238,8 +238,8 @@ typedef struct {
 /** @defgroup DMA_LL_EC_PERIPH PERIPH
  * @{
  */
-#  define LL_DMA_PERIPH_NOINCREMENT    0x00000000U	/*!< Peripheral increment mode Disable */
-#  define LL_DMA_PERIPH_INCREMENT      DMA_SxCR_PINC/*!< Peripheral increment mode Enable  */
+#define LL_DMA_PERIPH_NOINCREMENT    0x00000000U/*!< Peripheral increment mode Disable */
+#define LL_DMA_PERIPH_INCREMENT      DMA_SxCR_PINC	/*!< Peripheral increment mode Enable  */
 
 /**
  * @}
@@ -248,8 +248,8 @@ typedef struct {
 /** @defgroup DMA_LL_EC_MEMORY MEMORY
  * @{
  */
-#  define LL_DMA_MEMORY_NOINCREMENT    0x00000000U	/*!< Memory increment mode Disable */
-#  define LL_DMA_MEMORY_INCREMENT      DMA_SxCR_MINC/*!< Memory increment mode Enable  */
+#define LL_DMA_MEMORY_NOINCREMENT    0x00000000U/*!< Memory increment mode Disable */
+#define LL_DMA_MEMORY_INCREMENT      DMA_SxCR_MINC	/*!< Memory increment mode Enable  */
 
 /**
  * @}
@@ -258,9 +258,9 @@ typedef struct {
 /** @defgroup DMA_LL_EC_PDATAALIGN PDATAALIGN
  * @{
  */
-#  define LL_DMA_PDATAALIGN_BYTE        0x00000000U		/*!< Peripheral data alignment : Byte     */
-#  define LL_DMA_PDATAALIGN_HALFWORD    DMA_SxCR_PSIZE_0/*!< Peripheral data alignment : HalfWord */
-#  define LL_DMA_PDATAALIGN_WORD        DMA_SxCR_PSIZE_1/*!< Peripheral data alignment : Word     */
+#define LL_DMA_PDATAALIGN_BYTE        0x00000000U	/*!< Peripheral data alignment : Byte     */
+#define LL_DMA_PDATAALIGN_HALFWORD    DMA_SxCR_PSIZE_0	/*!< Peripheral data alignment : HalfWord */
+#define LL_DMA_PDATAALIGN_WORD        DMA_SxCR_PSIZE_1	/*!< Peripheral data alignment : Word     */
 
 /**
  * @}
@@ -269,9 +269,9 @@ typedef struct {
 /** @defgroup DMA_LL_EC_MDATAALIGN MDATAALIGN
  * @{
  */
-#  define LL_DMA_MDATAALIGN_BYTE        0x00000000U		/*!< Memory data alignment : Byte     */
-#  define LL_DMA_MDATAALIGN_HALFWORD    DMA_SxCR_MSIZE_0/*!< Memory data alignment : HalfWord */
-#  define LL_DMA_MDATAALIGN_WORD        DMA_SxCR_MSIZE_1/*!< Memory data alignment : Word     */
+#define LL_DMA_MDATAALIGN_BYTE        0x00000000U	/*!< Memory data alignment : Byte     */
+#define LL_DMA_MDATAALIGN_HALFWORD    DMA_SxCR_MSIZE_0	/*!< Memory data alignment : HalfWord */
+#define LL_DMA_MDATAALIGN_WORD        DMA_SxCR_MSIZE_1	/*!< Memory data alignment : Word     */
 
 /**
  * @}
@@ -280,8 +280,8 @@ typedef struct {
 /** @defgroup DMA_LL_EC_OFFSETSIZE OFFSETSIZE
  * @{
  */
-#  define LL_DMA_OFFSETSIZE_PSIZE       0x00000000U		/*!< Peripheral increment offset size is linked to the PSIZE */
-#  define LL_DMA_OFFSETSIZE_FIXEDTO4    DMA_SxCR_PINCOS	/*!< Peripheral increment offset size is fixed to 4 (32-bit alignment) */
+#define LL_DMA_OFFSETSIZE_PSIZE       0x00000000U		/*!< Peripheral increment offset size is linked to the PSIZE */
+#define LL_DMA_OFFSETSIZE_FIXEDTO4    DMA_SxCR_PINCOS	/*!< Peripheral increment offset size is fixed to 4 (32-bit alignment) */
 
 /**
  * @}
@@ -290,10 +290,10 @@ typedef struct {
 /** @defgroup DMA_LL_EC_PRIORITY PRIORITY
  * @{
  */
-#  define LL_DMA_PRIORITY_LOW         0x00000000U	/*!< Priority level : Low       */
-#  define LL_DMA_PRIORITY_MEDIUM      DMA_SxCR_PL_0	/*!< Priority level : Medium    */
-#  define LL_DMA_PRIORITY_HIGH        DMA_SxCR_PL_1	/*!< Priority level : High      */
-#  define LL_DMA_PRIORITY_VERYHIGH    DMA_SxCR_PL	/*!< Priority level : Very_High */
+#define LL_DMA_PRIORITY_LOW         0x00000000U		/*!< Priority level : Low       */
+#define LL_DMA_PRIORITY_MEDIUM      DMA_SxCR_PL_0	/*!< Priority level : Medium    */
+#define LL_DMA_PRIORITY_HIGH        DMA_SxCR_PL_1	/*!< Priority level : High      */
+#define LL_DMA_PRIORITY_VERYHIGH    DMA_SxCR_PL		/*!< Priority level : Very_High */
 
 /**
  * @}
@@ -302,24 +302,24 @@ typedef struct {
 /** @defgroup DMA_LL_EC_CHANNEL CHANNEL
  * @{
  */
-#  define LL_DMA_CHANNEL_0      0x00000000U												/* Select Channel0 of DMA Instance */
-#  define LL_DMA_CHANNEL_1      DMA_SxCR_CHSEL_0										/* Select Channel1 of DMA Instance */
-#  define LL_DMA_CHANNEL_2      DMA_SxCR_CHSEL_1										/* Select Channel2 of DMA Instance */
-#  define LL_DMA_CHANNEL_3      (DMA_SxCR_CHSEL_0 | DMA_SxCR_CHSEL_1)					/* Select Channel3 of DMA Instance */
-#  define LL_DMA_CHANNEL_4      DMA_SxCR_CHSEL_2										/* Select Channel4 of DMA Instance */
-#  define LL_DMA_CHANNEL_5      (DMA_SxCR_CHSEL_2 | DMA_SxCR_CHSEL_0)					/* Select Channel5 of DMA Instance */
-#  define LL_DMA_CHANNEL_6      (DMA_SxCR_CHSEL_2 | DMA_SxCR_CHSEL_1)					/* Select Channel6 of DMA Instance */
-#  define LL_DMA_CHANNEL_7      (DMA_SxCR_CHSEL_2 | DMA_SxCR_CHSEL_1 | DMA_SxCR_CHSEL_0)/* Select Channel7 of DMA Instance */
-#  if defined(DMA_CHANNEL_SELECTION_8_15)
-#   define LL_DMA_CHANNEL_8     DMA_SxCR_CHSEL_3										/* Select Channel8 of DMA Instance */
-#   define LL_DMA_CHANNEL_9     (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_0)					/* Select Channel9 of DMA Instance */
-#   define LL_DMA_CHANNEL_10    (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_1)					/* Select Channel10 of DMA Instance */
-#   define LL_DMA_CHANNEL_11    (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_1 | DMA_SxCR_CHSEL_0)/* Select Channel11 of DMA Instance */
-#   define LL_DMA_CHANNEL_12    (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_2)					/* Select Channel12 of DMA Instance */
-#   define LL_DMA_CHANNEL_13    (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_2 | DMA_SxCR_CHSEL_0)/* Select Channel13 of DMA Instance */
-#   define LL_DMA_CHANNEL_14    (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_2 | DMA_SxCR_CHSEL_1)/* Select Channel14 of DMA Instance */
-#   define LL_DMA_CHANNEL_15    DMA_SxCR_CHSEL											/* Select Channel15 of DMA Instance */
-#  endif/* DMA_CHANNEL_SELECTION_8_15 */
+#define LL_DMA_CHANNEL_0     0x00000000U							/* Select Channel0 of DMA Instance */
+#define LL_DMA_CHANNEL_1     DMA_SxCR_CHSEL_0						/* Select Channel1 of DMA Instance */
+#define LL_DMA_CHANNEL_2     DMA_SxCR_CHSEL_1						/* Select Channel2 of DMA Instance */
+#define LL_DMA_CHANNEL_3     (DMA_SxCR_CHSEL_0 | DMA_SxCR_CHSEL_1)	/* Select Channel3 of DMA Instance */
+#define LL_DMA_CHANNEL_4     DMA_SxCR_CHSEL_2						/* Select Channel4 of DMA Instance */
+#define LL_DMA_CHANNEL_5     (DMA_SxCR_CHSEL_2 | DMA_SxCR_CHSEL_0)	/* Select Channel5 of DMA Instance */
+#define LL_DMA_CHANNEL_6     (DMA_SxCR_CHSEL_2 | DMA_SxCR_CHSEL_1)	/* Select Channel6 of DMA Instance */
+#define LL_DMA_CHANNEL_7     (DMA_SxCR_CHSEL_2 | DMA_SxCR_CHSEL_1 | DMA_SxCR_CHSEL_0)	/* Select Channel7 of DMA Instance */
+#if defined(DMA_CHANNEL_SELECTION_8_15)
+#define LL_DMA_CHANNEL_8     DMA_SxCR_CHSEL_3						/* Select Channel8 of DMA Instance */
+#define LL_DMA_CHANNEL_9     (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_0)	/* Select Channel9 of DMA Instance */
+#define LL_DMA_CHANNEL_10    (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_1)	/* Select Channel10 of DMA Instance */
+#define LL_DMA_CHANNEL_11    (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_1 | DMA_SxCR_CHSEL_0)	/* Select Channel11 of DMA Instance */
+#define LL_DMA_CHANNEL_12    (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_2)	/* Select Channel12 of DMA Instance */
+#define LL_DMA_CHANNEL_13    (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_2 | DMA_SxCR_CHSEL_0)	/* Select Channel13 of DMA Instance */
+#define LL_DMA_CHANNEL_14    (DMA_SxCR_CHSEL_3 | DMA_SxCR_CHSEL_2 | DMA_SxCR_CHSEL_1)	/* Select Channel14 of DMA Instance */
+#define LL_DMA_CHANNEL_15    DMA_SxCR_CHSEL	/* Select Channel15 of DMA Instance */
+#endif	/* DMA_CHANNEL_SELECTION_8_15 */
 
 /**
  * @}
@@ -328,10 +328,10 @@ typedef struct {
 /** @defgroup DMA_LL_EC_MBURST MBURST
  * @{
  */
-#  define LL_DMA_MBURST_SINGLE    0x00000000U								/*!< Memory burst single transfer configuration */
-#  define LL_DMA_MBURST_INC4      DMA_SxCR_MBURST_0							/*!< Memory burst of 4 beats transfer configuration */
-#  define LL_DMA_MBURST_INC8      DMA_SxCR_MBURST_1							/*!< Memory burst of 8 beats transfer configuration */
-#  define LL_DMA_MBURST_INC16     (DMA_SxCR_MBURST_0 | DMA_SxCR_MBURST_1)	/*!< Memory burst of 16 beats transfer configuration */
+#define LL_DMA_MBURST_SINGLE    0x00000000U								/*!< Memory burst single transfer configuration */
+#define LL_DMA_MBURST_INC4      DMA_SxCR_MBURST_0						/*!< Memory burst of 4 beats transfer configuration */
+#define LL_DMA_MBURST_INC8      DMA_SxCR_MBURST_1						/*!< Memory burst of 8 beats transfer configuration */
+#define LL_DMA_MBURST_INC16     (DMA_SxCR_MBURST_0 | DMA_SxCR_MBURST_1)	/*!< Memory burst of 16 beats transfer configuration */
 
 /**
  * @}
@@ -340,10 +340,10 @@ typedef struct {
 /** @defgroup DMA_LL_EC_PBURST PBURST
  * @{
  */
-#  define LL_DMA_PBURST_SINGLE    0x00000000U								/*!< Peripheral burst single transfer configuration */
-#  define LL_DMA_PBURST_INC4      DMA_SxCR_PBURST_0							/*!< Peripheral burst of 4 beats transfer configuration */
-#  define LL_DMA_PBURST_INC8      DMA_SxCR_PBURST_1							/*!< Peripheral burst of 8 beats transfer configuration */
-#  define LL_DMA_PBURST_INC16     (DMA_SxCR_PBURST_0 | DMA_SxCR_PBURST_1)	/*!< Peripheral burst of 16 beats transfer configuration */
+#define LL_DMA_PBURST_SINGLE    0x00000000U								/*!< Peripheral burst single transfer configuration */
+#define LL_DMA_PBURST_INC4      DMA_SxCR_PBURST_0						/*!< Peripheral burst of 4 beats transfer configuration */
+#define LL_DMA_PBURST_INC8      DMA_SxCR_PBURST_1						/*!< Peripheral burst of 8 beats transfer configuration */
+#define LL_DMA_PBURST_INC16     (DMA_SxCR_PBURST_0 | DMA_SxCR_PBURST_1)	/*!< Peripheral burst of 16 beats transfer configuration */
 
 /**
  * @}
@@ -352,8 +352,8 @@ typedef struct {
 /** @defgroup DMA_LL_FIFOMODE DMA_LL_FIFOMODE
  * @{
  */
-#  define LL_DMA_FIFOMODE_DISABLE    0x00000000U	/*!< FIFO mode disable (direct mode is enabled) */
-#  define LL_DMA_FIFOMODE_ENABLE     DMA_SxFCR_DMDIS/*!< FIFO mode enable  */
+#define LL_DMA_FIFOMODE_DISABLE    0x00000000U	/*!< FIFO mode disable (direct mode is enabled) */
+#define LL_DMA_FIFOMODE_ENABLE     DMA_SxFCR_DMDIS	/*!< FIFO mode enable  */
 
 /**
  * @}
@@ -362,12 +362,12 @@ typedef struct {
 /** @defgroup DMA_LL_EC_FIFOSTATUS_0 FIFOSTATUS 0
  * @{
  */
-#  define LL_DMA_FIFOSTATUS_0_25      0x00000000U						/*!< 0 < fifo_level < 1/4    */
-#  define LL_DMA_FIFOSTATUS_25_50     DMA_SxFCR_FS_0					/*!< 1/4 < fifo_level < 1/2  */
-#  define LL_DMA_FIFOSTATUS_50_75     DMA_SxFCR_FS_1					/*!< 1/2 < fifo_level < 3/4  */
-#  define LL_DMA_FIFOSTATUS_75_100    (DMA_SxFCR_FS_1 | DMA_SxFCR_FS_0)	/*!< 3/4 < fifo_level < full */
-#  define LL_DMA_FIFOSTATUS_EMPTY     DMA_SxFCR_FS_2					/*!< FIFO is empty           */
-#  define LL_DMA_FIFOSTATUS_FULL      (DMA_SxFCR_FS_2 | DMA_SxFCR_FS_0)	/*!< FIFO is full            */
+#define LL_DMA_FIFOSTATUS_0_25      0x00000000U							/*!< 0 < fifo_level < 1/4    */
+#define LL_DMA_FIFOSTATUS_25_50     DMA_SxFCR_FS_0						/*!< 1/4 < fifo_level < 1/2  */
+#define LL_DMA_FIFOSTATUS_50_75     DMA_SxFCR_FS_1						/*!< 1/2 < fifo_level < 3/4  */
+#define LL_DMA_FIFOSTATUS_75_100    (DMA_SxFCR_FS_1 | DMA_SxFCR_FS_0)	/*!< 3/4 < fifo_level < full */
+#define LL_DMA_FIFOSTATUS_EMPTY     DMA_SxFCR_FS_2						/*!< FIFO is empty           */
+#define LL_DMA_FIFOSTATUS_FULL      (DMA_SxFCR_FS_2 | DMA_SxFCR_FS_0)	/*!< FIFO is full            */
 
 /**
  * @}
@@ -376,10 +376,10 @@ typedef struct {
 /** @defgroup DMA_LL_EC_FIFOTHRESHOLD FIFOTHRESHOLD
  * @{
  */
-#  define LL_DMA_FIFOTHRESHOLD_1_4     0x00000000U		/*!< FIFO threshold 1 quart full configuration  */
-#  define LL_DMA_FIFOTHRESHOLD_1_2     DMA_SxFCR_FTH_0	/*!< FIFO threshold half full configuration     */
-#  define LL_DMA_FIFOTHRESHOLD_3_4     DMA_SxFCR_FTH_1	/*!< FIFO threshold 3 quarts full configuration */
-#  define LL_DMA_FIFOTHRESHOLD_FULL    DMA_SxFCR_FTH	/*!< FIFO threshold full configuration          */
+#define LL_DMA_FIFOTHRESHOLD_1_4     0x00000000U	/*!< FIFO threshold 1 quart full configuration  */
+#define LL_DMA_FIFOTHRESHOLD_1_2     DMA_SxFCR_FTH_0/*!< FIFO threshold half full configuration     */
+#define LL_DMA_FIFOTHRESHOLD_3_4     DMA_SxFCR_FTH_1/*!< FIFO threshold 3 quarts full configuration */
+#define LL_DMA_FIFOTHRESHOLD_FULL    DMA_SxFCR_FTH	/*!< FIFO threshold full configuration          */
 
 /**
  * @}
@@ -388,8 +388,8 @@ typedef struct {
 /** @defgroup DMA_LL_EC_CURRENTTARGETMEM CURRENTTARGETMEM
  * @{
  */
-#  define LL_DMA_CURRENTTARGETMEM0    0x00000000U	/*!< Set CurrentTarget Memory to Memory 0  */
-#  define LL_DMA_CURRENTTARGETMEM1    DMA_SxCR_CT	/*!< Set CurrentTarget Memory to Memory 1  */
+#define LL_DMA_CURRENTTARGETMEM0    0x00000000U	/*!< Set CurrentTarget Memory to Memory 0  */
+#define LL_DMA_CURRENTTARGETMEM1    DMA_SxCR_CT	/*!< Set CurrentTarget Memory to Memory 1  */
 
 /**
  * @}
@@ -416,7 +416,7 @@ typedef struct {
  * @param  __VALUE__ Value to be written in the register
  * @retval None
  */
-#  define LL_DMA_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
+#define LL_DMA_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
 
 /**
  * @brief  Read a value in DMA register
@@ -424,7 +424,7 @@ typedef struct {
  * @param  __REG__ Register to be read
  * @retval Register value
  */
-#  define LL_DMA_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
+#define LL_DMA_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
 
 /**
  * @}
@@ -439,7 +439,7 @@ typedef struct {
  * @param  __STREAM_INSTANCE__ DMAx_Streamy
  * @retval DMAx
  */
-#  define __LL_DMA_GET_INSTANCE(__STREAM_INSTANCE__)   \
+#define __LL_DMA_GET_INSTANCE(__STREAM_INSTANCE__)   \
 	(((uint32_t) (__STREAM_INSTANCE__) > ((uint32_t) DMA1_Stream7)) ? DMA2 : DMA1)
 
 /**
@@ -447,7 +447,7 @@ typedef struct {
  * @param  __STREAM_INSTANCE__ DMAx_Streamy
  * @retval LL_DMA_CHANNEL_y
  */
-#  define __LL_DMA_GET_STREAM(__STREAM_INSTANCE__)   \
+#define __LL_DMA_GET_STREAM(__STREAM_INSTANCE__)   \
 	(((uint32_t) (__STREAM_INSTANCE__) == ((uint32_t) DMA1_Stream0)) ? LL_DMA_STREAM_0 : \
 	((uint32_t) (__STREAM_INSTANCE__) == ((uint32_t) DMA2_Stream0)) ? LL_DMA_STREAM_0 : \
 	((uint32_t) (__STREAM_INSTANCE__) == ((uint32_t) DMA1_Stream1)) ? LL_DMA_STREAM_1 : \
@@ -470,7 +470,7 @@ typedef struct {
  * @param  __STREAM__ LL_DMA_STREAM_y
  * @retval DMAx_Streamy
  */
-#  define __LL_DMA_GET_STREAM_INSTANCE(__DMA_INSTANCE__, __STREAM__)   \
+#define __LL_DMA_GET_STREAM_INSTANCE(__DMA_INSTANCE__, __STREAM__)   \
 	((((uint32_t) (__DMA_INSTANCE__) == ((uint32_t) DMA1)) && \
 	((uint32_t) (__STREAM__) == ((uint32_t) LL_DMA_STREAM_0))) ? DMA1_Stream0 : \
 	(((uint32_t) (__DMA_INSTANCE__) == ((uint32_t) DMA2)) && \
@@ -2937,7 +2937,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_FE(DMA_TypeDef *DMAx, uint32_t Strea
  * @}
  */
 
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup DMA_LL_EF_Init Initialization and de-initialization functions
  * @{
@@ -2950,7 +2950,7 @@ void LL_DMA_StructInit(LL_DMA_InitTypeDef *DMA_InitStruct);
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /**
  * @}
@@ -2960,15 +2960,15 @@ void LL_DMA_StructInit(LL_DMA_InitTypeDef *DMA_InitStruct);
  * @}
  */
 
-# endif	/* DMA1 || DMA2 */
+#endif	/* DMA1 || DMA2 */
 
 /**
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_LL_DMA_H */
 

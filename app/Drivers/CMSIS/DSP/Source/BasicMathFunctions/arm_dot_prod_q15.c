@@ -98,7 +98,7 @@ void arm_dot_prod_q15(
 	}
 
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -118,7 +118,7 @@ void arm_dot_prod_q15(
 
 	/* Store the result in the destination buffer in 34.30 format */
 	*result = sum;
-} /* arm_dot_prod_q15 */
+}	/* arm_dot_prod_q15 */
 
 /**
  * @} end of dot_prod group

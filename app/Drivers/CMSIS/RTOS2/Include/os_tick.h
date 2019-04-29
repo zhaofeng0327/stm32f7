@@ -30,7 +30,7 @@
 
 /// IRQ Handler.
 #ifndef IRQHANDLER_T
-# define IRQHANDLER_T
+#define IRQHANDLER_T
 typedef void (*IRQHandler_t) (void);
 #endif
 

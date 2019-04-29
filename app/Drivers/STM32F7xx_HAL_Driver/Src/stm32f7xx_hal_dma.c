@@ -122,7 +122,7 @@ typedef struct {
 /** @addtogroup DMA_Private_Constants
  * @{
  */
-# define HAL_TIMEOUT_DMA_ABORT    ((uint32_t) 5)/* 5 ms */
+#define HAL_TIMEOUT_DMA_ABORT    ((uint32_t) 5)	/* 5 ms */
 
 /**
  * @}
@@ -296,7 +296,7 @@ HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *hdma)
 	hdma->State = HAL_DMA_STATE_READY;
 
 	return HAL_OK;
-} /* HAL_DMA_Init */
+}	/* HAL_DMA_Init */
 
 /**
  * @brief  DeInitializes the DMA peripheral
@@ -367,7 +367,7 @@ HAL_StatusTypeDef HAL_DMA_DeInit(DMA_HandleTypeDef *hdma)
 	__HAL_UNLOCK(hdma);
 
 	return HAL_OK;
-} /* HAL_DMA_DeInit */
+}	/* HAL_DMA_DeInit */
 
 /**
  * @}
@@ -487,7 +487,7 @@ HAL_StatusTypeDef HAL_DMA_Start_IT(DMA_HandleTypeDef *hdma, uint32_t SrcAddress,
 	}
 
 	return status;
-} /* HAL_DMA_Start_IT */
+}	/* HAL_DMA_Start_IT */
 
 /**
  * @brief  Aborts the DMA Transfer.
@@ -554,7 +554,7 @@ HAL_StatusTypeDef HAL_DMA_Abort(DMA_HandleTypeDef *hdma)
 		hdma->State = HAL_DMA_STATE_READY;
 	}
 	return HAL_OK;
-} /* HAL_DMA_Abort */
+}	/* HAL_DMA_Abort */
 
 /**
  * @brief  Aborts the DMA Transfer in Interrupt mode.
@@ -702,7 +702,7 @@ HAL_StatusTypeDef HAL_DMA_PollForTransfer(DMA_HandleTypeDef *hdma, HAL_DMA_Level
 	}
 
 	return status;
-} /* HAL_DMA_PollForTransfer */
+}	/* HAL_DMA_PollForTransfer */
 
 /**
  * @brief  Handles DMA interrupt request.
@@ -883,7 +883,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
 			hdma->XferErrorCallback(hdma);
 		}
 	}
-} /* HAL_DMA_IRQHandler */
+}	/* HAL_DMA_IRQHandler */
 
 /**
  * @brief  Register callbacks
@@ -941,7 +941,7 @@ HAL_StatusTypeDef HAL_DMA_RegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Call
 	__HAL_UNLOCK(hdma);
 
 	return status;
-} /* HAL_DMA_RegisterCallback */
+}	/* HAL_DMA_RegisterCallback */
 
 /**
  * @brief  UnRegister callbacks
@@ -1005,7 +1005,7 @@ HAL_StatusTypeDef HAL_DMA_UnRegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Ca
 	__HAL_UNLOCK(hdma);
 
 	return status;
-} /* HAL_DMA_UnRegisterCallback */
+}	/* HAL_DMA_UnRegisterCallback */
 
 /**
  * @}
@@ -1191,7 +1191,7 @@ static HAL_StatusTypeDef DMA_CheckFifoParam(DMA_HandleTypeDef *hdma)
 	}
 
 	return status;
-} /* DMA_CheckFifoParam */
+}	/* DMA_CheckFifoParam */
 
 /**
  * @}

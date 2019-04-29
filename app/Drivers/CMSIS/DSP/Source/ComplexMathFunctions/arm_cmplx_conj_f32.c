@@ -147,7 +147,7 @@ void arm_cmplx_conj_f32(
 	** No loop unrolling is used. */
 	blkCnt = numSamples % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 	blkCnt = numSamples;
@@ -163,7 +163,7 @@ void arm_cmplx_conj_f32(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_cmplx_conj_f32 */
+}	/* arm_cmplx_conj_f32 */
 
 /**
  * @} end of cmplx_conj group

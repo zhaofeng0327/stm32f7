@@ -293,7 +293,7 @@ HAL_StatusTypeDef HAL_LPTIM_Init(LPTIM_HandleTypeDef *hlptim)
 		/* Allocate lock resource and initialize it */
 		hlptim->Lock = HAL_UNLOCKED;
 
-		# if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
 		/* Reset the LPTIM callback to the legacy weak callbacks */
 		hlptim->CompareMatchCallback    = HAL_LPTIM_CompareMatchCallback;
 		hlptim->AutoReloadMatchCallback = HAL_LPTIM_AutoReloadMatchCallback;
@@ -308,10 +308,10 @@ HAL_StatusTypeDef HAL_LPTIM_Init(LPTIM_HandleTypeDef *hlptim)
 		}
 		/* Init the low level hardware : GPIO, CLOCK, NVIC */
 		hlptim->MspInitCallback(hlptim);
-		# else  /* if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1) */
+		#else	/* if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1) */
 		/* Init the low level hardware */
 		HAL_LPTIM_MspInit(hlptim);
-		# endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
 	}
 	/* Change the LPTIM state */
 	hlptim->State = HAL_LPTIM_STATE_BUSY;
@@ -357,7 +357,7 @@ HAL_StatusTypeDef HAL_LPTIM_Init(LPTIM_HandleTypeDef *hlptim)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_Init */
+}	/* HAL_LPTIM_Init */
 
 /**
  * @brief  DeInitializes the LPTIM peripheral.
@@ -377,16 +377,16 @@ HAL_StatusTypeDef HAL_LPTIM_DeInit(LPTIM_HandleTypeDef *hlptim)
 	/* Disable the LPTIM Peripheral Clock */
 	__HAL_LPTIM_DISABLE(hlptim);
 
-	# if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
 	if (hlptim->MspDeInitCallback == NULL) {
 		hlptim->MspDeInitCallback = HAL_LPTIM_MspDeInit;
 	}
 	/* DeInit the low level hardware */
 	hlptim->MspDeInitCallback(hlptim);
-	# else
+	#else
 	/* DeInit the low level hardware: CLOCK, NVIC.*/
 	HAL_LPTIM_MspDeInit(hlptim);
-	# endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
 
 	/* Change the LPTIM state */
 	hlptim->State = HAL_LPTIM_STATE_RESET;
@@ -579,7 +579,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32_t P
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_PWM_Start_IT */
+}	/* HAL_LPTIM_PWM_Start_IT */
 
 /**
  * @brief  Stops the LPTIM PWM generation in interrupt mode.
@@ -620,7 +620,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop_IT(LPTIM_HandleTypeDef *hlptim)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_PWM_Stop_IT */
+}	/* HAL_LPTIM_PWM_Stop_IT */
 
 /**
  * @brief  Starts the LPTIM One pulse generation.
@@ -743,7 +743,7 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Start_IT(LPTIM_HandleTypeDef *hlptim, uint3
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_OnePulse_Start_IT */
+}	/* HAL_LPTIM_OnePulse_Start_IT */
 
 /**
  * @brief  Stops the LPTIM One pulse generation in interrupt mode.
@@ -784,7 +784,7 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Stop_IT(LPTIM_HandleTypeDef *hlptim)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_OnePulse_Stop_IT */
+}	/* HAL_LPTIM_OnePulse_Stop_IT */
 
 /**
  * @brief  Starts the LPTIM in Set once mode.
@@ -907,7 +907,7 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_SetOnce_Start_IT */
+}	/* HAL_LPTIM_SetOnce_Start_IT */
 
 /**
  * @brief  Stops the LPTIM Set once mode in interrupt mode.
@@ -948,7 +948,7 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Stop_IT(LPTIM_HandleTypeDef *hlptim)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_SetOnce_Stop_IT */
+}	/* HAL_LPTIM_SetOnce_Stop_IT */
 
 /**
  * @brief  Starts the Encoder interface.
@@ -1000,7 +1000,7 @@ HAL_StatusTypeDef HAL_LPTIM_Encoder_Start(LPTIM_HandleTypeDef *hlptim, uint32_t 
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_Encoder_Start */
+}	/* HAL_LPTIM_Encoder_Start */
 
 /**
  * @brief  Stops the Encoder interface.
@@ -1085,7 +1085,7 @@ HAL_StatusTypeDef HAL_LPTIM_Encoder_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_Encoder_Start_IT */
+}	/* HAL_LPTIM_Encoder_Start_IT */
 
 /**
  * @brief  Stops the Encoder interface in interrupt mode.
@@ -1238,7 +1238,7 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_TimeOut_Start_IT */
+}	/* HAL_LPTIM_TimeOut_Start_IT */
 
 /**
  * @brief  Stops the Timeout function in interrupt mode.
@@ -1315,7 +1315,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Start(LPTIM_HandleTypeDef *hlptim, uint32_t 
 
 	/* Return function status */
 	return HAL_OK;
-}
+} /* HAL_LPTIM_Counter_Start */
 
 /**
  * @brief  Stops the Counter mode.
@@ -1392,7 +1392,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_Counter_Start_IT */
+}	/* HAL_LPTIM_Counter_Start_IT */
 
 /**
  * @brief  Stops the Counter mode in interrupt mode.
@@ -1518,11 +1518,11 @@ void HAL_LPTIM_IRQHandler(LPTIM_HandleTypeDef *hlptim)
 			/* Clear Compare match flag */
 			__HAL_LPTIM_CLEAR_FLAG(hlptim, LPTIM_FLAG_CMPM);
 			/* Compare match Callback */
-			# if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
 			hlptim->CompareMatchCallback(hlptim);
-			# else
+			#else
 			HAL_LPTIM_CompareMatchCallback(hlptim);
-			# endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1532,11 +1532,11 @@ void HAL_LPTIM_IRQHandler(LPTIM_HandleTypeDef *hlptim)
 			/* Clear Autoreload match flag */
 			__HAL_LPTIM_CLEAR_FLAG(hlptim, LPTIM_FLAG_ARRM);
 			/* Autoreload match Callback */
-			# if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
 			hlptim->AutoReloadMatchCallback(hlptim);
-			# else
+			#else
 			HAL_LPTIM_AutoReloadMatchCallback(hlptim);
-			# endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1546,11 +1546,11 @@ void HAL_LPTIM_IRQHandler(LPTIM_HandleTypeDef *hlptim)
 			/* Clear Trigger detected flag */
 			__HAL_LPTIM_CLEAR_FLAG(hlptim, LPTIM_FLAG_EXTTRIG);
 			/* Trigger detected callback */
-			# if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
 			hlptim->TriggerCallback(hlptim);
-			# else
+			#else
 			HAL_LPTIM_TriggerCallback(hlptim);
-			# endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1560,11 +1560,11 @@ void HAL_LPTIM_IRQHandler(LPTIM_HandleTypeDef *hlptim)
 			/* Clear Compare write flag */
 			__HAL_LPTIM_CLEAR_FLAG(hlptim, LPTIM_FLAG_CMPOK);
 			/* Compare write Callback */
-			# if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
 			hlptim->CompareWriteCallback(hlptim);
-			# else
+			#else
 			HAL_LPTIM_CompareWriteCallback(hlptim);
-			# endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1574,11 +1574,11 @@ void HAL_LPTIM_IRQHandler(LPTIM_HandleTypeDef *hlptim)
 			/* Clear Autoreload write flag */
 			__HAL_LPTIM_CLEAR_FLAG(hlptim, LPTIM_FLAG_ARROK);
 			/* Autoreload write Callback */
-			# if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
 			hlptim->AutoReloadWriteCallback(hlptim);
-			# else
+			#else
 			HAL_LPTIM_AutoReloadWriteCallback(hlptim);
-			# endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1588,11 +1588,11 @@ void HAL_LPTIM_IRQHandler(LPTIM_HandleTypeDef *hlptim)
 			/* Clear Direction counter changed from Down to Up flag */
 			__HAL_LPTIM_CLEAR_FLAG(hlptim, LPTIM_FLAG_UP);
 			/* Direction counter changed from Down to Up Callback */
-			# if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
 			hlptim->DirectionUpCallback(hlptim);
-			# else
+			#else
 			HAL_LPTIM_DirectionUpCallback(hlptim);
-			# endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1602,16 +1602,16 @@ void HAL_LPTIM_IRQHandler(LPTIM_HandleTypeDef *hlptim)
 			/* Clear Direction counter changed from Up to Down flag */
 			__HAL_LPTIM_CLEAR_FLAG(hlptim, LPTIM_FLAG_DOWN);
 			/* Direction counter changed from Up to Down Callback */
-			# if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
 			hlptim->DirectionDownCallback(hlptim);
-			# else
+			#else
 			HAL_LPTIM_DirectionDownCallback(hlptim);
-			# endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
 		}
 	}
 
 	__HAL_LPTIM_WAKEUPTIMER_EXTI_CLEAR_FLAG();
-} /* HAL_LPTIM_IRQHandler */
+}	/* HAL_LPTIM_IRQHandler */
 
 /**
  * @brief  Compare match callback in non blocking mode
@@ -1718,7 +1718,7 @@ __weak void HAL_LPTIM_DirectionDownCallback(LPTIM_HandleTypeDef *hlptim)
 	 */
 }
 
-# if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register user LPTIM callback to be used instead of the weak predefined callback
@@ -1815,7 +1815,7 @@ HAL_StatusTypeDef HAL_LPTIM_RegisterCallback(LPTIM_HandleTypeDef *hlptim, HAL_LP
 	__HAL_UNLOCK(hlptim);
 
 	return status;
-} /* HAL_LPTIM_RegisterCallback */
+}	/* HAL_LPTIM_RegisterCallback */
 
 /**
  * @brief  UnRegister user LPTIM callback
@@ -1908,9 +1908,9 @@ HAL_StatusTypeDef HAL_LPTIM_UnRegisterCallback(LPTIM_HandleTypeDef *hlptim, HAL_
 	__HAL_UNLOCK(hlptim);
 
 	return status;
-} /* HAL_LPTIM_UnRegisterCallback */
+}	/* HAL_LPTIM_UnRegisterCallback */
 
-# endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_LPTIM_REGISTER_CALLBACKS */
 
 /**
  * @}

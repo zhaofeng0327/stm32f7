@@ -206,7 +206,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN UART4_MspInit 1 */
 
 		/* USER CODE END UART4_MspInit 1 */
-	} else if (uartHandle->Instance == UART5)      {
+	} else if (uartHandle->Instance == UART5) {
 		/* USER CODE BEGIN UART5_MspInit 0 */
 
 		/* USER CODE END UART5_MspInit 0 */
@@ -237,7 +237,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN UART5_MspInit 1 */
 
 		/* USER CODE END UART5_MspInit 1 */
-	} else if (uartHandle->Instance == UART7)      {
+	} else if (uartHandle->Instance == UART7) {
 		/* USER CODE BEGIN UART7_MspInit 0 */
 
 		/* USER CODE END UART7_MspInit 0 */
@@ -269,7 +269,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN UART7_MspInit 1 */
 
 		/* USER CODE END UART7_MspInit 1 */
-	} else if (uartHandle->Instance == UART8)      {
+	} else if (uartHandle->Instance == UART8) {
 		/* USER CODE BEGIN UART8_MspInit 0 */
 
 		/* USER CODE END UART8_MspInit 0 */
@@ -302,7 +302,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN UART8_MspInit 1 */
 
 		/* USER CODE END UART8_MspInit 1 */
-	} else if (uartHandle->Instance == USART1)      {
+	} else if (uartHandle->Instance == USART1) {
 		/* USER CODE BEGIN USART1_MspInit 0 */
 
 		/* USER CODE END USART1_MspInit 0 */
@@ -324,7 +324,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN USART1_MspInit 1 */
 
 		/* USER CODE END USART1_MspInit 1 */
-	} else if (uartHandle->Instance == USART2)      {
+	} else if (uartHandle->Instance == USART2) {
 		/* USER CODE BEGIN USART2_MspInit 0 */
 
 		/* USER CODE END USART2_MspInit 0 */
@@ -346,7 +346,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN USART2_MspInit 1 */
 
 		/* USER CODE END USART2_MspInit 1 */
-	} else if (uartHandle->Instance == USART3)      {
+	} else if (uartHandle->Instance == USART3) {
 		/* USER CODE BEGIN USART3_MspInit 0 */
 
 		/* USER CODE END USART3_MspInit 0 */
@@ -368,7 +368,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN USART3_MspInit 1 */
 
 		/* USER CODE END USART3_MspInit 1 */
-	} else if (uartHandle->Instance == USART6)      {
+	} else if (uartHandle->Instance == USART6) {
 		/* USER CODE BEGIN USART6_MspInit 0 */
 
 		/* USER CODE END USART6_MspInit 0 */
@@ -391,7 +391,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *uartHandle)
 
 		/* USER CODE END USART6_MspInit 1 */
 	}
-} /* HAL_UART_MspInit */
+}	/* HAL_UART_MspInit */
 
 void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle)
 {
@@ -412,7 +412,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN UART4_MspDeInit 1 */
 
 		/* USER CODE END UART4_MspDeInit 1 */
-	} else if (uartHandle->Instance == UART5)      {
+	} else if (uartHandle->Instance == UART5) {
 		/* USER CODE BEGIN UART5_MspDeInit 0 */
 
 		/* USER CODE END UART5_MspDeInit 0 */
@@ -432,7 +432,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN UART5_MspDeInit 1 */
 
 		/* USER CODE END UART5_MspDeInit 1 */
-	} else if (uartHandle->Instance == UART7)      {
+	} else if (uartHandle->Instance == UART7) {
 		/* USER CODE BEGIN UART7_MspDeInit 0 */
 
 		/* USER CODE END UART7_MspDeInit 0 */
@@ -452,7 +452,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN UART7_MspDeInit 1 */
 
 		/* USER CODE END UART7_MspDeInit 1 */
-	} else if (uartHandle->Instance == UART8)      {
+	} else if (uartHandle->Instance == UART8) {
 		/* USER CODE BEGIN UART8_MspDeInit 0 */
 
 		/* USER CODE END UART8_MspDeInit 0 */
@@ -474,7 +474,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN UART8_MspDeInit 1 */
 
 		/* USER CODE END UART8_MspDeInit 1 */
-	} else if (uartHandle->Instance == USART1)      {
+	} else if (uartHandle->Instance == USART1) {
 		/* USER CODE BEGIN USART1_MspDeInit 0 */
 
 		/* USER CODE END USART1_MspDeInit 0 */
@@ -491,7 +491,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN USART1_MspDeInit 1 */
 
 		/* USER CODE END USART1_MspDeInit 1 */
-	} else if (uartHandle->Instance == USART2)      {
+	} else if (uartHandle->Instance == USART2) {
 		/* USER CODE BEGIN USART2_MspDeInit 0 */
 
 		/* USER CODE END USART2_MspDeInit 0 */
@@ -508,7 +508,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN USART2_MspDeInit 1 */
 
 		/* USER CODE END USART2_MspDeInit 1 */
-	} else if (uartHandle->Instance == USART3)      {
+	} else if (uartHandle->Instance == USART3) {
 		/* USER CODE BEGIN USART3_MspDeInit 0 */
 
 		/* USER CODE END USART3_MspDeInit 0 */
@@ -525,7 +525,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle)
 		/* USER CODE BEGIN USART3_MspDeInit 1 */
 
 		/* USER CODE END USART3_MspDeInit 1 */
-	} else if (uartHandle->Instance == USART6)      {
+	} else if (uartHandle->Instance == USART6) {
 		/* USER CODE BEGIN USART6_MspDeInit 0 */
 
 		/* USER CODE END USART6_MspDeInit 0 */
@@ -543,7 +543,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle)
 
 		/* USER CODE END USART6_MspDeInit 1 */
 	}
-} /* HAL_UART_MspDeInit */
+}	/* HAL_UART_MspDeInit */
 
 /* USER CODE BEGIN 1 */
 

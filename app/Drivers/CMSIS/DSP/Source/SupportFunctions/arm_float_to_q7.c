@@ -85,7 +85,7 @@ void arm_float_to_q7(
 	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
 	** a second loop below computes the remaining 1 to 3 samples. */
 	while (blkCnt > 0U) {
-		# ifdef ARM_MATH_ROUNDING
+		#ifdef ARM_MATH_ROUNDING
 		/* C = A * 128 */
 		/* convert from float to q7 and then store the results in the destination buffer */
 		in      = *pIn++;
@@ -108,7 +108,7 @@ void arm_float_to_q7(
 		in     += in > 0.0f ? 0.5f : -0.5f;
 		*pDst++ = (q7_t) (__SSAT((q15_t) (in), 8));
 
-		# else  /* ifdef ARM_MATH_ROUNDING */
+		#else	/* ifdef ARM_MATH_ROUNDING */
 
 		/* C = A * 128 */
 		/* convert from float to q7 and then store the results in the destination buffer */
@@ -117,7 +117,7 @@ void arm_float_to_q7(
 		*pDst++ = __SSAT((q31_t) (*pIn++ *128.0f), 8);
 		*pDst++ = __SSAT((q31_t) (*pIn++ *128.0f), 8);
 
-		# endif	/*      #ifdef ARM_MATH_ROUNDING        */
+		#endif	/*      #ifdef ARM_MATH_ROUNDING        */
 
 		/* Decrement the loop counter */
 		blkCnt--;
@@ -128,7 +128,7 @@ void arm_float_to_q7(
 	blkCnt = blockSize % 0x4U;
 
 	while (blkCnt > 0U) {
-		# ifdef ARM_MATH_ROUNDING
+		#ifdef ARM_MATH_ROUNDING
 		/* C = A * 128 */
 		/* convert from float to q7 and then store the results in the destination buffer */
 		in      = *pIn++;
@@ -136,20 +136,20 @@ void arm_float_to_q7(
 		in     += in > 0.0f ? 0.5f : -0.5f;
 		*pDst++ = (q7_t) (__SSAT((q15_t) (in), 8));
 
-		# else
+		#else
 
 		/* C = A * 128 */
 		/* convert from float to q7 and then store the results in the destination buffer */
 		*pDst++ = __SSAT((q31_t) (*pIn++ *128.0f), 8);
 
-		# endif	/*      #ifdef ARM_MATH_ROUNDING        */
+		#endif	/*      #ifdef ARM_MATH_ROUNDING        */
 
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
 
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -158,7 +158,7 @@ void arm_float_to_q7(
 	blkCnt = blockSize;
 
 	while (blkCnt > 0U) {
-		# ifdef ARM_MATH_ROUNDING
+		#ifdef ARM_MATH_ROUNDING
 		/* C = A * 128 */
 		/* convert from float to q7 and then store the results in the destination buffer */
 		in      = *pIn++;
@@ -166,20 +166,20 @@ void arm_float_to_q7(
 		in     += in > 0 ? 0.5f : -0.5f;
 		*pDst++ = (q7_t) (__SSAT((q31_t) (in), 8));
 
-		# else
+		#else
 
 		/* C = A * 128 */
 		/* convert from float to q7 and then store the results in the destination buffer */
 		*pDst++ = (q7_t) __SSAT((q31_t) (*pIn++ *128.0f), 8);
 
-		# endif	/*      #ifdef ARM_MATH_ROUNDING        */
+		#endif	/*      #ifdef ARM_MATH_ROUNDING        */
 
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_float_to_q7 */
+}	/* arm_float_to_q7 */
 
 /**
  * @} end of float_to_x group

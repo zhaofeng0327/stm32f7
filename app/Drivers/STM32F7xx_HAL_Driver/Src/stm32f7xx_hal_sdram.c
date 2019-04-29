@@ -167,7 +167,7 @@ HAL_StatusTypeDef HAL_SDRAM_Init(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_TimingTy
 	if (hsdram->State == HAL_SDRAM_STATE_RESET) {
 		/* Allocate lock resource and initialize it */
 		hsdram->Lock = HAL_UNLOCKED;
-		# if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
 		if (hsdram->MspInitCallback == NULL) {
 			hsdram->MspInitCallback = HAL_SDRAM_MspInit;
 		}
@@ -177,10 +177,10 @@ HAL_StatusTypeDef HAL_SDRAM_Init(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_TimingTy
 
 		/* Init the low level hardware */
 		hsdram->MspInitCallback(hsdram);
-		# else
+		#else
 		/* Initialize the low level hardware (MSP) */
 		HAL_SDRAM_MspInit(hsdram);
-		# endif	/* if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1) */
+		#endif	/* if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1) */
 	}
 
 	/* Initialize the SDRAM controller state */
@@ -196,7 +196,7 @@ HAL_StatusTypeDef HAL_SDRAM_Init(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_TimingTy
 	hsdram->State = HAL_SDRAM_STATE_READY;
 
 	return HAL_OK;
-} /* HAL_SDRAM_Init */
+}	/* HAL_SDRAM_Init */
 
 /**
  * @brief  Perform the SDRAM device initialization sequence.
@@ -206,17 +206,17 @@ HAL_StatusTypeDef HAL_SDRAM_Init(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_TimingTy
  */
 HAL_StatusTypeDef HAL_SDRAM_DeInit(SDRAM_HandleTypeDef *hsdram)
 {
-	# if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
 	if (hsdram->MspDeInitCallback == NULL) {
 		hsdram->MspDeInitCallback = HAL_SDRAM_MspDeInit;
 	}
 
 	/* DeInit the low level hardware */
 	hsdram->MspDeInitCallback(hsdram);
-	# else
+	#else
 	/* Initialize the low level hardware (MSP) */
 	HAL_SDRAM_MspDeInit(hsdram);
-	# endif
+	#endif
 
 	/* Configure the SDRAM registers with their reset values */
 	FMC_SDRAM_DeInit(hsdram->Instance, hsdram->Init.SDBank);
@@ -273,11 +273,11 @@ void HAL_SDRAM_IRQHandler(SDRAM_HandleTypeDef *hsdram)
 	/* Check SDRAM interrupt Rising edge flag */
 	if (__FMC_SDRAM_GET_FLAG(hsdram->Instance, FMC_SDRAM_FLAG_REFRESH_IT)) {
 		/* SDRAM refresh error interrupt callback */
-		# if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
 		hsdram->RefreshErrorCallback(hsdram);
-		# else
+		#else
 		HAL_SDRAM_RefreshErrorCallback(hsdram);
-		# endif
+		#endif
 
 		/* Clear SDRAM refresh error interrupt pending bit */
 		__FMC_SDRAM_CLEAR_FLAG(hsdram->Instance, FMC_SDRAM_FLAG_REFRESH_ERROR);
@@ -658,7 +658,7 @@ HAL_StatusTypeDef HAL_SDRAM_Write_DMA(SDRAM_HandleTypeDef *hsdram, uint32_t *pAd
 	return HAL_OK;
 }
 
-# if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User SDRAM Callback
@@ -723,7 +723,7 @@ HAL_StatusTypeDef HAL_SDRAM_RegisterCallback(SDRAM_HandleTypeDef *hsdram, HAL_SD
 	/* Release Lock */
 	__HAL_UNLOCK(hsdram);
 	return status;
-} /* HAL_SDRAM_RegisterCallback */
+}	/* HAL_SDRAM_RegisterCallback */
 
 /**
  * @brief  Unregister a User SDRAM Callback
@@ -790,7 +790,7 @@ HAL_StatusTypeDef HAL_SDRAM_UnRegisterCallback(SDRAM_HandleTypeDef *hsdram, HAL_
 	/* Release Lock */
 	__HAL_UNLOCK(hsdram);
 	return status;
-} /* HAL_SDRAM_UnRegisterCallback */
+}	/* HAL_SDRAM_UnRegisterCallback */
 
 /**
  * @brief  Register a User SDRAM Callback for DMA transfers
@@ -838,9 +838,9 @@ HAL_StatusTypeDef HAL_SDRAM_RegisterDmaCallback(SDRAM_HandleTypeDef *hsdram, HAL
 	/* Release Lock */
 	__HAL_UNLOCK(hsdram);
 	return status;
-} /* HAL_SDRAM_RegisterDmaCallback */
+}	/* HAL_SDRAM_RegisterDmaCallback */
 
-# endif	/* if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1) */
+#endif	/* if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1) */
 
 /**
  * @}

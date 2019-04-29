@@ -71,7 +71,7 @@ void ref_fir_decimate_f32(
 		/* Decrement the loop counter */
 		i--;
 	}
-} /* ref_fir_decimate_f32 */
+}	/* ref_fir_decimate_f32 */
 
 void ref_fir_decimate_q31(
 	const arm_fir_decimate_instance_q31 *S,
@@ -143,7 +143,7 @@ void ref_fir_decimate_q31(
 		/* Decrement the loop counter */
 		i--;
 	}
-} /* ref_fir_decimate_q31 */
+}	/* ref_fir_decimate_q31 */
 
 void ref_fir_decimate_fast_q31(
 	const arm_fir_decimate_instance_q31 *S,
@@ -215,7 +215,7 @@ void ref_fir_decimate_fast_q31(
 		/* Decrement the loop counter */
 		i--;
 	}
-} /* ref_fir_decimate_fast_q31 */
+}	/* ref_fir_decimate_fast_q31 */
 
 void ref_fir_decimate_q15(
 	const arm_fir_decimate_instance_q15 *S,
@@ -287,7 +287,7 @@ void ref_fir_decimate_q15(
 		/* Decrement the loop counter */
 		i--;
 	}
-} /* ref_fir_decimate_q15 */
+}	/* ref_fir_decimate_q15 */
 
 void ref_fir_decimate_fast_q15(
 	const arm_fir_decimate_instance_q15 *S,
@@ -359,4 +359,4 @@ void ref_fir_decimate_fast_q15(
 		/* Decrement the loop counter */
 		i--;
 	}
-} /* ref_fir_decimate_fast_q15 */
+}	/* ref_fir_decimate_fast_q15 */

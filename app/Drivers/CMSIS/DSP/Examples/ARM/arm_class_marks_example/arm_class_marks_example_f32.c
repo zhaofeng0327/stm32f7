@@ -164,14 +164,14 @@ int32_t main()
 	arm_mat_init_f32(&srcB, numSubjects, 1, (float32_t *) testUnity_f32);
 	arm_mat_init_f32(&dstC, numStudents, 1, testOutput);
 
-	#else  /* ifndef  USE_STATIC_INIT */
+	#else	/* ifndef  USE_STATIC_INIT */
 
 	/* Static Initializations of Input and output matrix sizes and array */
 	arm_matrix_instance_f32 srcA = { NUMSTUDENTS, NUMSUBJECTS, (float32_t *) testMarks_f32 };
 	arm_matrix_instance_f32 srcB = { NUMSUBJECTS, 1, (float32_t *) testUnity_f32 };
 	arm_matrix_instance_f32 dstC = { NUMSTUDENTS, 1, testOutput };
 
-	#endif /* ifndef  USE_STATIC_INIT */
+	#endif	/* ifndef  USE_STATIC_INIT */
 
 
 	/* ----------------------------------------------------------------------
@@ -205,4 +205,4 @@ int32_t main()
 	arm_var_f32(testOutput, numStudents, &var);
 
 	while (1);	/* main function does not return */
-} /* main */
+}	/* main */

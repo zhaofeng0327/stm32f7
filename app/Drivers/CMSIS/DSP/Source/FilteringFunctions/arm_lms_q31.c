@@ -249,7 +249,7 @@ void arm_lms_q31(
 		tapCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -340,7 +340,7 @@ void arm_lms_q31(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_lms_q31 */
+}	/* arm_lms_q31 */
 
 /**
  * @} end of LMS group

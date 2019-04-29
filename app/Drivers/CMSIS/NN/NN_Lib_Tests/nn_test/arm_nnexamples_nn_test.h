@@ -65,4 +65,4 @@ void verify_results_q15(q15_t *ref, q15_t *opt, int length)
 	}
 }
 
-#endif // ifndef _MAIN_H_
+#endif	// ifndef _MAIN_H_

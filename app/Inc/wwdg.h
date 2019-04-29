@@ -18,13 +18,13 @@
  */
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __wwdg_H
-# define __wwdg_H
-# ifdef __cplusplus
+#define __wwdg_H
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "main.h"
+#include "main.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -42,9 +42,9 @@ void MX_WWDG_Init(void);
 
 /* USER CODE END Prototypes */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 #endif	/*__ wwdg_H */
 
 /**

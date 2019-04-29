@@ -54,10 +54,10 @@ void arm_fir_lattice_q15(
 	q15_t                              *pDst,
 	uint32_t                           blockSize)
 {
-	q15_t *pState;				/* State pointer */
+	q15_t *pState;	/* State pointer */
 	q15_t *pCoeffs = S->pCoeffs;/* Coefficient pointer */
-	q15_t *px;					/* temporary state pointer */
-	q15_t *pk;					/* temporary coefficient pointer */
+	q15_t *px;	/* temporary state pointer */
+	q15_t *pk;	/* temporary coefficient pointer */
 
 
 	#if defined(ARM_MATH_DSP)
@@ -344,17 +344,17 @@ void arm_fir_lattice_q15(
 		/* The results in the 4 accumulators, store in the destination buffer. */
 		/* y(n) = fN(n) */
 
-		# ifndef  ARM_MATH_BIG_ENDIAN
+		#ifndef  ARM_MATH_BIG_ENDIAN
 
 		*__SIMD32(pDst)++ = __PKHBT(fcurnt1, fcurnt2, 16);
 		*__SIMD32(pDst)++ = __PKHBT(fcurnt3, fcurnt4, 16);
 
-		# else
+		#else
 
 		*__SIMD32(pDst)++ = __PKHBT(fcurnt2, fcurnt1, 16);
 		*__SIMD32(pDst)++ = __PKHBT(fcurnt4, fcurnt3, 16);
 
-		# endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
+		#endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 		blkCnt--;
 	}
@@ -390,7 +390,7 @@ void arm_fir_lattice_q15(
 		*px++ = (q15_t) fcurnt1;
 
 		/* f1(n) is saved in fcurnt1
-		*  for next stage processing */
+		 *  for next stage processing */
 		fcurnt1 = fnext1;
 
 		stageCnt = (numStages - 1U);
@@ -414,7 +414,7 @@ void arm_fir_lattice_q15(
 
 
 			/* f1(n) is saved in fcurnt1
-			*  for next stage processing */
+			 *  for next stage processing */
 			fcurnt1 = fnext1;
 
 			stageCnt--;
@@ -427,7 +427,7 @@ void arm_fir_lattice_q15(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -504,7 +504,7 @@ void arm_fir_lattice_q15(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_fir_lattice_q15 */
+}	/* arm_fir_lattice_q15 */
 
 /**
  * @} end of FIR_Lattice group

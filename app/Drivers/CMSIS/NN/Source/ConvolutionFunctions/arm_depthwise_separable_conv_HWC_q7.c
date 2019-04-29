@@ -146,9 +146,9 @@ arm_status arm_depthwise_separable_conv_HWC_q7(const q7_t *Im_in,
 				const q7_t *pA  = wt + row_shift;
 				row_shift += 4;
 
-				# ifdef USE_INTRINSIC
+				#ifdef USE_INTRINSIC
 
-				#  ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				while (colCnt) {
 					q31_t inA1, inA2, inB1, inB2, opA, opB;
@@ -179,7 +179,7 @@ arm_status arm_depthwise_separable_conv_HWC_q7(const q7_t *Im_in,
 					sum4 = __SMLAD(opA, opB, sum4);
 					colCnt--;
 				}
-				#  else	 /* ifndef ARM_MATH_BIG_ENDIAN */
+				#else	/* ifndef ARM_MATH_BIG_ENDIAN */
 
 				while (colCnt) {
 					q31_t inA1, inA2, inB1, inB2, opA, opB;
@@ -211,11 +211,11 @@ arm_status arm_depthwise_separable_conv_HWC_q7(const q7_t *Im_in,
 					colCnt--;
 				}
 
-				#  endif/* ARM_MATH_BIG_ENDIAN */
+				#endif	/* ARM_MATH_BIG_ENDIAN */
 
-				# else  /* ifdef USE_INTRINSIC */
+				#else	/* ifdef USE_INTRINSIC */
 
-				#  ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				/*
 				 *   r0    r1    r2    r3    r4   r5
@@ -258,7 +258,7 @@ arm_status arm_depthwise_separable_conv_HWC_q7(const q7_t *Im_in,
 				[sum4] "+r" (sum4), [pB] "+r" (pB),
 				[pA] "+r" (pA) :[colCnt]
 				"r" (colCnt), [ch_im_in] "r" (ch_im_in) : "r0", "r1", "r2", "r3", "r4", "r5");
-				#  else	 /* ifndef ARM_MATH_BIG_ENDIAN */
+				#else	/* ifndef ARM_MATH_BIG_ENDIAN */
 
 				/*
 				 *  r0    r1    r2    r3    r4   r5
@@ -301,9 +301,9 @@ arm_status arm_depthwise_separable_conv_HWC_q7(const q7_t *Im_in,
 				[pA] "+r" (pA) :[colCnt]
 				"r" (colCnt), [ch_im_in] "r" (ch_im_in) : "r0", "r1", "r2", "r3", "r4", "r5");
 
-				#  endif/* ARM_MATH_BIG_ENDIAN */
+				#endif	/* ARM_MATH_BIG_ENDIAN */
 
-				# endif	/* USE_INTRINSIC */
+				#endif	/* USE_INTRINSIC */
 
 				colCnt = (dim_kernel * dim_kernel) & 0x1;
 				while (colCnt) {
@@ -354,7 +354,7 @@ arm_status arm_depthwise_separable_conv_HWC_q7(const q7_t *Im_in,
 		}
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
 	int i_out_y, i_out_x, i_ch_out, i_ker_x, i_ker_y;
 	int conv_out;
@@ -393,7 +393,7 @@ arm_status arm_depthwise_separable_conv_HWC_q7(const q7_t *Im_in,
 
 	/* Return to application */
 	return ARM_MATH_SUCCESS;
-} /* arm_depthwise_separable_conv_HWC_q7 */
+}	/* arm_depthwise_separable_conv_HWC_q7 */
 
 /**
  * @} end of NNConv group

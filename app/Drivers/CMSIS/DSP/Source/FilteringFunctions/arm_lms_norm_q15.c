@@ -87,8 +87,8 @@ void arm_lms_norm_q15(
 	q15_t x0;						/* temporary variable to hold input sample */
 	// uint32_t shift = (uint32_t) S->postShift + 1U; /* Shift to be applied to the output */
 	q15_t errorXmu, oneByEnergy;/* Temporary variables to store error and mu product and reciprocal of energy */
-	q15_t postShift;			/* Post shift to be applied to weight after reciprocal calculation */
-	q31_t coef;					/* Teporary variable for coefficient */
+	q15_t postShift;/* Post shift to be applied to weight after reciprocal calculation */
+	q31_t coef;		/* Teporary variable for coefficient */
 	q31_t acc_l, acc_h;
 	int32_t lShift = (15 - (int32_t) S->postShift);	/*  Post shift  */
 	int32_t uShift = (32 - lShift);
@@ -133,19 +133,19 @@ void arm_lms_norm_q15(
 
 		while (tapCnt > 0U) {
 			/* Perform the multiply-accumulate */
-			# ifndef UNALIGNED_SUPPORT_DISABLE
+			#ifndef UNALIGNED_SUPPORT_DISABLE
 
 			acc = __SMLALD(*__SIMD32(px)++, (*__SIMD32(pb)++), acc);
 			acc = __SMLALD(*__SIMD32(px)++, (*__SIMD32(pb)++), acc);
 
-			# else
+			#else
 
 			acc += (((q31_t) *px++ *(*pb++)));
 			acc += (((q31_t) *px++ *(*pb++)));
 			acc += (((q31_t) *px++ *(*pb++)));
 			acc += (((q31_t) *px++ *(*pb++)));
 
-			# endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
+			#endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
 
 			/* Decrement the loop counter */
 			tapCnt--;
@@ -256,19 +256,19 @@ void arm_lms_norm_q15(
 	tapCnt = (numTaps - 1U) >> 2;
 
 	while (tapCnt > 0U) {
-		# ifndef UNALIGNED_SUPPORT_DISABLE
+		#ifndef UNALIGNED_SUPPORT_DISABLE
 
 		*__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
 		*__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
 
-		# else
+		#else
 
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
 
-		# endif
+		#endif
 
 		tapCnt--;
 	}
@@ -284,7 +284,7 @@ void arm_lms_norm_q15(
 		tapCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -406,7 +406,7 @@ void arm_lms_norm_q15(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_lms_norm_q15 */
+}	/* arm_lms_norm_q15 */
 
 /**
  * @} end of LMS_NORM group

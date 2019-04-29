@@ -86,21 +86,21 @@ void arm_cmplx_mult_real_q15(
 		inA2 = *__SIMD32(pSrcCmplx)++;
 
 		/* multiply complex number with real numbers */
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		mul1 = (q31_t) ((q15_t) (inA1) * (q15_t) (inB1));
 		mul2 = (q31_t) ((q15_t) (inA1 >> 16) * (q15_t) (inB1));
 		mul3 = (q31_t) ((q15_t) (inA2) * (q15_t) (inB1 >> 16));
 		mul4 = (q31_t) ((q15_t) (inA2 >> 16) * (q15_t) (inB1 >> 16));
 
-		# else
+		#else
 
 		mul2 = (q31_t) ((q15_t) (inA1 >> 16) * (q15_t) (inB1 >> 16));
 		mul1 = (q31_t) ((q15_t) inA1 * (q15_t) (inB1 >> 16));
 		mul4 = (q31_t) ((q15_t) (inA2 >> 16) * (q15_t) inB1);
 		mul3 = (q31_t) ((q15_t) inA2 * (q15_t) inB1);
 
-		# endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
+		#endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
 
 		/* saturate the result */
 		out1 = (q15_t) __SSAT(mul1 >> 15U, 16);
@@ -116,21 +116,21 @@ void arm_cmplx_mult_real_q15(
 		inB1 = *__SIMD32(pSrcReal)++;
 		inA2 = *__SIMD32(pSrcCmplx)++;
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		mul1 = (q31_t) ((q15_t) (inA1) * (q15_t) (inB1));
 		mul2 = (q31_t) ((q15_t) (inA1 >> 16) * (q15_t) (inB1));
 		mul3 = (q31_t) ((q15_t) (inA2) * (q15_t) (inB1 >> 16));
 		mul4 = (q31_t) ((q15_t) (inA2 >> 16) * (q15_t) (inB1 >> 16));
 
-		# else
+		#else
 
 		mul2 = (q31_t) ((q15_t) (inA1 >> 16) * (q15_t) (inB1 >> 16));
 		mul1 = (q31_t) ((q15_t) inA1 * (q15_t) (inB1 >> 16));
 		mul4 = (q31_t) ((q15_t) (inA2 >> 16) * (q15_t) inB1);
 		mul3 = (q31_t) ((q15_t) inA2 * (q15_t) inB1);
 
-		# endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
+		#endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
 
 		out1 = (q15_t) __SSAT(mul1 >> 15U, 16);
 		out2 = (q15_t) __SSAT(mul2 >> 15U, 16);
@@ -162,7 +162,7 @@ void arm_cmplx_mult_real_q15(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -181,7 +181,7 @@ void arm_cmplx_mult_real_q15(
 	}
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_cmplx_mult_real_q15 */
+}	/* arm_cmplx_mult_real_q15 */
 
 /**
  * @} end of CmplxByRealMult group

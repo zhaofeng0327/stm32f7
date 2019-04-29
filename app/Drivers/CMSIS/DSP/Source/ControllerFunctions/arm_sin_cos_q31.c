@@ -55,7 +55,7 @@ void arm_sin_cos_q31(
 	q31_t *pSinVal,
 	q31_t *pCosVal)
 {
-	q31_t fract;			/* Temporary variables for input, output */
+	q31_t fract;/* Temporary variables for input, output */
 	uint16_t indexS, indexC;/* Index variable */
 	q31_t f1, f2, d1, d2;	/* Two nearest output values */
 	q31_t Dn, Df;
@@ -104,7 +104,7 @@ void arm_sin_cos_q31(
 
 	/* Calculation of sine value */
 	*pSinVal = clip_q63_to_q31((temp >> 31) + (q63_t) f1);
-} /* arm_sin_cos_q31 */
+}	/* arm_sin_cos_q31 */
 
 /**
  * @} end of SinCos group

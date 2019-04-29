@@ -21,11 +21,11 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_IT_H
-# define __STM32F7xx_IT_H
+#define __STM32F7xx_IT_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -73,9 +73,9 @@ void UART8_IRQHandler(void);
 
 /* USER CODE END EFP */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_IT_H */
 

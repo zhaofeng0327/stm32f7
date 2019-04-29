@@ -126,7 +126,7 @@ void arm_scale_q31(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
 		** a second loop below computes the remaining 1 to 3 samples. */
 		while (blkCnt > 0U) {
@@ -169,7 +169,7 @@ void arm_scale_q31(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -195,7 +195,7 @@ void arm_scale_q31(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		while (blkCnt > 0U) {
 			/* C = A * scale */
 			/* Scale the input and then store the result in the destination buffer. */
@@ -210,7 +210,7 @@ void arm_scale_q31(
 			blkCnt--;
 		}
 	}
-} /* arm_scale_q31 */
+}	/* arm_scale_q31 */
 
 /**
  * @} end of scale group

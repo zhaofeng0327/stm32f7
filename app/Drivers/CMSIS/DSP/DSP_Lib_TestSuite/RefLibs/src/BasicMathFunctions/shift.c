@@ -12,7 +12,7 @@ void ref_shift_q31(
 		for (i = 0; i < blockSize; i++) {
 			pDst[i] = pSrc[i] << shiftBits;
 		}
-	} else   {
+	} else {
 		for (i = 0; i < blockSize; i++) {
 			pDst[i] = pSrc[i] >> -shiftBits;
 		}
@@ -31,7 +31,7 @@ void ref_shift_q15(
 		for (i = 0; i < blockSize; i++) {
 			pDst[i] = pSrc[i] << shiftBits;
 		}
-	} else   {
+	} else {
 		for (i = 0; i < blockSize; i++) {
 			pDst[i] = pSrc[i] >> -shiftBits;
 		}
@@ -50,7 +50,7 @@ void ref_shift_q7(
 		for (i = 0; i < blockSize; i++) {
 			pDst[i] = pSrc[i] << shiftBits;
 		}
-	} else   {
+	} else {
 		for (i = 0; i < blockSize; i++) {
 			pDst[i] = pSrc[i] >> -shiftBits;
 		}

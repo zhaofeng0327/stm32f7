@@ -25,15 +25,15 @@
  */
 
 #if defined(ARMCM23)
-# include "ARMCM23.h"
+#include "ARMCM23.h"
 #elif defined(ARMCM23_TZ)
-# include "ARMCM23_TZ.h"
+#include "ARMCM23_TZ.h"
 
-# if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-#  include "partition_ARMCM23.h"
-# endif
+#if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+#include "partition_ARMCM23.h"
+#endif
 #else
-# error device not specified!
+#error device not specified!
 #endif
 
 /*----------------------------------------------------------------------------

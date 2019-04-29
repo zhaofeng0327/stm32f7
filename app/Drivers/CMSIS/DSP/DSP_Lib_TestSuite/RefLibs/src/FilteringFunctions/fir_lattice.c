@@ -72,7 +72,7 @@ void ref_fir_lattice_f32(
 
 		blkCnt--;
 	}
-} /* ref_fir_lattice_f32 */
+}	/* ref_fir_lattice_f32 */
 
 void ref_fir_lattice_q31(
 	const arm_fir_lattice_instance_q31 *S,
@@ -145,7 +145,7 @@ void ref_fir_lattice_q31(
 
 		blkCnt--;
 	}
-} /* ref_fir_lattice_q31 */
+}	/* ref_fir_lattice_q31 */
 
 void ref_fir_lattice_q15(
 	const arm_fir_lattice_instance_q15 *S,
@@ -228,4 +228,4 @@ void ref_fir_lattice_q15(
 
 		blkCnt--;
 	}
-} /* ref_fir_lattice_q15 */
+}	/* ref_fir_lattice_q15 */

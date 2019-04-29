@@ -133,13 +133,13 @@ void arm_fir_decimate_f32(
 	float32_t                           *pDst,
 	uint32_t                            blockSize)
 {
-	float32_t *pState  = S->pState;								/* State pointer */
-	float32_t *pCoeffs = S->pCoeffs;							/* Coefficient pointer */
-	float32_t *pStateCurnt;										/* Points to the current sample of the state */
-	float32_t *px, *pb;											/* Temporary pointers for state and coefficient buffers */
-	float32_t sum0;												/* Accumulator */
-	float32_t x0, c0;											/* Temporary variables to hold state and coefficient values */
-	uint32_t numTaps = S->numTaps;								/* Number of filter coefficients in the filter */
+	float32_t *pState  = S->pState;	/* State pointer */
+	float32_t *pCoeffs = S->pCoeffs;/* Coefficient pointer */
+	float32_t *pStateCurnt;			/* Points to the current sample of the state */
+	float32_t *px, *pb;				/* Temporary pointers for state and coefficient buffers */
+	float32_t sum0;					/* Accumulator */
+	float32_t x0, c0;				/* Temporary variables to hold state and coefficient values */
+	uint32_t numTaps = S->numTaps;	/* Number of filter coefficients in the filter */
 	uint32_t i, tapCnt, blkCnt, outBlockSize = blockSize / S->M;/* Loop counters */
 
 	#if defined(ARM_MATH_DSP)
@@ -414,7 +414,7 @@ void arm_fir_decimate_f32(
 		i--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -488,7 +488,7 @@ void arm_fir_decimate_f32(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP)        */
-} /* arm_fir_decimate_f32 */
+}	/* arm_fir_decimate_f32 */
 
 /**
  * @} end of FIR_decimate group

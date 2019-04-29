@@ -223,11 +223,11 @@
  * @{
  */
 
-# ifdef HAL_CAN_MODULE_ENABLED
+#ifdef HAL_CAN_MODULE_ENABLED
 
-#  ifdef HAL_CAN_LEGACY_MODULE_ENABLED
-#   error "The CAN driver cannot be used with its legacy, Please enable only one CAN module at once"
-#  endif
+#ifdef HAL_CAN_LEGACY_MODULE_ENABLED
+#error "The CAN driver cannot be used with its legacy, Please enable only one CAN module at once"
+#endif
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -235,7 +235,7 @@
 /** @defgroup CAN_Private_Constants CAN Private Constants
  * @{
  */
-#  define CAN_TIMEOUT_VALUE    10U
+#define CAN_TIMEOUT_VALUE    10U
 
 /**
  * @}
@@ -296,7 +296,7 @@ HAL_StatusTypeDef HAL_CAN_Init(CAN_HandleTypeDef *hcan)
 	assert_param(IS_CAN_BS2(hcan->Init.TimeSeg2));
 	assert_param(IS_CAN_PRESCALER(hcan->Init.Prescaler));
 
-	#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+	#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 	if (hcan->State == HAL_CAN_STATE_RESET) {
 		/* Reset callbacks to legacy functions */
 		hcan->RxFifo0MsgPendingCallback  = HAL_CAN_RxFifo0MsgPendingCallback;	/* Legacy weak RxFifo0MsgPendingCallback  */
@@ -321,12 +321,12 @@ HAL_StatusTypeDef HAL_CAN_Init(CAN_HandleTypeDef *hcan)
 		hcan->MspInitCallback(hcan);
 	}
 
-	#  else	 /* if USE_HAL_CAN_REGISTER_CALLBACKS == 1 */
+	#else	/* if USE_HAL_CAN_REGISTER_CALLBACKS == 1 */
 	if (hcan->State == HAL_CAN_STATE_RESET) {
 		/* Init the low level hardware: CLOCK, NVIC */
 		HAL_CAN_MspInit(hcan);
 	}
-	#  endif/* (USE_HAL_CAN_REGISTER_CALLBACKS) */
+	#endif	/* (USE_HAL_CAN_REGISTER_CALLBACKS) */
 
 	/* Exit from sleep mode */
 	CLEAR_BIT(hcan->Instance->MCR, CAN_MCR_SLEEP);
@@ -423,7 +423,7 @@ HAL_StatusTypeDef HAL_CAN_Init(CAN_HandleTypeDef *hcan)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_CAN_Init */
+}	/* HAL_CAN_Init */
 
 /**
  * @brief  Deinitializes the CAN peripheral registers to their default
@@ -445,7 +445,7 @@ HAL_StatusTypeDef HAL_CAN_DeInit(CAN_HandleTypeDef *hcan)
 	/* Stop the CAN module */
 	(void) HAL_CAN_Stop(hcan);
 
-	#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+	#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 	if (hcan->MspDeInitCallback == NULL) {
 		hcan->MspDeInitCallback = HAL_CAN_MspDeInit;/* Legacy weak MspDeInit */
 	}
@@ -453,10 +453,10 @@ HAL_StatusTypeDef HAL_CAN_DeInit(CAN_HandleTypeDef *hcan)
 	/* DeInit the low level hardware: CLOCK, NVIC */
 	hcan->MspDeInitCallback(hcan);
 
-	#  else
+	#else
 	/* DeInit the low level hardware: CLOCK, NVIC */
 	HAL_CAN_MspDeInit(hcan);
-	#  endif/* (USE_HAL_CAN_REGISTER_CALLBACKS) */
+	#endif	/* (USE_HAL_CAN_REGISTER_CALLBACKS) */
 
 	/* Reset the CAN peripheral */
 	SET_BIT(hcan->Instance->MCR, CAN_MCR_RESET);
@@ -469,7 +469,7 @@ HAL_StatusTypeDef HAL_CAN_DeInit(CAN_HandleTypeDef *hcan)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_CAN_DeInit */
+}	/* HAL_CAN_DeInit */
 
 /**
  * @brief  Initializes the CAN MSP.
@@ -503,7 +503,7 @@ __weak void HAL_CAN_MspDeInit(CAN_HandleTypeDef *hcan)
 	 */
 }
 
-#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 
 /**
  * @brief  Register a CAN CallBack.
@@ -639,7 +639,7 @@ HAL_StatusTypeDef HAL_CAN_RegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_Call
 	}
 
 	return status;
-} /* HAL_CAN_RegisterCallback */
+}	/* HAL_CAN_RegisterCallback */
 
 /**
  * @brief  Unregister a CAN CallBack.
@@ -766,9 +766,9 @@ HAL_StatusTypeDef HAL_CAN_UnRegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_Ca
 	}
 
 	return status;
-} /* HAL_CAN_UnRegisterCallback */
+}	/* HAL_CAN_UnRegisterCallback */
 
-#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -816,7 +816,7 @@ HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, CAN_FilterTypeDe
 		assert_param(IS_CAN_FILTER_FIFO(sFilterConfig->FilterFIFOAssignment));
 		assert_param(IS_CAN_FILTER_ACTIVATION(sFilterConfig->FilterActivation));
 
-		#  if defined(CAN3)
+		#if defined(CAN3)
 		/* Check the CAN instance */
 		if (hcan->Instance == CAN3) {
 			/* CAN3 is single instance with 14 dedicated filters banks */
@@ -832,7 +832,7 @@ HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, CAN_FilterTypeDe
 			assert_param(IS_CAN_FILTER_BANK_DUAL(sFilterConfig->FilterBank));
 			assert_param(IS_CAN_FILTER_BANK_DUAL(sFilterConfig->SlaveStartFilterBank));
 		}
-		#  elif defined(CAN2)
+		#elif defined(CAN2)
 		/* CAN1 and CAN2 are dual instances with 28 common filters banks */
 		/* Select master instance to access the filter banks */
 		can_ip = CAN1;
@@ -840,17 +840,17 @@ HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, CAN_FilterTypeDe
 		/* Check the parameters */
 		assert_param(IS_CAN_FILTER_BANK_DUAL(sFilterConfig->FilterBank));
 		assert_param(IS_CAN_FILTER_BANK_DUAL(sFilterConfig->SlaveStartFilterBank));
-		#  else	 /* if defined(CAN3) */
+		#else	/* if defined(CAN3) */
 		/* CAN1 is single instance with 14 dedicated filters banks */
 
 		/* Check the parameters */
 		assert_param(IS_CAN_FILTER_BANK_SINGLE(sFilterConfig->FilterBank));
-		#  endif /* if defined(CAN3) */
+		#endif	/* if defined(CAN3) */
 
 		/* Initialisation mode for the filter */
 		SET_BIT(can_ip->FMR, CAN_FMR_FINIT);
 
-		#  if defined(CAN3)
+		#if defined(CAN3)
 		/* Check the CAN instance */
 		if (can_ip == CAN1) {
 			/* Select the start filter number of CAN2 slave instance */
@@ -858,12 +858,12 @@ HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, CAN_FilterTypeDe
 			SET_BIT(can_ip->FMR, sFilterConfig->SlaveStartFilterBank << CAN_FMR_CAN2SB_Pos);
 		}
 
-		#  elif defined(CAN2)
+		#elif defined(CAN2)
 		/* Select the start filter number of CAN2 slave instance */
 		CLEAR_BIT(can_ip->FMR, CAN_FMR_CAN2SB);
 		SET_BIT(can_ip->FMR, sFilterConfig->SlaveStartFilterBank << CAN_FMR_CAN2SB_Pos);
 
-		#  endif /* if defined(CAN3) */
+		#endif	/* if defined(CAN3) */
 		/* Convert filter number into bit position */
 		filternbrbitpos = (uint32_t) 1 << (sFilterConfig->FilterBank & 0x1FU);
 
@@ -937,7 +937,7 @@ HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, CAN_FilterTypeDe
 
 		return HAL_ERROR;
 	}
-} /* HAL_CAN_ConfigFilter */
+}	/* HAL_CAN_ConfigFilter */
 
 /**
  * @}
@@ -1015,7 +1015,7 @@ HAL_StatusTypeDef HAL_CAN_Start(CAN_HandleTypeDef *hcan)
 
 		return HAL_ERROR;
 	}
-} /* HAL_CAN_Start */
+}	/* HAL_CAN_Start */
 
 /**
  * @brief  Stop the CAN module and enable access to configuration registers.
@@ -1062,7 +1062,7 @@ HAL_StatusTypeDef HAL_CAN_Stop(CAN_HandleTypeDef *hcan)
 
 		return HAL_ERROR;
 	}
-} /* HAL_CAN_Stop */
+}	/* HAL_CAN_Stop */
 
 /**
  * @brief  Request the sleep mode (low power) entry.
@@ -1136,7 +1136,7 @@ HAL_StatusTypeDef HAL_CAN_WakeUp(CAN_HandleTypeDef *hcan)
 
 		return HAL_ERROR;
 	}
-} /* HAL_CAN_WakeUp */
+}	/* HAL_CAN_WakeUp */
 
 /**
  * @brief  Check is sleep mode is active.
@@ -1263,7 +1263,7 @@ HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, CAN_TxHeaderType
 
 		return HAL_ERROR;
 	}
-} /* HAL_CAN_AddTxMessage */
+}	/* HAL_CAN_AddTxMessage */
 
 /**
  * @brief  Abort transmission requests
@@ -1309,7 +1309,7 @@ HAL_StatusTypeDef HAL_CAN_AbortTxRequest(CAN_HandleTypeDef *hcan, uint32_t TxMai
 
 		return HAL_ERROR;
 	}
-} /* HAL_CAN_AbortTxRequest */
+}	/* HAL_CAN_AbortTxRequest */
 
 /**
  * @brief  Return Tx Mailboxes free level: number of free Tx Mailboxes.
@@ -1491,7 +1491,7 @@ HAL_StatusTypeDef HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32_t RxFifo,
 
 		return HAL_ERROR;
 	}
-} /* HAL_CAN_GetRxMessage */
+}	/* HAL_CAN_GetRxMessage */
 
 /**
  * @brief  Return Rx FIFO fill level.
@@ -1630,13 +1630,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 
 			if ((tsrflags & CAN_TSR_TXOK0) != 0U) {
 				/* Transmission Mailbox 0 complete callback */
-				#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+				#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 				/* Call registered callback*/
 				hcan->TxMailbox0CompleteCallback(hcan);
-				#  else
+				#else
 				/* Call weak (surcharged) callback */
 				HAL_CAN_TxMailbox0CompleteCallback(hcan);
-				#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 			} else {
 				if ((tsrflags & CAN_TSR_ALST0) != 0U) {
 					/* Update error code */
@@ -1646,13 +1646,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 					errorcode |= HAL_CAN_ERROR_TX_TERR0;
 				} else {
 					/* Transmission Mailbox 0 abort callback */
-					#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+					#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 					/* Call registered callback*/
 					hcan->TxMailbox0AbortCallback(hcan);
-					#  else
+					#else
 					/* Call weak (surcharged) callback */
 					HAL_CAN_TxMailbox0AbortCallback(hcan);
-					#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+					#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 				}
 			}
 		}
@@ -1664,13 +1664,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 
 			if ((tsrflags & CAN_TSR_TXOK1) != 0U) {
 				/* Transmission Mailbox 1 complete callback */
-				#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+				#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 				/* Call registered callback*/
 				hcan->TxMailbox1CompleteCallback(hcan);
-				#  else
+				#else
 				/* Call weak (surcharged) callback */
 				HAL_CAN_TxMailbox1CompleteCallback(hcan);
-				#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 			} else {
 				if ((tsrflags & CAN_TSR_ALST1) != 0U) {
 					/* Update error code */
@@ -1680,13 +1680,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 					errorcode |= HAL_CAN_ERROR_TX_TERR1;
 				} else {
 					/* Transmission Mailbox 1 abort callback */
-					#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+					#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 					/* Call registered callback*/
 					hcan->TxMailbox1AbortCallback(hcan);
-					#  else
+					#else
 					/* Call weak (surcharged) callback */
 					HAL_CAN_TxMailbox1AbortCallback(hcan);
-					#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+					#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 				}
 			}
 		}
@@ -1698,13 +1698,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 
 			if ((tsrflags & CAN_TSR_TXOK2) != 0U) {
 				/* Transmission Mailbox 2 complete callback */
-				#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+				#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 				/* Call registered callback*/
 				hcan->TxMailbox2CompleteCallback(hcan);
-				#  else
+				#else
 				/* Call weak (surcharged) callback */
 				HAL_CAN_TxMailbox2CompleteCallback(hcan);
-				#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 			} else {
 				if ((tsrflags & CAN_TSR_ALST2) != 0U) {
 					/* Update error code */
@@ -1714,13 +1714,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 					errorcode |= HAL_CAN_ERROR_TX_TERR2;
 				} else {
 					/* Transmission Mailbox 2 abort callback */
-					#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+					#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 					/* Call registered callback*/
 					hcan->TxMailbox2AbortCallback(hcan);
-					#  else
+					#else
 					/* Call weak (surcharged) callback */
 					HAL_CAN_TxMailbox2AbortCallback(hcan);
-					#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+					#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 				}
 			}
 		}
@@ -1744,13 +1744,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 			__HAL_CAN_CLEAR_FLAG(hcan, CAN_FLAG_FF0);
 
 			/* Receive FIFO 0 full Callback */
-			#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+			#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 			/* Call registered callback*/
 			hcan->RxFifo0FullCallback(hcan);
-			#  else
+			#else
 			/* Call weak (surcharged) callback */
 			HAL_CAN_RxFifo0FullCallback(hcan);
-			#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1759,13 +1759,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 		/* Check if message is still pending */
 		if ((hcan->Instance->RF0R & CAN_RF0R_FMP0) != 0U) {
 			/* Receive FIFO 0 mesage pending Callback */
-			#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+			#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 			/* Call registered callback*/
 			hcan->RxFifo0MsgPendingCallback(hcan);
-			#  else
+			#else
 			/* Call weak (surcharged) callback */
 			HAL_CAN_RxFifo0MsgPendingCallback(hcan);
-			#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1787,13 +1787,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 			__HAL_CAN_CLEAR_FLAG(hcan, CAN_FLAG_FF1);
 
 			/* Receive FIFO 1 full Callback */
-			#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+			#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 			/* Call registered callback*/
 			hcan->RxFifo1FullCallback(hcan);
-			#  else
+			#else
 			/* Call weak (surcharged) callback */
 			HAL_CAN_RxFifo1FullCallback(hcan);
-			#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1802,13 +1802,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 		/* Check if message is still pending */
 		if ((hcan->Instance->RF1R & CAN_RF1R_FMP1) != 0U) {
 			/* Receive FIFO 1 mesage pending Callback */
-			#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+			#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 			/* Call registered callback*/
 			hcan->RxFifo1MsgPendingCallback(hcan);
-			#  else
+			#else
 			/* Call weak (surcharged) callback */
 			HAL_CAN_RxFifo1MsgPendingCallback(hcan);
-			#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1819,13 +1819,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 			__HAL_CAN_CLEAR_FLAG(hcan, CAN_FLAG_SLAKI);
 
 			/* Sleep Callback */
-			#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+			#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 			/* Call registered callback*/
 			hcan->SleepCallback(hcan);
-			#  else
+			#else
 			/* Call weak (surcharged) callback */
 			HAL_CAN_SleepCallback(hcan);
-			#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1836,13 +1836,13 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 			__HAL_CAN_CLEAR_FLAG(hcan, CAN_FLAG_WKU);
 
 			/* WakeUp Callback */
-			#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+			#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 			/* Call registered callback*/
 			hcan->WakeUpFromRxMsgCallback(hcan);
-			#  else
+			#else
 			/* Call weak (surcharged) callback */
 			HAL_CAN_WakeUpFromRxMsgCallback(hcan);
-			#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -1927,15 +1927,15 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
 		hcan->ErrorCode |= errorcode;
 
 		/* Call Error callback function */
-		#  if USE_HAL_CAN_REGISTER_CALLBACKS == 1
+		#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 		/* Call registered callback*/
 		hcan->ErrorCallback(hcan);
-		#  else
+		#else
 		/* Call weak (surcharged) callback */
 		HAL_CAN_ErrorCallback(hcan);
-		#  endif/* USE_HAL_CAN_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_CAN_REGISTER_CALLBACKS */
 	}
-} /* HAL_CAN_IRQHandler */
+}	/* HAL_CAN_IRQHandler */
 
 /**
  * @}
@@ -2286,7 +2286,7 @@ HAL_StatusTypeDef HAL_CAN_ResetError(CAN_HandleTypeDef *hcan)
  * @}
  */
 
-# endif	/* HAL_CAN_MODULE_ENABLED */
+#endif	/* HAL_CAN_MODULE_ENABLED */
 
 /**
  * @}

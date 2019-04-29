@@ -590,15 +590,15 @@ arm_status arm_conv_partial_f32(
 	/* Return to application */
 	return (status);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
 	float32_t *pIn1 = pSrcA;/* inputA pointer */
 	float32_t *pIn2 = pSrcB;/* inputB pointer */
-	float32_t sum;			/* Accumulator */
-	uint32_t i, j;			/* loop counters */
-	arm_status status;		/* status of Partial convolution */
+	float32_t sum;		/* Accumulator */
+	uint32_t i, j;		/* loop counters */
+	arm_status status;	/* status of Partial convolution */
 
 	/* Check for range of output samples to be calculated */
 	if ((firstIndex + numPoints) > ((srcALen + (srcBLen - 1U)))) {
@@ -627,7 +627,7 @@ arm_status arm_conv_partial_f32(
 	return (status);
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_conv_partial_f32 */
+}	/* arm_conv_partial_f32 */
 
 /**
  * @} end of PartialConv group

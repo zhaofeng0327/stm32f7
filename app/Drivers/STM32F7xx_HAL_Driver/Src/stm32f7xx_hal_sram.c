@@ -169,7 +169,7 @@ HAL_StatusTypeDef HAL_SRAM_Init(SRAM_HandleTypeDef *hsram, FMC_NORSRAM_TimingTyp
 		/* Allocate lock resource and initialize it */
 		hsram->Lock = HAL_UNLOCKED;
 
-		# if (USE_HAL_SRAM_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SRAM_REGISTER_CALLBACKS == 1)
 		if (hsram->MspInitCallback == NULL) {
 			hsram->MspInitCallback = HAL_SRAM_MspInit;
 		}
@@ -178,10 +178,10 @@ HAL_StatusTypeDef HAL_SRAM_Init(SRAM_HandleTypeDef *hsram, FMC_NORSRAM_TimingTyp
 
 		/* Init the low level hardware */
 		hsram->MspInitCallback(hsram);
-		# else
+		#else
 		/* Initialize the low level hardware (MSP) */
 		HAL_SRAM_MspInit(hsram);
-		# endif	/* if (USE_HAL_SRAM_REGISTER_CALLBACKS == 1) */
+		#endif	/* if (USE_HAL_SRAM_REGISTER_CALLBACKS == 1) */
 	}
 
 	/* Initialize SRAM control Interface */
@@ -197,7 +197,7 @@ HAL_StatusTypeDef HAL_SRAM_Init(SRAM_HandleTypeDef *hsram, FMC_NORSRAM_TimingTyp
 	__FMC_NORSRAM_ENABLE(hsram->Instance, hsram->Init.NSBank);
 
 	return HAL_OK;
-} /* HAL_SRAM_Init */
+}	/* HAL_SRAM_Init */
 
 /**
  * @brief  Performs the SRAM device De-initialization sequence.
@@ -207,17 +207,17 @@ HAL_StatusTypeDef HAL_SRAM_Init(SRAM_HandleTypeDef *hsram, FMC_NORSRAM_TimingTyp
  */
 HAL_StatusTypeDef HAL_SRAM_DeInit(SRAM_HandleTypeDef *hsram)
 {
-	# if (USE_HAL_SRAM_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SRAM_REGISTER_CALLBACKS == 1)
 	if (hsram->MspDeInitCallback == NULL) {
 		hsram->MspDeInitCallback = HAL_SRAM_MspDeInit;
 	}
 
 	/* DeInit the low level hardware */
 	hsram->MspDeInitCallback(hsram);
-	# else
+	#else
 	/* De-Initialize the low level hardware (MSP) */
 	HAL_SRAM_MspDeInit(hsram);
-	# endif
+	#endif
 
 	/* Configure the SRAM registers with their reset values */
 	FMC_NORSRAM_DeInit(hsram->Instance, hsram->Extended, hsram->Init.NSBank);
@@ -612,7 +612,7 @@ HAL_StatusTypeDef HAL_SRAM_Write_DMA(SRAM_HandleTypeDef *hsram, uint32_t *pAddre
 	return HAL_OK;
 }
 
-# if (USE_HAL_SRAM_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_SRAM_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User SRAM Callback
@@ -660,7 +660,7 @@ HAL_StatusTypeDef HAL_SRAM_RegisterCallback(SRAM_HandleTypeDef *hsram, HAL_SRAM_
 	/* Release Lock */
 	__HAL_UNLOCK(hsram);
 	return status;
-} /* HAL_SRAM_RegisterCallback */
+}	/* HAL_SRAM_RegisterCallback */
 
 /**
  * @brief  Unregister a User SRAM Callback
@@ -723,7 +723,7 @@ HAL_StatusTypeDef HAL_SRAM_UnRegisterCallback(SRAM_HandleTypeDef *hsram, HAL_SRA
 	/* Release Lock */
 	__HAL_UNLOCK(hsram);
 	return status;
-} /* HAL_SRAM_UnRegisterCallback */
+}	/* HAL_SRAM_UnRegisterCallback */
 
 /**
  * @brief  Register a User SRAM Callback for DMA transfers
@@ -771,9 +771,9 @@ HAL_StatusTypeDef HAL_SRAM_RegisterDmaCallback(SRAM_HandleTypeDef *hsram, HAL_SR
 	/* Release Lock */
 	__HAL_UNLOCK(hsram);
 	return status;
-} /* HAL_SRAM_RegisterDmaCallback */
+}	/* HAL_SRAM_RegisterDmaCallback */
 
-# endif	/* if (USE_HAL_SRAM_REGISTER_CALLBACKS == 1) */
+#endif	/* if (USE_HAL_SRAM_REGISTER_CALLBACKS == 1) */
 
 /**
  * @}

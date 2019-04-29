@@ -332,7 +332,7 @@ void arm_dct4_f32(
 	} while (i > 0U);
 
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -435,7 +435,7 @@ void arm_dct4_f32(
 	} while (i > 0U);
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_dct4_f32 */
+}	/* arm_dct4_f32 */
 
 /**
  * @} end of DCT4_IDCT4 group

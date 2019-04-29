@@ -7,8 +7,8 @@
 
 #ifdef _WIN32	/* FatFs development platform */
 
-# include <windows.h>
-# include <tchar.h>
+#include <windows.h>
+#include <tchar.h>
 typedef unsigned __int64 QWORD;
 
 
@@ -33,6 +33,6 @@ typedef unsigned long DWORD;
 /* This type MUST be 64-bit (Remove this for ANSI C (C89) compatibility) */
 typedef unsigned long long QWORD;
 
-#endif // ifdef _WIN32
+#endif	// ifdef _WIN32
 
-#endif // ifndef _FF_INTEGER
+#endif	// ifndef _FF_INTEGER

@@ -183,31 +183,31 @@
  */
 
 #ifndef _CMSIS_OS_H
-# define _CMSIS_OS_H
+#define _CMSIS_OS_H
 
 /// \note MUST REMAIN UNCHANGED: \b osCMSIS identifies the CMSIS-RTOS API version.
-# define osCMSIS    0x10002	///< API version (main [31:16] .sub [15:0])
+#define osCMSIS    0x10002	///< API version (main [31:16] .sub [15:0])
 
 /// \note CAN BE CHANGED: \b osCMSIS_KERNEL identifies the underlying RTOS kernel and version number.
-# define osCMSIS_KERNEL    0x10000	///< RTOS identification and version (main [31:16] .sub [15:0])
+#define osCMSIS_KERNEL    0x10000	///< RTOS identification and version (main [31:16] .sub [15:0])
 
 /// \note MUST REMAIN UNCHANGED: \b osKernelSystemId shall be consistent in every CMSIS-RTOS.
-# define osKernelSystemId    "KERNEL V1.00"	///< RTOS identification string
+#define osKernelSystemId    "KERNEL V1.00"	///< RTOS identification string
 
 /// \note MUST REMAIN UNCHANGED: \b osFeature_xxx shall be consistent in every CMSIS-RTOS.
-# define osFeature_MainThread    1	///< main thread      1=main can be thread, 0=not available
-# define osFeature_Pool          1	///< Memory Pools:    1=available, 0=not available
-# define osFeature_MailQ         1	///< Mail Queues:     1=available, 0=not available
-# define osFeature_MessageQ      1	///< Message Queues:  1=available, 0=not available
-# define osFeature_Signals       8	///< maximum number of Signal Flags available per thread
-# define osFeature_Semaphore     1	///< osFeature_Semaphore function: 1=available, 0=not available
-# define osFeature_Wait          0	///< osWait function: 1=available, 0=not available
-# define osFeature_SysTick       1	///< osKernelSysTick functions: 1=available, 0=not available
+#define osFeature_MainThread    1	///< main thread      1=main can be thread, 0=not available
+#define osFeature_Pool          1	///< Memory Pools:    1=available, 0=not available
+#define osFeature_MailQ         1	///< Mail Queues:     1=available, 0=not available
+#define osFeature_MessageQ      1	///< Message Queues:  1=available, 0=not available
+#define osFeature_Signals       8	///< maximum number of Signal Flags available per thread
+#define osFeature_Semaphore     1	///< osFeature_Semaphore function: 1=available, 0=not available
+#define osFeature_Wait          0	///< osWait function: 1=available, 0=not available
+#define osFeature_SysTick       1	///< osKernelSysTick functions: 1=available, 0=not available
 
-# ifdef  __cplusplus
+#ifdef  __cplusplus
 extern "C"
 {
-# endif
+#endif
 
 
 // ==== Enumeration, structures, defines ====
@@ -227,7 +227,7 @@ typedef enum  {
 
 /// Timeout value.
 /// \note MUST REMAIN UNCHANGED: \b osWaitForever shall be consistent in every CMSIS-RTOS.
-# define osWaitForever    0xFFFFFFFF///< wait forever timeout value
+#define osWaitForever    0xFFFFFFFF	///< wait forever timeout value
 
 /// Status code values returned by CMSIS-RTOS functions.
 /// \note MUST REMAIN UNCHANGED: \b osStatus shall be consistent in every CMSIS-RTOS.
@@ -249,7 +249,7 @@ typedef enum  {
 	os_status_reserved     = 0x7FFFFFFF	///< prevent from enum down-size compiler optimization.
 } osStatus;
 
-# if ( INCLUDE_eTaskGetState == 1 )
+#if ( INCLUDE_eTaskGetState == 1 )
 /* Thread state returned by osThreadGetState */
 typedef enum {
 	osThreadRunning   = 0x0,/* A thread is querying the state of itself, so must be running. */
@@ -259,7 +259,7 @@ typedef enum {
 	osThreadDeleted   = 0x4,/* The thread being queried has been deleted, but its TCB has not yet been freed. */
 	osThreadError     = 0x7FFFFFFF
 } osThreadState;
-# endif	/* INCLUDE_eTaskGetState */
+#endif	/* INCLUDE_eTaskGetState */
 
 /// Timer type value for the timer definition.
 /// \note MUST REMAIN UNCHANGED: \b os_timer_type shall be consistent in every CMSIS-RTOS.
@@ -307,7 +307,7 @@ typedef QueueHandle_t osMessageQId;
 typedef struct os_mailQ_cb *osMailQId;
 
 
-# if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 
 typedef StaticTask_t osStaticThreadDef_t;
 typedef StaticTimer_t osStaticTimerDef_t;
@@ -315,7 +315,7 @@ typedef StaticSemaphore_t osStaticMutexDef_t;
 typedef StaticSemaphore_t osStaticSemaphoreDef_t;
 typedef StaticQueue_t osStaticMessageQDef_t;
 
-# endif
+#endif
 
 
 /// Thread Definition structure contains startup information of a thread.
@@ -326,37 +326,37 @@ typedef struct os_thread_def {
 	osPriority          tpriority;	///< initial thread priority
 	uint32_t            instances;	///< maximum number of instances of that thread function
 	uint32_t            stacksize;	///< stack size requirements in bytes; 0 is default stack size
-	# if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+	#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 	uint32_t            *buffer;		///< stack buffer for static allocation; NULL for dynamic allocation
 	osStaticThreadDef_t *controlblock;	///< control block to hold thread's data for static allocation; NULL for dynamic allocation
-	# endif
+	#endif
 } osThreadDef_t;
 
 /// Timer Definition structure contains timer parameters.
 /// \note CAN BE CHANGED: \b os_timer_def is implementation specific in every CMSIS-RTOS.
 typedef struct os_timer_def {
 	os_ptimer          ptimer;	///< start address of a timer function
-	# if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+	#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 	osStaticTimerDef_t *controlblock;	///< control block to hold timer's data for static allocation; NULL for dynamic allocation
-	# endif
+	#endif
 } osTimerDef_t;
 
 /// Mutex Definition structure contains setup information for a mutex.
 /// \note CAN BE CHANGED: \b os_mutex_def is implementation specific in every CMSIS-RTOS.
 typedef struct os_mutex_def {
 	uint32_t           dummy;	///< dummy value.
-	# if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+	#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 	osStaticMutexDef_t *controlblock;	///< control block for static allocation; NULL for dynamic allocation
-	# endif
+	#endif
 } osMutexDef_t;
 
 /// Semaphore Definition structure contains setup information for a semaphore.
 /// \note CAN BE CHANGED: \b os_semaphore_def is implementation specific in every CMSIS-RTOS.
 typedef struct os_semaphore_def {
 	uint32_t               dummy;	///< dummy value.
-	# if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+	#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 	osStaticSemaphoreDef_t *controlblock;	///< control block for static allocation; NULL for dynamic allocation
-	# endif
+	#endif
 } osSemaphoreDef_t;
 
 /// Definition structure for memory block allocation.
@@ -372,10 +372,10 @@ typedef struct os_pool_def {
 typedef struct os_messageQ_def {
 	uint32_t              queue_sz;	///< number of elements in the queue
 	uint32_t              item_sz;	///< size of an item
-	# if ( configSUPPORT_STATIC_ALLOCATION == 1 )
-	uint8_t               *buffer;		///< buffer for static allocation; NULL for dynamic allocation
+	#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+	uint8_t               *buffer;	///< buffer for static allocation; NULL for dynamic allocation
 	osStaticMessageQDef_t *controlblock;///< control block to hold queue's data for static allocation; NULL for dynamic allocation
-	# endif
+	#endif
 	// void                       *pool;    ///< memory array for messages
 } osMessageQDef_t;
 
@@ -400,7 +400,7 @@ typedef struct  {
 	union  {
 		osMailQId    mail_id;	///< mail id obtained by \ref osMailCreate
 		osMessageQId message_id;///< message id obtained by \ref osMessageCreate
-	} def;						///< event definition
+	} def;	///< event definition
 } osEvent;
 
 
@@ -421,7 +421,7 @@ osStatus osKernelStart(void);
 /// \return 0 RTOS is not started, 1 RTOS is started.
 int32_t osKernelRunning(void);
 
-# if (defined(osFeature_SysTick) && (osFeature_SysTick != 0))	// System Timer available
+#if (defined(osFeature_SysTick) && (osFeature_SysTick != 0))// System Timer available
 
 /// Get the RTOS kernel system timer counter
 /// \note MUST REMAIN UNCHANGED: \b osKernelSysTick shall be consistent in every CMSIS-RTOS.
@@ -430,14 +430,14 @@ uint32_t osKernelSysTick(void);
 
 /// The RTOS kernel system timer frequency in Hz
 /// \note Reflects the system timer setting and is typically defined in a configuration file.
-#  define osKernelSysTickFrequency    (configTICK_RATE_HZ)
+#define osKernelSysTickFrequency    (configTICK_RATE_HZ)
 
 /// Convert a microseconds value to a RTOS kernel system timer value.
 /// \param         microsec     time value in microseconds.
 /// \return time value normalized to the \ref osKernelSysTickFrequency
-#  define osKernelSysTickMicroSec(microsec)    (((uint64_t) microsec * (osKernelSysTickFrequency)) / 1000000)
+#define osKernelSysTickMicroSec(microsec)    (((uint64_t) microsec * (osKernelSysTickFrequency)) / 1000000)
 
-# endif	// System Timer available
+#endif	// System Timer available
 
 //  ==== Thread Management ====
 
@@ -448,32 +448,32 @@ uint32_t osKernelSysTick(void);
 /// \param         stacksz      stack size (in bytes) requirements for the thread function.
 /// \note CAN BE CHANGED: The parameters to \b osThreadDef shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-# if defined(osObjectsExternal)	// object is external
-#  define osThreadDef(name, thread, priority, instances, stacksz)  \
+#if defined(osObjectsExternal)	// object is external
+#define osThreadDef(name, thread, priority, instances, stacksz)  \
 	extern const osThreadDef_t os_thread_def_ ## name
-# else	// define the object
+#else	// define the object
 
-#  if ( configSUPPORT_STATIC_ALLOCATION == 1 )
-#   define osThreadDef(name, thread, priority, instances, stacksz)  \
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#define osThreadDef(name, thread, priority, instances, stacksz)  \
 	const osThreadDef_t os_thread_def_ ## name = \
 	{ #name, (thread), (priority), (instances), (stacksz), NULL, NULL }
 
-#   define osThreadStaticDef(name, thread, priority, instances, stacksz, buffer, control)  \
+#define osThreadStaticDef(name, thread, priority, instances, stacksz, buffer, control)  \
 	const osThreadDef_t os_thread_def_ ## name = \
 	{ #name, (thread), (priority), (instances), (stacksz), (buffer), (control) }
-#  else	// configSUPPORT_STATIC_ALLOCATION == 0
+#else	// configSUPPORT_STATIC_ALLOCATION == 0
 
-#   define osThreadDef(name, thread, priority, instances, stacksz)  \
+#define osThreadDef(name, thread, priority, instances, stacksz)  \
 	const osThreadDef_t os_thread_def_ ## name = \
 	{ #name, (thread), (priority), (instances), (stacksz) }
-#  endif // if ( configSUPPORT_STATIC_ALLOCATION == 1 )
-# endif	// if defined(osObjectsExternal)
+#endif	// if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#endif	// if defined(osObjectsExternal)
 
 /// Access a Thread definition.
 /// \param         name          name of the thread definition object.
 /// \note CAN BE CHANGED: The parameter to \b osThread shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-# define osThread(name)  \
+#define osThread(name)  \
 	& os_thread_def_ ## name
 
 /// Create a thread and add it to Active Threads and set it to state READY.
@@ -520,7 +520,7 @@ osPriority osThreadGetPriority(osThreadId thread_id);
 /// \return status code that indicates the execution status of the function.
 osStatus osDelay(uint32_t millisec);
 
-# if (defined(osFeature_Wait) && (osFeature_Wait != 0))	// Generic Wait available
+#if (defined(osFeature_Wait) && (osFeature_Wait != 0))	// Generic Wait available
 
 /// Wait for Signal, Message, Mail, or Timeout.
 /// \param[in] millisec          timeout value or 0 in case of no time-out
@@ -528,7 +528,7 @@ osStatus osDelay(uint32_t millisec);
 /// \note MUST REMAIN UNCHANGED: \b osWait shall be consistent in every CMSIS-RTOS.
 osEvent osWait(uint32_t millisec);
 
-# endif	// Generic Wait available
+#endif	// Generic Wait available
 
 
 //  ==== Timer Management Functions ====
@@ -537,31 +537,31 @@ osEvent osWait(uint32_t millisec);
 /// \param         function      name of the timer call back function.
 /// \note CAN BE CHANGED: The parameter to \b osTimerDef shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-# if defined(osObjectsExternal)	// object is external
-#  define osTimerDef(name, function)  \
+#if defined(osObjectsExternal)	// object is external
+#define osTimerDef(name, function)  \
 	extern const osTimerDef_t os_timer_def_ ## name
-# else	// define the object
+#else	// define the object
 
-#  if ( configSUPPORT_STATIC_ALLOCATION == 1 )
-#   define osTimerDef(name, function)  \
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#define osTimerDef(name, function)  \
 	const osTimerDef_t os_timer_def_ ## name = \
 	{ (function), NULL }
 
-#   define osTimerStaticDef(name, function, control)  \
+#define osTimerStaticDef(name, function, control)  \
 	const osTimerDef_t os_timer_def_ ## name = \
 	{ (function), (control) }
-#  else	// configSUPPORT_STATIC_ALLOCATION == 0
-#   define osTimerDef(name, function)  \
+#else	// configSUPPORT_STATIC_ALLOCATION == 0
+#define osTimerDef(name, function)  \
 	const osTimerDef_t os_timer_def_ ## name = \
 	{ (function) }
-#  endif // if ( configSUPPORT_STATIC_ALLOCATION == 1 )
-# endif	// if defined(osObjectsExternal)
+#endif	// if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#endif	// if defined(osObjectsExternal)
 
 /// Access a Timer definition.
 /// \param         name          name of the timer object.
 /// \note CAN BE CHANGED: The parameter to \b osTimer shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-# define osTimer(name) \
+#define osTimer(name) \
 	& os_timer_def_ ## name
 
 /// Create a timer.
@@ -622,30 +622,30 @@ osEvent osSignalWait(int32_t signals, uint32_t millisec);
 /// \param         name          name of the mutex object.
 /// \note CAN BE CHANGED: The parameter to \b osMutexDef shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-# if defined(osObjectsExternal)	// object is external
-#  define osMutexDef(name)  \
+#if defined(osObjectsExternal)	// object is external
+#define osMutexDef(name)  \
 	extern const osMutexDef_t os_mutex_def_ ## name
-# else	// define the object
+#else	// define the object
 
-#  if ( configSUPPORT_STATIC_ALLOCATION == 1 )
-#   define osMutexDef(name)  \
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#define osMutexDef(name)  \
 	const osMutexDef_t os_mutex_def_ ## name = { 0, NULL }
 
-#   define osMutexStaticDef(name, control)  \
+#define osMutexStaticDef(name, control)  \
 	const osMutexDef_t os_mutex_def_ ## name = { 0, (control) }
-#  else	// configSUPPORT_STATIC_ALLOCATION == 0
-#   define osMutexDef(name)  \
+#else	// configSUPPORT_STATIC_ALLOCATION == 0
+#define osMutexDef(name)  \
 	const osMutexDef_t os_mutex_def_ ## name = { 0 }
 
-#  endif
+#endif
 
-# endif	// if defined(osObjectsExternal)
+#endif	// if defined(osObjectsExternal)
 
 /// Access a Mutex definition.
 /// \param         name          name of the mutex object.
 /// \note CAN BE CHANGED: The parameter to \b osMutex shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-# define osMutex(name)  \
+#define osMutex(name)  \
 	& os_mutex_def_ ## name
 
 /// Create and Initialize a Mutex object.
@@ -676,35 +676,35 @@ osStatus osMutexDelete(osMutexId mutex_id);
 
 //  ==== Semaphore Management Functions ====
 
-# if (defined(osFeature_Semaphore) && (osFeature_Semaphore != 0))	// Semaphore available
+#if (defined(osFeature_Semaphore) && (osFeature_Semaphore != 0))// Semaphore available
 
 /// Define a Semaphore object.
 /// \param         name          name of the semaphore object.
 /// \note CAN BE CHANGED: The parameter to \b osSemaphoreDef shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-#  if defined(osObjectsExternal)// object is external
-#   define osSemaphoreDef(name)  \
+#if defined(osObjectsExternal)	// object is external
+#define osSemaphoreDef(name)  \
 	extern const osSemaphoreDef_t os_semaphore_def_ ## name
-#  else	// define the object
+#else	// define the object
 
-#   if ( configSUPPORT_STATIC_ALLOCATION == 1 )
-#    define osSemaphoreDef(name)  \
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#define osSemaphoreDef(name)  \
 	const osSemaphoreDef_t os_semaphore_def_ ## name = { 0, NULL }
 
-#    define osSemaphoreStaticDef(name, control)  \
+#define osSemaphoreStaticDef(name, control)  \
 	const osSemaphoreDef_t os_semaphore_def_ ## name = { 0, (control) }
 
-#   else// configSUPPORT_STATIC_ALLOCATION == 0
-#    define osSemaphoreDef(name)  \
+#else	// configSUPPORT_STATIC_ALLOCATION == 0
+#define osSemaphoreDef(name)  \
 	const osSemaphoreDef_t os_semaphore_def_ ## name = { 0 }
-#   endif
-#  endif // if defined(osObjectsExternal)
+#endif
+#endif	// if defined(osObjectsExternal)
 
 /// Access a Semaphore definition.
 /// \param         name          name of the semaphore object.
 /// \note CAN BE CHANGED: The parameter to \b osSemaphore shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-#  define osSemaphore(name)  \
+#define osSemaphore(name)  \
 	& os_semaphore_def_ ## name
 
 /// Create and Initialize a Semaphore object used for managing resources.
@@ -733,12 +733,12 @@ osStatus osSemaphoreRelease(osSemaphoreId semaphore_id);
 /// \note MUST REMAIN UNCHANGED: \b osSemaphoreDelete shall be consistent in every CMSIS-RTOS.
 osStatus osSemaphoreDelete(osSemaphoreId semaphore_id);
 
-# endif	// Semaphore available
+#endif	// Semaphore available
 
 
 //  ==== Memory Pool Management Functions ====
 
-# if (defined(osFeature_Pool) && (osFeature_Pool != 0))	// Memory Pool Management available
+#if (defined(osFeature_Pool) && (osFeature_Pool != 0))	// Memory Pool Management available
 
 /// \brief Define a Memory Pool.
 /// \param         name          name of the memory pool.
@@ -746,20 +746,20 @@ osStatus osSemaphoreDelete(osSemaphoreId semaphore_id);
 /// \param         type          data type of a single block (object).
 /// \note CAN BE CHANGED: The parameter to \b osPoolDef shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-#  if defined(osObjectsExternal)// object is external
-#   define osPoolDef(name, no, type)   \
+#if defined(osObjectsExternal)	// object is external
+#define osPoolDef(name, no, type)   \
 	extern const osPoolDef_t os_pool_def_ ## name
-#  else	// define the object
-#   define osPoolDef(name, no, type)   \
+#else	// define the object
+#define osPoolDef(name, no, type)   \
 	const osPoolDef_t os_pool_def_ ## name = \
 	{ (no), sizeof(type), NULL }
-#  endif
+#endif
 
 /// \brief Access a Memory Pool definition.
 /// \param         name          name of the memory pool
 /// \note CAN BE CHANGED: The parameter to \b osPool shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-#  define osPool(name) \
+#define osPool(name) \
 	& os_pool_def_ ## name
 
 /// Create and Initialize a memory pool.
@@ -787,12 +787,12 @@ void *osPoolCAlloc(osPoolId pool_id);
 /// \note MUST REMAIN UNCHANGED: \b osPoolFree shall be consistent in every CMSIS-RTOS.
 osStatus osPoolFree(osPoolId pool_id, void *block);
 
-# endif	// Memory Pool Management available
+#endif	// Memory Pool Management available
 
 
 //  ==== Message Queue Management Functions ====
 
-# if (defined(osFeature_MessageQ) && (osFeature_MessageQ != 0))	// Message Queues available
+#if (defined(osFeature_MessageQ) && (osFeature_MessageQ != 0))	// Message Queues available
 
 /// \brief Create a Message Queue Definition.
 /// \param         name          name of the queue.
@@ -800,31 +800,31 @@ osStatus osPoolFree(osPoolId pool_id, void *block);
 /// \param         type          data type of a single message element (for debugger).
 /// \note CAN BE CHANGED: The parameter to \b osMessageQDef shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-#  if defined(osObjectsExternal)// object is external
-#   define osMessageQDef(name, queue_sz, type)   \
+#if defined(osObjectsExternal)	// object is external
+#define osMessageQDef(name, queue_sz, type)   \
 	extern const osMessageQDef_t os_messageQ_def_ ## name
-#  else	// define the object
-#   if ( configSUPPORT_STATIC_ALLOCATION == 1 )
-#    define osMessageQDef(name, queue_sz, type)   \
+#else	// define the object
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#define osMessageQDef(name, queue_sz, type)   \
 	const osMessageQDef_t os_messageQ_def_ ## name = \
 	{ (queue_sz), sizeof(type), NULL, NULL  }
 
-#    define osMessageQStaticDef(name, queue_sz, type, buffer, control)   \
+#define osMessageQStaticDef(name, queue_sz, type, buffer, control)   \
 	const osMessageQDef_t os_messageQ_def_ ## name = \
 	{ (queue_sz), sizeof(type), (buffer), (control) }
-#   else// configSUPPORT_STATIC_ALLOCATION == 1
-#    define osMessageQDef(name, queue_sz, type)   \
+#else	// configSUPPORT_STATIC_ALLOCATION == 1
+#define osMessageQDef(name, queue_sz, type)   \
 	const osMessageQDef_t os_messageQ_def_ ## name = \
 	{ (queue_sz), sizeof(type) }
 
-#   endif // if ( configSUPPORT_STATIC_ALLOCATION == 1 )
-#  endif // if defined(osObjectsExternal)
+#endif	// if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#endif	// if defined(osObjectsExternal)
 
 /// \brief Access a Message Queue Definition.
 /// \param         name          name of the queue
 /// \note CAN BE CHANGED: The parameter to \b osMessageQ shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-#  define osMessageQ(name) \
+#define osMessageQ(name) \
 	& os_messageQ_def_ ## name
 
 /// Create and Initialize a Message Queue.
@@ -849,12 +849,12 @@ osStatus osMessagePut(osMessageQId queue_id, uint32_t info, uint32_t millisec);
 /// \note MUST REMAIN UNCHANGED: \b osMessageGet shall be consistent in every CMSIS-RTOS.
 osEvent osMessageGet(osMessageQId queue_id, uint32_t millisec);
 
-# endif	// Message Queues available
+#endif	// Message Queues available
 
 
 //  ==== Mail Queue Management Functions ====
 
-# if (defined(osFeature_MailQ) && (osFeature_MailQ != 0))	// Mail Queues available
+#if (defined(osFeature_MailQ) && (osFeature_MailQ != 0))// Mail Queues available
 
 /// \brief Create a Mail Queue Definition.
 /// \param         name          name of the queue
@@ -862,22 +862,22 @@ osEvent osMessageGet(osMessageQId queue_id, uint32_t millisec);
 /// \param         type          data type of a single message element
 /// \note CAN BE CHANGED: The parameter to \b osMailQDef shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-#  if defined(osObjectsExternal)// object is external
-#   define osMailQDef(name, queue_sz, type) \
+#if defined(osObjectsExternal)	// object is external
+#define osMailQDef(name, queue_sz, type) \
 	extern struct os_mailQ_cb *os_mailQ_cb_ ## name \
 	extern osMailQDef_t os_mailQ_def_ ## name
-#  else	// define the object
-#   define osMailQDef(name, queue_sz, type) \
+#else	// define the object
+#define osMailQDef(name, queue_sz, type) \
 	struct os_mailQ_cb *os_mailQ_cb_ ## name; \
 	const osMailQDef_t os_mailQ_def_ ## name =  \
 	{ (queue_sz), sizeof(type), (&os_mailQ_cb_ ## name) }
-#  endif
+#endif
 
 /// \brief Access a Mail Queue Definition.
 /// \param         name          name of the queue
 /// \note CAN BE CHANGED: The parameter to \b osMailQ shall be consistent but the
 ///       macro body is implementation specific in every CMSIS-RTOS.
-#  define osMailQ(name)  \
+#define osMailQ(name)  \
 	& os_mailQ_def_ ## name
 
 /// Create and Initialize mail queue.
@@ -922,7 +922,7 @@ osEvent osMailGet(osMailQId queue_id, uint32_t millisec);
 /// \note MUST REMAIN UNCHANGED: \b osMailFree shall be consistent in every CMSIS-RTOS.
 osStatus osMailFree(osMailQId queue_id, void *mail);
 
-# endif	// Mail Queues available
+#endif	// Mail Queues available
 
 /*************************** Additional specific APIs to Free RTOS ************/
 
@@ -933,7 +933,7 @@ osStatus osMailFree(osMailQId queue_id, void *mail);
  */
 void osSystickHandler(void);
 
-# if ( INCLUDE_eTaskGetState == 1 )
+#if ( INCLUDE_eTaskGetState == 1 )
 
 /**
  * @brief  Obtain the state of any thread.
@@ -941,9 +941,9 @@ void osSystickHandler(void);
  * @retval  the stae of the thread, states are encoded by the osThreadState enumerated type.
  */
 osThreadState osThreadGetState(osThreadId thread_id);
-# endif	/* INCLUDE_eTaskGetState */
+#endif	/* INCLUDE_eTaskGetState */
 
-# if ( INCLUDE_eTaskGetState == 1 )
+#if ( INCLUDE_eTaskGetState == 1 )
 
 /**
  * @brief Check if a thread is already suspended or not.
@@ -953,7 +953,7 @@ osThreadState osThreadGetState(osThreadId thread_id);
 
 osStatus osThreadIsSuspended(osThreadId thread_id);
 
-# endif	/* INCLUDE_eTaskGetState */
+#endif	/* INCLUDE_eTaskGetState */
 
 /**
  * @brief  Suspend execution of a thread.
@@ -1065,8 +1065,8 @@ osStatus osRecursiveMutexWait(osMutexId mutex_id, uint32_t millisec);
  */
 uint32_t osSemaphoreGetCount(osSemaphoreId semaphore_id);
 
-# ifdef  __cplusplus
+#ifdef  __cplusplus
 }
-# endif
+#endif
 
 #endif	// _CMSIS_OS_H

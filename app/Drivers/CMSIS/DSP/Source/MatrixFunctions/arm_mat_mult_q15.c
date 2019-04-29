@@ -88,19 +88,19 @@ arm_status arm_mat_mult_q15(
 	uint16_t col, i = 0U, row = numRowsB, colCnt;	/* loop counters */
 	arm_status status;								/* status of matrix multiplication */
 
-	# ifndef UNALIGNED_SUPPORT_DISABLE
+	#ifndef UNALIGNED_SUPPORT_DISABLE
 
 	q31_t in;	/* Temporary variable to hold the input value */
 	q31_t pSourceA1, pSourceB1, pSourceA2, pSourceB2;
 
-	# else
+	#else
 
 	q15_t in;	/* Temporary variable to hold the input value */
 	q15_t inA1, inB1, inA2, inB2;
 
-	# endif	/* #ifndef UNALIGNED_SUPPORT_DISABLE */
+	#endif	/* #ifndef UNALIGNED_SUPPORT_DISABLE */
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 	/* Check for matrix mismatch condition */
 	if ((pSrcA->numCols != pSrcB->numRows) ||
 	  (pSrcA->numRows != pDst->numRows) || (pSrcB->numCols != pDst->numCols))
@@ -108,7 +108,7 @@ arm_status arm_mat_mult_q15(
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
+	#endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
 	{
 		/* Matrix transpose */
 		do {
@@ -121,35 +121,35 @@ arm_status arm_mat_mult_q15(
 			/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
 			** a second loop below computes the remaining 1 to 3 samples. */
 			while (col > 0U) {
-				# ifndef UNALIGNED_SUPPORT_DISABLE
+				#ifndef UNALIGNED_SUPPORT_DISABLE
 
 				/* Read two elements from the row */
 				in = *__SIMD32(pInB)++;
 
 				/* Unpack and store one element in the destination */
-				#  ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*px = (q15_t) in;
 
-				#  else
+				#else
 
 				*px = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				#  endif/* #ifndef ARM_MATH_BIG_ENDIAN */
+				#endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
 
 				/* Update the pointer px to point to the next row of the transposed matrix */
 				px += numRowsB;
 
 				/* Unpack and store the second element in the destination */
-				#  ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*px = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				#  else
+				#else
 
 				*px = (q15_t) in;
 
-				#  endif/* #ifndef ARM_MATH_BIG_ENDIAN */
+				#endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
 
 				/* Update the pointer px to point to the next row of the transposed matrix */
 				px += numRowsB;
@@ -158,35 +158,35 @@ arm_status arm_mat_mult_q15(
 				in = *__SIMD32(pInB)++;
 
 				/* Unpack and store one element in the destination */
-				#  ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*px = (q15_t) in;
 
-				#  else
+				#else
 
 				*px = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				#  endif/* #ifndef ARM_MATH_BIG_ENDIAN */
+				#endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
 
 				/* Update the pointer px to point to the next row of the transposed matrix */
 				px += numRowsB;
 
 				/* Unpack and store the second element in the destination */
 
-				#  ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*px = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				#  else
+				#else
 
 				*px = (q15_t) in;
 
-				#  endif/* #ifndef ARM_MATH_BIG_ENDIAN */
+				#endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
 
 				/* Update the pointer px to point to the next row of the transposed matrix */
 				px += numRowsB;
 
-				# else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+				#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
 				/* Read one element from the row */
 				in = *pInB++;
@@ -224,7 +224,7 @@ arm_status arm_mat_mult_q15(
 				/* Update the pointer px to point to the next row of the transposed matrix */
 				px += numRowsB;
 
-				# endif	/* #ifndef UNALIGNED_SUPPORT_DISABLE */
+				#endif	/* #ifndef UNALIGNED_SUPPORT_DISABLE */
 
 				/* Decrement the column loop counter */
 				col--;
@@ -281,7 +281,7 @@ arm_status arm_mat_mult_q15(
 				/* matrix multiplication */
 				while (colCnt > 0U) {
 					/* c(m,n) = a(1,1)*b(1,1) + a(1,2) * b(2,1) + .... + a(m,p)*b(p,n) */
-					# ifndef UNALIGNED_SUPPORT_DISABLE
+					#ifndef UNALIGNED_SUPPORT_DISABLE
 
 					/* read real and imag values from pSrcA and pSrcB buffer */
 					pSourceA1 = *__SIMD32(pInA)++;
@@ -294,7 +294,7 @@ arm_status arm_mat_mult_q15(
 					sum = __SMLALD(pSourceA1, pSourceB1, sum);
 					sum = __SMLALD(pSourceA2, pSourceB2, sum);
 
-					# else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+					#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 					/* read real and imag values from pSrcA and pSrcB buffer */
 					inA1 = *pInA++;
 					inB1 = *pInB++;
@@ -314,7 +314,7 @@ arm_status arm_mat_mult_q15(
 					sum += inA1 * inB1;
 					sum += inA2 * inB2;
 
-					# endif	/* #ifndef UNALIGNED_SUPPORT_DISABLE */
+					#endif	/* #ifndef UNALIGNED_SUPPORT_DISABLE */
 
 					/* Decrement the loop counter */
 					colCnt--;
@@ -345,7 +345,7 @@ arm_status arm_mat_mult_q15(
 			row--;
 		} while (row > 0U);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -361,7 +361,7 @@ arm_status arm_mat_mult_q15(
 	uint16_t col, i = 0U, row = numRowsA, colCnt;	/* loop counters */
 	arm_status status;								/* status of matrix multiplication */
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 
 	/* Check for matrix mismatch condition */
 	if ((pSrcA->numCols != pSrcB->numRows) ||
@@ -370,7 +370,7 @@ arm_status arm_mat_mult_q15(
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/* #ifdef ARM_MATH_MATRIX_CHECK */
+	#endif	/* #ifdef ARM_MATH_MATRIX_CHECK */
 
 	{
 		/* The following loop performs the dot-product of each row in pSrcA with each column in pSrcB */
@@ -434,7 +434,7 @@ arm_status arm_mat_mult_q15(
 
 	/* Return to application */
 	return (status);
-} /* arm_mat_mult_q15 */
+}	/* arm_mat_mult_q15 */
 
 /**
  * @} end of MatrixMult group

@@ -19,20 +19,20 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef STM32F7xx_LL_USART_H
-# define STM32F7xx_LL_USART_H
+#define STM32F7xx_LL_USART_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx.h"
+#include "stm32f7xx.h"
 
 /** @addtogroup STM32F7xx_LL_Driver
  * @{
  */
 
-# if defined(USART1) || defined(USART2) || defined(USART3) || defined(USART6) || defined(UART4) || defined(UART5) || \
+#if defined(USART1) || defined(USART2) || defined(USART3) || defined(USART6) || defined(UART4) || defined(UART5) || \
 	defined(UART7) || defined(UART8)
 
 /** @defgroup USART_LL USART
@@ -53,7 +53,7 @@ extern "C" {
  */
 
 /* Private macros ------------------------------------------------------------*/
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup USART_LL_Private_Macros USART Private Macros
  * @{
@@ -62,10 +62,10 @@ extern "C" {
 /**
  * @}
  */
-#  endif/*USE_FULL_LL_DRIVER*/
+#endif	/*USE_FULL_LL_DRIVER*/
 
 /* Exported types ------------------------------------------------------------*/
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup USART_LL_ES_INIT USART Exported Init structures
  * @{
@@ -144,7 +144,7 @@ typedef struct {
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /* Exported constants --------------------------------------------------------*/
 
@@ -156,20 +156,20 @@ typedef struct {
  * @brief    Flags defines which can be used with LL_USART_WriteReg function
  * @{
  */
-#  define LL_USART_ICR_PECF        USART_ICR_PECF	/*!< Parity error flag */
-#  define LL_USART_ICR_FECF        USART_ICR_FECF	/*!< Framing error flag */
-#  define LL_USART_ICR_NCF         USART_ICR_NCF	/*!< Noise error detected flag */
-#  define LL_USART_ICR_ORECF       USART_ICR_ORECF	/*!< Overrun error flag */
-#  define LL_USART_ICR_IDLECF      USART_ICR_IDLECF	/*!< Idle line detected flag */
-#  define LL_USART_ICR_TCCF        USART_ICR_TCCF	/*!< Transmission complete flag */
-#  if defined(USART_TCBGT_SUPPORT)
-#   define LL_USART_ICR_TCBGTCF    USART_ICR_TCBGTCF/*!< Transmission completed before guard time flag */
-#  endif
-#  define LL_USART_ICR_LBDCF       USART_ICR_LBDCF	/*!< LIN break detection flag */
-#  define LL_USART_ICR_CTSCF       USART_ICR_CTSCF	/*!< CTS flag */
-#  define LL_USART_ICR_RTOCF       USART_ICR_RTOCF	/*!< Receiver timeout flag */
-#  define LL_USART_ICR_EOBCF       USART_ICR_EOBCF	/*!< End of block flag */
-#  define LL_USART_ICR_CMCF        USART_ICR_CMCF	/*!< Character match flag */
+#define LL_USART_ICR_PECF       USART_ICR_PECF	/*!< Parity error flag */
+#define LL_USART_ICR_FECF       USART_ICR_FECF	/*!< Framing error flag */
+#define LL_USART_ICR_NCF        USART_ICR_NCF	/*!< Noise error detected flag */
+#define LL_USART_ICR_ORECF      USART_ICR_ORECF	/*!< Overrun error flag */
+#define LL_USART_ICR_IDLECF     USART_ICR_IDLECF/*!< Idle line detected flag */
+#define LL_USART_ICR_TCCF       USART_ICR_TCCF	/*!< Transmission complete flag */
+#if defined(USART_TCBGT_SUPPORT)
+#define LL_USART_ICR_TCBGTCF    USART_ICR_TCBGTCF	/*!< Transmission completed before guard time flag */
+#endif
+#define LL_USART_ICR_LBDCF      USART_ICR_LBDCF	/*!< LIN break detection flag */
+#define LL_USART_ICR_CTSCF      USART_ICR_CTSCF	/*!< CTS flag */
+#define LL_USART_ICR_RTOCF      USART_ICR_RTOCF	/*!< Receiver timeout flag */
+#define LL_USART_ICR_EOBCF      USART_ICR_EOBCF	/*!< End of block flag */
+#define LL_USART_ICR_CMCF       USART_ICR_CMCF	/*!< Character match flag */
 
 /**
  * @}
@@ -179,29 +179,29 @@ typedef struct {
  * @brief    Flags defines which can be used with LL_USART_ReadReg function
  * @{
  */
-#  define LL_USART_ISR_PE        USART_ISR_PE	/*!< Parity error flag */
-#  define LL_USART_ISR_FE        USART_ISR_FE	/*!< Framing error flag */
-#  define LL_USART_ISR_NE        USART_ISR_NE	/*!< Noise detected flag */
-#  define LL_USART_ISR_ORE       USART_ISR_ORE	/*!< Overrun error flag */
-#  define LL_USART_ISR_IDLE      USART_ISR_IDLE	/*!< Idle line detected flag */
-#  define LL_USART_ISR_RXNE      USART_ISR_RXNE	/*!< Read data register not empty flag */
-#  define LL_USART_ISR_TC        USART_ISR_TC	/*!< Transmission complete flag */
-#  define LL_USART_ISR_TXE       USART_ISR_TXE	/*!< Transmit data register empty flag */
-#  define LL_USART_ISR_LBDF      USART_ISR_LBDF	/*!< LIN break detection flag */
-#  define LL_USART_ISR_CTSIF     USART_ISR_CTSIF/*!< CTS interrupt flag */
-#  define LL_USART_ISR_CTS       USART_ISR_CTS	/*!< CTS flag */
-#  define LL_USART_ISR_RTOF      USART_ISR_RTOF	/*!< Receiver timeout flag */
-#  define LL_USART_ISR_EOBF      USART_ISR_EOBF	/*!< End of block flag */
-#  define LL_USART_ISR_ABRE      USART_ISR_ABRE	/*!< Auto baud rate error flag */
-#  define LL_USART_ISR_ABRF      USART_ISR_ABRF	/*!< Auto baud rate flag */
-#  define LL_USART_ISR_BUSY      USART_ISR_BUSY	/*!< Busy flag */
-#  define LL_USART_ISR_CMF       USART_ISR_CMF	/*!< Character match flag */
-#  define LL_USART_ISR_SBKF      USART_ISR_SBKF	/*!< Send break flag */
-#  define LL_USART_ISR_RWU       USART_ISR_RWU	/*!< Receiver wakeup from Mute mode flag */
-#  define LL_USART_ISR_TEACK     USART_ISR_TEACK/*!< Transmit enable acknowledge flag */
-#  if defined(USART_TCBGT_SUPPORT)
-#   define LL_USART_ISR_TCBGT    USART_ISR_TCBGT/*!< Transmission complete before guard time completion flag */
-#  endif
+#define LL_USART_ISR_PE       USART_ISR_PE	/*!< Parity error flag */
+#define LL_USART_ISR_FE       USART_ISR_FE	/*!< Framing error flag */
+#define LL_USART_ISR_NE       USART_ISR_NE	/*!< Noise detected flag */
+#define LL_USART_ISR_ORE      USART_ISR_ORE	/*!< Overrun error flag */
+#define LL_USART_ISR_IDLE     USART_ISR_IDLE/*!< Idle line detected flag */
+#define LL_USART_ISR_RXNE     USART_ISR_RXNE/*!< Read data register not empty flag */
+#define LL_USART_ISR_TC       USART_ISR_TC	/*!< Transmission complete flag */
+#define LL_USART_ISR_TXE      USART_ISR_TXE	/*!< Transmit data register empty flag */
+#define LL_USART_ISR_LBDF     USART_ISR_LBDF/*!< LIN break detection flag */
+#define LL_USART_ISR_CTSIF    USART_ISR_CTSIF	/*!< CTS interrupt flag */
+#define LL_USART_ISR_CTS      USART_ISR_CTS	/*!< CTS flag */
+#define LL_USART_ISR_RTOF     USART_ISR_RTOF/*!< Receiver timeout flag */
+#define LL_USART_ISR_EOBF     USART_ISR_EOBF/*!< End of block flag */
+#define LL_USART_ISR_ABRE     USART_ISR_ABRE/*!< Auto baud rate error flag */
+#define LL_USART_ISR_ABRF     USART_ISR_ABRF/*!< Auto baud rate flag */
+#define LL_USART_ISR_BUSY     USART_ISR_BUSY/*!< Busy flag */
+#define LL_USART_ISR_CMF      USART_ISR_CMF	/*!< Character match flag */
+#define LL_USART_ISR_SBKF     USART_ISR_SBKF/*!< Send break flag */
+#define LL_USART_ISR_RWU      USART_ISR_RWU	/*!< Receiver wakeup from Mute mode flag */
+#define LL_USART_ISR_TEACK    USART_ISR_TEACK	/*!< Transmit enable acknowledge flag */
+#if defined(USART_TCBGT_SUPPORT)
+#define LL_USART_ISR_TCBGT    USART_ISR_TCBGT	/*!< Transmission complete before guard time completion flag */
+#endif
 
 /**
  * @}
@@ -211,20 +211,20 @@ typedef struct {
  * @brief    IT defines which can be used with LL_USART_ReadReg and  LL_USART_WriteReg functions
  * @{
  */
-#  define LL_USART_CR1_IDLEIE      USART_CR1_IDLEIE	/*!< IDLE interrupt enable */
-#  define LL_USART_CR1_RXNEIE      USART_CR1_RXNEIE	/*!< Read data register not empty interrupt enable */
-#  define LL_USART_CR1_TCIE        USART_CR1_TCIE	/*!< Transmission complete interrupt enable */
-#  define LL_USART_CR1_TXEIE       USART_CR1_TXEIE	/*!< Transmit data register empty interrupt enable */
-#  define LL_USART_CR1_PEIE        USART_CR1_PEIE	/*!< Parity error */
-#  define LL_USART_CR1_CMIE        USART_CR1_CMIE	/*!< Character match interrupt enable */
-#  define LL_USART_CR1_RTOIE       USART_CR1_RTOIE	/*!< Receiver timeout interrupt enable */
-#  define LL_USART_CR1_EOBIE       USART_CR1_EOBIE	/*!< End of Block interrupt enable */
-#  define LL_USART_CR2_LBDIE       USART_CR2_LBDIE	/*!< LIN break detection interrupt enable */
-#  define LL_USART_CR3_EIE         USART_CR3_EIE	/*!< Error interrupt enable */
-#  define LL_USART_CR3_CTSIE       USART_CR3_CTSIE	/*!< CTS interrupt enable */
-#  if defined(USART_TCBGT_SUPPORT)
-#   define LL_USART_CR3_TCBGTIE    USART_CR3_TCBGTIE/*!< Transmission complete before guard time interrupt enable */
-#  endif
+#define LL_USART_CR1_IDLEIE     USART_CR1_IDLEIE/*!< IDLE interrupt enable */
+#define LL_USART_CR1_RXNEIE     USART_CR1_RXNEIE/*!< Read data register not empty interrupt enable */
+#define LL_USART_CR1_TCIE       USART_CR1_TCIE	/*!< Transmission complete interrupt enable */
+#define LL_USART_CR1_TXEIE      USART_CR1_TXEIE	/*!< Transmit data register empty interrupt enable */
+#define LL_USART_CR1_PEIE       USART_CR1_PEIE	/*!< Parity error */
+#define LL_USART_CR1_CMIE       USART_CR1_CMIE	/*!< Character match interrupt enable */
+#define LL_USART_CR1_RTOIE      USART_CR1_RTOIE	/*!< Receiver timeout interrupt enable */
+#define LL_USART_CR1_EOBIE      USART_CR1_EOBIE	/*!< End of Block interrupt enable */
+#define LL_USART_CR2_LBDIE      USART_CR2_LBDIE	/*!< LIN break detection interrupt enable */
+#define LL_USART_CR3_EIE        USART_CR3_EIE	/*!< Error interrupt enable */
+#define LL_USART_CR3_CTSIE      USART_CR3_CTSIE	/*!< CTS interrupt enable */
+#if defined(USART_TCBGT_SUPPORT)
+#define LL_USART_CR3_TCBGTIE    USART_CR3_TCBGTIE	/*!< Transmission complete before guard time interrupt enable */
+#endif
 
 /**
  * @}
@@ -233,10 +233,10 @@ typedef struct {
 /** @defgroup USART_LL_EC_DIRECTION Communication Direction
  * @{
  */
-#  define LL_USART_DIRECTION_NONE     0x00000000U					/*!< Transmitter and Receiver are disabled */
-#  define LL_USART_DIRECTION_RX       USART_CR1_RE					/*!< Transmitter is disabled and Receiver is enabled */
-#  define LL_USART_DIRECTION_TX       USART_CR1_TE					/*!< Transmitter is enabled and Receiver is disabled */
-#  define LL_USART_DIRECTION_TX_RX    (USART_CR1_TE | USART_CR1_RE)	/*!< Transmitter and Receiver are enabled */
+#define LL_USART_DIRECTION_NONE     0x00000000U						/*!< Transmitter and Receiver are disabled */
+#define LL_USART_DIRECTION_RX       USART_CR1_RE					/*!< Transmitter is disabled and Receiver is enabled */
+#define LL_USART_DIRECTION_TX       USART_CR1_TE					/*!< Transmitter is enabled and Receiver is disabled */
+#define LL_USART_DIRECTION_TX_RX    (USART_CR1_TE | USART_CR1_RE)	/*!< Transmitter and Receiver are enabled */
 
 /**
  * @}
@@ -245,9 +245,9 @@ typedef struct {
 /** @defgroup USART_LL_EC_PARITY Parity Control
  * @{
  */
-#  define LL_USART_PARITY_NONE    0x00000000U					/*!< Parity control disabled */
-#  define LL_USART_PARITY_EVEN    USART_CR1_PCE					/*!< Parity control enabled and Even Parity is selected */
-#  define LL_USART_PARITY_ODD     (USART_CR1_PCE | USART_CR1_PS)/*!< Parity control enabled and Odd Parity is selected */
+#define LL_USART_PARITY_NONE    0x00000000U		/*!< Parity control disabled */
+#define LL_USART_PARITY_EVEN    USART_CR1_PCE	/*!< Parity control enabled and Even Parity is selected */
+#define LL_USART_PARITY_ODD     (USART_CR1_PCE | USART_CR1_PS)	/*!< Parity control enabled and Odd Parity is selected */
 
 /**
  * @}
@@ -256,8 +256,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_WAKEUP Wakeup
  * @{
  */
-#  define LL_USART_WAKEUP_IDLELINE       0x00000000U	/*!<  USART wake up from Mute mode on Idle Line */
-#  define LL_USART_WAKEUP_ADDRESSMARK    USART_CR1_WAKE	/*!<  USART wake up from Mute mode on Address Mark */
+#define LL_USART_WAKEUP_IDLELINE       0x00000000U		/*!<  USART wake up from Mute mode on Idle Line */
+#define LL_USART_WAKEUP_ADDRESSMARK    USART_CR1_WAKE	/*!<  USART wake up from Mute mode on Address Mark */
 
 /**
  * @}
@@ -266,9 +266,9 @@ typedef struct {
 /** @defgroup USART_LL_EC_DATAWIDTH Datawidth
  * @{
  */
-#  define LL_USART_DATAWIDTH_7B    USART_CR1_M1	/*!< 7 bits word length : Start bit, 7 data bits, n stop bits */
-#  define LL_USART_DATAWIDTH_8B    0x00000000U	/*!< 8 bits word length : Start bit, 8 data bits, n stop bits */
-#  define LL_USART_DATAWIDTH_9B    USART_CR1_M0	/*!< 9 bits word length : Start bit, 9 data bits, n stop bits */
+#define LL_USART_DATAWIDTH_7B    USART_CR1_M1	/*!< 7 bits word length : Start bit, 7 data bits, n stop bits */
+#define LL_USART_DATAWIDTH_8B    0x00000000U	/*!< 8 bits word length : Start bit, 8 data bits, n stop bits */
+#define LL_USART_DATAWIDTH_9B    USART_CR1_M0	/*!< 9 bits word length : Start bit, 9 data bits, n stop bits */
 
 /**
  * @}
@@ -277,32 +277,32 @@ typedef struct {
 /** @defgroup USART_LL_EC_OVERSAMPLING Oversampling
  * @{
  */
-#  define LL_USART_OVERSAMPLING_16    0x00000000U		/*!< Oversampling by 16 */
-#  define LL_USART_OVERSAMPLING_8     USART_CR1_OVER8	/*!< Oversampling by 8 */
+#define LL_USART_OVERSAMPLING_16    0x00000000U		/*!< Oversampling by 16 */
+#define LL_USART_OVERSAMPLING_8     USART_CR1_OVER8	/*!< Oversampling by 8 */
 
 /**
  * @}
  */
 
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup USART_LL_EC_CLOCK Clock Signal
  * @{
  */
 
-#   define LL_USART_CLOCK_DISABLE    0x00000000U	/*!< Clock signal not provided */
-#   define LL_USART_CLOCK_ENABLE     USART_CR2_CLKEN/*!< Clock signal provided */
+#define LL_USART_CLOCK_DISABLE    0x00000000U	/*!< Clock signal not provided */
+#define LL_USART_CLOCK_ENABLE     USART_CR2_CLKEN	/*!< Clock signal provided */
 
 /**
  * @}
  */
-#  endif/*USE_FULL_LL_DRIVER*/
+#endif	/*USE_FULL_LL_DRIVER*/
 
 /** @defgroup USART_LL_EC_LASTCLKPULSE Last Clock Pulse
  * @{
  */
-#  define LL_USART_LASTCLKPULSE_NO_OUTPUT    0x00000000U	/*!< The clock pulse of the last data bit is not output to the SCLK pin */
-#  define LL_USART_LASTCLKPULSE_OUTPUT       USART_CR2_LBCL	/*!< The clock pulse of the last data bit is output to the SCLK pin */
+#define LL_USART_LASTCLKPULSE_NO_OUTPUT    0x00000000U		/*!< The clock pulse of the last data bit is not output to the SCLK pin */
+#define LL_USART_LASTCLKPULSE_OUTPUT       USART_CR2_LBCL	/*!< The clock pulse of the last data bit is output to the SCLK pin */
 
 /**
  * @}
@@ -311,8 +311,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_PHASE Clock Phase
  * @{
  */
-#  define LL_USART_PHASE_1EDGE    0x00000000U	/*!< The first clock transition is the first data capture edge */
-#  define LL_USART_PHASE_2EDGE    USART_CR2_CPHA/*!< The second clock transition is the first data capture edge */
+#define LL_USART_PHASE_1EDGE    0x00000000U	/*!< The first clock transition is the first data capture edge */
+#define LL_USART_PHASE_2EDGE    USART_CR2_CPHA	/*!< The second clock transition is the first data capture edge */
 
 /**
  * @}
@@ -321,8 +321,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_POLARITY Clock Polarity
  * @{
  */
-#  define LL_USART_POLARITY_LOW     0x00000000U		/*!< Steady low value on SCLK pin outside transmission window*/
-#  define LL_USART_POLARITY_HIGH    USART_CR2_CPOL	/*!< Steady high value on SCLK pin outside transmission window */
+#define LL_USART_POLARITY_LOW     0x00000000U	/*!< Steady low value on SCLK pin outside transmission window*/
+#define LL_USART_POLARITY_HIGH    USART_CR2_CPOL/*!< Steady high value on SCLK pin outside transmission window */
 
 /**
  * @}
@@ -331,10 +331,10 @@ typedef struct {
 /** @defgroup USART_LL_EC_STOPBITS Stop Bits
  * @{
  */
-#  define LL_USART_STOPBITS_0_5    USART_CR2_STOP_0						/*!< 0.5 stop bit */
-#  define LL_USART_STOPBITS_1      0x00000000U							/*!< 1 stop bit */
-#  define LL_USART_STOPBITS_1_5    (USART_CR2_STOP_0 | USART_CR2_STOP_1)/*!< 1.5 stop bits */
-#  define LL_USART_STOPBITS_2      USART_CR2_STOP_1						/*!< 2 stop bits */
+#define LL_USART_STOPBITS_0_5    USART_CR2_STOP_0	/*!< 0.5 stop bit */
+#define LL_USART_STOPBITS_1      0x00000000U		/*!< 1 stop bit */
+#define LL_USART_STOPBITS_1_5    (USART_CR2_STOP_0 | USART_CR2_STOP_1)	/*!< 1.5 stop bits */
+#define LL_USART_STOPBITS_2      USART_CR2_STOP_1	/*!< 2 stop bits */
 
 /**
  * @}
@@ -343,8 +343,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_TXRX TX RX Pins Swap
  * @{
  */
-#  define LL_USART_TXRX_STANDARD    0x00000000U		/*!< TX/RX pins are used as defined in standard pinout */
-#  define LL_USART_TXRX_SWAPPED     (USART_CR2_SWAP)/*!< TX and RX pins functions are swapped.             */
+#define LL_USART_TXRX_STANDARD    0x00000000U	/*!< TX/RX pins are used as defined in standard pinout */
+#define LL_USART_TXRX_SWAPPED     (USART_CR2_SWAP)	/*!< TX and RX pins functions are swapped.             */
 
 /**
  * @}
@@ -353,8 +353,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_RXPIN_LEVEL RX Pin Active Level Inversion
  * @{
  */
-#  define LL_USART_RXPIN_LEVEL_STANDARD    0x00000000U		/*!< RX pin signal works using the standard logic levels */
-#  define LL_USART_RXPIN_LEVEL_INVERTED    (USART_CR2_RXINV)/*!< RX pin signal values are inverted.                  */
+#define LL_USART_RXPIN_LEVEL_STANDARD    0x00000000U/*!< RX pin signal works using the standard logic levels */
+#define LL_USART_RXPIN_LEVEL_INVERTED    (USART_CR2_RXINV)	/*!< RX pin signal values are inverted.                  */
 
 /**
  * @}
@@ -363,8 +363,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_TXPIN_LEVEL TX Pin Active Level Inversion
  * @{
  */
-#  define LL_USART_TXPIN_LEVEL_STANDARD    0x00000000U		/*!< TX pin signal works using the standard logic levels */
-#  define LL_USART_TXPIN_LEVEL_INVERTED    (USART_CR2_TXINV)/*!< TX pin signal values are inverted.                  */
+#define LL_USART_TXPIN_LEVEL_STANDARD    0x00000000U/*!< TX pin signal works using the standard logic levels */
+#define LL_USART_TXPIN_LEVEL_INVERTED    (USART_CR2_TXINV)	/*!< TX pin signal values are inverted.                  */
 
 /**
  * @}
@@ -373,8 +373,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_BINARY_LOGIC Binary Data Inversion
  * @{
  */
-#  define LL_USART_BINARY_LOGIC_POSITIVE    0x00000000U			/*!< Logical data from the data register are send/received in positive/direct logic. (1=H, 0=L) */
-#  define LL_USART_BINARY_LOGIC_NEGATIVE    USART_CR2_DATAINV	/*!< Logical data from the data register are send/received in negative/inverse logic. (1=L, 0=H). The parity bit is also inverted. */
+#define LL_USART_BINARY_LOGIC_POSITIVE    0x00000000U		/*!< Logical data from the data register are send/received in positive/direct logic. (1=H, 0=L) */
+#define LL_USART_BINARY_LOGIC_NEGATIVE    USART_CR2_DATAINV	/*!< Logical data from the data register are send/received in negative/inverse logic. (1=L, 0=H). The parity bit is also inverted. */
 
 /**
  * @}
@@ -383,8 +383,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_BITORDER Bit Order
  * @{
  */
-#  define LL_USART_BITORDER_LSBFIRST    0x00000000U			/*!< data is transmitted/received with data bit 0 first, following the start bit */
-#  define LL_USART_BITORDER_MSBFIRST    USART_CR2_MSBFIRST	/*!< data is transmitted/received with the MSB first, following the start bit */
+#define LL_USART_BITORDER_LSBFIRST    0x00000000U		/*!< data is transmitted/received with data bit 0 first, following the start bit */
+#define LL_USART_BITORDER_MSBFIRST    USART_CR2_MSBFIRST/*!< data is transmitted/received with the MSB first, following the start bit */
 
 /**
  * @}
@@ -393,10 +393,10 @@ typedef struct {
 /** @defgroup USART_LL_EC_AUTOBAUD_DETECT_ON Autobaud Detection
  * @{
  */
-#  define LL_USART_AUTOBAUD_DETECT_ON_STARTBIT       0x00000000U								/*!< Measurement of the start bit is used to detect the baud rate */
-#  define LL_USART_AUTOBAUD_DETECT_ON_FALLINGEDGE    USART_CR2_ABRMODE_0						/*!< Falling edge to falling edge measurement. Received frame must start with a single bit = 1 -> Frame = Start10xxxxxx */
-#  define LL_USART_AUTOBAUD_DETECT_ON_7F_FRAME       USART_CR2_ABRMODE_1						/*!< 0x7F frame detection */
-#  define LL_USART_AUTOBAUD_DETECT_ON_55_FRAME       (USART_CR2_ABRMODE_1 | USART_CR2_ABRMODE_0)/*!< 0x55 frame detection */
+#define LL_USART_AUTOBAUD_DETECT_ON_STARTBIT       0x00000000U			/*!< Measurement of the start bit is used to detect the baud rate */
+#define LL_USART_AUTOBAUD_DETECT_ON_FALLINGEDGE    USART_CR2_ABRMODE_0	/*!< Falling edge to falling edge measurement. Received frame must start with a single bit = 1 -> Frame = Start10xxxxxx */
+#define LL_USART_AUTOBAUD_DETECT_ON_7F_FRAME       USART_CR2_ABRMODE_1	/*!< 0x7F frame detection */
+#define LL_USART_AUTOBAUD_DETECT_ON_55_FRAME       (USART_CR2_ABRMODE_1 | USART_CR2_ABRMODE_0)	/*!< 0x55 frame detection */
 
 /**
  * @}
@@ -405,8 +405,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_ADDRESS_DETECT Address Length Detection
  * @{
  */
-#  define LL_USART_ADDRESS_DETECT_4B    0x00000000U		/*!< 4-bit address detection method selected */
-#  define LL_USART_ADDRESS_DETECT_7B    USART_CR2_ADDM7	/*!< 7-bit address detection (in 8-bit data mode) method selected */
+#define LL_USART_ADDRESS_DETECT_4B    0x00000000U		/*!< 4-bit address detection method selected */
+#define LL_USART_ADDRESS_DETECT_7B    USART_CR2_ADDM7	/*!< 7-bit address detection (in 8-bit data mode) method selected */
 
 /**
  * @}
@@ -415,10 +415,10 @@ typedef struct {
 /** @defgroup USART_LL_EC_HWCONTROL Hardware Control
  * @{
  */
-#  define LL_USART_HWCONTROL_NONE       0x00000000U							/*!< CTS and RTS hardware flow control disabled */
-#  define LL_USART_HWCONTROL_RTS        USART_CR3_RTSE						/*!< RTS output enabled, data is only requested when there is space in the receive buffer */
-#  define LL_USART_HWCONTROL_CTS        USART_CR3_CTSE						/*!< CTS mode enabled, data is only transmitted when the nCTS input is asserted (tied to 0) */
-#  define LL_USART_HWCONTROL_RTS_CTS    (USART_CR3_RTSE | USART_CR3_CTSE)	/*!< CTS and RTS hardware flow control enabled */
+#define LL_USART_HWCONTROL_NONE       0x00000000U						/*!< CTS and RTS hardware flow control disabled */
+#define LL_USART_HWCONTROL_RTS        USART_CR3_RTSE					/*!< RTS output enabled, data is only requested when there is space in the receive buffer */
+#define LL_USART_HWCONTROL_CTS        USART_CR3_CTSE					/*!< CTS mode enabled, data is only transmitted when the nCTS input is asserted (tied to 0) */
+#define LL_USART_HWCONTROL_RTS_CTS    (USART_CR3_RTSE | USART_CR3_CTSE)	/*!< CTS and RTS hardware flow control enabled */
 
 /**
  * @}
@@ -427,8 +427,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_IRDA_POWER IrDA Power
  * @{
  */
-#  define LL_USART_IRDA_POWER_NORMAL    0x00000000U		/*!< IrDA normal power mode */
-#  define LL_USART_IRDA_POWER_LOW       USART_CR3_IRLP	/*!< IrDA low power mode */
+#define LL_USART_IRDA_POWER_NORMAL    0x00000000U	/*!< IrDA normal power mode */
+#define LL_USART_IRDA_POWER_LOW       USART_CR3_IRLP/*!< IrDA low power mode */
 
 /**
  * @}
@@ -437,8 +437,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_LINBREAK_DETECT LIN Break Detection Length
  * @{
  */
-#  define LL_USART_LINBREAK_DETECT_10B    0x00000000U	/*!< 10-bit break detection method selected */
-#  define LL_USART_LINBREAK_DETECT_11B    USART_CR2_LBDL/*!< 11-bit break detection method selected */
+#define LL_USART_LINBREAK_DETECT_10B    0x00000000U	/*!< 10-bit break detection method selected */
+#define LL_USART_LINBREAK_DETECT_11B    USART_CR2_LBDL	/*!< 11-bit break detection method selected */
 
 /**
  * @}
@@ -447,8 +447,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_DE_POLARITY Driver Enable Polarity
  * @{
  */
-#  define LL_USART_DE_POLARITY_HIGH    0x00000000U	/*!< DE signal is active high */
-#  define LL_USART_DE_POLARITY_LOW     USART_CR3_DEP/*!< DE signal is active low */
+#define LL_USART_DE_POLARITY_HIGH    0x00000000U/*!< DE signal is active high */
+#define LL_USART_DE_POLARITY_LOW     USART_CR3_DEP	/*!< DE signal is active low */
 
 /**
  * @}
@@ -457,8 +457,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_DMA_REG_DATA DMA Register Data
  * @{
  */
-#  define LL_USART_DMA_REG_DATA_TRANSMIT    0x00000000U	/*!< Get address of data register used for transmission */
-#  define LL_USART_DMA_REG_DATA_RECEIVE     0x00000001U	/*!< Get address of data register used for reception */
+#define LL_USART_DMA_REG_DATA_TRANSMIT    0x00000000U	/*!< Get address of data register used for transmission */
+#define LL_USART_DMA_REG_DATA_RECEIVE     0x00000001U	/*!< Get address of data register used for reception */
 
 /**
  * @}
@@ -485,7 +485,7 @@ typedef struct {
  * @param  __VALUE__ Value to be written in the register
  * @retval None
  */
-#  define LL_USART_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
+#define LL_USART_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
 
 /**
  * @brief  Read a value in USART register
@@ -493,7 +493,7 @@ typedef struct {
  * @param  __REG__ Register to be read
  * @retval Register value
  */
-#  define LL_USART_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
+#define LL_USART_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
 
 /**
  * @}
@@ -510,7 +510,7 @@ typedef struct {
  * @param  __BAUDRATE__ Baud rate value to achieve
  * @retval USARTDIV value to be used for BRR register filling in OverSampling_8 case
  */
-#  define __LL_USART_DIV_SAMPLING8(__PERIPHCLK__, \
+#define __LL_USART_DIV_SAMPLING8(__PERIPHCLK__, \
 	  __BAUDRATE__)    ((((__PERIPHCLK__) * 2U) + ((__BAUDRATE__) / 2U)) / (__BAUDRATE__))
 
 /**
@@ -520,7 +520,7 @@ typedef struct {
  * @param  __BAUDRATE__ Baud rate value to achieve
  * @retval USARTDIV value to be used for BRR register filling in OverSampling_16 case
  */
-#  define __LL_USART_DIV_SAMPLING16(__PERIPHCLK__, \
+#define __LL_USART_DIV_SAMPLING16(__PERIPHCLK__, \
 	  __BAUDRATE__)    (((__PERIPHCLK__) + ((__BAUDRATE__) / 2U)) / (__BAUDRATE__))
 
 /**
@@ -2258,8 +2258,8 @@ __STATIC_INLINE void LL_USART_ConfigSyncMode(USART_TypeDef *USARTx)
 __STATIC_INLINE void LL_USART_ConfigLINMode(USART_TypeDef *USARTx)
 {
 	/* In LIN mode, the following bits must be kept cleared:
-	*  - STOP and CLKEN bits in the USART_CR2 register,
-	*  - IREN, SCEN and HDSEL bits in the USART_CR3 register.*/
+	 *  - STOP and CLKEN bits in the USART_CR2 register,
+	 *  - IREN, SCEN and HDSEL bits in the USART_CR3 register.*/
 	CLEAR_BIT(USARTx->CR2, (USART_CR2_CLKEN | USART_CR2_STOP));
 	CLEAR_BIT(USARTx->CR3, (USART_CR3_IREN | USART_CR3_SCEN | USART_CR3_HDSEL));
 	/* Set the UART/USART in LIN mode */
@@ -2663,7 +2663,7 @@ __STATIC_INLINE uint32_t LL_USART_IsActiveFlag_TEACK(USART_TypeDef *USARTx)
 	return ((READ_BIT(USARTx->ISR, USART_ISR_TEACK) == (USART_ISR_TEACK)) ? 1UL : 0UL);
 }
 
-#  if defined(USART_TCBGT_SUPPORT)
+#if defined(USART_TCBGT_SUPPORT)
 /* Function available only on devices supporting Transmit Complete before Guard Time feature */
 
 /**
@@ -2677,7 +2677,7 @@ __STATIC_INLINE uint32_t LL_USART_IsActiveFlag_TCBGT(USART_TypeDef *USARTx)
 	return ((READ_BIT(USARTx->ISR, USART_ISR_TCBGT) == (USART_ISR_TCBGT)) ? 1UL : 0UL);
 }
 
-#  endif
+#endif
 
 /**
  * @brief  Clear Parity Error Flag
@@ -2745,7 +2745,7 @@ __STATIC_INLINE void LL_USART_ClearFlag_TC(USART_TypeDef *USARTx)
 	WRITE_REG(USARTx->ICR, USART_ICR_TCCF);
 }
 
-#  if defined(USART_TCBGT_SUPPORT)
+#if defined(USART_TCBGT_SUPPORT)
 /* Function available only on devices supporting Transmit Complete before Guard Time feature */
 
 /**
@@ -2759,7 +2759,7 @@ __STATIC_INLINE void LL_USART_ClearFlag_TCBGT(USART_TypeDef *USARTx)
 	WRITE_REG(USARTx->ICR, USART_ICR_TCBGTCF);
 }
 
-#  endif
+#endif
 
 /**
  * @brief  Clear LIN Break Detection Flag
@@ -2961,7 +2961,7 @@ __STATIC_INLINE void LL_USART_EnableIT_CTS(USART_TypeDef *USARTx)
 	SET_BIT(USARTx->CR3, USART_CR3_CTSIE);
 }
 
-#  if defined(USART_TCBGT_SUPPORT)
+#if defined(USART_TCBGT_SUPPORT)
 /* Function available only on devices supporting Transmit Complete before Guard Time feature */
 
 /**
@@ -2977,7 +2977,7 @@ __STATIC_INLINE void LL_USART_EnableIT_TCBGT(USART_TypeDef *USARTx)
 	SET_BIT(USARTx->CR3, USART_CR3_TCBGTIE);
 }
 
-#  endif
+#endif
 
 /**
  * @brief  Disable IDLE Interrupt
@@ -3110,7 +3110,7 @@ __STATIC_INLINE void LL_USART_DisableIT_CTS(USART_TypeDef *USARTx)
 	CLEAR_BIT(USARTx->CR3, USART_CR3_CTSIE);
 }
 
-#  if defined(USART_TCBGT_SUPPORT)
+#if defined(USART_TCBGT_SUPPORT)
 /* Function available only on devices supporting Transmit Complete before Guard Time feature */
 
 /**
@@ -3126,7 +3126,7 @@ __STATIC_INLINE void LL_USART_DisableIT_TCBGT(USART_TypeDef *USARTx)
 	CLEAR_BIT(USARTx->CR3, USART_CR3_TCBGTIE);
 }
 
-#  endif
+#endif
 
 /**
  * @brief  Check if the USART IDLE Interrupt  source is enabled or disabled.
@@ -3255,7 +3255,7 @@ __STATIC_INLINE uint32_t LL_USART_IsEnabledIT_CTS(USART_TypeDef *USARTx)
 	return ((READ_BIT(USARTx->CR3, USART_CR3_CTSIE) == (USART_CR3_CTSIE)) ? 1UL : 0UL);
 }
 
-#  if defined(USART_TCBGT_SUPPORT)
+#if defined(USART_TCBGT_SUPPORT)
 /* Function available only on devices supporting Transmit Complete before Guard Time feature */
 
 /**
@@ -3271,7 +3271,7 @@ __STATIC_INLINE uint32_t LL_USART_IsEnabledIT_TCBGT(USART_TypeDef *USARTx)
 	return ((READ_BIT(USARTx->CR3, USART_CR3_TCBGTIE) == (USART_CR3_TCBGTIE)) ? 1UL : 0UL);
 }
 
-#  endif
+#endif
 
 /**
  * @}
@@ -3532,7 +3532,7 @@ __STATIC_INLINE void LL_USART_RequestTxDataFlush(USART_TypeDef *USARTx)
  * @}
  */
 
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup USART_LL_EF_Init Initialization and de-initialization functions
  * @{
@@ -3546,7 +3546,7 @@ void        LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitS
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /**
  * @}
@@ -3556,15 +3556,15 @@ void        LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitS
  * @}
  */
 
-# endif	/* USART1 || USART2 || USART3 || USART6 || UART4 || UART5 || UART7 || UART8 */
+#endif	/* USART1 || USART2 || USART3 || USART6 || UART4 || UART5 || UART7 || UART8 */
 
 /**
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* STM32F7xx_LL_USART_H */
 

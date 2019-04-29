@@ -75,7 +75,7 @@ void arm_cfft_radix2_f32(
 		/*  Complex IFFT radix-2  */
 		arm_radix2_butterfly_inverse_f32(pSrc, S->fftLen, S->pTwiddle,
 		  S->twidCoefModifier, S->onebyfftLen);
-	} else   {
+	} else {
 		/*  Complex FFT radix-2  */
 		arm_radix2_butterfly_f32(pSrc, S->fftLen, S->pTwiddle,
 		  S->twidCoefModifier);
@@ -214,7 +214,7 @@ void arm_radix2_butterfly_f32(
 		pSrc[2 * i + 3] = yt;
 	}	// groups loop end
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	n2 = fftLen;
 
@@ -260,7 +260,7 @@ void arm_radix2_butterfly_f32(
 	}
 
 	#endif	//    #if defined (ARM_MATH_DSP)
-} /* arm_radix2_butterfly_f32 */
+}	/* arm_radix2_butterfly_f32 */
 
 void arm_radix2_butterfly_inverse_f32(
 	float32_t *pSrc,
@@ -368,7 +368,7 @@ void arm_radix2_butterfly_inverse_f32(
 		pSrc[2 * i + 3] = p3;
 	}	// butterfly loop end
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	n2 = fftLen;
 
@@ -440,4 +440,4 @@ void arm_radix2_butterfly_inverse_f32(
 	}	// butterfly loop end
 
 	#endif	//      #if defined (ARM_MATH_DSP)
-} /* arm_radix2_butterfly_inverse_f32 */
+}	/* arm_radix2_butterfly_inverse_f32 */

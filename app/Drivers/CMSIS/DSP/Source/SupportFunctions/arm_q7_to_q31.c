@@ -80,21 +80,21 @@ void arm_q7_to_q31(
 		/* convert from q7 to q31 and then store the results in the destination buffer */
 		in = *__SIMD32(pIn)++;
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		*pDst++ = (__ROR(in, 8)) & 0xFF000000;
 		*pDst++ = (__ROR(in, 16)) & 0xFF000000;
 		*pDst++ = (__ROR(in, 24)) & 0xFF000000;
 		*pDst++ = (in & 0xFF000000);
 
-		# else
+		#else
 
 		*pDst++ = (in & 0xFF000000);
 		*pDst++ = (__ROR(in, 24)) & 0xFF000000;
 		*pDst++ = (__ROR(in, 16)) & 0xFF000000;
 		*pDst++ = (__ROR(in, 8)) & 0xFF000000;
 
-		# endif	//              #ifndef ARM_MATH_BIG_ENDIAN
+		#endif	//              #ifndef ARM_MATH_BIG_ENDIAN
 
 		/* Decrement the loop counter */
 		blkCnt--;
@@ -104,7 +104,7 @@ void arm_q7_to_q31(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -121,7 +121,7 @@ void arm_q7_to_q31(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_q7_to_q31 */
+}	/* arm_q7_to_q31 */
 
 /**
  * @} end of q7_to_x group

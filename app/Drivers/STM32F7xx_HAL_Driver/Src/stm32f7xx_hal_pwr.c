@@ -46,10 +46,10 @@
 /** @defgroup PWR_PVD_Mode_Mask PWR PVD Mode Mask
  * @{
  */
-# define PVD_MODE_IT         ((uint32_t) 0x00010000U)
-# define PVD_MODE_EVT        ((uint32_t) 0x00020000U)
-# define PVD_RISING_EDGE     ((uint32_t) 0x00000001U)
-# define PVD_FALLING_EDGE    ((uint32_t) 0x00000002U)
+#define PVD_MODE_IT         ((uint32_t) 0x00010000U)
+#define PVD_MODE_EVT        ((uint32_t) 0x00020000U)
+#define PVD_RISING_EDGE     ((uint32_t) 0x00000001U)
+#define PVD_FALLING_EDGE    ((uint32_t) 0x00000002U)
 
 /**
  * @}
@@ -58,7 +58,7 @@
 /** @defgroup PWR_ENABLE_WUP_Mask PWR Enable WUP Mask
  * @{
  */
-# define  PWR_EWUP_MASK    ((uint32_t) 0x00003F00)
+#define  PWR_EWUP_MASK    ((uint32_t) 0x00003F00)
 
 /**
  * @}
@@ -293,7 +293,7 @@ void HAL_PWR_ConfigPVD(PWR_PVDTypeDef *sConfigPVD)
 	if ((sConfigPVD->Mode & PVD_FALLING_EDGE) == PVD_FALLING_EDGE) {
 		__HAL_PWR_PVD_EXTI_ENABLE_FALLING_EDGE();
 	}
-} /* HAL_PWR_ConfigPVD */
+}	/* HAL_PWR_ConfigPVD */
 
 /**
  * @brief Enables the Power Voltage Detector(PVD).
@@ -400,7 +400,7 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
 	if (SLEEPEntry == PWR_SLEEPENTRY_WFI) {
 		/* Request Wait For Interrupt */
 		__WFI();
-	} else   {
+	} else {
 		/* Request Wait For Event */
 		__SEV();
 		__WFE();
@@ -457,7 +457,7 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 	if (STOPEntry == PWR_STOPENTRY_WFI) {
 		/* Request Wait For Interrupt */
 		__WFI();
-	} else   {
+	} else {
 		/* Request Wait For Event */
 		__SEV();
 		__WFE();
@@ -465,7 +465,7 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 	}
 	/* Reset SLEEPDEEP bit of Cortex System Control Register */
 	SCB->SCR &= (uint32_t) ~((uint32_t) SCB_SCR_SLEEPDEEP_Msk);
-} /* HAL_PWR_EnterSTOPMode */
+}	/* HAL_PWR_EnterSTOPMode */
 
 /**
  * @brief Enters Standby mode.
@@ -486,9 +486,9 @@ void HAL_PWR_EnterSTANDBYMode(void)
 	SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 
 	/* This option is used to ensure that store operations are completed */
-	# if defined( __CC_ARM)
+	#if defined( __CC_ARM)
 	__force_stores();
-	# endif
+	#endif
 	/* Request Wait For Interrupt */
 	__WFI();
 }

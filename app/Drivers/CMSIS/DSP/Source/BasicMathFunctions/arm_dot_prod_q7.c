@@ -114,7 +114,7 @@ void arm_dot_prod_q7(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -136,7 +136,7 @@ void arm_dot_prod_q7(
 
 	/* Store the result in the destination buffer in 18.14 format */
 	*result = sum;
-} /* arm_dot_prod_q7 */
+}	/* arm_dot_prod_q7 */
 
 /**
  * @} end of dot_prod group

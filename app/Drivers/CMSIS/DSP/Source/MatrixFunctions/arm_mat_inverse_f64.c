@@ -75,24 +75,24 @@ arm_status arm_mat_inverse_f64(
 	const arm_matrix_instance_f64 *pSrc,
 	arm_matrix_instance_f64       *pDst)
 {
-	float64_t *pIn = pSrc->pData;								/* input data matrix pointer */
-	float64_t *pOut = pDst->pData;								/* output data matrix pointer */
-	float64_t *pInT1, *pInT2;									/* Temporary input data matrix pointer */
-	float64_t *pOutT1, *pOutT2;									/* Temporary output data matrix pointer */
+	float64_t *pIn = pSrc->pData;	/* input data matrix pointer */
+	float64_t *pOut = pDst->pData;	/* output data matrix pointer */
+	float64_t *pInT1, *pInT2;		/* Temporary input data matrix pointer */
+	float64_t *pOutT1, *pOutT2;		/* Temporary output data matrix pointer */
 	float64_t *pPivotRowIn, *pPRT_in, *pPivotRowDst, *pPRT_pDst;/* Temporary input and output data matrix pointer */
-	uint32_t numRows = pSrc->numRows;							/* Number of rows in the matrix  */
-	uint32_t numCols = pSrc->numCols;							/* Number of Cols in the matrix  */
+	uint32_t numRows = pSrc->numRows;	/* Number of rows in the matrix  */
+	uint32_t numCols = pSrc->numCols;	/* Number of Cols in the matrix  */
 
 	#if defined(ARM_MATH_DSP)
 	float64_t maxC;	/* maximum value in the column */
 
 	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
-	float64_t Xchg, in = 0.0f, in1;					/* Temporary input values  */
+	float64_t Xchg, in = 0.0f, in1;	/* Temporary input values  */
 	uint32_t i, rowCnt, flag = 0U, j, loopCnt, k, l;/* loop counters */
-	arm_status status;								/* status of matrix inverse */
+	arm_status status;	/* status of matrix inverse */
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 
 
 	/* Check for matrix mismatch condition */
@@ -102,7 +102,7 @@ arm_status arm_mat_inverse_f64(
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
+	#endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
 
 	{
 		/*--------------------------------------------------------------------------------------------------------------
@@ -332,7 +332,7 @@ arm_status arm_mat_inverse_f64(
 					pInT1 += numCols - l;
 
 					pInT2 += numCols;
-				} else   {
+				} else {
 					/* Element of the reference row */
 					in = *pInT1;
 
@@ -390,15 +390,15 @@ arm_status arm_mat_inverse_f64(
 		}
 
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
-	float64_t Xchg, in = 0.0f;						/* Temporary input values  */
+	float64_t Xchg, in = 0.0f;	/* Temporary input values  */
 	uint32_t i, rowCnt, flag = 0U, j, loopCnt, k, l;/* loop counters */
-	arm_status status;								/* status of matrix inverse */
+	arm_status status;	/* status of matrix inverse */
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 
 	/* Check for matrix mismatch condition */
 	if ((pSrc->numRows != pSrc->numCols) || (pDst->numRows != pDst->numCols) ||
@@ -407,7 +407,7 @@ arm_status arm_mat_inverse_f64(
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/*      #ifdef ARM_MATH_MATRIX_CHECK    */
+	#endif	/*      #ifdef ARM_MATH_MATRIX_CHECK    */
 	{
 		/*--------------------------------------------------------------------------------------------------------------
 		 * Matrix Inverse can be solved using elementary row operations.
@@ -583,7 +583,7 @@ arm_status arm_mat_inverse_f64(
 					 * only the columns to the right are to be processed */
 					pInT1  += numCols - l;
 					pOutT1 += numCols;
-				} else   {
+				} else {
 					/* Element of the reference row */
 					in = *pInT1;
 
@@ -640,7 +640,7 @@ arm_status arm_mat_inverse_f64(
 	}
 	/* Return to application */
 	return (status);
-} /* arm_mat_inverse_f64 */
+}	/* arm_mat_inverse_f64 */
 
 /**
  * @} end of MatrixInv group

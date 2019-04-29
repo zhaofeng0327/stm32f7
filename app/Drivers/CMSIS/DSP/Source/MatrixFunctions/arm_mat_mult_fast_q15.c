@@ -130,29 +130,29 @@ arm_status arm_mat_mult_fast_q15(
 				in = *__SIMD32(pInB)++;
 
 				/* Unpack and store one element in the destination */
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*px = (q15_t) in;
 
-				# else
+				#else
 
 				*px = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				# endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
+				#endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
 
 				/* Update the pointer px to point to the next row of the transposed matrix */
 				px += numRowsB;
 
 				/* Unpack and store the second element in the destination */
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*px = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				# else
+				#else
 
 				*px = (q15_t) in;
 
-				# endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
+				#endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
 
 				/* Update the pointer px to point to the next row of the transposed matrix */
 				px += numRowsB;
@@ -161,32 +161,32 @@ arm_status arm_mat_mult_fast_q15(
 				in = *__SIMD32(pInB)++;
 
 				/* Unpack and store one element in the destination */
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*px = (q15_t) in;
 
-				# else
+				#else
 
 				*px = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				# endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
+				#endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
 
 				/* Update the pointer px to point to the next row of the transposed matrix */
 				px += numRowsB;
 
 				/* Unpack and store the second element in the destination */
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*px = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				# else
+				#else
 
 				*px = (q15_t) in;
 
-				# endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
+				#endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
 
-				#else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+				#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
 				/* Read one element from the row */
 				in = *pInB++;
@@ -298,7 +298,7 @@ arm_status arm_mat_mult_fast_q15(
 				colCnt = numColsA >> 1;
 				#else
 				colCnt = numColsA >> 2;
-				#endif /* ifndef UNALIGNED_SUPPORT_DISABLE */
+				#endif	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
 				/* matrix multiplication */
 				while (colCnt > 0U) {
@@ -315,7 +315,7 @@ arm_status arm_mat_mult_fast_q15(
 					sum3 = __SMLAD(inA2, inB1, sum3);
 					sum4 = __SMLAD(inA2, inB2, sum4);
 
-					#else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+					#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
 					inA1 = *pInA;
 					inB1 = *pInB;
@@ -354,7 +354,7 @@ arm_status arm_mat_mult_fast_q15(
 					sum3 += inA2 * inB1;
 					sum4 += inA2 * inB2;
 				}
-				#else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+				#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 				colCnt = numColsA % 0x4U;
 
 				while (colCnt > 0U) {
@@ -363,7 +363,7 @@ arm_status arm_mat_mult_fast_q15(
 
 					colCnt--;
 				}
-				#endif /* ifndef UNALIGNED_SUPPORT_DISABLE */
+				#endif	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
 				/* Saturate and store the result in the destination buffer */
 				*px++ = (q15_t) (sum >> 15);
@@ -500,7 +500,7 @@ arm_status arm_mat_mult_fast_q15(
 
 	/* Return to application */
 	return (status);
-} /* arm_mat_mult_fast_q15 */
+}	/* arm_mat_mult_fast_q15 */
 
 /**
  * @} end of MatrixMult group

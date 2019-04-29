@@ -91,17 +91,17 @@ static void accumulate_q7_to_q15(q15_t *base, q7_t *target, const uint16_t lengt
 		q31_t value = *__SIMD32(pV)++;
 		v1 = __SXTB16(__ROR(value, 8));
 		v2 = __SXTB16(value);
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		vo2 = __PKHTB(v1, v2, 16);
 		vo1 = __PKHBT(v2, v1, 16);
 
-		# else
+		#else
 
 		vo1 = __PKHTB(v1, v2, 16);
 		vo2 = __PKHBT(v2, v1, 16);
 
-		# endif
+		#endif
 
 		in = *__SIMD32(pCnt);
 		*__SIMD32(pCnt)++ = __QADD16(vo1, in);
@@ -116,7 +116,7 @@ static void accumulate_q7_to_q15(q15_t *base, q7_t *target, const uint16_t lengt
 		*pCnt++ += *pV++;
 		cnt--;
 	}
-} /* accumulate_q7_to_q15 */
+}	/* accumulate_q7_to_q15 */
 
 #endif	// ARM_MATH_DSP
 
@@ -230,7 +230,7 @@ void arm_maxpool_q7_HWC(q7_t *Im_in,
 		}
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
 
 	int16_t i_ch_in, i_x, i_y;
@@ -255,7 +255,7 @@ void arm_maxpool_q7_HWC(q7_t *Im_in,
 	}
 
 	#endif	/* ARM_MATH_DSP */
-} /* arm_maxpool_q7_HWC */
+}	/* arm_maxpool_q7_HWC */
 
 /**
  * @brief Q7 average pooling function
@@ -364,7 +364,7 @@ void arm_avepool_q7_HWC(q7_t *Im_in,
 		buffer_scale_back_q15_to_q7(buffer, target, dim_im_out * ch_im_in, count);
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
 
 	int16_t i_ch_in, i_x, i_y;
@@ -389,7 +389,7 @@ void arm_avepool_q7_HWC(q7_t *Im_in,
 	}
 
 	#endif	/* ARM_MATH_DSP */
-} /* arm_avepool_q7_HWC */
+}	/* arm_avepool_q7_HWC */
 
 /**
  * @} end of Pooling group

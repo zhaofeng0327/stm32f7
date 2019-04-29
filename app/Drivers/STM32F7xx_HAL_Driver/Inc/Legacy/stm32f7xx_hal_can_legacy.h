@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_HAL_CAN_LEGACY_H
-# define __STM32F7xx_HAL_CAN_LEGACY_H
+#define __STM32F7xx_HAL_CAN_LEGACY_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -228,19 +228,19 @@ typedef struct {
 /** @defgroup CAN_Error_Code CAN Error Code
  * @{
  */
-# define   HAL_CAN_ERROR_NONE      0x00000000U	/*!< No error             */
-# define   HAL_CAN_ERROR_EWG       0x00000001U	/*!< EWG error            */
-# define   HAL_CAN_ERROR_EPV       0x00000002U	/*!< EPV error            */
-# define   HAL_CAN_ERROR_BOF       0x00000004U	/*!< BOF error            */
-# define   HAL_CAN_ERROR_STF       0x00000008U	/*!< Stuff error          */
-# define   HAL_CAN_ERROR_FOR       0x00000010U	/*!< Form error           */
-# define   HAL_CAN_ERROR_ACK       0x00000020U	/*!< Acknowledgment error */
-# define   HAL_CAN_ERROR_BR        0x00000040U	/*!< Bit recessive        */
-# define   HAL_CAN_ERROR_BD        0x00000080U	/*!< LEC dominant         */
-# define   HAL_CAN_ERROR_CRC       0x00000100U	/*!< LEC transfer error   */
-# define   HAL_CAN_ERROR_FOV0      0x00000200U	/*!< FIFO0 overrun error  */
-# define   HAL_CAN_ERROR_FOV1      0x00000400U	/*!< FIFO1 overrun error  */
-# define   HAL_CAN_ERROR_TXFAIL    0x00000800U	/*!< Transmit failure     */
+#define   HAL_CAN_ERROR_NONE      0x00000000U	/*!< No error             */
+#define   HAL_CAN_ERROR_EWG       0x00000001U	/*!< EWG error            */
+#define   HAL_CAN_ERROR_EPV       0x00000002U	/*!< EPV error            */
+#define   HAL_CAN_ERROR_BOF       0x00000004U	/*!< BOF error            */
+#define   HAL_CAN_ERROR_STF       0x00000008U	/*!< Stuff error          */
+#define   HAL_CAN_ERROR_FOR       0x00000010U	/*!< Form error           */
+#define   HAL_CAN_ERROR_ACK       0x00000020U	/*!< Acknowledgment error */
+#define   HAL_CAN_ERROR_BR        0x00000040U	/*!< Bit recessive        */
+#define   HAL_CAN_ERROR_BD        0x00000080U	/*!< LEC dominant         */
+#define   HAL_CAN_ERROR_CRC       0x00000100U	/*!< LEC transfer error   */
+#define   HAL_CAN_ERROR_FOV0      0x00000200U	/*!< FIFO0 overrun error  */
+#define   HAL_CAN_ERROR_FOV1      0x00000400U	/*!< FIFO1 overrun error  */
+#define   HAL_CAN_ERROR_TXFAIL    0x00000800U	/*!< Transmit failure     */
 
 /**
  * @}
@@ -249,8 +249,8 @@ typedef struct {
 /** @defgroup CAN_InitStatus CAN InitStatus
  * @{
  */
-# define CAN_INITSTATUS_FAILED     ((uint8_t) 0x00)	/*!< CAN initialization failed */
-# define CAN_INITSTATUS_SUCCESS    ((uint8_t) 0x01)	/*!< CAN initialization OK */
+#define CAN_INITSTATUS_FAILED     ((uint8_t) 0x00)	/*!< CAN initialization failed */
+#define CAN_INITSTATUS_SUCCESS    ((uint8_t) 0x01)	/*!< CAN initialization OK */
 
 /**
  * @}
@@ -259,10 +259,10 @@ typedef struct {
 /** @defgroup CAN_operating_mode CAN Operating Mode
  * @{
  */
-# define CAN_MODE_NORMAL             0x00000000U								/*!< Normal mode   */
-# define CAN_MODE_LOOPBACK           ((uint32_t) CAN_BTR_LBKM)					/*!< Loopback mode */
-# define CAN_MODE_SILENT             ((uint32_t) CAN_BTR_SILM)					/*!< Silent mode   */
-# define CAN_MODE_SILENT_LOOPBACK    ((uint32_t) (CAN_BTR_LBKM | CAN_BTR_SILM))	/*!< Loopback combined with silent mode */
+#define CAN_MODE_NORMAL             0x00000000U									/*!< Normal mode   */
+#define CAN_MODE_LOOPBACK           ((uint32_t) CAN_BTR_LBKM)					/*!< Loopback mode */
+#define CAN_MODE_SILENT             ((uint32_t) CAN_BTR_SILM)					/*!< Silent mode   */
+#define CAN_MODE_SILENT_LOOPBACK    ((uint32_t) (CAN_BTR_LBKM | CAN_BTR_SILM))	/*!< Loopback combined with silent mode */
 
 /**
  * @}
@@ -271,10 +271,10 @@ typedef struct {
 /** @defgroup CAN_synchronisation_jump_width CAN Synchronisation Jump Width
  * @{
  */
-# define CAN_SJW_1TQ    0x00000000U					/*!< 1 time quantum */
-# define CAN_SJW_2TQ    ((uint32_t) CAN_BTR_SJW_0)	/*!< 2 time quantum */
-# define CAN_SJW_3TQ    ((uint32_t) CAN_BTR_SJW_1)	/*!< 3 time quantum */
-# define CAN_SJW_4TQ    ((uint32_t) CAN_BTR_SJW)	/*!< 4 time quantum */
+#define CAN_SJW_1TQ    0x00000000U					/*!< 1 time quantum */
+#define CAN_SJW_2TQ    ((uint32_t) CAN_BTR_SJW_0)	/*!< 2 time quantum */
+#define CAN_SJW_3TQ    ((uint32_t) CAN_BTR_SJW_1)	/*!< 3 time quantum */
+#define CAN_SJW_4TQ    ((uint32_t) CAN_BTR_SJW)		/*!< 4 time quantum */
 
 /**
  * @}
@@ -283,22 +283,22 @@ typedef struct {
 /** @defgroup CAN_time_quantum_in_bit_segment_1 CAN Time Quantum in bit segment 1
  * @{
  */
-# define CAN_BS1_1TQ     0x00000000U													/*!< 1 time quantum  */
-# define CAN_BS1_2TQ     ((uint32_t) CAN_BTR_TS1_0)										/*!< 2 time quantum  */
-# define CAN_BS1_3TQ     ((uint32_t) CAN_BTR_TS1_1)										/*!< 3 time quantum  */
-# define CAN_BS1_4TQ     ((uint32_t) (CAN_BTR_TS1_1 | CAN_BTR_TS1_0))					/*!< 4 time quantum  */
-# define CAN_BS1_5TQ     ((uint32_t) CAN_BTR_TS1_2)										/*!< 5 time quantum  */
-# define CAN_BS1_6TQ     ((uint32_t) (CAN_BTR_TS1_2 | CAN_BTR_TS1_0))					/*!< 6 time quantum  */
-# define CAN_BS1_7TQ     ((uint32_t) (CAN_BTR_TS1_2 | CAN_BTR_TS1_1))					/*!< 7 time quantum  */
-# define CAN_BS1_8TQ     ((uint32_t) (CAN_BTR_TS1_2 | CAN_BTR_TS1_1 | CAN_BTR_TS1_0))	/*!< 8 time quantum  */
-# define CAN_BS1_9TQ     ((uint32_t) CAN_BTR_TS1_3)										/*!< 9 time quantum  */
-# define CAN_BS1_10TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_0))					/*!< 10 time quantum */
-# define CAN_BS1_11TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_1))					/*!< 11 time quantum */
-# define CAN_BS1_12TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_1 | CAN_BTR_TS1_0))	/*!< 12 time quantum */
-# define CAN_BS1_13TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_2))					/*!< 13 time quantum */
-# define CAN_BS1_14TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_2 | CAN_BTR_TS1_0))	/*!< 14 time quantum */
-# define CAN_BS1_15TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_2 | CAN_BTR_TS1_1))	/*!< 15 time quantum */
-# define CAN_BS1_16TQ    ((uint32_t) CAN_BTR_TS1)										/*!< 16 time quantum */
+#define CAN_BS1_1TQ     0x00000000U													/*!< 1 time quantum  */
+#define CAN_BS1_2TQ     ((uint32_t) CAN_BTR_TS1_0)									/*!< 2 time quantum  */
+#define CAN_BS1_3TQ     ((uint32_t) CAN_BTR_TS1_1)									/*!< 3 time quantum  */
+#define CAN_BS1_4TQ     ((uint32_t) (CAN_BTR_TS1_1 | CAN_BTR_TS1_0))				/*!< 4 time quantum  */
+#define CAN_BS1_5TQ     ((uint32_t) CAN_BTR_TS1_2)									/*!< 5 time quantum  */
+#define CAN_BS1_6TQ     ((uint32_t) (CAN_BTR_TS1_2 | CAN_BTR_TS1_0))				/*!< 6 time quantum  */
+#define CAN_BS1_7TQ     ((uint32_t) (CAN_BTR_TS1_2 | CAN_BTR_TS1_1))				/*!< 7 time quantum  */
+#define CAN_BS1_8TQ     ((uint32_t) (CAN_BTR_TS1_2 | CAN_BTR_TS1_1 | CAN_BTR_TS1_0))/*!< 8 time quantum  */
+#define CAN_BS1_9TQ     ((uint32_t) CAN_BTR_TS1_3)									/*!< 9 time quantum  */
+#define CAN_BS1_10TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_0))				/*!< 10 time quantum */
+#define CAN_BS1_11TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_1))				/*!< 11 time quantum */
+#define CAN_BS1_12TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_1 | CAN_BTR_TS1_0))/*!< 12 time quantum */
+#define CAN_BS1_13TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_2))				/*!< 13 time quantum */
+#define CAN_BS1_14TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_2 | CAN_BTR_TS1_0))/*!< 14 time quantum */
+#define CAN_BS1_15TQ    ((uint32_t) (CAN_BTR_TS1_3 | CAN_BTR_TS1_2 | CAN_BTR_TS1_1))/*!< 15 time quantum */
+#define CAN_BS1_16TQ    ((uint32_t) CAN_BTR_TS1)									/*!< 16 time quantum */
 
 /**
  * @}
@@ -307,14 +307,14 @@ typedef struct {
 /** @defgroup CAN_time_quantum_in_bit_segment_2 CAN Time Quantum in bit segment 2
  * @{
  */
-# define CAN_BS2_1TQ    0x00000000U									/*!< 1 time quantum */
-# define CAN_BS2_2TQ    ((uint32_t) CAN_BTR_TS2_0)					/*!< 2 time quantum */
-# define CAN_BS2_3TQ    ((uint32_t) CAN_BTR_TS2_1)					/*!< 3 time quantum */
-# define CAN_BS2_4TQ    ((uint32_t) (CAN_BTR_TS2_1 | CAN_BTR_TS2_0))/*!< 4 time quantum */
-# define CAN_BS2_5TQ    ((uint32_t) CAN_BTR_TS2_2)					/*!< 5 time quantum */
-# define CAN_BS2_6TQ    ((uint32_t) (CAN_BTR_TS2_2 | CAN_BTR_TS2_0))/*!< 6 time quantum */
-# define CAN_BS2_7TQ    ((uint32_t) (CAN_BTR_TS2_2 | CAN_BTR_TS2_1))/*!< 7 time quantum */
-# define CAN_BS2_8TQ    ((uint32_t) CAN_BTR_TS2)					/*!< 8 time quantum */
+#define CAN_BS2_1TQ    0x00000000U					/*!< 1 time quantum */
+#define CAN_BS2_2TQ    ((uint32_t) CAN_BTR_TS2_0)	/*!< 2 time quantum */
+#define CAN_BS2_3TQ    ((uint32_t) CAN_BTR_TS2_1)	/*!< 3 time quantum */
+#define CAN_BS2_4TQ    ((uint32_t) (CAN_BTR_TS2_1 | CAN_BTR_TS2_0))	/*!< 4 time quantum */
+#define CAN_BS2_5TQ    ((uint32_t) CAN_BTR_TS2_2)	/*!< 5 time quantum */
+#define CAN_BS2_6TQ    ((uint32_t) (CAN_BTR_TS2_2 | CAN_BTR_TS2_0))	/*!< 6 time quantum */
+#define CAN_BS2_7TQ    ((uint32_t) (CAN_BTR_TS2_2 | CAN_BTR_TS2_1))	/*!< 7 time quantum */
+#define CAN_BS2_8TQ    ((uint32_t) CAN_BTR_TS2)	/*!< 8 time quantum */
 
 /**
  * @}
@@ -323,8 +323,8 @@ typedef struct {
 /** @defgroup CAN_filter_mode  CAN Filter Mode
  * @{
  */
-# define CAN_FILTERMODE_IDMASK    ((uint8_t) 0x00)	/*!< Identifier mask mode */
-# define CAN_FILTERMODE_IDLIST    ((uint8_t) 0x01)	/*!< Identifier list mode */
+#define CAN_FILTERMODE_IDMASK    ((uint8_t) 0x00)	/*!< Identifier mask mode */
+#define CAN_FILTERMODE_IDLIST    ((uint8_t) 0x01)	/*!< Identifier list mode */
 
 /**
  * @}
@@ -333,8 +333,8 @@ typedef struct {
 /** @defgroup CAN_filter_scale CAN Filter Scale
  * @{
  */
-# define CAN_FILTERSCALE_16BIT    ((uint8_t) 0x00)	/*!< Two 16-bit filters */
-# define CAN_FILTERSCALE_32BIT    ((uint8_t) 0x01)	/*!< One 32-bit filter  */
+#define CAN_FILTERSCALE_16BIT    ((uint8_t) 0x00)	/*!< Two 16-bit filters */
+#define CAN_FILTERSCALE_32BIT    ((uint8_t) 0x01)	/*!< One 32-bit filter  */
 
 /**
  * @}
@@ -343,8 +343,8 @@ typedef struct {
 /** @defgroup CAN_filter_FIFO CAN Filter FIFO
  * @{
  */
-# define CAN_FILTER_FIFO0    ((uint8_t) 0x00)	/*!< Filter FIFO 0 assignment for filter x */
-# define CAN_FILTER_FIFO1    ((uint8_t) 0x01)	/*!< Filter FIFO 1 assignment for filter x */
+#define CAN_FILTER_FIFO0    ((uint8_t) 0x00)/*!< Filter FIFO 0 assignment for filter x */
+#define CAN_FILTER_FIFO1    ((uint8_t) 0x01)/*!< Filter FIFO 1 assignment for filter x */
 
 /**
  * @}
@@ -353,8 +353,8 @@ typedef struct {
 /** @defgroup CAN_Identifier_Type CAN Identifier Type
  * @{
  */
-# define CAN_ID_STD    0x00000000U	/*!< Standard Id */
-# define CAN_ID_EXT    0x00000004U	/*!< Extended Id */
+#define CAN_ID_STD    0x00000000U	/*!< Standard Id */
+#define CAN_ID_EXT    0x00000004U	/*!< Extended Id */
 
 /**
  * @}
@@ -363,8 +363,8 @@ typedef struct {
 /** @defgroup CAN_remote_transmission_request CAN Remote Transmission Request
  * @{
  */
-# define CAN_RTR_DATA      0x00000000U	/*!< Data frame */
-# define CAN_RTR_REMOTE    0x00000002U	/*!< Remote frame */
+#define CAN_RTR_DATA      0x00000000U	/*!< Data frame */
+#define CAN_RTR_REMOTE    0x00000002U	/*!< Remote frame */
 
 /**
  * @}
@@ -373,8 +373,8 @@ typedef struct {
 /** @defgroup CAN_receive_FIFO_number_constants CAN Receive FIFO Number Constants
  * @{
  */
-# define CAN_FIFO0    ((uint8_t) 0x00)	/*!< CAN FIFO 0 used to receive */
-# define CAN_FIFO1    ((uint8_t) 0x01)	/*!< CAN FIFO 1 used to receive */
+#define CAN_FIFO0    ((uint8_t) 0x00)	/*!< CAN FIFO 0 used to receive */
+#define CAN_FIFO1    ((uint8_t) 0x01)	/*!< CAN FIFO 1 used to receive */
 
 /**
  * @}
@@ -391,37 +391,37 @@ typedef struct {
  * CAN_GetFlagStatus() function.  */
 
 /* Transmit Flags */
-# define CAN_FLAG_RQCP0    0x00000500U	/*!< Request MailBox0 flag         */
-# define CAN_FLAG_RQCP1    0x00000508U	/*!< Request MailBox1 flag         */
-# define CAN_FLAG_RQCP2    0x00000510U	/*!< Request MailBox2 flag         */
-# define CAN_FLAG_TXOK0    0x00000501U	/*!< Transmission OK MailBox0 flag */
-# define CAN_FLAG_TXOK1    0x00000509U	/*!< Transmission OK MailBox1 flag */
-# define CAN_FLAG_TXOK2    0x00000511U	/*!< Transmission OK MailBox2 flag */
-# define CAN_FLAG_TME0     0x0000051AU	/*!< Transmit mailbox 0 empty flag */
-# define CAN_FLAG_TME1     0x0000051BU	/*!< Transmit mailbox 0 empty flag */
-# define CAN_FLAG_TME2     0x0000051CU	/*!< Transmit mailbox 0 empty flag */
+#define CAN_FLAG_RQCP0    0x00000500U	/*!< Request MailBox0 flag         */
+#define CAN_FLAG_RQCP1    0x00000508U	/*!< Request MailBox1 flag         */
+#define CAN_FLAG_RQCP2    0x00000510U	/*!< Request MailBox2 flag         */
+#define CAN_FLAG_TXOK0    0x00000501U	/*!< Transmission OK MailBox0 flag */
+#define CAN_FLAG_TXOK1    0x00000509U	/*!< Transmission OK MailBox1 flag */
+#define CAN_FLAG_TXOK2    0x00000511U	/*!< Transmission OK MailBox2 flag */
+#define CAN_FLAG_TME0     0x0000051AU	/*!< Transmit mailbox 0 empty flag */
+#define CAN_FLAG_TME1     0x0000051BU	/*!< Transmit mailbox 0 empty flag */
+#define CAN_FLAG_TME2     0x0000051CU	/*!< Transmit mailbox 0 empty flag */
 
 /* Receive Flags */
-# define CAN_FLAG_FF0     0x00000203U	/*!< FIFO 0 Full flag    */
-# define CAN_FLAG_FOV0    0x00000204U	/*!< FIFO 0 Overrun flag */
+#define CAN_FLAG_FF0     0x00000203U/*!< FIFO 0 Full flag    */
+#define CAN_FLAG_FOV0    0x00000204U/*!< FIFO 0 Overrun flag */
 
-# define CAN_FLAG_FF1     0x00000403U	/*!< FIFO 1 Full flag    */
-# define CAN_FLAG_FOV1    0x00000404U	/*!< FIFO 1 Overrun flag */
+#define CAN_FLAG_FF1     0x00000403U/*!< FIFO 1 Full flag    */
+#define CAN_FLAG_FOV1    0x00000404U/*!< FIFO 1 Overrun flag */
 
 /* Operating Mode Flags */
-# define CAN_FLAG_INAK     0x00000100U	/*!<  Initialization acknowledge flag */
-# define CAN_FLAG_SLAK     0x00000101U	/*!< Sleep acknowledge flag */
-# define CAN_FLAG_ERRI     0x00000102U	/*!<  Error flag */
-# define CAN_FLAG_WKU      0x00000103U	/*!< Wake up flag           */
-# define CAN_FLAG_SLAKI    0x00000104U	/*!< Sleep acknowledge flag */
+#define CAN_FLAG_INAK     0x00000100U	/*!<  Initialization acknowledge flag */
+#define CAN_FLAG_SLAK     0x00000101U	/*!< Sleep acknowledge flag */
+#define CAN_FLAG_ERRI     0x00000102U	/*!<  Error flag */
+#define CAN_FLAG_WKU      0x00000103U	/*!< Wake up flag           */
+#define CAN_FLAG_SLAKI    0x00000104U	/*!< Sleep acknowledge flag */
 
 /* @note When SLAK interrupt is disabled (SLKIE=0), no polling on SLAKI is possible.
  *       In this case the SLAK bit can be polled.*/
 
 /* Error Flags */
-# define CAN_FLAG_EWG    0x00000300U/*!< Error warning flag   */
-# define CAN_FLAG_EPV    0x00000301U/*!< Error passive flag   */
-# define CAN_FLAG_BOF    0x00000302U/*!< Bus-Off flag         */
+#define CAN_FLAG_EWG    0x00000300U	/*!< Error warning flag   */
+#define CAN_FLAG_EPV    0x00000301U	/*!< Error passive flag   */
+#define CAN_FLAG_BOF    0x00000302U	/*!< Bus-Off flag         */
 
 /**
  * @}
@@ -430,26 +430,26 @@ typedef struct {
 /** @defgroup CAN_Interrupts CAN Interrupts
  * @{
  */
-# define CAN_IT_TME    CAN_IER_TMEIE/*!< Transmit mailbox empty interrupt */
+#define CAN_IT_TME    CAN_IER_TMEIE	/*!< Transmit mailbox empty interrupt */
 
 /* Receive Interrupts */
-# define CAN_IT_FMP0    CAN_IER_FMPIE0	/*!< FIFO 0 message pending interrupt */
-# define CAN_IT_FF0     CAN_IER_FFIE0	/*!< FIFO 0 full interrupt            */
-# define CAN_IT_FOV0    CAN_IER_FOVIE0	/*!< FIFO 0 overrun interrupt         */
-# define CAN_IT_FMP1    CAN_IER_FMPIE1	/*!< FIFO 1 message pending interrupt */
-# define CAN_IT_FF1     CAN_IER_FFIE1	/*!< FIFO 1 full interrupt            */
-# define CAN_IT_FOV1    CAN_IER_FOVIE1	/*!< FIFO 1 overrun interrupt         */
+#define CAN_IT_FMP0    CAN_IER_FMPIE0	/*!< FIFO 0 message pending interrupt */
+#define CAN_IT_FF0     CAN_IER_FFIE0	/*!< FIFO 0 full interrupt            */
+#define CAN_IT_FOV0    CAN_IER_FOVIE0	/*!< FIFO 0 overrun interrupt         */
+#define CAN_IT_FMP1    CAN_IER_FMPIE1	/*!< FIFO 1 message pending interrupt */
+#define CAN_IT_FF1     CAN_IER_FFIE1	/*!< FIFO 1 full interrupt            */
+#define CAN_IT_FOV1    CAN_IER_FOVIE1	/*!< FIFO 1 overrun interrupt         */
 
 /* Operating Mode Interrupts */
-# define CAN_IT_WKU    CAN_IER_WKUIE/*!< Wake-up interrupt           */
-# define CAN_IT_SLK    CAN_IER_SLKIE/*!< Sleep acknowledge interrupt */
+#define CAN_IT_WKU    CAN_IER_WKUIE	/*!< Wake-up interrupt           */
+#define CAN_IT_SLK    CAN_IER_SLKIE	/*!< Sleep acknowledge interrupt */
 
 /* Error Interrupts */
-# define CAN_IT_EWG    CAN_IER_EWGIE/*!< Error warning interrupt   */
-# define CAN_IT_EPV    CAN_IER_EPVIE/*!< Error passive interrupt   */
-# define CAN_IT_BOF    CAN_IER_BOFIE/*!< Bus-off interrupt         */
-# define CAN_IT_LEC    CAN_IER_LECIE/*!< Last error code interrupt */
-# define CAN_IT_ERR    CAN_IER_ERRIE/*!< Error Interrupt           */
+#define CAN_IT_EWG    CAN_IER_EWGIE	/*!< Error warning interrupt   */
+#define CAN_IT_EPV    CAN_IER_EPVIE	/*!< Error passive interrupt   */
+#define CAN_IT_BOF    CAN_IER_BOFIE	/*!< Bus-off interrupt         */
+#define CAN_IT_LEC    CAN_IER_LECIE	/*!< Last error code interrupt */
+#define CAN_IT_ERR    CAN_IER_ERRIE	/*!< Error Interrupt           */
 
 /**
  * @}
@@ -458,9 +458,9 @@ typedef struct {
 /** @defgroup CAN_Mailboxes_Definition CAN Mailboxes Definition
  * @{
  */
-# define CAN_TXMAILBOX_0    ((uint8_t) 0x00)
-# define CAN_TXMAILBOX_1    ((uint8_t) 0x01)
-# define CAN_TXMAILBOX_2    ((uint8_t) 0x02)
+#define CAN_TXMAILBOX_0    ((uint8_t) 0x00)
+#define CAN_TXMAILBOX_1    ((uint8_t) 0x01)
+#define CAN_TXMAILBOX_2    ((uint8_t) 0x02)
 
 /**
  * @}
@@ -480,7 +480,7 @@ typedef struct {
  * @param  __HANDLE__ specifies the CAN Handle.
  * @retval None
  */
-# define __HAL_CAN_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_CAN_STATE_RESET)
+#define __HAL_CAN_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_CAN_STATE_RESET)
 
 /**
  * @brief  Enable the specified CAN interrupts.
@@ -488,7 +488,7 @@ typedef struct {
  * @param  __INTERRUPT__ CAN Interrupt
  * @retval None
  */
-# define __HAL_CAN_ENABLE_IT(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->IER) |= (__INTERRUPT__))
+#define __HAL_CAN_ENABLE_IT(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->IER) |= (__INTERRUPT__))
 
 /**
  * @brief  Disable the specified CAN interrupts.
@@ -496,7 +496,7 @@ typedef struct {
  * @param  __INTERRUPT__ CAN Interrupt
  * @retval None
  */
-# define __HAL_CAN_DISABLE_IT(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->IER) &= ~(__INTERRUPT__))
+#define __HAL_CAN_DISABLE_IT(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->IER) &= ~(__INTERRUPT__))
 
 /**
  * @brief  Return the number of pending received messages.
@@ -504,7 +504,7 @@ typedef struct {
  * @param  __FIFONUMBER__ Receive FIFO number, CAN_FIFO0 or CAN_FIFO1.
  * @retval The number of pending message.
  */
-# define __HAL_CAN_MSG_PENDING(__HANDLE__, __FIFONUMBER__) \
+#define __HAL_CAN_MSG_PENDING(__HANDLE__, __FIFONUMBER__) \
 	(((__FIFONUMBER__) == CAN_FIFO0) ? \
 	((uint8_t) ((__HANDLE__)->Instance->RF0R & 0x03U)) : ((uint8_t) ((__HANDLE__)->Instance->RF1R & 0x03U)))
 
@@ -535,7 +535,7 @@ typedef struct {
  *            @arg CAN_FLAG_BOF: Bus-Off Flag
  * @retval The new state of __FLAG__ (TRUE or FALSE).
  */
-# define __HAL_CAN_GET_FLAG(__HANDLE__, __FLAG__) \
+#define __HAL_CAN_GET_FLAG(__HANDLE__, __FLAG__) \
 	((((__FLAG__) >> 8U) == 5U) ? ((((__HANDLE__)->Instance->TSR) & (1U << ((__FLAG__) &CAN_FLAG_MASK))) == \
 	(1U << ((__FLAG__) &CAN_FLAG_MASK))) : \
 	(((__FLAG__) >> 8U) == 2U) ? ((((__HANDLE__)->Instance->RF0R) & (1U << ((__FLAG__) &CAN_FLAG_MASK))) == \
@@ -570,7 +570,7 @@ typedef struct {
  *            @arg CAN_FLAG_SLAKI: Sleep acknowledge Flag
  * @retval The new state of __FLAG__ (TRUE or FALSE).
  */
-# define __HAL_CAN_CLEAR_FLAG(__HANDLE__, __FLAG__) \
+#define __HAL_CAN_CLEAR_FLAG(__HANDLE__, __FLAG__) \
 	((((__FLAG__) >> 8U) == 5U) ? (((__HANDLE__)->Instance->TSR) = (1U << ((__FLAG__) &CAN_FLAG_MASK))) : \
 	(((__FLAG__) >> 8U) == 2U) ? (((__HANDLE__)->Instance->RF0R) = (1U << ((__FLAG__) &CAN_FLAG_MASK))) : \
 	(((__FLAG__) >> 8U) == 4U) ? (((__HANDLE__)->Instance->RF1R) = (1U << ((__FLAG__) &CAN_FLAG_MASK))) : \
@@ -585,7 +585,7 @@ typedef struct {
  *             @arg CAN_IT_FMP1: FIFO1 message pending interrupt enable
  * @retval The new state of __IT__ (TRUE or FALSE).
  */
-# define __HAL_CAN_GET_IT_SOURCE(__HANDLE__, \
+#define __HAL_CAN_GET_IT_SOURCE(__HANDLE__, \
 	  __INTERRUPT__)    ((((__HANDLE__)->Instance->IER & (__INTERRUPT__)) == (__INTERRUPT__)) ? SET : RESET)
 
 /**
@@ -594,7 +594,7 @@ typedef struct {
  * @param  __TRANSMITMAILBOX__ the number of the mailbox that is used for transmission.
  * @retval The new status of transmission  (TRUE or FALSE).
  */
-# define __HAL_CAN_TRANSMIT_STATUS(__HANDLE__, __TRANSMITMAILBOX__) \
+#define __HAL_CAN_TRANSMIT_STATUS(__HANDLE__, __TRANSMITMAILBOX__) \
 	(((__TRANSMITMAILBOX__) == \
 	CAN_TXMAILBOX_0) ? ((((__HANDLE__)->Instance->TSR) & (CAN_TSR_RQCP0 | CAN_TSR_TXOK0 | CAN_TSR_TME0)) == \
 	(CAN_TSR_RQCP0 | CAN_TSR_TXOK0 | CAN_TSR_TME0)) : \
@@ -610,7 +610,7 @@ typedef struct {
  * @param  __FIFONUMBER__ Receive FIFO number, CAN_FIFO0 or CAN_FIFO1.
  * @retval None
  */
-# define __HAL_CAN_FIFO_RELEASE(__HANDLE__, __FIFONUMBER__) \
+#define __HAL_CAN_FIFO_RELEASE(__HANDLE__, __FIFONUMBER__) \
 	(((__FIFONUMBER__) == CAN_FIFO0) ? \
 	((__HANDLE__)->Instance->RF0R = CAN_RF0R_RFOM0) : ((__HANDLE__)->Instance->RF1R = CAN_RF1R_RFOM1))
 
@@ -620,7 +620,7 @@ typedef struct {
  * @param  __TRANSMITMAILBOX__ the number of the mailbox that is used for transmission.
  * @retval None
  */
-# define __HAL_CAN_CANCEL_TRANSMIT(__HANDLE__, __TRANSMITMAILBOX__) \
+#define __HAL_CAN_CANCEL_TRANSMIT(__HANDLE__, __TRANSMITMAILBOX__) \
 	(((__TRANSMITMAILBOX__) == CAN_TXMAILBOX_0) ? ((__HANDLE__)->Instance->TSR = CAN_TSR_ABRQ0) : \
 	((__TRANSMITMAILBOX__) == CAN_TXMAILBOX_1) ? ((__HANDLE__)->Instance->TSR = CAN_TSR_ABRQ1) : \
 	((__HANDLE__)->Instance->TSR = CAN_TSR_ABRQ2))
@@ -634,7 +634,7 @@ typedef struct {
  *          or DISABLE (CAN is working during debug).
  * @retval None
  */
-# define __HAL_CAN_DBG_FREEZE(__HANDLE__, __NEWSTATE__) \
+#define __HAL_CAN_DBG_FREEZE(__HANDLE__, __NEWSTATE__) \
 	(((__NEWSTATE__) == ENABLE) ? \
 	((__HANDLE__)->Instance->MCR |= CAN_MCR_DBF) : ((__HANDLE__)->Instance->MCR &= ~CAN_MCR_DBF))
 
@@ -721,8 +721,8 @@ HAL_CAN_StateTypeDef HAL_CAN_GetState(CAN_HandleTypeDef *hcan);
 /** @defgroup CAN_Private_Constants CAN Private Constants
  * @{
  */
-# define CAN_TXSTATUS_NOMAILBOX    ((uint8_t) 0x04)	/*!< CAN cell did not provide CAN_TxStatus_NoMailBox */
-# define CAN_FLAG_MASK             0x000000FFU
+#define CAN_TXSTATUS_NOMAILBOX    ((uint8_t) 0x04)	/*!< CAN cell did not provide CAN_TxStatus_NoMailBox */
+#define CAN_FLAG_MASK             0x000000FFU
 
 /**
  * @}
@@ -733,39 +733,39 @@ HAL_CAN_StateTypeDef HAL_CAN_GetState(CAN_HandleTypeDef *hcan);
 /** @defgroup CAN_Private_Macros CAN Private Macros
  * @{
  */
-# define IS_CAN_MODE(MODE) \
+#define IS_CAN_MODE(MODE) \
 	(((MODE) == CAN_MODE_NORMAL) || \
 	((MODE) == CAN_MODE_LOOPBACK) || \
 	((MODE) == CAN_MODE_SILENT) || \
 	((MODE) == CAN_MODE_SILENT_LOOPBACK))
-# define IS_CAN_SJW(SJW) \
+#define IS_CAN_SJW(SJW) \
 	(((SJW) == CAN_SJW_1TQ) || ((SJW) == CAN_SJW_2TQ) || \
 	((SJW) == CAN_SJW_3TQ) || ((SJW) == CAN_SJW_4TQ))
-# define IS_CAN_BS1(BS1)                 ((BS1) <= CAN_BS1_16TQ)
-# define IS_CAN_BS2(BS2)                 ((BS2) <= CAN_BS2_8TQ)
-# define IS_CAN_PRESCALER(PRESCALER)     (((PRESCALER) >= 1U) && ((PRESCALER) <= 1024U))
-# define IS_CAN_FILTER_NUMBER(NUMBER)    ((NUMBER) <= 27U)
-# define IS_CAN_FILTER_MODE(MODE) \
+#define IS_CAN_BS1(BS1)                 ((BS1) <= CAN_BS1_16TQ)
+#define IS_CAN_BS2(BS2)                 ((BS2) <= CAN_BS2_8TQ)
+#define IS_CAN_PRESCALER(PRESCALER)     (((PRESCALER) >= 1U) && ((PRESCALER) <= 1024U))
+#define IS_CAN_FILTER_NUMBER(NUMBER)    ((NUMBER) <= 27U)
+#define IS_CAN_FILTER_MODE(MODE) \
 	(((MODE) == CAN_FILTERMODE_IDMASK) || \
 	((MODE) == CAN_FILTERMODE_IDLIST))
-# define IS_CAN_FILTER_SCALE(SCALE) \
+#define IS_CAN_FILTER_SCALE(SCALE) \
 	(((SCALE) == CAN_FILTERSCALE_16BIT) || \
 	((SCALE) == CAN_FILTERSCALE_32BIT))
-# define IS_CAN_FILTER_FIFO(FIFO) \
+#define IS_CAN_FILTER_FIFO(FIFO) \
 	(((FIFO) == CAN_FILTER_FIFO0) || \
 	((FIFO) == CAN_FILTER_FIFO1))
-# define IS_CAN_BANKNUMBER(BANKNUMBER)              ((BANKNUMBER) <= 28U)
+#define IS_CAN_BANKNUMBER(BANKNUMBER)              ((BANKNUMBER) <= 28U)
 
-# define IS_CAN_TRANSMITMAILBOX(TRANSMITMAILBOX)    ((TRANSMITMAILBOX) <= ((uint8_t) 0x02))
-# define IS_CAN_STDID(STDID)                        ((STDID) <= 0x7FFU)
-# define IS_CAN_EXTID(EXTID)                        ((EXTID) <= 0x1FFFFFFFU)
-# define IS_CAN_DLC(DLC)                            ((DLC) <= ((uint8_t) 0x08))
+#define IS_CAN_TRANSMITMAILBOX(TRANSMITMAILBOX)    ((TRANSMITMAILBOX) <= ((uint8_t) 0x02))
+#define IS_CAN_STDID(STDID)                        ((STDID) <= 0x7FFU)
+#define IS_CAN_EXTID(EXTID)                        ((EXTID) <= 0x1FFFFFFFU)
+#define IS_CAN_DLC(DLC)                            ((DLC) <= ((uint8_t) 0x08))
 
-# define IS_CAN_IDTYPE(IDTYPE) \
+#define IS_CAN_IDTYPE(IDTYPE) \
 	(((IDTYPE) == CAN_ID_STD) || \
 	((IDTYPE) == CAN_ID_EXT))
-# define IS_CAN_RTR(RTR)      (((RTR) == CAN_RTR_DATA) || ((RTR) == CAN_RTR_REMOTE))
-# define IS_CAN_FIFO(FIFO)    (((FIFO) == CAN_FIFO0) || ((FIFO) == CAN_FIFO1))
+#define IS_CAN_RTR(RTR)      (((RTR) == CAN_RTR_DATA) || ((RTR) == CAN_RTR_REMOTE))
+#define IS_CAN_FIFO(FIFO)    (((FIFO) == CAN_FIFO0) || ((FIFO) == CAN_FIFO1))
 
 /**
  * @}
@@ -790,9 +790,9 @@ HAL_CAN_StateTypeDef HAL_CAN_GetState(CAN_HandleTypeDef *hcan);
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_HAL_CAN_LEGACY_H */
 

@@ -124,7 +124,7 @@ void arm_max_f32(
 	/* if (blockSize - 1U) is not multiple of 4 */
 	blkCnt = (blockSize - 1U) % 4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
 	float32_t maxVal1, out;		/* Temporary variables to store the output value. */
@@ -157,7 +157,7 @@ void arm_max_f32(
 	/* Store the maximum value and it's index into destination pointers */
 	*pResult = out;
 	*pIndex  = outIndex;
-} /* arm_max_f32 */
+}	/* arm_max_f32 */
 
 /**
  * @} end of Max group

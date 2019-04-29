@@ -54,11 +54,11 @@
  */
 
 #ifndef INC_FREERTOS_H
-# error FreeRTOS.h must be included before list.h
+#error FreeRTOS.h must be included before list.h
 #endif
 
 #ifndef LIST_H
-# define LIST_H
+#define LIST_H
 
 /*
  * The list structure members are modified from within interrupts, and therefore
@@ -88,61 +88,61 @@
  * FreeRTOSConfig.h (without the quotes):
  * "#define configLIST_VOLATILE volatile"
  */
-# ifndef configLIST_VOLATILE
-#  define configLIST_VOLATILE
-# endif	/* configSUPPORT_CROSS_MODULE_OPTIMISATION */
+#ifndef configLIST_VOLATILE
+#define configLIST_VOLATILE
+#endif	/* configSUPPORT_CROSS_MODULE_OPTIMISATION */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Macros that can be used to place known values within the list structures,
  * then check that the known values do not get corrupted during the execution of
  * the application.   These may catch the list data structures being overwritten in
  * memory.  They will not catch data errors caused by incorrect configuration or
  * use of FreeRTOS.*/
-# if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 0 )
+#if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 0 )
 /* Define the macros to do nothing. */
-#  define listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE
-#  define listSECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE
-#  define listFIRST_LIST_INTEGRITY_CHECK_VALUE
-#  define listSECOND_LIST_INTEGRITY_CHECK_VALUE
-#  define listSET_FIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE(pxItem)
-#  define listSET_SECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE(pxItem)
-#  define listSET_LIST_INTEGRITY_CHECK_1_VALUE(pxList)
-#  define listSET_LIST_INTEGRITY_CHECK_2_VALUE(pxList)
-#  define listTEST_LIST_ITEM_INTEGRITY(pxItem)
-#  define listTEST_LIST_INTEGRITY(pxList)
-# else // if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 0 )
+#define listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE
+#define listSECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE
+#define listFIRST_LIST_INTEGRITY_CHECK_VALUE
+#define listSECOND_LIST_INTEGRITY_CHECK_VALUE
+#define listSET_FIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE(pxItem)
+#define listSET_SECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE(pxItem)
+#define listSET_LIST_INTEGRITY_CHECK_1_VALUE(pxList)
+#define listSET_LIST_INTEGRITY_CHECK_2_VALUE(pxList)
+#define listTEST_LIST_ITEM_INTEGRITY(pxItem)
+#define listTEST_LIST_INTEGRITY(pxList)
+#else	// if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 0 )
 /* Define macros that add new members into the list structures. */
-#  define listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE     TickType_t xListItemIntegrityValue1;
-#  define listSECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE    TickType_t xListItemIntegrityValue2;
-#  define listFIRST_LIST_INTEGRITY_CHECK_VALUE          TickType_t xListIntegrityValue1;
-#  define listSECOND_LIST_INTEGRITY_CHECK_VALUE         TickType_t xListIntegrityValue2;
+#define listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE     TickType_t xListItemIntegrityValue1;
+#define listSECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE    TickType_t xListItemIntegrityValue2;
+#define listFIRST_LIST_INTEGRITY_CHECK_VALUE          TickType_t xListIntegrityValue1;
+#define listSECOND_LIST_INTEGRITY_CHECK_VALUE         TickType_t xListIntegrityValue2;
 
 /* Define macros that set the new structure members to known values. */
-#  define listSET_FIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE(pxItem) \
-		( pxItem )->xListItemIntegrityValue1 = \
+#define listSET_FIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE(pxItem) \
+	( pxItem )->xListItemIntegrityValue1 = \
 	  pdINTEGRITY_CHECK_VALUE
-#  define listSET_SECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE(pxItem) \
-		( pxItem )->xListItemIntegrityValue2 = \
+#define listSET_SECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE(pxItem) \
+	( pxItem )->xListItemIntegrityValue2 = \
 	  pdINTEGRITY_CHECK_VALUE
-#  define listSET_LIST_INTEGRITY_CHECK_1_VALUE(pxList) \
-		( pxList )->xListIntegrityValue1 = \
+#define listSET_LIST_INTEGRITY_CHECK_1_VALUE(pxList) \
+	( pxList )->xListIntegrityValue1 = \
 	  pdINTEGRITY_CHECK_VALUE
-#  define listSET_LIST_INTEGRITY_CHECK_2_VALUE(pxList) \
-		( pxList )->xListIntegrityValue2 = \
+#define listSET_LIST_INTEGRITY_CHECK_2_VALUE(pxList) \
+	( pxList )->xListIntegrityValue2 = \
 	  pdINTEGRITY_CHECK_VALUE
 
 /* Define macros that will assert if one of the structure members does not
  * contain its expected value. */
-#  define listTEST_LIST_ITEM_INTEGRITY(pxItem) \
-		configASSERT( ( ( pxItem )->xListItemIntegrityValue1 == \
+#define listTEST_LIST_ITEM_INTEGRITY(pxItem) \
+	configASSERT( ( ( pxItem )->xListItemIntegrityValue1 == \
 	  pdINTEGRITY_CHECK_VALUE ) && ( ( pxItem )->xListItemIntegrityValue2 == pdINTEGRITY_CHECK_VALUE ) )
-#  define listTEST_LIST_INTEGRITY(pxList) \
-		configASSERT( ( ( pxList )->xListIntegrityValue1 == \
+#define listTEST_LIST_INTEGRITY(pxList) \
+	configASSERT( ( ( pxList )->xListIntegrityValue1 == \
 	  pdINTEGRITY_CHECK_VALUE ) && ( ( pxList )->xListIntegrityValue2 == pdINTEGRITY_CHECK_VALUE ) )
-# endif	/* configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES */
+#endif	/* configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES */
 
 
 /*
@@ -185,7 +185,7 @@ typedef struct xLIST {
  * \page listSET_LIST_ITEM_OWNER listSET_LIST_ITEM_OWNER
  * \ingroup LinkedList
  */
-# define listSET_LIST_ITEM_OWNER(pxListItem, pxOwner)    ( ( pxListItem )->pvOwner = (void *) ( pxOwner ) )
+#define listSET_LIST_ITEM_OWNER(pxListItem, pxOwner)    ( ( pxListItem )->pvOwner = (void *) ( pxOwner ) )
 
 /*
  * Access macro to get the owner of a list item.  The owner of a list item
@@ -194,7 +194,7 @@ typedef struct xLIST {
  * \page listSET_LIST_ITEM_OWNER listSET_LIST_ITEM_OWNER
  * \ingroup LinkedList
  */
-# define listGET_LIST_ITEM_OWNER(pxListItem)    ( ( pxListItem )->pvOwner )
+#define listGET_LIST_ITEM_OWNER(pxListItem)    ( ( pxListItem )->pvOwner )
 
 /*
  * Access macro to set the value of the list item.  In most cases the value is
@@ -203,7 +203,7 @@ typedef struct xLIST {
  * \page listSET_LIST_ITEM_VALUE listSET_LIST_ITEM_VALUE
  * \ingroup LinkedList
  */
-# define listSET_LIST_ITEM_VALUE(pxListItem, xValue)    ( ( pxListItem )->xItemValue = ( xValue ) )
+#define listSET_LIST_ITEM_VALUE(pxListItem, xValue)    ( ( pxListItem )->xItemValue = ( xValue ) )
 
 /*
  * Access macro to retrieve the value of the list item.  The value can
@@ -213,7 +213,7 @@ typedef struct xLIST {
  * \page listGET_LIST_ITEM_VALUE listGET_LIST_ITEM_VALUE
  * \ingroup LinkedList
  */
-# define listGET_LIST_ITEM_VALUE(pxListItem)    ( ( pxListItem )->xItemValue )
+#define listGET_LIST_ITEM_VALUE(pxListItem)    ( ( pxListItem )->xItemValue )
 
 /*
  * Access macro to retrieve the value of the list item at the head of a given
@@ -222,7 +222,7 @@ typedef struct xLIST {
  * \page listGET_LIST_ITEM_VALUE listGET_LIST_ITEM_VALUE
  * \ingroup LinkedList
  */
-# define listGET_ITEM_VALUE_OF_HEAD_ENTRY(pxList)    ( ( ( pxList )->xListEnd ).pxNext->xItemValue )
+#define listGET_ITEM_VALUE_OF_HEAD_ENTRY(pxList)    ( ( ( pxList )->xListEnd ).pxNext->xItemValue )
 
 /*
  * Return the list item at the head of the list.
@@ -230,7 +230,7 @@ typedef struct xLIST {
  * \page listGET_HEAD_ENTRY listGET_HEAD_ENTRY
  * \ingroup LinkedList
  */
-# define listGET_HEAD_ENTRY(pxList)    ( ( ( pxList )->xListEnd ).pxNext )
+#define listGET_HEAD_ENTRY(pxList)    ( ( ( pxList )->xListEnd ).pxNext )
 
 /*
  * Return the list item at the head of the list.
@@ -238,7 +238,7 @@ typedef struct xLIST {
  * \page listGET_NEXT listGET_NEXT
  * \ingroup LinkedList
  */
-# define listGET_NEXT(pxListItem)    ( ( pxListItem )->pxNext )
+#define listGET_NEXT(pxListItem)    ( ( pxListItem )->pxNext )
 
 /*
  * Return the list item that marks the end of the list
@@ -246,7 +246,7 @@ typedef struct xLIST {
  * \page listGET_END_MARKER listGET_END_MARKER
  * \ingroup LinkedList
  */
-# define listGET_END_MARKER(pxList)    ( (ListItem_t const *) ( &( ( pxList )->xListEnd ) ) )
+#define listGET_END_MARKER(pxList)    ( (ListItem_t const *) ( &( ( pxList )->xListEnd ) ) )
 
 /*
  * Access macro to determine if a list contains any items.  The macro will
@@ -255,12 +255,12 @@ typedef struct xLIST {
  * \page listLIST_IS_EMPTY listLIST_IS_EMPTY
  * \ingroup LinkedList
  */
-# define listLIST_IS_EMPTY(pxList)    ( (BaseType_t) ( ( pxList )->uxNumberOfItems == (UBaseType_t) 0 ) )
+#define listLIST_IS_EMPTY(pxList)    ( (BaseType_t) ( ( pxList )->uxNumberOfItems == (UBaseType_t) 0 ) )
 
 /*
  * Access macro to return the number of items in the list.
  */
-# define listCURRENT_LIST_LENGTH(pxList)    ( ( pxList )->uxNumberOfItems )
+#define listCURRENT_LIST_LENGTH(pxList)    ( ( pxList )->uxNumberOfItems )
 
 /*
  * Access function to obtain the owner of the next entry in a list.
@@ -282,7 +282,7 @@ typedef struct xLIST {
  * \page listGET_OWNER_OF_NEXT_ENTRY listGET_OWNER_OF_NEXT_ENTRY
  * \ingroup LinkedList
  */
-# define listGET_OWNER_OF_NEXT_ENTRY(pxTCB, pxList)                                        \
+#define listGET_OWNER_OF_NEXT_ENTRY(pxTCB, pxList)                                        \
 	{                                                                                           \
 		List_t *const pxConstList = ( pxList );                                                    \
 		/* Increment the index to the next item and return the item, ensuring */                \
@@ -312,7 +312,7 @@ typedef struct xLIST {
  * \page listGET_OWNER_OF_HEAD_ENTRY listGET_OWNER_OF_HEAD_ENTRY
  * \ingroup LinkedList
  */
-# define listGET_OWNER_OF_HEAD_ENTRY(pxList)    ( (&( ( pxList )->xListEnd ))->pxNext->pvOwner )
+#define listGET_OWNER_OF_HEAD_ENTRY(pxList)    ( (&( ( pxList )->xListEnd ))->pxNext->pvOwner )
 
 /*
  * Check to see if a list item is within a list.  The list item maintains a
@@ -323,7 +323,7 @@ typedef struct xLIST {
  * @param pxListItem The list item we want to know if is in the list.
  * @return pdTRUE if the list item is in the list, otherwise pdFALSE.
  */
-# define listIS_CONTAINED_WITHIN(pxList, \
+#define listIS_CONTAINED_WITHIN(pxList, \
 	  pxListItem)    ( (BaseType_t) ( ( pxListItem )->pvContainer == (void *) ( pxList ) ) )
 
 /*
@@ -332,14 +332,14 @@ typedef struct xLIST {
  * @param pxListItem The list item being queried.
  * @return A pointer to the List_t object that references the pxListItem
  */
-# define listLIST_ITEM_CONTAINER(pxListItem)    ( ( pxListItem )->pvContainer )
+#define listLIST_ITEM_CONTAINER(pxListItem)    ( ( pxListItem )->pvContainer )
 
 /*
  * This provides a crude means of knowing if a list has been initialised, as
  * pxList->xListEnd.xItemValue is set to portMAX_DELAY by the vListInitialise()
  * function.
  */
-# define listLIST_IS_INITIALISED(pxList)    ( ( pxList )->xListEnd.xItemValue == portMAX_DELAY )
+#define listLIST_IS_INITIALISED(pxList)    ( ( pxList )->xListEnd.xItemValue == portMAX_DELAY )
 
 /*
  * Must be called before a list is used!  This initialises all the members
@@ -413,8 +413,8 @@ void vListInsertEnd(List_t *const pxList, ListItem_t *const pxNewListItem) PRIVI
  */
 UBaseType_t uxListRemove(ListItem_t *const pxItemToRemove) PRIVILEGED_FUNCTION;
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
-#endif // ifndef LIST_H
+#endif	// ifndef LIST_H

@@ -23,9 +23,9 @@
 #include "stm32f7xx_ll_bus.h"
 
 #ifdef  USE_FULL_ASSERT
-# include "stm32_assert.h"
+#include "stm32_assert.h"
 #else
-# define assert_param(expr)    ((void) 0U)
+#define assert_param(expr)    ((void) 0U)
 #endif
 
 /** @addtogroup STM32F7xx_LL_Driver

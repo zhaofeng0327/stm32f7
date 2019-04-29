@@ -258,7 +258,7 @@ void arm_biquad_cascade_df1_fast_q15(
 		/* Decrement the loop counter */
 		stage--;
 	} while (stage > 0U);
-} /* arm_biquad_cascade_df1_fast_q15 */
+}	/* arm_biquad_cascade_df1_fast_q15 */
 
 /**
  * @} end of BiquadCascadeDF1 group

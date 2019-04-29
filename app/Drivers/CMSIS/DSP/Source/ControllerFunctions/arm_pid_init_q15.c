@@ -60,15 +60,15 @@ void arm_pid_init_q15(
 
 	/* Derived coefficients and pack into A1 */
 
-	# ifndef  ARM_MATH_BIG_ENDIAN
+	#ifndef  ARM_MATH_BIG_ENDIAN
 
 	S->A1 = __PKHBT(-__QADD16(__QADD16(S->Kd, S->Kd), S->Kp), S->Kd, 16);
 
-	# else
+	#else
 
 	S->A1 = __PKHBT(S->Kd, -__QADD16(__QADD16(S->Kd, S->Kd), S->Kp), 16);
 
-	# endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
+	#endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 	/* Check whether state needs reset or not */
 	if (resetStateFlag) {
@@ -76,7 +76,7 @@ void arm_pid_init_q15(
 		memset(S->state, 0, 3U * sizeof(q15_t));
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -99,7 +99,7 @@ void arm_pid_init_q15(
 	}
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_pid_init_q15 */
+}	/* arm_pid_init_q15 */
 
 /**
  * @} end of PID group

@@ -24,9 +24,9 @@
  */
 
 #if   defined( __ICCARM__ )
-# pragma system_include         /* treat file as system include file for MISRA check */
+#pragma system_include         /* treat file as system include file for MISRA check */
 #elif defined(__clang__)
-# pragma clang system_header   /* treat file as system include file */
+#pragma clang system_header   /* treat file as system include file */
 #endif
 
 #ifdef __cplusplus
@@ -34,7 +34,7 @@ extern "C" {
 #endif
 
 #ifndef __CORE_CA_H_GENERIC
-# define __CORE_CA_H_GENERIC
+#define __CORE_CA_H_GENERIC
 
 
 /*******************************************************************************
@@ -42,144 +42,144 @@ extern "C" {
  ******************************************************************************/
 
 /*  CMSIS CA definitions */
-# define __CA_CMSIS_VERSION_MAIN    (1U)/*!< \brief [31:16] CMSIS-Core(A) main version   */
-# define __CA_CMSIS_VERSION_SUB     (1U)/*!< \brief [15:0]  CMSIS-Core(A) sub version    */
-# define __CA_CMSIS_VERSION \
+#define __CA_CMSIS_VERSION_MAIN    (1U)	/*!< \brief [31:16] CMSIS-Core(A) main version   */
+#define __CA_CMSIS_VERSION_SUB     (1U)	/*!< \brief [15:0]  CMSIS-Core(A) sub version    */
+#define __CA_CMSIS_VERSION \
 	((__CA_CMSIS_VERSION_MAIN << 16U)   \
 	| __CA_CMSIS_VERSION_SUB          )	/*!< \brief CMSIS-Core(A) version number         */
 
-# if defined( __CC_ARM )
-#  if defined __TARGET_FPU_VFP
-#   if (__FPU_PRESENT == 1)
-#    define __FPU_USED    1U
-#   else
-#    warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
-#    define __FPU_USED    0U
-#   endif
-#  else
-#   define __FPU_USED    0U
-#  endif
+#if defined( __CC_ARM )
+#if defined __TARGET_FPU_VFP
+#if (__FPU_PRESENT == 1)
+#define __FPU_USED    1U
+#else
+#warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+#define __FPU_USED    0U
+#endif
+#else
+#define __FPU_USED    0U
+#endif
 
-# elif defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-#  if defined __ARM_PCS_VFP
-#   if defined(__FPU_PRESENT) && (__FPU_PRESENT == 1U)
-#    define __FPU_USED    1U
-#   else
-#    warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
-#    define __FPU_USED    0U
-#   endif
-#  else
-#   define __FPU_USED    0U
-#  endif
+#elif defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+#if defined __ARM_PCS_VFP
+#if defined(__FPU_PRESENT) && (__FPU_PRESENT == 1U)
+#define __FPU_USED    1U
+#else
+#warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+#define __FPU_USED    0U
+#endif
+#else
+#define __FPU_USED    0U
+#endif
 
-# elif defined( __ICCARM__ )
-#  if defined __ARMVFP__
-#   if (__FPU_PRESENT == 1)
-#    define __FPU_USED    1U
-#   else
-#    warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
-#    define __FPU_USED    0U
-#   endif
-#  else
-#   define __FPU_USED    0U
-#  endif
+#elif defined( __ICCARM__ )
+#if defined __ARMVFP__
+#if (__FPU_PRESENT == 1)
+#define __FPU_USED    1U
+#else
+#warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+#define __FPU_USED    0U
+#endif
+#else
+#define __FPU_USED    0U
+#endif
 
-# elif defined( __TMS470__ )
-#  if defined __TI_VFP_SUPPORT__
-#   if (__FPU_PRESENT == 1)
-#    define __FPU_USED    1U
-#   else
-#    warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
-#    define __FPU_USED    0U
-#   endif
-#  else
-#   define __FPU_USED    0U
-#  endif
+#elif defined( __TMS470__ )
+#if defined __TI_VFP_SUPPORT__
+#if (__FPU_PRESENT == 1)
+#define __FPU_USED    1U
+#else
+#warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+#define __FPU_USED    0U
+#endif
+#else
+#define __FPU_USED    0U
+#endif
 
-# elif defined( __GNUC__ )
-#  if defined(__VFP_FP__) && !defined(__SOFTFP__)
-#   if (__FPU_PRESENT == 1)
-#    define __FPU_USED    1U
-#   else
-#    warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
-#    define __FPU_USED    0U
-#   endif
-#  else
-#   define __FPU_USED    0U
-#  endif
+#elif defined( __GNUC__ )
+#if defined(__VFP_FP__) && !defined(__SOFTFP__)
+#if (__FPU_PRESENT == 1)
+#define __FPU_USED    1U
+#else
+#warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+#define __FPU_USED    0U
+#endif
+#else
+#define __FPU_USED    0U
+#endif
 
-# elif defined( __TASKING__ )
-#  if defined __FPU_VFP__
-#   if (__FPU_PRESENT == 1)
-#    define __FPU_USED    1U
-#   else
-#    error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
-#    define __FPU_USED    0U
-#   endif
-#  else
-#   define __FPU_USED    0U
-#  endif
-# endif	// if defined( __CC_ARM )
+#elif defined( __TASKING__ )
+#if defined __FPU_VFP__
+#if (__FPU_PRESENT == 1)
+#define __FPU_USED    1U
+#else
+#error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+#define __FPU_USED    0U
+#endif
+#else
+#define __FPU_USED    0U
+#endif
+#endif	// if defined( __CC_ARM )
 
-# include "cmsis_compiler.h"/* CMSIS compiler specific defines */
+#include "cmsis_compiler.h"	/* CMSIS compiler specific defines */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __CORE_CA_H_GENERIC */
 
 #ifndef __CMSIS_GENERIC
 
-# ifndef __CORE_CA_H_DEPENDANT
-#  define __CORE_CA_H_DEPENDANT
+#ifndef __CORE_CA_H_DEPENDANT
+#define __CORE_CA_H_DEPENDANT
 
-#  ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-#  endif
+#endif
 
 /* check device defines and use defaults */
-#  if defined __CHECK_DEVICE_DEFINES
-#   ifndef __CA_REV
-#    define __CA_REV    0x0000U
-#    warning "__CA_REV not defined in device header file; using default!"
-#   endif
+#if defined __CHECK_DEVICE_DEFINES
+#ifndef __CA_REV
+#define __CA_REV    0x0000U
+#warning "__CA_REV not defined in device header file; using default!"
+#endif
 
-#   ifndef __FPU_PRESENT
-#    define __FPU_PRESENT    0U
-#    warning "__FPU_PRESENT not defined in device header file; using default!"
-#   endif
+#ifndef __FPU_PRESENT
+#define __FPU_PRESENT    0U
+#warning "__FPU_PRESENT not defined in device header file; using default!"
+#endif
 
-#   ifndef __GIC_PRESENT
-#    define __GIC_PRESENT    1U
-#    warning "__GIC_PRESENT not defined in device header file; using default!"
-#   endif
+#ifndef __GIC_PRESENT
+#define __GIC_PRESENT    1U
+#warning "__GIC_PRESENT not defined in device header file; using default!"
+#endif
 
-#   ifndef __TIM_PRESENT
-#    define __TIM_PRESENT    1U
-#    warning "__TIM_PRESENT not defined in device header file; using default!"
-#   endif
+#ifndef __TIM_PRESENT
+#define __TIM_PRESENT    1U
+#warning "__TIM_PRESENT not defined in device header file; using default!"
+#endif
 
-#   ifndef __L2C_PRESENT
-#    define __L2C_PRESENT    0U
-#    warning "__L2C_PRESENT not defined in device header file; using default!"
-#   endif
-#  endif // if defined __CHECK_DEVICE_DEFINES
+#ifndef __L2C_PRESENT
+#define __L2C_PRESENT    0U
+#warning "__L2C_PRESENT not defined in device header file; using default!"
+#endif
+#endif	// if defined __CHECK_DEVICE_DEFINES
 
 /* IO definitions (access restrictions to peripheral registers) */
-#  ifdef __cplusplus
-#   define   __I      volatile	/*!< \brief Defines 'read only' permissions */
-#  else
-#   define   __I      volatile const/*!< \brief Defines 'read only' permissions */
-#  endif
-#  define     __O     volatile	/*!< \brief Defines 'write only' permissions */
-#  define     __IO    volatile	/*!< \brief Defines 'read / write' permissions */
+#ifdef __cplusplus
+#define   __I       volatile/*!< \brief Defines 'read only' permissions */
+#else
+#define   __I       volatile const	/*!< \brief Defines 'read only' permissions */
+#endif
+#define     __O     volatile/*!< \brief Defines 'write only' permissions */
+#define     __IO    volatile/*!< \brief Defines 'read / write' permissions */
 
 /* following defines should be used for structure members */
-#  define     __IM     volatile const		/*!< \brief Defines 'read only' structure member permissions */
-#  define     __OM     volatile				/*!< \brief Defines 'write only' structure member permissions */
-#  define     __IOM    volatile				/*!< \brief Defines 'read / write' structure member permissions */
-#  define RESERVED(N, T)    T RESERVED ## N;// placeholder struct members used for "reserved" areas
+#define     __IM     volatile const	/*!< \brief Defines 'read only' structure member permissions */
+#define     __OM     volatile		/*!< \brief Defines 'write only' structure member permissions */
+#define     __IOM    volatile		/*!< \brief Defines 'read / write' structure member permissions */
+#define RESERVED(N, T)    T RESERVED ## N;	// placeholder struct members used for "reserved" areas
 
 /*******************************************************************************
  *                 Register Abstraction
@@ -216,60 +216,60 @@ typedef union {
 
 
 /* CPSR Register Definitions */
-#  define CPSR_N_Pos      31U					/*!< \brief CPSR: N Position */
-#  define CPSR_N_Msk      (1UL << CPSR_N_Pos)	/*!< \brief CPSR: N Mask */
+#define CPSR_N_Pos      31U					/*!< \brief CPSR: N Position */
+#define CPSR_N_Msk      (1UL << CPSR_N_Pos)	/*!< \brief CPSR: N Mask */
 
-#  define CPSR_Z_Pos      30U					/*!< \brief CPSR: Z Position */
-#  define CPSR_Z_Msk      (1UL << CPSR_Z_Pos)	/*!< \brief CPSR: Z Mask */
+#define CPSR_Z_Pos      30U					/*!< \brief CPSR: Z Position */
+#define CPSR_Z_Msk      (1UL << CPSR_Z_Pos)	/*!< \brief CPSR: Z Mask */
 
-#  define CPSR_C_Pos      29U					/*!< \brief CPSR: C Position */
-#  define CPSR_C_Msk      (1UL << CPSR_C_Pos)	/*!< \brief CPSR: C Mask */
+#define CPSR_C_Pos      29U					/*!< \brief CPSR: C Position */
+#define CPSR_C_Msk      (1UL << CPSR_C_Pos)	/*!< \brief CPSR: C Mask */
 
-#  define CPSR_V_Pos      28U					/*!< \brief CPSR: V Position */
-#  define CPSR_V_Msk      (1UL << CPSR_V_Pos)	/*!< \brief CPSR: V Mask */
+#define CPSR_V_Pos      28U					/*!< \brief CPSR: V Position */
+#define CPSR_V_Msk      (1UL << CPSR_V_Pos)	/*!< \brief CPSR: V Mask */
 
-#  define CPSR_Q_Pos      27U					/*!< \brief CPSR: Q Position */
-#  define CPSR_Q_Msk      (1UL << CPSR_Q_Pos)	/*!< \brief CPSR: Q Mask */
+#define CPSR_Q_Pos      27U					/*!< \brief CPSR: Q Position */
+#define CPSR_Q_Msk      (1UL << CPSR_Q_Pos)	/*!< \brief CPSR: Q Mask */
 
-#  define CPSR_IT0_Pos    25U					/*!< \brief CPSR: IT0 Position */
-#  define CPSR_IT0_Msk    (3UL << CPSR_IT0_Pos)	/*!< \brief CPSR: IT0 Mask */
+#define CPSR_IT0_Pos    25U						/*!< \brief CPSR: IT0 Position */
+#define CPSR_IT0_Msk    (3UL << CPSR_IT0_Pos)	/*!< \brief CPSR: IT0 Mask */
 
-#  define CPSR_J_Pos      24U					/*!< \brief CPSR: J Position */
-#  define CPSR_J_Msk      (1UL << CPSR_J_Pos)	/*!< \brief CPSR: J Mask */
+#define CPSR_J_Pos      24U					/*!< \brief CPSR: J Position */
+#define CPSR_J_Msk      (1UL << CPSR_J_Pos)	/*!< \brief CPSR: J Mask */
 
-#  define CPSR_GE_Pos     16U					/*!< \brief CPSR: GE Position */
-#  define CPSR_GE_Msk     (0xFUL << CPSR_GE_Pos)/*!< \brief CPSR: GE Mask */
+#define CPSR_GE_Pos     16U	/*!< \brief CPSR: GE Position */
+#define CPSR_GE_Msk     (0xFUL << CPSR_GE_Pos)	/*!< \brief CPSR: GE Mask */
 
-#  define CPSR_IT1_Pos    10U						/*!< \brief CPSR: IT1 Position */
-#  define CPSR_IT1_Msk    (0x3FUL << CPSR_IT1_Pos)	/*!< \brief CPSR: IT1 Mask */
+#define CPSR_IT1_Pos    10U						/*!< \brief CPSR: IT1 Position */
+#define CPSR_IT1_Msk    (0x3FUL << CPSR_IT1_Pos)/*!< \brief CPSR: IT1 Mask */
 
-#  define CPSR_E_Pos      9U					/*!< \brief CPSR: E Position */
-#  define CPSR_E_Msk      (1UL << CPSR_E_Pos)	/*!< \brief CPSR: E Mask */
+#define CPSR_E_Pos      9U					/*!< \brief CPSR: E Position */
+#define CPSR_E_Msk      (1UL << CPSR_E_Pos)	/*!< \brief CPSR: E Mask */
 
-#  define CPSR_A_Pos      8U					/*!< \brief CPSR: A Position */
-#  define CPSR_A_Msk      (1UL << CPSR_A_Pos)	/*!< \brief CPSR: A Mask */
+#define CPSR_A_Pos      8U					/*!< \brief CPSR: A Position */
+#define CPSR_A_Msk      (1UL << CPSR_A_Pos)	/*!< \brief CPSR: A Mask */
 
-#  define CPSR_I_Pos      7U					/*!< \brief CPSR: I Position */
-#  define CPSR_I_Msk      (1UL << CPSR_I_Pos)	/*!< \brief CPSR: I Mask */
+#define CPSR_I_Pos      7U					/*!< \brief CPSR: I Position */
+#define CPSR_I_Msk      (1UL << CPSR_I_Pos)	/*!< \brief CPSR: I Mask */
 
-#  define CPSR_F_Pos      6U					/*!< \brief CPSR: F Position */
-#  define CPSR_F_Msk      (1UL << CPSR_F_Pos)	/*!< \brief CPSR: F Mask */
+#define CPSR_F_Pos      6U					/*!< \brief CPSR: F Position */
+#define CPSR_F_Msk      (1UL << CPSR_F_Pos)	/*!< \brief CPSR: F Mask */
 
-#  define CPSR_T_Pos      5U					/*!< \brief CPSR: T Position */
-#  define CPSR_T_Msk      (1UL << CPSR_T_Pos)	/*!< \brief CPSR: T Mask */
+#define CPSR_T_Pos      5U					/*!< \brief CPSR: T Position */
+#define CPSR_T_Msk      (1UL << CPSR_T_Pos)	/*!< \brief CPSR: T Mask */
 
-#  define CPSR_M_Pos      0U					/*!< \brief CPSR: M Position */
-#  define CPSR_M_Msk      (0x1FUL << CPSR_M_Pos)/*!< \brief CPSR: M Mask */
+#define CPSR_M_Pos      0U	/*!< \brief CPSR: M Position */
+#define CPSR_M_Msk      (0x1FUL << CPSR_M_Pos)	/*!< \brief CPSR: M Mask */
 
-#  define CPSR_M_USR      0x10U	/*!< \brief CPSR: M User mode (PL0) */
-#  define CPSR_M_FIQ      0x11U	/*!< \brief CPSR: M Fast Interrupt mode (PL1) */
-#  define CPSR_M_IRQ      0x12U	/*!< \brief CPSR: M Interrupt mode (PL1) */
-#  define CPSR_M_SVC      0x13U	/*!< \brief CPSR: M Supervisor mode (PL1) */
-#  define CPSR_M_MON      0x16U	/*!< \brief CPSR: M Monitor mode (PL1) */
-#  define CPSR_M_ABT      0x17U	/*!< \brief CPSR: M Abort mode (PL1) */
-#  define CPSR_M_HYP      0x1AU	/*!< \brief CPSR: M Hypervisor mode (PL2) */
-#  define CPSR_M_UND      0x1BU	/*!< \brief CPSR: M Undefined mode (PL1) */
-#  define CPSR_M_SYS      0x1FU	/*!< \brief CPSR: M System mode (PL1) */
+#define CPSR_M_USR      0x10U	/*!< \brief CPSR: M User mode (PL0) */
+#define CPSR_M_FIQ      0x11U	/*!< \brief CPSR: M Fast Interrupt mode (PL1) */
+#define CPSR_M_IRQ      0x12U	/*!< \brief CPSR: M Interrupt mode (PL1) */
+#define CPSR_M_SVC      0x13U	/*!< \brief CPSR: M Supervisor mode (PL1) */
+#define CPSR_M_MON      0x16U	/*!< \brief CPSR: M Monitor mode (PL1) */
+#define CPSR_M_ABT      0x17U	/*!< \brief CPSR: M Abort mode (PL1) */
+#define CPSR_M_HYP      0x1AU	/*!< \brief CPSR: M Hypervisor mode (PL2) */
+#define CPSR_M_UND      0x1BU	/*!< \brief CPSR: M Undefined mode (PL1) */
+#define CPSR_M_SYS      0x1FU	/*!< \brief CPSR: M System mode (PL1) */
 
 /* CP15 Register SCTLR */
 typedef union {
@@ -307,72 +307,72 @@ typedef union {
 	uint32_t w;	/*!< \brief Type      used for word access */
 } SCTLR_Type;
 
-#  define SCTLR_TE_Pos         30U					/*!< \brief SCTLR: TE Position */
-#  define SCTLR_TE_Msk         (1UL << SCTLR_TE_Pos)/*!< \brief SCTLR: TE Mask */
+#define SCTLR_TE_Pos         30U/*!< \brief SCTLR: TE Position */
+#define SCTLR_TE_Msk         (1UL << SCTLR_TE_Pos)	/*!< \brief SCTLR: TE Mask */
 
-#  define SCTLR_AFE_Pos        29U						/*!< \brief SCTLR: AFE Position */
-#  define SCTLR_AFE_Msk        (1UL << SCTLR_AFE_Pos)	/*!< \brief SCTLR: AFE Mask */
+#define SCTLR_AFE_Pos        29U					/*!< \brief SCTLR: AFE Position */
+#define SCTLR_AFE_Msk        (1UL << SCTLR_AFE_Pos)	/*!< \brief SCTLR: AFE Mask */
 
-#  define SCTLR_TRE_Pos        28U						/*!< \brief SCTLR: TRE Position */
-#  define SCTLR_TRE_Msk        (1UL << SCTLR_TRE_Pos)	/*!< \brief SCTLR: TRE Mask */
+#define SCTLR_TRE_Pos        28U					/*!< \brief SCTLR: TRE Position */
+#define SCTLR_TRE_Msk        (1UL << SCTLR_TRE_Pos)	/*!< \brief SCTLR: TRE Mask */
 
-#  define SCTLR_NMFI_Pos       27U						/*!< \brief SCTLR: NMFI Position */
-#  define SCTLR_NMFI_Msk       (1UL << SCTLR_NMFI_Pos)	/*!< \brief SCTLR: NMFI Mask */
+#define SCTLR_NMFI_Pos       27U					/*!< \brief SCTLR: NMFI Position */
+#define SCTLR_NMFI_Msk       (1UL << SCTLR_NMFI_Pos)/*!< \brief SCTLR: NMFI Mask */
 
-#  define SCTLR_EE_Pos         25U					/*!< \brief SCTLR: EE Position */
-#  define SCTLR_EE_Msk         (1UL << SCTLR_EE_Pos)/*!< \brief SCTLR: EE Mask */
+#define SCTLR_EE_Pos         25U/*!< \brief SCTLR: EE Position */
+#define SCTLR_EE_Msk         (1UL << SCTLR_EE_Pos)	/*!< \brief SCTLR: EE Mask */
 
-#  define SCTLR_VE_Pos         24U					/*!< \brief SCTLR: VE Position */
-#  define SCTLR_VE_Msk         (1UL << SCTLR_VE_Pos)/*!< \brief SCTLR: VE Mask */
+#define SCTLR_VE_Pos         24U/*!< \brief SCTLR: VE Position */
+#define SCTLR_VE_Msk         (1UL << SCTLR_VE_Pos)	/*!< \brief SCTLR: VE Mask */
 
-#  define SCTLR_U_Pos          22U					/*!< \brief SCTLR: U Position */
-#  define SCTLR_U_Msk          (1UL << SCTLR_U_Pos)	/*!< \brief SCTLR: U Mask */
+#define SCTLR_U_Pos          22U					/*!< \brief SCTLR: U Position */
+#define SCTLR_U_Msk          (1UL << SCTLR_U_Pos)	/*!< \brief SCTLR: U Mask */
 
-#  define SCTLR_FI_Pos         21U					/*!< \brief SCTLR: FI Position */
-#  define SCTLR_FI_Msk         (1UL << SCTLR_FI_Pos)/*!< \brief SCTLR: FI Mask */
+#define SCTLR_FI_Pos         21U/*!< \brief SCTLR: FI Position */
+#define SCTLR_FI_Msk         (1UL << SCTLR_FI_Pos)	/*!< \brief SCTLR: FI Mask */
 
-#  define SCTLR_UWXN_Pos       20U						/*!< \brief SCTLR: UWXN Position */
-#  define SCTLR_UWXN_Msk       (1UL << SCTLR_UWXN_Pos)	/*!< \brief SCTLR: UWXN Mask */
+#define SCTLR_UWXN_Pos       20U					/*!< \brief SCTLR: UWXN Position */
+#define SCTLR_UWXN_Msk       (1UL << SCTLR_UWXN_Pos)/*!< \brief SCTLR: UWXN Mask */
 
-#  define SCTLR_WXN_Pos        19U						/*!< \brief SCTLR: WXN Position */
-#  define SCTLR_WXN_Msk        (1UL << SCTLR_WXN_Pos)	/*!< \brief SCTLR: WXN Mask */
+#define SCTLR_WXN_Pos        19U					/*!< \brief SCTLR: WXN Position */
+#define SCTLR_WXN_Msk        (1UL << SCTLR_WXN_Pos)	/*!< \brief SCTLR: WXN Mask */
 
-#  define SCTLR_HA_Pos         17U					/*!< \brief SCTLR: HA Position */
-#  define SCTLR_HA_Msk         (1UL << SCTLR_HA_Pos)/*!< \brief SCTLR: HA Mask */
+#define SCTLR_HA_Pos         17U/*!< \brief SCTLR: HA Position */
+#define SCTLR_HA_Msk         (1UL << SCTLR_HA_Pos)	/*!< \brief SCTLR: HA Mask */
 
-#  define SCTLR_RR_Pos         14U					/*!< \brief SCTLR: RR Position */
-#  define SCTLR_RR_Msk         (1UL << SCTLR_RR_Pos)/*!< \brief SCTLR: RR Mask */
+#define SCTLR_RR_Pos         14U/*!< \brief SCTLR: RR Position */
+#define SCTLR_RR_Msk         (1UL << SCTLR_RR_Pos)	/*!< \brief SCTLR: RR Mask */
 
-#  define SCTLR_V_Pos          13U					/*!< \brief SCTLR: V Position */
-#  define SCTLR_V_Msk          (1UL << SCTLR_V_Pos)	/*!< \brief SCTLR: V Mask */
+#define SCTLR_V_Pos          13U					/*!< \brief SCTLR: V Position */
+#define SCTLR_V_Msk          (1UL << SCTLR_V_Pos)	/*!< \brief SCTLR: V Mask */
 
-#  define SCTLR_I_Pos          12U					/*!< \brief SCTLR: I Position */
-#  define SCTLR_I_Msk          (1UL << SCTLR_I_Pos)	/*!< \brief SCTLR: I Mask */
+#define SCTLR_I_Pos          12U					/*!< \brief SCTLR: I Position */
+#define SCTLR_I_Msk          (1UL << SCTLR_I_Pos)	/*!< \brief SCTLR: I Mask */
 
-#  define SCTLR_Z_Pos          11U					/*!< \brief SCTLR: Z Position */
-#  define SCTLR_Z_Msk          (1UL << SCTLR_Z_Pos)	/*!< \brief SCTLR: Z Mask */
+#define SCTLR_Z_Pos          11U					/*!< \brief SCTLR: Z Position */
+#define SCTLR_Z_Msk          (1UL << SCTLR_Z_Pos)	/*!< \brief SCTLR: Z Mask */
 
-#  define SCTLR_SW_Pos         10U					/*!< \brief SCTLR: SW Position */
-#  define SCTLR_SW_Msk         (1UL << SCTLR_SW_Pos)/*!< \brief SCTLR: SW Mask */
+#define SCTLR_SW_Pos         10U/*!< \brief SCTLR: SW Position */
+#define SCTLR_SW_Msk         (1UL << SCTLR_SW_Pos)	/*!< \brief SCTLR: SW Mask */
 
-#  define SCTLR_B_Pos          7U					/*!< \brief SCTLR: B Position */
-#  define SCTLR_B_Msk          (1UL << SCTLR_B_Pos)	/*!< \brief SCTLR: B Mask */
+#define SCTLR_B_Pos          7U						/*!< \brief SCTLR: B Position */
+#define SCTLR_B_Msk          (1UL << SCTLR_B_Pos)	/*!< \brief SCTLR: B Mask */
 
-#  define SCTLR_CP15BEN_Pos    5U							/*!< \brief SCTLR: CP15BEN Position */
-#  define SCTLR_CP15BEN_Msk    (1UL << SCTLR_CP15BEN_Pos)	/*!< \brief SCTLR: CP15BEN Mask */
+#define SCTLR_CP15BEN_Pos    5U							/*!< \brief SCTLR: CP15BEN Position */
+#define SCTLR_CP15BEN_Msk    (1UL << SCTLR_CP15BEN_Pos)	/*!< \brief SCTLR: CP15BEN Mask */
 
-#  define SCTLR_C_Pos          2U					/*!< \brief SCTLR: C Position */
-#  define SCTLR_C_Msk          (1UL << SCTLR_C_Pos)	/*!< \brief SCTLR: C Mask */
+#define SCTLR_C_Pos          2U						/*!< \brief SCTLR: C Position */
+#define SCTLR_C_Msk          (1UL << SCTLR_C_Pos)	/*!< \brief SCTLR: C Mask */
 
-#  define SCTLR_A_Pos          1U					/*!< \brief SCTLR: A Position */
-#  define SCTLR_A_Msk          (1UL << SCTLR_A_Pos)	/*!< \brief SCTLR: A Mask */
+#define SCTLR_A_Pos          1U						/*!< \brief SCTLR: A Position */
+#define SCTLR_A_Msk          (1UL << SCTLR_A_Pos)	/*!< \brief SCTLR: A Mask */
 
-#  define SCTLR_M_Pos          0U					/*!< \brief SCTLR: M Position */
-#  define SCTLR_M_Msk          (1UL << SCTLR_M_Pos)	/*!< \brief SCTLR: M Mask */
+#define SCTLR_M_Pos          0U						/*!< \brief SCTLR: M Position */
+#define SCTLR_M_Msk          (1UL << SCTLR_M_Pos)	/*!< \brief SCTLR: M Mask */
 
 /* CP15 Register ACTLR */
 typedef union {
-	#  if __CORTEX_A == 5 || defined(DOXYGEN)
+	#if __CORTEX_A == 5 || defined(DOXYGEN)
 	/** \brief Structure used for bit access on Cortex-A5 */
 	struct {
 		uint32_t FW : 1;/*!< \brief bit:      0  Cache and TLB maintenance broadcast */
@@ -391,8 +391,8 @@ typedef union {
 		uint32_t DBDI : 1;	/*!< \brief bit:    28  Disable branch dual issue */
 		RESERVED(7 : 3, uint32_t)
 	} b;
-	#  endif // if __CORTEX_A == 5 || defined(DOXYGEN)
-	#  if __CORTEX_A == 7 || defined(DOXYGEN)
+	#endif	// if __CORTEX_A == 5 || defined(DOXYGEN)
+	#if __CORTEX_A == 7 || defined(DOXYGEN)
 	/** \brief Structure used for bit access on Cortex-A7 */
 	struct {
 		RESERVED(0 : 6, uint32_t)
@@ -407,8 +407,8 @@ typedef union {
 		uint32_t DDI : 1;	/*!< \brief bit:    28  Disable dual issue */
 		RESERVED(7 : 3, uint32_t)
 	} b;
-	#  endif // if __CORTEX_A == 7 || defined(DOXYGEN)
-	#  if __CORTEX_A == 9 || defined(DOXYGEN)
+	#endif	// if __CORTEX_A == 7 || defined(DOXYGEN)
+	#if __CORTEX_A == 9 || defined(DOXYGEN)
 	/** \brief Structure used for bit access on Cortex-A9 */
 	struct {
 		uint32_t FW : 1;/*!< \brief bit:     0  Cache and TLB maintenance broadcast */
@@ -422,66 +422,66 @@ typedef union {
 		uint32_t PARITY : 1;/*!< \brief bit:     9  Support for parity checking, if implemented */
 		RESERVED(7 : 22, uint32_t)
 	}        b;
-	#  endif // if __CORTEX_A == 9 || defined(DOXYGEN)
+	#endif		// if __CORTEX_A == 9 || defined(DOXYGEN)
 	uint32_t w;	/*!< \brief Type      used for word access */
 } ACTLR_Type;
 
-#  define ACTLR_DDI_Pos        28U						/*!< \brief ACTLR: DDI Position */
-#  define ACTLR_DDI_Msk        (1UL << ACTLR_DDI_Pos)	/*!< \brief ACTLR: DDI Mask */
+#define ACTLR_DDI_Pos        28U					/*!< \brief ACTLR: DDI Position */
+#define ACTLR_DDI_Msk        (1UL << ACTLR_DDI_Pos)	/*!< \brief ACTLR: DDI Mask */
 
-#  define ACTLR_DBDI_Pos       28U						/*!< \brief ACTLR: DBDI Position */
-#  define ACTLR_DBDI_Msk       (1UL << ACTLR_DBDI_Pos)	/*!< \brief ACTLR: DBDI Mask */
+#define ACTLR_DBDI_Pos       28U					/*!< \brief ACTLR: DBDI Position */
+#define ACTLR_DBDI_Msk       (1UL << ACTLR_DBDI_Pos)/*!< \brief ACTLR: DBDI Mask */
 
-#  define ACTLR_BTDIS_Pos      18U						/*!< \brief ACTLR: BTDIS Position */
-#  define ACTLR_BTDIS_Msk      (1UL << ACTLR_BTDIS_Pos)	/*!< \brief ACTLR: BTDIS Mask */
+#define ACTLR_BTDIS_Pos      18U						/*!< \brief ACTLR: BTDIS Position */
+#define ACTLR_BTDIS_Msk      (1UL << ACTLR_BTDIS_Pos)	/*!< \brief ACTLR: BTDIS Mask */
 
-#  define ACTLR_RSDIS_Pos      17U						/*!< \brief ACTLR: RSDIS Position */
-#  define ACTLR_RSDIS_Msk      (1UL << ACTLR_RSDIS_Pos)	/*!< \brief ACTLR: RSDIS Mask */
+#define ACTLR_RSDIS_Pos      17U						/*!< \brief ACTLR: RSDIS Position */
+#define ACTLR_RSDIS_Msk      (1UL << ACTLR_RSDIS_Pos)	/*!< \brief ACTLR: RSDIS Mask */
 
-#  define ACTLR_BP_Pos         15U					/*!< \brief ACTLR: BP Position */
-#  define ACTLR_BP_Msk         (3UL << ACTLR_BP_Pos)/*!< \brief ACTLR: BP Mask */
+#define ACTLR_BP_Pos         15U/*!< \brief ACTLR: BP Position */
+#define ACTLR_BP_Msk         (3UL << ACTLR_BP_Pos)	/*!< \brief ACTLR: BP Mask */
 
-#  define ACTLR_DDVM_Pos       15U						/*!< \brief ACTLR: DDVM Position */
-#  define ACTLR_DDVM_Msk       (1UL << ACTLR_DDVM_Pos)	/*!< \brief ACTLR: DDVM Mask */
+#define ACTLR_DDVM_Pos       15U					/*!< \brief ACTLR: DDVM Position */
+#define ACTLR_DDVM_Msk       (1UL << ACTLR_DDVM_Pos)/*!< \brief ACTLR: DDVM Mask */
 
-#  define ACTLR_L1PCTL_Pos     13U						/*!< \brief ACTLR: L1PCTL Position */
-#  define ACTLR_L1PCTL_Msk     (3UL << ACTLR_L1PCTL_Pos)/*!< \brief ACTLR: L1PCTL Mask */
+#define ACTLR_L1PCTL_Pos     13U/*!< \brief ACTLR: L1PCTL Position */
+#define ACTLR_L1PCTL_Msk     (3UL << ACTLR_L1PCTL_Pos)	/*!< \brief ACTLR: L1PCTL Mask */
 
-#  define ACTLR_RADIS_Pos      12U						/*!< \brief ACTLR: RADIS Position */
-#  define ACTLR_RADIS_Msk      (1UL << ACTLR_RADIS_Pos)	/*!< \brief ACTLR: RADIS Mask */
+#define ACTLR_RADIS_Pos      12U						/*!< \brief ACTLR: RADIS Position */
+#define ACTLR_RADIS_Msk      (1UL << ACTLR_RADIS_Pos)	/*!< \brief ACTLR: RADIS Mask */
 
-#  define ACTLR_L1RADIS_Pos    12U							/*!< \brief ACTLR: L1RADIS Position */
-#  define ACTLR_L1RADIS_Msk    (1UL << ACTLR_L1RADIS_Pos)	/*!< \brief ACTLR: L1RADIS Mask */
+#define ACTLR_L1RADIS_Pos    12U						/*!< \brief ACTLR: L1RADIS Position */
+#define ACTLR_L1RADIS_Msk    (1UL << ACTLR_L1RADIS_Pos)	/*!< \brief ACTLR: L1RADIS Mask */
 
-#  define ACTLR_DWBST_Pos      11U						/*!< \brief ACTLR: DWBST Position */
-#  define ACTLR_DWBST_Msk      (1UL << ACTLR_DWBST_Pos)	/*!< \brief ACTLR: DWBST Mask */
+#define ACTLR_DWBST_Pos      11U						/*!< \brief ACTLR: DWBST Position */
+#define ACTLR_DWBST_Msk      (1UL << ACTLR_DWBST_Pos)	/*!< \brief ACTLR: DWBST Mask */
 
-#  define ACTLR_L2RADIS_Pos    11U							/*!< \brief ACTLR: L2RADIS Position */
-#  define ACTLR_L2RADIS_Msk    (1UL << ACTLR_L2RADIS_Pos)	/*!< \brief ACTLR: L2RADIS Mask */
+#define ACTLR_L2RADIS_Pos    11U						/*!< \brief ACTLR: L2RADIS Position */
+#define ACTLR_L2RADIS_Msk    (1UL << ACTLR_L2RADIS_Pos)	/*!< \brief ACTLR: L2RADIS Mask */
 
-#  define ACTLR_DODMBS_Pos     10U						/*!< \brief ACTLR: DODMBS Position */
-#  define ACTLR_DODMBS_Msk     (1UL << ACTLR_DODMBS_Pos)/*!< \brief ACTLR: DODMBS Mask */
+#define ACTLR_DODMBS_Pos     10U/*!< \brief ACTLR: DODMBS Position */
+#define ACTLR_DODMBS_Msk     (1UL << ACTLR_DODMBS_Pos)	/*!< \brief ACTLR: DODMBS Mask */
 
-#  define ACTLR_PARITY_Pos     9U						/*!< \brief ACTLR: PARITY Position */
-#  define ACTLR_PARITY_Msk     (1UL << ACTLR_PARITY_Pos)/*!< \brief ACTLR: PARITY Mask */
+#define ACTLR_PARITY_Pos     9U	/*!< \brief ACTLR: PARITY Position */
+#define ACTLR_PARITY_Msk     (1UL << ACTLR_PARITY_Pos)	/*!< \brief ACTLR: PARITY Mask */
 
-#  define ACTLR_AOW_Pos        8U						/*!< \brief ACTLR: AOW Position */
-#  define ACTLR_AOW_Msk        (1UL << ACTLR_AOW_Pos)	/*!< \brief ACTLR: AOW Mask */
+#define ACTLR_AOW_Pos        8U						/*!< \brief ACTLR: AOW Position */
+#define ACTLR_AOW_Msk        (1UL << ACTLR_AOW_Pos)	/*!< \brief ACTLR: AOW Mask */
 
-#  define ACTLR_EXCL_Pos       7U						/*!< \brief ACTLR: EXCL Position */
-#  define ACTLR_EXCL_Msk       (1UL << ACTLR_EXCL_Pos)	/*!< \brief ACTLR: EXCL Mask */
+#define ACTLR_EXCL_Pos       7U						/*!< \brief ACTLR: EXCL Position */
+#define ACTLR_EXCL_Msk       (1UL << ACTLR_EXCL_Pos)/*!< \brief ACTLR: EXCL Mask */
 
-#  define ACTLR_SMP_Pos        6U						/*!< \brief ACTLR: SMP Position */
-#  define ACTLR_SMP_Msk        (1UL << ACTLR_SMP_Pos)	/*!< \brief ACTLR: SMP Mask */
+#define ACTLR_SMP_Pos        6U						/*!< \brief ACTLR: SMP Position */
+#define ACTLR_SMP_Msk        (1UL << ACTLR_SMP_Pos)	/*!< \brief ACTLR: SMP Mask */
 
-#  define ACTLR_WFLZM_Pos      3U						/*!< \brief ACTLR: WFLZM Position */
-#  define ACTLR_WFLZM_Msk      (1UL << ACTLR_WFLZM_Pos)	/*!< \brief ACTLR: WFLZM Mask */
+#define ACTLR_WFLZM_Pos      3U							/*!< \brief ACTLR: WFLZM Position */
+#define ACTLR_WFLZM_Msk      (1UL << ACTLR_WFLZM_Pos)	/*!< \brief ACTLR: WFLZM Mask */
 
-#  define ACTLR_L1PE_Pos       2U						/*!< \brief ACTLR: L1PE Position */
-#  define ACTLR_L1PE_Msk       (1UL << ACTLR_L1PE_Pos)	/*!< \brief ACTLR: L1PE Mask */
+#define ACTLR_L1PE_Pos       2U						/*!< \brief ACTLR: L1PE Position */
+#define ACTLR_L1PE_Msk       (1UL << ACTLR_L1PE_Pos)/*!< \brief ACTLR: L1PE Mask */
 
-#  define ACTLR_FW_Pos         0U					/*!< \brief ACTLR: FW Position */
-#  define ACTLR_FW_Msk         (1UL << ACTLR_FW_Pos)/*!< \brief ACTLR: FW Mask */
+#define ACTLR_FW_Pos         0U	/*!< \brief ACTLR: FW Position */
+#define ACTLR_FW_Msk         (1UL << ACTLR_FW_Pos)	/*!< \brief ACTLR: FW Mask */
 
 /* CP15 Register CPACR */
 typedef union {
@@ -504,25 +504,25 @@ typedef union {
 		RESERVED(0 : 1, uint32_t)
 		uint32_t D32DIS : 1;/*!< \brief bit:    30  Disable use of registers D16-D31 of the VFP register file */
 		uint32_t ASEDIS : 1;/*!< \brief bit:    31  Disable Advanced SIMD Functionality */
-	}        b;				/*!< \brief Structure used for bit  access */
-	uint32_t w;				/*!< \brief Type      used for word access */
+	}        b;	/*!< \brief Structure used for bit  access */
+	uint32_t w;	/*!< \brief Type      used for word access */
 } CPACR_Type;
 
-#  define CPACR_ASEDIS_Pos    31U						/*!< \brief CPACR: ASEDIS Position */
-#  define CPACR_ASEDIS_Msk    (1UL << CPACR_ASEDIS_Pos)	/*!< \brief CPACR: ASEDIS Mask */
+#define CPACR_ASEDIS_Pos    31U							/*!< \brief CPACR: ASEDIS Position */
+#define CPACR_ASEDIS_Msk    (1UL << CPACR_ASEDIS_Pos)	/*!< \brief CPACR: ASEDIS Mask */
 
-#  define CPACR_D32DIS_Pos    30U						/*!< \brief CPACR: D32DIS Position */
-#  define CPACR_D32DIS_Msk    (1UL << CPACR_D32DIS_Pos)	/*!< \brief CPACR: D32DIS Mask */
+#define CPACR_D32DIS_Pos    30U							/*!< \brief CPACR: D32DIS Position */
+#define CPACR_D32DIS_Msk    (1UL << CPACR_D32DIS_Pos)	/*!< \brief CPACR: D32DIS Mask */
 
-#  define CPACR_TRCDIS_Pos    28U						/*!< \brief CPACR: D32DIS Position */
-#  define CPACR_TRCDIS_Msk    (1UL << CPACR_D32DIS_Pos)	/*!< \brief CPACR: D32DIS Mask */
+#define CPACR_TRCDIS_Pos    28U							/*!< \brief CPACR: D32DIS Position */
+#define CPACR_TRCDIS_Msk    (1UL << CPACR_D32DIS_Pos)	/*!< \brief CPACR: D32DIS Mask */
 
-#  define CPACR_CP_Pos_(n)    (n * 2U)					/*!< \brief CPACR: CPn Position */
-#  define CPACR_CP_Msk_(n)    (3UL << CPACR_CP_Pos_(n))	/*!< \brief CPACR: CPn Mask */
+#define CPACR_CP_Pos_(n)    (n * 2U)					/*!< \brief CPACR: CPn Position */
+#define CPACR_CP_Msk_(n)    (3UL << CPACR_CP_Pos_(n))	/*!< \brief CPACR: CPn Mask */
 
-#  define CPACR_CP_NA     0U/*!< \brief CPACR CPn field: Access denied. */
-#  define CPACR_CP_PL1    1U/*!< \brief CPACR CPn field: Accessible from PL1 only. */
-#  define CPACR_CP_FA     3U/*!< \brief CPACR CPn field: Full access. */
+#define CPACR_CP_NA     0U	/*!< \brief CPACR CPn field: Access denied. */
+#define CPACR_CP_PL1    1U	/*!< \brief CPACR CPn field: Accessible from PL1 only. */
+#define CPACR_CP_FA     3U	/*!< \brief CPACR CPn field: Full access. */
 
 /* CP15 Register DFSR */
 typedef union {
@@ -550,29 +550,29 @@ typedef union {
 	uint32_t w;	/*!< \brief Type      used for word access */
 } DFSR_Type;
 
-#  define DFSR_CM_Pos        13U					/*!< \brief DFSR: CM Position */
-#  define DFSR_CM_Msk        (1UL << DFSR_CM_Pos)	/*!< \brief DFSR: CM Mask */
+#define DFSR_CM_Pos        13U					/*!< \brief DFSR: CM Position */
+#define DFSR_CM_Msk        (1UL << DFSR_CM_Pos)	/*!< \brief DFSR: CM Mask */
 
-#  define DFSR_Ext_Pos       12U					/*!< \brief DFSR: Ext Position */
-#  define DFSR_Ext_Msk       (1UL << DFSR_Ext_Pos)	/*!< \brief DFSR: Ext Mask */
+#define DFSR_Ext_Pos       12U					/*!< \brief DFSR: Ext Position */
+#define DFSR_Ext_Msk       (1UL << DFSR_Ext_Pos)/*!< \brief DFSR: Ext Mask */
 
-#  define DFSR_WnR_Pos       11U					/*!< \brief DFSR: WnR Position */
-#  define DFSR_WnR_Msk       (1UL << DFSR_WnR_Pos)	/*!< \brief DFSR: WnR Mask */
+#define DFSR_WnR_Pos       11U					/*!< \brief DFSR: WnR Position */
+#define DFSR_WnR_Msk       (1UL << DFSR_WnR_Pos)/*!< \brief DFSR: WnR Mask */
 
-#  define DFSR_FS1_Pos       10U					/*!< \brief DFSR: FS1 Position */
-#  define DFSR_FS1_Msk       (1UL << DFSR_FS1_Pos)	/*!< \brief DFSR: FS1 Mask */
+#define DFSR_FS1_Pos       10U					/*!< \brief DFSR: FS1 Position */
+#define DFSR_FS1_Msk       (1UL << DFSR_FS1_Pos)/*!< \brief DFSR: FS1 Mask */
 
-#  define DFSR_LPAE_Pos      9U						/*!< \brief DFSR: LPAE Position */
-#  define DFSR_LPAE_Msk      (1UL << DFSR_LPAE_Pos)	/*!< \brief DFSR: LPAE Mask */
+#define DFSR_LPAE_Pos      9U						/*!< \brief DFSR: LPAE Position */
+#define DFSR_LPAE_Msk      (1UL << DFSR_LPAE_Pos)	/*!< \brief DFSR: LPAE Mask */
 
-#  define DFSR_Domain_Pos    4U							/*!< \brief DFSR: Domain Position */
-#  define DFSR_Domain_Msk    (0xFUL << DFSR_Domain_Pos)	/*!< \brief DFSR: Domain Mask */
+#define DFSR_Domain_Pos    4U							/*!< \brief DFSR: Domain Position */
+#define DFSR_Domain_Msk    (0xFUL << DFSR_Domain_Pos)	/*!< \brief DFSR: Domain Mask */
 
-#  define DFSR_FS0_Pos       0U						/*!< \brief DFSR: FS0 Position */
-#  define DFSR_FS0_Msk       (0xFUL << DFSR_FS0_Pos)/*!< \brief DFSR: FS0 Mask */
+#define DFSR_FS0_Pos       0U	/*!< \brief DFSR: FS0 Position */
+#define DFSR_FS0_Msk       (0xFUL << DFSR_FS0_Pos)	/*!< \brief DFSR: FS0 Mask */
 
-#  define DFSR_STATUS_Pos    0U							/*!< \brief DFSR: STATUS Position */
-#  define DFSR_STATUS_Msk    (0x3FUL << DFSR_STATUS_Pos)/*!< \brief DFSR: STATUS Mask */
+#define DFSR_STATUS_Pos    0U	/*!< \brief DFSR: STATUS Position */
+#define DFSR_STATUS_Msk    (0x3FUL << DFSR_STATUS_Pos)	/*!< \brief DFSR: STATUS Mask */
 
 /* CP15 Register IFSR */
 typedef union {
@@ -596,20 +596,20 @@ typedef union {
 	uint32_t w;	/*!< \brief Type      used for word access */
 } IFSR_Type;
 
-#  define IFSR_ExT_Pos       12U					/*!< \brief IFSR: ExT Position */
-#  define IFSR_ExT_Msk       (1UL << IFSR_ExT_Pos)	/*!< \brief IFSR: ExT Mask */
+#define IFSR_ExT_Pos       12U					/*!< \brief IFSR: ExT Position */
+#define IFSR_ExT_Msk       (1UL << IFSR_ExT_Pos)/*!< \brief IFSR: ExT Mask */
 
-#  define IFSR_FS1_Pos       10U					/*!< \brief IFSR: FS1 Position */
-#  define IFSR_FS1_Msk       (1UL << IFSR_FS1_Pos)	/*!< \brief IFSR: FS1 Mask */
+#define IFSR_FS1_Pos       10U					/*!< \brief IFSR: FS1 Position */
+#define IFSR_FS1_Msk       (1UL << IFSR_FS1_Pos)/*!< \brief IFSR: FS1 Mask */
 
-#  define IFSR_LPAE_Pos      9U							/*!< \brief IFSR: LPAE Position */
-#  define IFSR_LPAE_Msk      (0x1UL << IFSR_LPAE_Pos)	/*!< \brief IFSR: LPAE Mask */
+#define IFSR_LPAE_Pos      9U						/*!< \brief IFSR: LPAE Position */
+#define IFSR_LPAE_Msk      (0x1UL << IFSR_LPAE_Pos)	/*!< \brief IFSR: LPAE Mask */
 
-#  define IFSR_FS0_Pos       0U						/*!< \brief IFSR: FS0 Position */
-#  define IFSR_FS0_Msk       (0xFUL << IFSR_FS0_Pos)/*!< \brief IFSR: FS0 Mask */
+#define IFSR_FS0_Pos       0U	/*!< \brief IFSR: FS0 Position */
+#define IFSR_FS0_Msk       (0xFUL << IFSR_FS0_Pos)	/*!< \brief IFSR: FS0 Mask */
 
-#  define IFSR_STATUS_Pos    0U							/*!< \brief IFSR: STATUS Position */
-#  define IFSR_STATUS_Msk    (0x3FUL << IFSR_STATUS_Pos)/*!< \brief IFSR: STATUS Mask */
+#define IFSR_STATUS_Pos    0U	/*!< \brief IFSR: STATUS Position */
+#define IFSR_STATUS_Msk    (0x3FUL << IFSR_STATUS_Pos)	/*!< \brief IFSR: STATUS Mask */
 
 /* CP15 Register ISR */
 typedef union {
@@ -623,21 +623,21 @@ typedef union {
 	uint32_t w;	/*!< \brief Type      used for word access */
 } ISR_Type;
 
-#  define ISR_A_Pos    13U					/*!< \brief ISR: A Position */
-#  define ISR_A_Msk    (1UL << ISR_A_Pos)	/*!< \brief ISR: A Mask */
+#define ISR_A_Pos    13U				/*!< \brief ISR: A Position */
+#define ISR_A_Msk    (1UL << ISR_A_Pos)	/*!< \brief ISR: A Mask */
 
-#  define ISR_I_Pos    12U					/*!< \brief ISR: I Position */
-#  define ISR_I_Msk    (1UL << ISR_I_Pos)	/*!< \brief ISR: I Mask */
+#define ISR_I_Pos    12U				/*!< \brief ISR: I Position */
+#define ISR_I_Msk    (1UL << ISR_I_Pos)	/*!< \brief ISR: I Mask */
 
-#  define ISR_F_Pos    11U					/*!< \brief ISR: F Position */
-#  define ISR_F_Msk    (1UL << ISR_F_Pos)	/*!< \brief ISR: F Mask */
+#define ISR_F_Pos    11U				/*!< \brief ISR: F Position */
+#define ISR_F_Msk    (1UL << ISR_F_Pos)	/*!< \brief ISR: F Mask */
 
 /* DACR Register */
-#  define DACR_D_Pos_(n)    (2U * n)				/*!< \brief DACR: Dn Position */
-#  define DACR_D_Msk_(n)    (3UL << DACR_D_Pos_(n))	/*!< \brief DACR: Dn Mask */
-#  define DACR_Dn_NOACCESS    0U					/*!< \brief DACR Dn field: No access */
-#  define DACR_Dn_CLIENT      1U					/*!< \brief DACR Dn field: Client */
-#  define DACR_Dn_MANAGER     3U					/*!< \brief DACR Dn field: Manager */
+#define DACR_D_Pos_(n)    (2U * n)					/*!< \brief DACR: Dn Position */
+#define DACR_D_Msk_(n)    (3UL << DACR_D_Pos_(n))	/*!< \brief DACR: Dn Mask */
+#define DACR_Dn_NOACCESS    0U						/*!< \brief DACR Dn field: No access */
+#define DACR_Dn_CLIENT      1U						/*!< \brief DACR Dn field: Client */
+#define DACR_Dn_MANAGER     3U						/*!< \brief DACR Dn field: Manager */
 
 /**
  * \brief     Mask and shift a bit field value for use in a register bit range.
@@ -645,7 +645,7 @@ typedef union {
  * \param [in] value  Value of the bit field. This parameter is interpreted as an uint32_t type.
  * \return           Masked and shifted value.
  */
-#  define _VAL2FLD(field, value)    (((uint32_t) (value) << field ## _Pos) & field ## _Msk)
+#define _VAL2FLD(field, value)    (((uint32_t) (value) << field ## _Pos) & field ## _Msk)
 
 /**
  * \brief     Mask and shift a register value to extract a bit filed value.
@@ -653,13 +653,13 @@ typedef union {
  * \param [in] value  Value of register. This parameter is interpreted as an uint32_t type.
  * \return           Masked and shifted bit field value.
  */
-#  define _FLD2VAL(field, value)    (((uint32_t) (value) & field ## _Msk) >> field ## _Pos)
+#define _FLD2VAL(field, value)    (((uint32_t) (value) & field ## _Msk) >> field ## _Pos)
 
 
 /**
  * \brief  Union type to access the L2C_310 Cache Controller.
  */
-#  if (__L2C_PRESENT == 1U) || defined(DOXYGEN)
+#if (__L2C_PRESENT == 1U) || defined(DOXYGEN)
 typedef struct {
 	__IM uint32_t  CACHE_ID;	/*!< \brief Offset: 0x0000 (R/ ) Cache ID Register               */
 	__IM uint32_t  CACHE_TYPE;	/*!< \brief Offset: 0x0004 (R/ ) Cache Type Register             */
@@ -685,12 +685,12 @@ typedef struct {
 	__IOM uint32_t CLEAN_LINE_PA;	/*!< \brief Offset: 0x07b0 (R/W) Clean Line by PA                */
 	RESERVED(7[1], uint32_t)
 	__IOM uint32_t CLEAN_LINE_INDEX_WAY;/*!< \brief Offset: 0x07b8 (R/W) Clean Line by Index/Way         */
-	__IOM uint32_t CLEAN_WAY;			/*!< \brief Offset: 0x07bc (R/W) Clean by Way                    */
+	__IOM uint32_t CLEAN_WAY;	/*!< \brief Offset: 0x07bc (R/W) Clean by Way                    */
 	RESERVED(8[0xc], uint32_t)
 	__IOM uint32_t CLEAN_INV_LINE_PA;	/*!< \brief Offset: 0x07f0 (R/W) Clean and Invalidate Line by PA  */
 	RESERVED(9[1], uint32_t)
 	__IOM uint32_t CLEAN_INV_LINE_INDEX_WAY;/*!< \brief Offset: 0x07f8 (R/W) Clean and Invalidate Line by Index/Way  */
-	__IOM uint32_t CLEAN_INV_WAY;			/*!< \brief Offset: 0x07fc (R/W) Clean and Invalidate by Way     */
+	__IOM uint32_t CLEAN_INV_WAY;	/*!< \brief Offset: 0x07fc (R/W) Clean and Invalidate by Way     */
 	RESERVED(10[0x40], uint32_t)
 	__IOM uint32_t DATA_LOCK_0_WAY;	/*!< \brief Offset: 0x0900 (R/W) Data Lockdown 0 by Way          */
 	__IOM uint32_t INST_LOCK_0_WAY;	/*!< \brief Offset: 0x0904 (R/W) Instruction Lockdown 0 by Way   */
@@ -718,10 +718,10 @@ typedef struct {
 	__IOM uint32_t DEBUG_CONTROL;	/*!< \brief Offset: 0x0f40 (R/W) Debug Control Register          */
 } L2C_310_TypeDef;
 
-#   define L2C_310    ((L2C_310_TypeDef *) L2C_310_BASE)/*!< \brief L2C_310 register set access pointer */
-#  endif // if (__L2C_PRESENT == 1U) || defined(DOXYGEN)
+#define L2C_310    ((L2C_310_TypeDef *) L2C_310_BASE)	/*!< \brief L2C_310 register set access pointer */
+#endif	// if (__L2C_PRESENT == 1U) || defined(DOXYGEN)
 
-#  if (__GIC_PRESENT == 1U) || defined(DOXYGEN)
+#if (__GIC_PRESENT == 1U) || defined(DOXYGEN)
 
 /** \brief  Structure type to access the Generic Interrupt Controller Distributor (GICD)
  */
@@ -763,7 +763,7 @@ typedef struct {
 	__IOM uint64_t IROUTER[988];/*!< \brief  Offset: 0x6100(R/W) Interrupt Routing Registers */
 }  GICDistributor_Type;
 
-#   define GICDistributor    ((GICDistributor_Type      *)     GIC_DISTRIBUTOR_BASE )	/*!< \brief GIC Distributor register set access pointer */
+#define GICDistributor    ((GICDistributor_Type      *)     GIC_DISTRIBUTOR_BASE )	/*!< \brief GIC Distributor register set access pointer */
 
 /** \brief  Structure type to access the Generic Interrupt Controller Interface (GICC)
  */
@@ -789,11 +789,11 @@ typedef struct {
 	__OM uint32_t DIR;	/*!< \brief  Offset: 0x1000( /W) Deactivate Interrupt Register */
 }  GICInterface_Type;
 
-#   define GICInterface    ((GICInterface_Type        *)     GIC_INTERFACE_BASE )	/*!< \brief GIC Interface register set access pointer */
-#  endif // if (__GIC_PRESENT == 1U) || defined(DOXYGEN)
+#define GICInterface    ((GICInterface_Type        *)     GIC_INTERFACE_BASE )	/*!< \brief GIC Interface register set access pointer */
+#endif																			// if (__GIC_PRESENT == 1U) || defined(DOXYGEN)
 
-#  if (__TIM_PRESENT == 1U) || defined(DOXYGEN)
-#   if ((__CORTEX_A == 5U) || (__CORTEX_A == 9U)) || defined(DOXYGEN)
+#if (__TIM_PRESENT == 1U) || defined(DOXYGEN)
+#if ((__CORTEX_A == 5U) || (__CORTEX_A == 9U)) || defined(DOXYGEN)
 
 /** \brief Structure type to access the Private Timer
  */
@@ -810,9 +810,9 @@ typedef struct {
 	__IOM uint32_t WRESET;	// !< \brief  Offset: 0x030 (R/W) Watchdog Reset Status Register
 	__OM uint32_t  WDISABLE;// !< \brief  Offset: 0x034 ( /W) Watchdog Disable Register
 } Timer_Type;
-#    define PTIM    ((Timer_Type *) TIMER_BASE )/*!< \brief Timer register struct */
-#   endif // if ((__CORTEX_A == 5U) || (__CORTEX_A == 9U)) || defined(DOXYGEN)
-#  endif // if (__TIM_PRESENT == 1U) || defined(DOXYGEN)
+#define PTIM    ((Timer_Type *) TIMER_BASE )	/*!< \brief Timer register struct */
+#endif	// if ((__CORTEX_A == 5U) || (__CORTEX_A == 9U)) || defined(DOXYGEN)
+#endif	// if (__TIM_PRESENT == 1U) || defined(DOXYGEN)
 
 /*******************************************************************************
  *                Hardware Abstraction Layer
@@ -972,7 +972,7 @@ __STATIC_FORCEINLINE void __L1C_MaintainDCacheSetWay(uint32_t level, uint32_t ma
 		}
 	}
 	__DMB();
-} // __L1C_MaintainDCacheSetWay
+}	// __L1C_MaintainDCacheSetWay
 
 /** \brief  Clean and Invalidate the entire data or unified cache
  * Generic mechanism for cleaning/invalidating the entire data or unified cache to the point of coherency
@@ -1024,7 +1024,7 @@ __STATIC_FORCEINLINE void L1C_CleanInvalidateDCacheAll(void)
 }
 
 /* ##########################  L2 Cache functions  ################################# */
-#  if (__L2C_PRESENT == 1U) || defined(DOXYGEN)
+#if (__L2C_PRESENT == 1U) || defined(DOXYGEN)
 
 /** \brief Cache Sync operation by writing CACHE_SYNC register.
  */
@@ -1133,10 +1133,10 @@ __STATIC_INLINE void L2C_CleanInvPa(void *pa)
 	L2C_Sync();
 }
 
-#  endif // if (__L2C_PRESENT == 1U) || defined(DOXYGEN)
+#endif	// if (__L2C_PRESENT == 1U) || defined(DOXYGEN)
 
 /* ##########################  GIC functions  ###################################### */
-#  if (__GIC_PRESENT == 1U) || defined(DOXYGEN)
+#if (__GIC_PRESENT == 1U) || defined(DOXYGEN)
 
 /** \brief  Enable the interrupt distributor using the GIC's CTLR register.
  */
@@ -1423,7 +1423,7 @@ __STATIC_INLINE void GIC_SetGroup(IRQn_Type IRQn, uint32_t group)
 	GICDistributor->IGROUPR[IRQn / 32U] = igroupr;
 }
 
-#   define GIC_SetSecurity    GIC_SetGroup
+#define GIC_SetSecurity    GIC_SetGroup
 
 /** \brief Get the interrupt group from the GIC's IGROUPR register.
  * \param [in] IRQn The interrupt to be queried.
@@ -1434,7 +1434,7 @@ __STATIC_INLINE uint32_t GIC_GetGroup(IRQn_Type IRQn)
 	return (GICDistributor->IGROUPR[IRQn / 32U] >> (IRQn % 32U)) & 1UL;
 }
 
-#   define GIC_GetSecurity    GIC_GetGroup
+#define GIC_GetSecurity    GIC_GetGroup
 
 /** \brief Initialize the interrupt distributor.
  */
@@ -1518,13 +1518,13 @@ __STATIC_INLINE void GIC_Enable(void)
 	GIC_CPUInterfaceInit();	// per CPU
 }
 
-#  endif // if (__GIC_PRESENT == 1U) || defined(DOXYGEN)
+#endif	// if (__GIC_PRESENT == 1U) || defined(DOXYGEN)
 
 /* ##########################  Generic Timer functions  ############################ */
-#  if (__TIM_PRESENT == 1U) || defined(DOXYGEN)
+#if (__TIM_PRESENT == 1U) || defined(DOXYGEN)
 
 /* PL1 Physical Timer */
-#   if (__CORTEX_A == 7U) || defined(DOXYGEN)
+#if (__CORTEX_A == 7U) || defined(DOXYGEN)
 
 /** \brief Physical Timer Control register */
 typedef union {
@@ -1605,10 +1605,10 @@ __STATIC_INLINE uint32_t PL1_GetControl(void)
 	return (__get_CNTP_CTL());
 }
 
-#   endif // if (__CORTEX_A == 7U) || defined(DOXYGEN)
+#endif	// if (__CORTEX_A == 7U) || defined(DOXYGEN)
 
 /* Private Timer */
-#   if ((__CORTEX_A == 5U) || (__CORTEX_A == 9U)) || defined(DOXYGEN)
+#if ((__CORTEX_A == 5U) || (__CORTEX_A == 9U)) || defined(DOXYGEN)
 
 /** \brief Set the load value to timers LOAD register.
  * \param [in] value The load value to be set.
@@ -1672,100 +1672,100 @@ __STATIC_INLINE void PTIM_ClearEventFlag(void)
 	PTIM->ISR = 1;
 }
 
-#   endif // if ((__CORTEX_A == 5U) || (__CORTEX_A == 9U)) || defined(DOXYGEN)
-#  endif // if (__TIM_PRESENT == 1U) || defined(DOXYGEN)
+#endif	// if ((__CORTEX_A == 5U) || (__CORTEX_A == 9U)) || defined(DOXYGEN)
+#endif	// if (__TIM_PRESENT == 1U) || defined(DOXYGEN)
 
 /* ##########################  MMU functions  ###################################### */
 
-#  define SECTION_DESCRIPTOR      (0x2)
-#  define SECTION_MASK            (0xFFFFFFFC)
+#define SECTION_DESCRIPTOR      (0x2)
+#define SECTION_MASK            (0xFFFFFFFC)
 
-#  define SECTION_TEXCB_MASK      (0xFFFF8FF3)
-#  define SECTION_B_SHIFT         (2)
-#  define SECTION_C_SHIFT         (3)
-#  define SECTION_TEX0_SHIFT      (12)
-#  define SECTION_TEX1_SHIFT      (13)
-#  define SECTION_TEX2_SHIFT      (14)
+#define SECTION_TEXCB_MASK      (0xFFFF8FF3)
+#define SECTION_B_SHIFT         (2)
+#define SECTION_C_SHIFT         (3)
+#define SECTION_TEX0_SHIFT      (12)
+#define SECTION_TEX1_SHIFT      (13)
+#define SECTION_TEX2_SHIFT      (14)
 
-#  define SECTION_XN_MASK         (0xFFFFFFEF)
-#  define SECTION_XN_SHIFT        (4)
+#define SECTION_XN_MASK         (0xFFFFFFEF)
+#define SECTION_XN_SHIFT        (4)
 
-#  define SECTION_DOMAIN_MASK     (0xFFFFFE1F)
-#  define SECTION_DOMAIN_SHIFT    (5)
+#define SECTION_DOMAIN_MASK     (0xFFFFFE1F)
+#define SECTION_DOMAIN_SHIFT    (5)
 
-#  define SECTION_P_MASK          (0xFFFFFDFF)
-#  define SECTION_P_SHIFT         (9)
+#define SECTION_P_MASK          (0xFFFFFDFF)
+#define SECTION_P_SHIFT         (9)
 
-#  define SECTION_AP_MASK         (0xFFFF73FF)
-#  define SECTION_AP_SHIFT        (10)
-#  define SECTION_AP2_SHIFT       (15)
+#define SECTION_AP_MASK         (0xFFFF73FF)
+#define SECTION_AP_SHIFT        (10)
+#define SECTION_AP2_SHIFT       (15)
 
-#  define SECTION_S_MASK          (0xFFFEFFFF)
-#  define SECTION_S_SHIFT         (16)
+#define SECTION_S_MASK          (0xFFFEFFFF)
+#define SECTION_S_SHIFT         (16)
 
-#  define SECTION_NG_MASK         (0xFFFDFFFF)
-#  define SECTION_NG_SHIFT        (17)
+#define SECTION_NG_MASK         (0xFFFDFFFF)
+#define SECTION_NG_SHIFT        (17)
 
-#  define SECTION_NS_MASK         (0xFFF7FFFF)
-#  define SECTION_NS_SHIFT        (19)
+#define SECTION_NS_MASK         (0xFFF7FFFF)
+#define SECTION_NS_SHIFT        (19)
 
-#  define PAGE_L1_DESCRIPTOR      (0x1)
-#  define PAGE_L1_MASK            (0xFFFFFFFC)
+#define PAGE_L1_DESCRIPTOR      (0x1)
+#define PAGE_L1_MASK            (0xFFFFFFFC)
 
-#  define PAGE_L2_4K_DESC         (0x2)
-#  define PAGE_L2_4K_MASK         (0xFFFFFFFD)
+#define PAGE_L2_4K_DESC         (0x2)
+#define PAGE_L2_4K_MASK         (0xFFFFFFFD)
 
-#  define PAGE_L2_64K_DESC        (0x1)
-#  define PAGE_L2_64K_MASK        (0xFFFFFFFC)
+#define PAGE_L2_64K_DESC        (0x1)
+#define PAGE_L2_64K_MASK        (0xFFFFFFFC)
 
-#  define PAGE_4K_TEXCB_MASK      (0xFFFFFE33)
-#  define PAGE_4K_B_SHIFT         (2)
-#  define PAGE_4K_C_SHIFT         (3)
-#  define PAGE_4K_TEX0_SHIFT      (6)
-#  define PAGE_4K_TEX1_SHIFT      (7)
-#  define PAGE_4K_TEX2_SHIFT      (8)
+#define PAGE_4K_TEXCB_MASK      (0xFFFFFE33)
+#define PAGE_4K_B_SHIFT         (2)
+#define PAGE_4K_C_SHIFT         (3)
+#define PAGE_4K_TEX0_SHIFT      (6)
+#define PAGE_4K_TEX1_SHIFT      (7)
+#define PAGE_4K_TEX2_SHIFT      (8)
 
-#  define PAGE_64K_TEXCB_MASK     (0xFFFF8FF3)
-#  define PAGE_64K_B_SHIFT        (2)
-#  define PAGE_64K_C_SHIFT        (3)
-#  define PAGE_64K_TEX0_SHIFT     (12)
-#  define PAGE_64K_TEX1_SHIFT     (13)
-#  define PAGE_64K_TEX2_SHIFT     (14)
+#define PAGE_64K_TEXCB_MASK     (0xFFFF8FF3)
+#define PAGE_64K_B_SHIFT        (2)
+#define PAGE_64K_C_SHIFT        (3)
+#define PAGE_64K_TEX0_SHIFT     (12)
+#define PAGE_64K_TEX1_SHIFT     (13)
+#define PAGE_64K_TEX2_SHIFT     (14)
 
-#  define PAGE_TEXCB_MASK         (0xFFFF8FF3)
-#  define PAGE_B_SHIFT            (2)
-#  define PAGE_C_SHIFT            (3)
-#  define PAGE_TEX_SHIFT          (12)
+#define PAGE_TEXCB_MASK         (0xFFFF8FF3)
+#define PAGE_B_SHIFT            (2)
+#define PAGE_C_SHIFT            (3)
+#define PAGE_TEX_SHIFT          (12)
 
-#  define PAGE_XN_4K_MASK         (0xFFFFFFFE)
-#  define PAGE_XN_4K_SHIFT        (0)
-#  define PAGE_XN_64K_MASK        (0xFFFF7FFF)
-#  define PAGE_XN_64K_SHIFT       (15)
+#define PAGE_XN_4K_MASK         (0xFFFFFFFE)
+#define PAGE_XN_4K_SHIFT        (0)
+#define PAGE_XN_64K_MASK        (0xFFFF7FFF)
+#define PAGE_XN_64K_SHIFT       (15)
 
-#  define PAGE_DOMAIN_MASK        (0xFFFFFE1F)
-#  define PAGE_DOMAIN_SHIFT       (5)
+#define PAGE_DOMAIN_MASK        (0xFFFFFE1F)
+#define PAGE_DOMAIN_SHIFT       (5)
 
-#  define PAGE_P_MASK             (0xFFFFFDFF)
-#  define PAGE_P_SHIFT            (9)
+#define PAGE_P_MASK             (0xFFFFFDFF)
+#define PAGE_P_SHIFT            (9)
 
-#  define PAGE_AP_MASK            (0xFFFFFDCF)
-#  define PAGE_AP_SHIFT           (4)
-#  define PAGE_AP2_SHIFT          (9)
+#define PAGE_AP_MASK            (0xFFFFFDCF)
+#define PAGE_AP_SHIFT           (4)
+#define PAGE_AP2_SHIFT          (9)
 
-#  define PAGE_S_MASK             (0xFFFFFBFF)
-#  define PAGE_S_SHIFT            (10)
+#define PAGE_S_MASK             (0xFFFFFBFF)
+#define PAGE_S_SHIFT            (10)
 
-#  define PAGE_NG_MASK            (0xFFFFF7FF)
-#  define PAGE_NG_SHIFT           (11)
+#define PAGE_NG_MASK            (0xFFFFF7FF)
+#define PAGE_NG_SHIFT           (11)
 
-#  define PAGE_NS_MASK            (0xFFFFFFF7)
-#  define PAGE_NS_SHIFT           (3)
+#define PAGE_NS_MASK            (0xFFFFFFF7)
+#define PAGE_NS_SHIFT           (3)
 
-#  define OFFSET_1M               (0x00100000)
-#  define OFFSET_64K              (0x00010000)
-#  define OFFSET_4K               (0x00001000)
+#define OFFSET_1M               (0x00100000)
+#define OFFSET_64K              (0x00010000)
+#define OFFSET_4K               (0x00001000)
 
-#  define DESCRIPTOR_FAULT        (0x00000000)
+#define DESCRIPTOR_FAULT        (0x00000000)
 
 /* Attributes enumerations */
 
@@ -1848,7 +1848,7 @@ typedef struct RegionStruct {
 
 // Following macros define the descriptors and attributes
 // Sect_Normal. Outer & inner wb/wa, non-shareable, executable, rw, domain 0
-#  define section_normal(descriptor_l1, region) \
+#define section_normal(descriptor_l1, region) \
 	region.rg_t         = SECTION; \
 	region.domain       = 0x0; \
 	region.e_t          = ECC_DISABLED; \
@@ -1864,7 +1864,7 @@ typedef struct RegionStruct {
 	MMU_GetSectionDescriptor(&descriptor_l1, region);
 
 // Sect_Normal_NC. Outer & inner non-cacheable, non-shareable, executable, rw, domain 0
-#  define section_normal_nc(descriptor_l1, region) \
+#define section_normal_nc(descriptor_l1, region) \
 	region.rg_t         = SECTION; \
 	region.domain       = 0x0; \
 	region.e_t          = ECC_DISABLED; \
@@ -1880,7 +1880,7 @@ typedef struct RegionStruct {
 	MMU_GetSectionDescriptor(&descriptor_l1, region);
 
 // Sect_Normal_Cod. Outer & inner wb/wa, non-shareable, executable, ro, domain 0
-#  define section_normal_cod(descriptor_l1, region) \
+#define section_normal_cod(descriptor_l1, region) \
 	region.rg_t         = SECTION; \
 	region.domain       = 0x0; \
 	region.e_t          = ECC_DISABLED; \
@@ -1896,7 +1896,7 @@ typedef struct RegionStruct {
 	MMU_GetSectionDescriptor(&descriptor_l1, region);
 
 // Sect_Normal_RO. Sect_Normal_Cod, but not executable
-#  define section_normal_ro(descriptor_l1, region) \
+#define section_normal_ro(descriptor_l1, region) \
 	region.rg_t         = SECTION; \
 	region.domain       = 0x0; \
 	region.e_t          = ECC_DISABLED; \
@@ -1912,7 +1912,7 @@ typedef struct RegionStruct {
 	MMU_GetSectionDescriptor(&descriptor_l1, region);
 
 // Sect_Normal_RW. Sect_Normal_Cod, but writeable and not executable
-#  define section_normal_rw(descriptor_l1, region) \
+#define section_normal_rw(descriptor_l1, region) \
 	region.rg_t         = SECTION; \
 	region.domain       = 0x0; \
 	region.e_t          = ECC_DISABLED; \
@@ -1927,7 +1927,7 @@ typedef struct RegionStruct {
 	region.sh_t         = NON_SHARED; \
 	MMU_GetSectionDescriptor(&descriptor_l1, region);
 // Sect_SO. Strongly-ordered (therefore shareable), not executable, rw, domain 0, base addr 0
-#  define section_so(descriptor_l1, region) \
+#define section_so(descriptor_l1, region) \
 	region.rg_t         = SECTION; \
 	region.domain       = 0x0; \
 	region.e_t          = ECC_DISABLED; \
@@ -1943,7 +1943,7 @@ typedef struct RegionStruct {
 	MMU_GetSectionDescriptor(&descriptor_l1, region);
 
 // Sect_Device_RO. Device, non-shareable, non-executable, ro, domain 0, base addr 0
-#  define section_device_ro(descriptor_l1, region) \
+#define section_device_ro(descriptor_l1, region) \
 	region.rg_t         = SECTION; \
 	region.domain       = 0x0; \
 	region.e_t          = ECC_DISABLED; \
@@ -1959,7 +1959,7 @@ typedef struct RegionStruct {
 	MMU_GetSectionDescriptor(&descriptor_l1, region);
 
 // Sect_Device_RW. Sect_Device_RO, but writeable
-#  define section_device_rw(descriptor_l1, region) \
+#define section_device_rw(descriptor_l1, region) \
 	region.rg_t         = SECTION; \
 	region.domain       = 0x0; \
 	region.e_t          = ECC_DISABLED; \
@@ -1974,7 +1974,7 @@ typedef struct RegionStruct {
 	region.sh_t         = NON_SHARED; \
 	MMU_GetSectionDescriptor(&descriptor_l1, region);
 // Page_4k_Device_RW.  Shared device, not executable, rw, domain 0
-#  define page4k_device_rw(descriptor_l1, descriptor_l2, region) \
+#define page4k_device_rw(descriptor_l1, descriptor_l2, region) \
 	region.rg_t         = PAGE_4k; \
 	region.domain       = 0x0; \
 	region.e_t          = ECC_DISABLED; \
@@ -1990,7 +1990,7 @@ typedef struct RegionStruct {
 	MMU_GetPageDescriptor(&descriptor_l1, &descriptor_l2, region);
 
 // Page_64k_Device_RW.  Shared device, not executable, rw, domain 0
-#  define page64k_device_rw(descriptor_l1, descriptor_l2, region) \
+#define page64k_device_rw(descriptor_l1, descriptor_l2, region) \
 	region.rg_t         = PAGE_64k; \
 	region.domain       = 0x0; \
 	region.e_t          = ECC_DISABLED; \
@@ -2291,7 +2291,7 @@ __STATIC_INLINE int MMU_MemorySection(uint32_t *descriptor_l1, mmu_memory_Type m
 		}
 	}
 	return 0;
-} // MMU_MemorySection
+}	// MMU_MemorySection
 
 /** \brief  Set 4k/64k page memory attributes
  *
@@ -2350,7 +2350,7 @@ __STATIC_INLINE int MMU_MemoryPage(uint32_t *descriptor_l2, mmu_memory_Type mem,
 	}
 
 	return 0;
-} // MMU_MemoryPage
+}	// MMU_MemoryPage
 
 /** \brief  Create a L1 section descriptor
  *
@@ -2427,7 +2427,7 @@ __STATIC_INLINE int MMU_GetPageDescriptor(uint32_t *descriptor, uint32_t *descri
 	}
 
 	return 0;
-} // MMU_GetPageDescriptor
+}	// MMU_GetPageDescriptor
 
 /** \brief  Create a 1MB Section
  *
@@ -2560,10 +2560,10 @@ __STATIC_INLINE void MMU_InvalidateTLB(void)
 	__ISB();// ensure instruction fetch path sees new state
 }
 
-#  ifdef __cplusplus
+#ifdef __cplusplus
 }
-#  endif
+#endif
 
-# endif	/* __CORE_CA_H_DEPENDANT */
+#endif	/* __CORE_CA_H_DEPENDANT */
 
 #endif	/* __CMSIS_GENERIC */

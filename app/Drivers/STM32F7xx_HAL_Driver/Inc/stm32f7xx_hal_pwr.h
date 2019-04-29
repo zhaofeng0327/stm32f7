@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_HAL_PWR_H
-# define __STM32F7xx_HAL_PWR_H
+#define __STM32F7xx_HAL_PWR_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -66,15 +66,15 @@ typedef struct {
 /** @defgroup PWR_PVD_detection_level PWR PVD detection level
  * @{
  */
-# define PWR_PVDLEVEL_0    PWR_CR1_PLS_LEV0
-# define PWR_PVDLEVEL_1    PWR_CR1_PLS_LEV1
-# define PWR_PVDLEVEL_2    PWR_CR1_PLS_LEV2
-# define PWR_PVDLEVEL_3    PWR_CR1_PLS_LEV3
-# define PWR_PVDLEVEL_4    PWR_CR1_PLS_LEV4
-# define PWR_PVDLEVEL_5    PWR_CR1_PLS_LEV5
-# define PWR_PVDLEVEL_6    PWR_CR1_PLS_LEV6
-# define PWR_PVDLEVEL_7    PWR_CR1_PLS_LEV7				/* External input analog voltage
-														 * (Compare internally to VREFINT) */
+#define PWR_PVDLEVEL_0    PWR_CR1_PLS_LEV0
+#define PWR_PVDLEVEL_1    PWR_CR1_PLS_LEV1
+#define PWR_PVDLEVEL_2    PWR_CR1_PLS_LEV2
+#define PWR_PVDLEVEL_3    PWR_CR1_PLS_LEV3
+#define PWR_PVDLEVEL_4    PWR_CR1_PLS_LEV4
+#define PWR_PVDLEVEL_5    PWR_CR1_PLS_LEV5
+#define PWR_PVDLEVEL_6    PWR_CR1_PLS_LEV6
+#define PWR_PVDLEVEL_7    PWR_CR1_PLS_LEV7	/* External input analog voltage
+											 * (Compare internally to VREFINT) */
 
 /**
  * @}
@@ -83,13 +83,13 @@ typedef struct {
 /** @defgroup PWR_PVD_Mode PWR PVD Mode
  * @{
  */
-# define PWR_PVD_MODE_NORMAL                  ((uint32_t) 0x00000000U)	/*!< basic mode is used */
-# define PWR_PVD_MODE_IT_RISING               ((uint32_t) 0x00010001U)	/*!< External Interrupt Mode with Rising edge trigger detection */
-# define PWR_PVD_MODE_IT_FALLING              ((uint32_t) 0x00010002U)	/*!< External Interrupt Mode with Falling edge trigger detection */
-# define PWR_PVD_MODE_IT_RISING_FALLING       ((uint32_t) 0x00010003U)	/*!< External Interrupt Mode with Rising/Falling edge trigger detection */
-# define PWR_PVD_MODE_EVENT_RISING            ((uint32_t) 0x00020001U)	/*!< Event Mode with Rising edge trigger detection */
-# define PWR_PVD_MODE_EVENT_FALLING           ((uint32_t) 0x00020002U)	/*!< Event Mode with Falling edge trigger detection */
-# define PWR_PVD_MODE_EVENT_RISING_FALLING    ((uint32_t) 0x00020003U)	/*!< Event Mode with Rising/Falling edge trigger detection */
+#define PWR_PVD_MODE_NORMAL                  ((uint32_t) 0x00000000U)	/*!< basic mode is used */
+#define PWR_PVD_MODE_IT_RISING               ((uint32_t) 0x00010001U)	/*!< External Interrupt Mode with Rising edge trigger detection */
+#define PWR_PVD_MODE_IT_FALLING              ((uint32_t) 0x00010002U)	/*!< External Interrupt Mode with Falling edge trigger detection */
+#define PWR_PVD_MODE_IT_RISING_FALLING       ((uint32_t) 0x00010003U)	/*!< External Interrupt Mode with Rising/Falling edge trigger detection */
+#define PWR_PVD_MODE_EVENT_RISING            ((uint32_t) 0x00020001U)	/*!< Event Mode with Rising edge trigger detection */
+#define PWR_PVD_MODE_EVENT_FALLING           ((uint32_t) 0x00020002U)	/*!< Event Mode with Falling edge trigger detection */
+#define PWR_PVD_MODE_EVENT_RISING_FALLING    ((uint32_t) 0x00020003U)	/*!< Event Mode with Rising/Falling edge trigger detection */
 
 /**
  * @}
@@ -98,8 +98,8 @@ typedef struct {
 /** @defgroup PWR_Regulator_state_in_STOP_mode PWR Regulator state in SLEEP/STOP mode
  * @{
  */
-# define PWR_MAINREGULATOR_ON        ((uint32_t) 0x00000000U)
-# define PWR_LOWPOWERREGULATOR_ON    PWR_CR1_LPDS
+#define PWR_MAINREGULATOR_ON        ((uint32_t) 0x00000000U)
+#define PWR_LOWPOWERREGULATOR_ON    PWR_CR1_LPDS
 
 /**
  * @}
@@ -108,8 +108,8 @@ typedef struct {
 /** @defgroup PWR_SLEEP_mode_entry PWR SLEEP mode entry
  * @{
  */
-# define PWR_SLEEPENTRY_WFI    ((uint8_t) 0x01U)
-# define PWR_SLEEPENTRY_WFE    ((uint8_t) 0x02U)
+#define PWR_SLEEPENTRY_WFI    ((uint8_t) 0x01U)
+#define PWR_SLEEPENTRY_WFE    ((uint8_t) 0x02U)
 
 /**
  * @}
@@ -118,8 +118,8 @@ typedef struct {
 /** @defgroup PWR_STOP_mode_entry PWR STOP mode entry
  * @{
  */
-# define PWR_STOPENTRY_WFI    ((uint8_t) 0x01U)
-# define PWR_STOPENTRY_WFE    ((uint8_t) 0x02U)
+#define PWR_STOPENTRY_WFI    ((uint8_t) 0x01U)
+#define PWR_STOPENTRY_WFE    ((uint8_t) 0x02U)
 
 /**
  * @}
@@ -128,9 +128,9 @@ typedef struct {
 /** @defgroup PWR_Regulator_Voltage_Scale PWR Regulator Voltage Scale
  * @{
  */
-# define PWR_REGULATOR_VOLTAGE_SCALE1    PWR_CR1_VOS
-# define PWR_REGULATOR_VOLTAGE_SCALE2    PWR_CR1_VOS_1
-# define PWR_REGULATOR_VOLTAGE_SCALE3    PWR_CR1_VOS_0
+#define PWR_REGULATOR_VOLTAGE_SCALE1    PWR_CR1_VOS
+#define PWR_REGULATOR_VOLTAGE_SCALE2    PWR_CR1_VOS_1
+#define PWR_REGULATOR_VOLTAGE_SCALE3    PWR_CR1_VOS_0
 
 /**
  * @}
@@ -139,11 +139,11 @@ typedef struct {
 /** @defgroup PWR_Flag PWR Flag
  * @{
  */
-# define PWR_FLAG_WU        PWR_CSR1_WUIF
-# define PWR_FLAG_SB        PWR_CSR1_SBF
-# define PWR_FLAG_PVDO      PWR_CSR1_PVDO
-# define PWR_FLAG_BRR       PWR_CSR1_BRR
-# define PWR_FLAG_VOSRDY    PWR_CSR1_VOSRDY
+#define PWR_FLAG_WU        PWR_CSR1_WUIF
+#define PWR_FLAG_SB        PWR_CSR1_SBF
+#define PWR_FLAG_PVDO      PWR_CSR1_PVDO
+#define PWR_FLAG_BRR       PWR_CSR1_BRR
+#define PWR_FLAG_VOSRDY    PWR_CSR1_VOSRDY
 
 /**
  * @}
@@ -169,7 +169,7 @@ typedef struct {
  *            @arg PWR_REGULATOR_VOLTAGE_SCALE3: Regulator voltage output Scale 3 mode
  * @retval None
  */
-# define __HAL_PWR_VOLTAGESCALING_CONFIG(__REGULATOR__) \
+#define __HAL_PWR_VOLTAGESCALING_CONFIG(__REGULATOR__) \
 	do {                                                     \
 		__IO uint32_t tmpreg;                               \
 		MODIFY_REG(PWR->CR1, PWR_CR1_VOS, (__REGULATOR__)); \
@@ -197,70 +197,70 @@ typedef struct {
  *                 scaling output selection is ready.
  * @retval The new state of __FLAG__ (TRUE or FALSE).
  */
-# define __HAL_PWR_GET_FLAG(__FLAG__)    ((PWR->CSR1 & (__FLAG__)) == (__FLAG__))
+#define __HAL_PWR_GET_FLAG(__FLAG__)    ((PWR->CSR1 & (__FLAG__)) == (__FLAG__))
 
 /** @brief  Clear the PWR's pending flags.
  * @param  __FLAG__ specifies the flag to clear.
  *          This parameter can be one of the following values:
  *            @arg PWR_FLAG_SB: StandBy flag
  */
-# define __HAL_PWR_CLEAR_FLAG(__FLAG__)    (PWR->CR1 |= (__FLAG__) << 2)
+#define __HAL_PWR_CLEAR_FLAG(__FLAG__)    (PWR->CR1 |= (__FLAG__) << 2)
 
 /**
  * @brief Enable the PVD Exti Line 16.
  * @retval None.
  */
-# define __HAL_PWR_PVD_EXTI_ENABLE_IT()    (EXTI->IMR |= (PWR_EXTI_LINE_PVD))
+#define __HAL_PWR_PVD_EXTI_ENABLE_IT()    (EXTI->IMR |= (PWR_EXTI_LINE_PVD))
 
 /**
  * @brief Disable the PVD EXTI Line 16.
  * @retval None.
  */
-# define __HAL_PWR_PVD_EXTI_DISABLE_IT()    (EXTI->IMR &= ~(PWR_EXTI_LINE_PVD))
+#define __HAL_PWR_PVD_EXTI_DISABLE_IT()    (EXTI->IMR &= ~(PWR_EXTI_LINE_PVD))
 
 /**
  * @brief Enable event on PVD Exti Line 16.
  * @retval None.
  */
-# define __HAL_PWR_PVD_EXTI_ENABLE_EVENT()    (EXTI->EMR |= (PWR_EXTI_LINE_PVD))
+#define __HAL_PWR_PVD_EXTI_ENABLE_EVENT()    (EXTI->EMR |= (PWR_EXTI_LINE_PVD))
 
 /**
  * @brief Disable event on PVD Exti Line 16.
  * @retval None.
  */
-# define __HAL_PWR_PVD_EXTI_DISABLE_EVENT()    (EXTI->EMR &= ~(PWR_EXTI_LINE_PVD))
+#define __HAL_PWR_PVD_EXTI_DISABLE_EVENT()    (EXTI->EMR &= ~(PWR_EXTI_LINE_PVD))
 
 /**
  * @brief Enable the PVD Extended Interrupt Rising Trigger.
  * @retval None.
  */
-# define __HAL_PWR_PVD_EXTI_ENABLE_RISING_EDGE()    SET_BIT(EXTI->RTSR, PWR_EXTI_LINE_PVD)
+#define __HAL_PWR_PVD_EXTI_ENABLE_RISING_EDGE()    SET_BIT(EXTI->RTSR, PWR_EXTI_LINE_PVD)
 
 /**
  * @brief Disable the PVD Extended Interrupt Rising Trigger.
  * @retval None.
  */
-# define __HAL_PWR_PVD_EXTI_DISABLE_RISING_EDGE()    CLEAR_BIT(EXTI->RTSR, PWR_EXTI_LINE_PVD)
+#define __HAL_PWR_PVD_EXTI_DISABLE_RISING_EDGE()    CLEAR_BIT(EXTI->RTSR, PWR_EXTI_LINE_PVD)
 
 /**
  * @brief Enable the PVD Extended Interrupt Falling Trigger.
  * @retval None.
  */
-# define __HAL_PWR_PVD_EXTI_ENABLE_FALLING_EDGE()    SET_BIT(EXTI->FTSR, PWR_EXTI_LINE_PVD)
+#define __HAL_PWR_PVD_EXTI_ENABLE_FALLING_EDGE()    SET_BIT(EXTI->FTSR, PWR_EXTI_LINE_PVD)
 
 
 /**
  * @brief Disable the PVD Extended Interrupt Falling Trigger.
  * @retval None.
  */
-# define __HAL_PWR_PVD_EXTI_DISABLE_FALLING_EDGE()    CLEAR_BIT(EXTI->FTSR, PWR_EXTI_LINE_PVD)
+#define __HAL_PWR_PVD_EXTI_DISABLE_FALLING_EDGE()    CLEAR_BIT(EXTI->FTSR, PWR_EXTI_LINE_PVD)
 
 
 /**
  * @brief  PVD EXTI line configuration: set rising & falling edge trigger.
  * @retval None.
  */
-# define __HAL_PWR_PVD_EXTI_ENABLE_RISING_FALLING_EDGE() \
+#define __HAL_PWR_PVD_EXTI_ENABLE_RISING_FALLING_EDGE() \
 	__HAL_PWR_PVD_EXTI_ENABLE_RISING_EDGE(); \
 	__HAL_PWR_PVD_EXTI_ENABLE_FALLING_EDGE();
 
@@ -268,7 +268,7 @@ typedef struct {
  * @brief Disable the PVD Extended Interrupt Rising & Falling Trigger.
  * @retval None.
  */
-# define __HAL_PWR_PVD_EXTI_DISABLE_RISING_FALLING_EDGE() \
+#define __HAL_PWR_PVD_EXTI_DISABLE_RISING_FALLING_EDGE() \
 	__HAL_PWR_PVD_EXTI_DISABLE_RISING_EDGE(); \
 	__HAL_PWR_PVD_EXTI_DISABLE_FALLING_EDGE();
 
@@ -276,26 +276,26 @@ typedef struct {
  * @brief checks whether the specified PVD Exti interrupt flag is set or not.
  * @retval EXTI PVD Line Status.
  */
-# define __HAL_PWR_PVD_EXTI_GET_FLAG()    (EXTI->PR & (PWR_EXTI_LINE_PVD))
+#define __HAL_PWR_PVD_EXTI_GET_FLAG()    (EXTI->PR & (PWR_EXTI_LINE_PVD))
 
 /**
  * @brief Clear the PVD Exti flag.
  * @retval None.
  */
-# define __HAL_PWR_PVD_EXTI_CLEAR_FLAG()    (EXTI->PR = (PWR_EXTI_LINE_PVD))
+#define __HAL_PWR_PVD_EXTI_CLEAR_FLAG()    (EXTI->PR = (PWR_EXTI_LINE_PVD))
 
 /**
  * @brief  Generates a Software interrupt on PVD EXTI line.
  * @retval None
  */
-# define __HAL_PWR_PVD_EXTI_GENERATE_SWIT()    (EXTI->SWIER |= (PWR_EXTI_LINE_PVD))
+#define __HAL_PWR_PVD_EXTI_GENERATE_SWIT()    (EXTI->SWIER |= (PWR_EXTI_LINE_PVD))
 
 /**
  * @}
  */
 
 /* Include PWR HAL Extension module */
-# include "stm32f7xx_hal_pwr_ex.h"
+#include "stm32f7xx_hal_pwr_ex.h"
 
 /* Exported functions --------------------------------------------------------*/
 
@@ -362,7 +362,7 @@ void HAL_PWR_DisableSEVOnPend(void);
 /** @defgroup PWR_PVD_EXTI_Line PWR PVD EXTI Line
  * @{
  */
-# define PWR_EXTI_LINE_PVD    ((uint32_t) EXTI_IMR_IM16)/*!< External interrupt line 16 Connected to the PVD EXTI Line */
+#define PWR_EXTI_LINE_PVD    ((uint32_t) EXTI_IMR_IM16)	/*!< External interrupt line 16 Connected to the PVD EXTI Line */
 
 /**
  * @}
@@ -380,22 +380,22 @@ void HAL_PWR_DisableSEVOnPend(void);
 /** @defgroup PWR_IS_PWR_Definitions PWR Private macros to check input parameters
  * @{
  */
-# define IS_PWR_PVD_LEVEL(LEVEL) \
+#define IS_PWR_PVD_LEVEL(LEVEL) \
 	(((LEVEL) == PWR_PVDLEVEL_0) || ((LEVEL) == PWR_PVDLEVEL_1) || \
 	((LEVEL) == PWR_PVDLEVEL_2) || ((LEVEL) == PWR_PVDLEVEL_3) || \
 	((LEVEL) == PWR_PVDLEVEL_4) || ((LEVEL) == PWR_PVDLEVEL_5) || \
 	((LEVEL) == PWR_PVDLEVEL_6) || ((LEVEL) == PWR_PVDLEVEL_7))
-# define IS_PWR_PVD_MODE(MODE) \
+#define IS_PWR_PVD_MODE(MODE) \
 	(((MODE) == PWR_PVD_MODE_IT_RISING) || ((MODE) == PWR_PVD_MODE_IT_FALLING) || \
 	((MODE) == PWR_PVD_MODE_IT_RISING_FALLING) || ((MODE) == PWR_PVD_MODE_EVENT_RISING) || \
 	((MODE) == PWR_PVD_MODE_EVENT_FALLING) || ((MODE) == PWR_PVD_MODE_EVENT_RISING_FALLING) || \
 	((MODE) == PWR_PVD_MODE_NORMAL))
-# define IS_PWR_REGULATOR(REGULATOR) \
+#define IS_PWR_REGULATOR(REGULATOR) \
 	(((REGULATOR) == PWR_MAINREGULATOR_ON) || \
 	((REGULATOR) == PWR_LOWPOWERREGULATOR_ON))
-# define IS_PWR_SLEEP_ENTRY(ENTRY)    (((ENTRY) == PWR_SLEEPENTRY_WFI) || ((ENTRY) == PWR_SLEEPENTRY_WFE))
-# define IS_PWR_STOP_ENTRY(ENTRY)     (((ENTRY) == PWR_STOPENTRY_WFI) || ((ENTRY) == PWR_STOPENTRY_WFE))
-# define IS_PWR_REGULATOR_VOLTAGE(VOLTAGE) \
+#define IS_PWR_SLEEP_ENTRY(ENTRY)    (((ENTRY) == PWR_SLEEPENTRY_WFI) || ((ENTRY) == PWR_SLEEPENTRY_WFE))
+#define IS_PWR_STOP_ENTRY(ENTRY)     (((ENTRY) == PWR_STOPENTRY_WFI) || ((ENTRY) == PWR_STOPENTRY_WFE))
+#define IS_PWR_REGULATOR_VOLTAGE(VOLTAGE) \
 	(((VOLTAGE) == PWR_REGULATOR_VOLTAGE_SCALE1) || \
 	((VOLTAGE) == PWR_REGULATOR_VOLTAGE_SCALE2) || \
 	((VOLTAGE) == PWR_REGULATOR_VOLTAGE_SCALE3))
@@ -416,9 +416,9 @@ void HAL_PWR_DisableSEVOnPend(void);
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 
 #endif	/* __STM32F7xx_HAL_PWR_H */

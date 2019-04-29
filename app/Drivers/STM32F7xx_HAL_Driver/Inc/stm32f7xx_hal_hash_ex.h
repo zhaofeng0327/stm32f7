@@ -19,19 +19,19 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef STM32F7xx_HAL_HASH_EX_H
-# define STM32F7xx_HAL_HASH_EX_H
+#define STM32F7xx_HAL_HASH_EX_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
  */
-# if defined(HASH)
+#if defined(HASH)
 
 /** @addtogroup HASHEx
  * @{
@@ -154,16 +154,16 @@ HAL_StatusTypeDef HAL_HMACEx_SHA256_Step2_3_DMA(HASH_HandleTypeDef *hhash, uint8
 /**
  * @}
  */
-# endif	/*  HASH*/
+#endif	/*  HASH*/
 
 /**
  * @}
  */
 
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 
 #endif	/* STM32F7xx_HAL_HASH_EX_H */

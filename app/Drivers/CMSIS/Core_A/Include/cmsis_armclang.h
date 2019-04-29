@@ -29,83 +29,83 @@
 #pragma clang system_header   /* treat file as system include file */
 
 #ifndef __ARM_COMPAT_H
-# include <arm_compat.h>/* Compatibility header for Arm Compiler 5 intrinsics */
+#include <arm_compat.h>	/* Compatibility header for Arm Compiler 5 intrinsics */
 #endif
 
 /* CMSIS compiler specific defines */
 #ifndef   __ASM
-# define __ASM    __asm
+#define __ASM    __asm
 #endif
 #ifndef   __INLINE
-# define __INLINE    __inline
+#define __INLINE    __inline
 #endif
 #ifndef   __FORCEINLINE
-# define __FORCEINLINE    __attribute__((always_inline))
+#define __FORCEINLINE    __attribute__((always_inline))
 #endif
 #ifndef   __STATIC_INLINE
-# define __STATIC_INLINE    static __inline
+#define __STATIC_INLINE    static __inline
 #endif
 #ifndef   __STATIC_FORCEINLINE
-# define __STATIC_FORCEINLINE    __attribute__((always_inline)) static __inline
+#define __STATIC_FORCEINLINE    __attribute__((always_inline)) static __inline
 #endif
 #ifndef   __NO_RETURN
-# define __NO_RETURN    __attribute__((__noreturn__))
+#define __NO_RETURN    __attribute__((__noreturn__))
 #endif
 #ifndef   CMSIS_DEPRECATED
-# define CMSIS_DEPRECATED    __attribute__((deprecated))
+#define CMSIS_DEPRECATED    __attribute__((deprecated))
 #endif
 #ifndef   __USED
-# define __USED    __attribute__((used))
+#define __USED    __attribute__((used))
 #endif
 #ifndef   __WEAK
-# define __WEAK    __attribute__((weak))
+#define __WEAK    __attribute__((weak))
 #endif
 #ifndef   __PACKED
-# define __PACKED    __attribute__((packed, aligned(1)))
+#define __PACKED    __attribute__((packed, aligned(1)))
 #endif
 #ifndef   __PACKED_STRUCT
-# define __PACKED_STRUCT    struct __attribute__((packed, aligned(1)))
+#define __PACKED_STRUCT    struct __attribute__((packed, aligned(1)))
 #endif
 #ifndef   __UNALIGNED_UINT16_WRITE
-# pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wpacked"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpacked"
 /*lint -esym(9058, T_UINT16_WRITE)*/ /* disable MISRA 2012 Rule 2.4 for T_UINT16_WRITE */
 __PACKED_STRUCT T_UINT16_WRITE { uint16_t v;
 };
-# pragma clang diagnostic pop
-# define __UNALIGNED_UINT16_WRITE(addr, val)    (void) ((((struct T_UINT16_WRITE *) (void *) (addr))->v) = (val))
+#pragma clang diagnostic pop
+#define __UNALIGNED_UINT16_WRITE(addr, val)    (void) ((((struct T_UINT16_WRITE *) (void *) (addr))->v) = (val))
 #endif
 #ifndef   __UNALIGNED_UINT16_READ
-# pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wpacked"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpacked"
 /*lint -esym(9058, T_UINT16_READ)*/ /* disable MISRA 2012 Rule 2.4 for T_UINT16_READ */
 __PACKED_STRUCT T_UINT16_READ { uint16_t v;
 };
-# pragma clang diagnostic pop
-# define __UNALIGNED_UINT16_READ(addr)    (((const struct T_UINT16_READ *) (const void *) (addr))->v)
+#pragma clang diagnostic pop
+#define __UNALIGNED_UINT16_READ(addr)    (((const struct T_UINT16_READ *) (const void *) (addr))->v)
 #endif
 #ifndef   __UNALIGNED_UINT32_WRITE
-# pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wpacked"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpacked"
 /*lint -esym(9058, T_UINT32_WRITE)*/ /* disable MISRA 2012 Rule 2.4 for T_UINT32_WRITE */
 __PACKED_STRUCT T_UINT32_WRITE { uint32_t v;
 };
-# pragma clang diagnostic pop
-# define __UNALIGNED_UINT32_WRITE(addr, val)    (void) ((((struct T_UINT32_WRITE *) (void *) (addr))->v) = (val))
+#pragma clang diagnostic pop
+#define __UNALIGNED_UINT32_WRITE(addr, val)    (void) ((((struct T_UINT32_WRITE *) (void *) (addr))->v) = (val))
 #endif
 #ifndef   __UNALIGNED_UINT32_READ
-# pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wpacked"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpacked"
 __PACKED_STRUCT T_UINT32_READ { uint32_t v;
 };
-# pragma clang diagnostic pop
-# define __UNALIGNED_UINT32_READ(addr)    (((const struct T_UINT32_READ *) (const void *) (addr))->v)
+#pragma clang diagnostic pop
+#define __UNALIGNED_UINT32_READ(addr)    (((const struct T_UINT32_READ *) (const void *) (addr))->v)
 #endif
 #ifndef   __ALIGNED
-# define __ALIGNED(x)    __attribute__((aligned(x)))
+#define __ALIGNED(x)    __attribute__((aligned(x)))
 #endif
 #ifndef   __PACKED
-# define __PACKED    __attribute__((packed))
+#define __PACKED    __attribute__((packed))
 #endif
 
 /* ##########################  Core Instruction Access  ######################### */
@@ -503,7 +503,7 @@ __STATIC_INLINE void __FPU_Enable(void)
 		"        VMOV    D29,R2,R2         \n"
 		"        VMOV    D30,R2,R2         \n"
 		"        VMOV    D31,R2,R2         \n"
-		#endif // if __ARM_NEON == 1
+		#endif	// if __ARM_NEON == 1
 
 		// Initialise FPSCR to a known state
 		"        VMRS    R2,FPSCR          \n"
@@ -511,6 +511,6 @@ __STATIC_INLINE void __FPU_Enable(void)
 		"        AND     R2,R2,R3          \n"
 		"        VMSR    FPSCR,R2            "
 	);
-} // __FPU_Enable
+}	// __FPU_Enable
 
 #endif	/* __CMSIS_ARMCLANG_H */

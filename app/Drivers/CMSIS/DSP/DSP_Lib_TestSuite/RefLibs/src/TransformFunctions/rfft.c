@@ -12,7 +12,7 @@ void ref_rfft_f32(
 		for (i = 0; i < S->fftLenReal * 2; i++) {
 			pDst[i] = pSrc[i];
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLenReal; i++) {
 			pDst[2 * i + 0] = pSrc[i];
 			pDst[2 * i + 1] = 0.0f;
@@ -43,7 +43,7 @@ void ref_rfft_f32(
 			pDst[i] = pDst[2 * i];
 		}
 	}
-} /* ref_rfft_f32 */
+}	/* ref_rfft_f32 */
 
 void ref_rfft_fast_f32(
 	arm_rfft_fast_instance_f32 *S,
@@ -66,7 +66,7 @@ void ref_rfft_fast_f32(
 			pOut[2 * i + 1] = -p[2 * i + 1 - j];
 			j += 4;
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLenRFFT; i++) {
 			pOut[2 * i + 0] = p[i];
 			pOut[2 * i + 1] = 0.0f;
@@ -112,11 +112,11 @@ void ref_rfft_fast_f32(
 		for (i = 0; i < S->fftLenRFFT; i++) {
 			pOut[i] = pOut[2 * i];
 		}
-	} else   {
+	} else {
 		// pack last sample's real part into first sample's complex part
 		pOut[1] = pOut[S->fftLenRFFT];
 	}
-} /* ref_rfft_fast_f32 */
+}	/* ref_rfft_fast_f32 */
 
 void ref_rfft_q31(
 	const arm_rfft_instance_q31 *S,
@@ -130,7 +130,7 @@ void ref_rfft_q31(
 		for (i = 0; i < S->fftLenReal * 2; i++) {
 			fDst[i] = (float32_t) pSrc[i] / 2147483648.0f;
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLenReal; i++) {
 			fDst[2 * i + 0] = (float32_t) pSrc[i] / 2147483648.0f;
 			fDst[2 * i + 1] = 0.0f;
@@ -181,13 +181,13 @@ void ref_rfft_q31(
 			// read the float data, scale up for q31, cast to q31
 			pDst[i] = (q31_t) ( fDst[2 * i] * 2147483648.0f);
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLenReal; i++) {
 			// read the float data, scale up for q31, cast to q31
 			pDst[i] = (q31_t) ( fDst[i] * 2147483648.0f / (float32_t) S->fftLenReal);
 		}
 	}
-} /* ref_rfft_q31 */
+}	/* ref_rfft_q31 */
 
 void ref_rfft_q15(
 	const arm_rfft_instance_q15 *S,
@@ -202,7 +202,7 @@ void ref_rfft_q15(
 		for (i = 0; i < S->fftLenReal * 2; i++) {
 			fDst[i] = (float32_t) pSrc[i] / 32768.0f;
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLenReal; i++) {
 			// read the q15 data, cast to float, scale down for float
 			fDst[2 * i + 0] = (float32_t) pSrc[i] / 32768.0f;
@@ -253,9 +253,9 @@ void ref_rfft_q15(
 		for (i = 0; i < S->fftLenReal; i++) {
 			pDst[i] = (q15_t) ( fDst[2 * i] * 32768.0f);
 		}
-	} else   {
+	} else {
 		for (i = 0; i < S->fftLenReal; i++) {
 			pDst[i] = (q15_t) ( fDst[i] * 32768.0f / (float32_t) S->fftLenReal);
 		}
 	}
-} /* ref_rfft_q15 */
+}	/* ref_rfft_q15 */

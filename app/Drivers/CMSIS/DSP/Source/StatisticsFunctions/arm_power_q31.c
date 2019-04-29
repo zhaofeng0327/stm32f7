@@ -101,7 +101,7 @@ void arm_power_q31(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
 	/* Loop over blockSize number of values */
@@ -121,7 +121,7 @@ void arm_power_q31(
 
 	/* Store the results in 16.48 format  */
 	*pResult = sum;
-} /* arm_power_q31 */
+}	/* arm_power_q31 */
 
 /**
  * @} end of power group

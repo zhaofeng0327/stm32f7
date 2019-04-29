@@ -77,7 +77,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 	/* Compute TIM6 clock */
 	if (uwAPB1Prescaler == RCC_HCLK_DIV1) {
 		uwTimclock = HAL_RCC_GetPCLK1Freq();
-	} else   {
+	} else {
 		uwTimclock = 2 * HAL_RCC_GetPCLK1Freq();
 	}
 
@@ -105,7 +105,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 
 	/* Return function status */
 	return HAL_ERROR;
-} /* HAL_InitTick */
+}	/* HAL_InitTick */
 
 /**
  * @brief  Suspend Tick increment.

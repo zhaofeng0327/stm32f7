@@ -66,7 +66,7 @@ void arm_fir_q31(
 {
 	q31_t *pState  = S->pState;	/* State pointer */
 	q31_t *pCoeffs = S->pCoeffs;/* Coefficient pointer */
-	q31_t *pStateCurnt;			/* Points to the current sample of the state */
+	q31_t *pStateCurnt;	/* Points to the current sample of the state */
 
 
 	#if defined(ARM_MATH_DSP)
@@ -266,7 +266,7 @@ void arm_fir_q31(
 		tapCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -336,7 +336,7 @@ void arm_fir_q31(
 
 
 	#endif	/*  #if defined (ARM_MATH_DSP) */
-} /* arm_fir_q31 */
+}	/* arm_fir_q31 */
 
 /**
  * @} end of FIR group

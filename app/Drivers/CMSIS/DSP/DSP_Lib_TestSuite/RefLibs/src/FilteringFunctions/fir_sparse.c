@@ -102,7 +102,7 @@ void ref_fir_sparse_f32(
 		/* Decrement the tap loop counter */
 		tapCnt--;
 	}
-} /* ref_fir_sparse_f32 */
+}	/* ref_fir_sparse_f32 */
 
 void ref_fir_sparse_q31(
 	arm_fir_sparse_instance_q31 *S,
@@ -223,7 +223,7 @@ void ref_fir_sparse_q31(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* ref_fir_sparse_q31 */
+}	/* ref_fir_sparse_q31 */
 
 void ref_fir_sparse_q15(
 	arm_fir_sparse_instance_q15 *S,
@@ -338,7 +338,7 @@ void ref_fir_sparse_q15(
 		*pOut++ = (q15_t) __SSAT(*pScr2++ >> 15, 16);
 		blkCnt--;
 	}
-} /* ref_fir_sparse_q15 */
+}	/* ref_fir_sparse_q15 */
 
 void ref_fir_sparse_q7(
 	arm_fir_sparse_instance_q7 *S,
@@ -459,4 +459,4 @@ void ref_fir_sparse_q7(
 		/* Decrement the blockSize loop counter */
 		blkCnt--;
 	}
-} /* ref_fir_sparse_q7 */
+}	/* ref_fir_sparse_q7 */

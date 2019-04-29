@@ -49,7 +49,7 @@ void ref_fir_f32(
 	for (i = 0; i < numTaps - 1; i++) {
 		pStateCurnt[i] = pState[i];
 	}
-} /* ref_fir_f32 */
+}	/* ref_fir_f32 */
 
 void ref_fir_q31(
 	const arm_fir_instance_q31 *S,
@@ -100,7 +100,7 @@ void ref_fir_q31(
 	for (i = 0; i < numTaps - 1; i++) {
 		pStateCurnt[i] = pState[i];
 	}
-} /* ref_fir_q31 */
+}	/* ref_fir_q31 */
 
 void ref_fir_fast_q31(
 	const arm_fir_instance_q31 *S,
@@ -151,7 +151,7 @@ void ref_fir_fast_q31(
 	for (i = 0; i < numTaps - 1; i++) {
 		pStateCurnt[i] = pState[i];
 	}
-} /* ref_fir_fast_q31 */
+}	/* ref_fir_fast_q31 */
 
 void ref_fir_q15(
 	const arm_fir_instance_q15 *S,
@@ -202,7 +202,7 @@ void ref_fir_q15(
 	for (i = 0; i < numTaps; i++) {
 		pStateCurnt[i] = pState[i];
 	}
-} /* ref_fir_q15 */
+}	/* ref_fir_q15 */
 
 void ref_fir_fast_q15(
 	const arm_fir_instance_q15 *S,
@@ -253,7 +253,7 @@ void ref_fir_fast_q15(
 	for (i = 0; i < numTaps - 1; i++) {
 		pStateCurnt[i] = pState[i];
 	}
-} /* ref_fir_fast_q15 */
+}	/* ref_fir_fast_q15 */
 
 void ref_fir_q7(
 	const arm_fir_instance_q7 *S,
@@ -304,4 +304,4 @@ void ref_fir_q7(
 	for (i = 0; i < numTaps - 1; i++) {
 		pStateCurnt[i] = pState[i];
 	}
-} /* ref_fir_q7 */
+}	/* ref_fir_q7 */

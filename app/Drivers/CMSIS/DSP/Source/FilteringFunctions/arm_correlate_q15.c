@@ -76,16 +76,16 @@ void arm_correlate_q15(
 
 	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
-	q15_t *pIn1;																		/* inputA pointer               */
-	q15_t *pIn2;																		/* inputB pointer               */
-	q15_t *pOut = pDst;																	/* output pointer               */
-	q63_t sum, acc0, acc1, acc2, acc3;													/* Accumulators                  */
-	q15_t *px;																			/* Intermediate inputA pointer  */
-	q15_t *py;																			/* Intermediate inputB pointer  */
-	q15_t *pSrc1;																		/* Intermediate pointers        */
-	q31_t x0, x1, x2, x3, c0;															/* temporary variables for holding input and coefficient values */
+	q15_t *pIn1;						/* inputA pointer               */
+	q15_t *pIn2;						/* inputB pointer               */
+	q15_t *pOut = pDst;					/* output pointer               */
+	q63_t sum, acc0, acc1, acc2, acc3;	/* Accumulators                  */
+	q15_t *px;							/* Intermediate inputA pointer  */
+	q15_t *py;							/* Intermediate inputB pointer  */
+	q15_t *pSrc1;						/* Intermediate pointers        */
+	q31_t x0, x1, x2, x3, c0;			/* temporary variables for holding input and coefficient values */
 	uint32_t j, k = 0U, count, blkCnt, outBlockSize, blockSize1, blockSize2, blockSize3;/* loop counter                 */
-	int32_t inc = 1;																	/* Destination address modifier */
+	int32_t inc = 1;/* Destination address modifier */
 
 
 	/* The algorithm implementation is based on the lengths of the inputs. */
@@ -122,7 +122,7 @@ void arm_correlate_q15(
 
 		/* Updating the pointer position to non zero value */
 		pOut += j;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = (pSrcB);
 
@@ -332,15 +332,15 @@ void arm_correlate_q15(
 			if (k == 1U) {
 				/* Read y[4] */
 				c0 = *py;
-				# ifdef  ARM_MATH_BIG_ENDIAN
+				#ifdef  ARM_MATH_BIG_ENDIAN
 
 				c0 = c0 << 16U;
 
-				# else
+				#else
 
 				c0 = c0 & 0x0000FFFF;
 
-				# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+				#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 				/* Read x[7] */
 				x3 = *__SIMD32(px);
 				px++;
@@ -389,13 +389,13 @@ void arm_correlate_q15(
 				c0 = (*py);
 
 				/* Read y[6] */
-				# ifdef  ARM_MATH_BIG_ENDIAN
+				#ifdef  ARM_MATH_BIG_ENDIAN
 
 				c0 = c0 << 16U;
-				# else
+				#else
 
 				c0 = c0 & 0x0000FFFF;
-				# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+				#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 				/* Read x[10] */
 				x3  = _SIMD32_OFFSET(px + 2);
 				px += 3U;
@@ -483,7 +483,7 @@ void arm_correlate_q15(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* If the srcBLen is not a multiple of 4,
 		 * the blockSize2 loop cannot be unrolled by 4 */
 		blkCnt = blockSize2;
@@ -594,7 +594,7 @@ void arm_correlate_q15(
 		blockSize3--;
 	}
 
-	#else  /* if (defined(ARM_MATH_CM7) || defined(ARM_MATH_CM4) || defined(ARM_MATH_CM3)) && !defined(UNALIGNED_SUPPORT_DISABLE) */
+	#else	/* if (defined(ARM_MATH_CM7) || defined(ARM_MATH_CM4) || defined(ARM_MATH_CM3)) && !defined(UNALIGNED_SUPPORT_DISABLE) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -634,7 +634,7 @@ void arm_correlate_q15(
 
 		/* Initialise the pointer after zero padding */
 		pDst += j;
-	} else if (srcALen < srcBLen)   {
+	} else if (srcALen < srcBLen) {
 		/* Initialization to inputB pointer */
 		pIn1 = pSrcB;
 
@@ -674,7 +674,7 @@ void arm_correlate_q15(
 	}
 
 	#endif	/* #if (defined(ARM_MATH_CM7) || defined(ARM_MATH_CM4) || defined(ARM_MATH_CM3)) && !defined(UNALIGNED_SUPPORT_DISABLE) */
-} /* arm_correlate_q15 */
+}	/* arm_correlate_q15 */
 
 /**
  * @} end of Corr group

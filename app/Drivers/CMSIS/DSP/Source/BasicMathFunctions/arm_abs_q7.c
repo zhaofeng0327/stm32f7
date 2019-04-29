@@ -61,7 +61,7 @@ void arm_abs_q7(
 	uint32_t blockSize)
 {
 	uint32_t blkCnt;/* loop counter */
-	q7_t in;		/* Input value1 */
+	q7_t in;/* Input value1 */
 
 	#if defined(ARM_MATH_DSP)
 
@@ -119,7 +119,7 @@ void arm_abs_q7(
 	/* If the blockSize is not a multiple of 4, compute any remaining output samples here.
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 	blkCnt = blockSize;
@@ -137,7 +137,7 @@ void arm_abs_q7(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_abs_q7 */
+}	/* arm_abs_q7 */
 
 /**
  * @} end of BasicAbs group

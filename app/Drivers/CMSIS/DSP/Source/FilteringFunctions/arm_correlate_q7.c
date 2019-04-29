@@ -73,16 +73,16 @@ void arm_correlate_q7(
 
 	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
-	q7_t *pIn1;																			/* inputA pointer               */
-	q7_t *pIn2;																			/* inputB pointer               */
-	q7_t *pOut = pDst;																	/* output pointer               */
-	q7_t *px;																			/* Intermediate inputA pointer  */
-	q7_t *py;																			/* Intermediate inputB pointer  */
-	q7_t *pSrc1;																		/* Intermediate pointers        */
-	q31_t sum, acc0, acc1, acc2, acc3;													/* Accumulators                  */
-	q31_t input1, input2;																/* temporary variables */
-	q15_t in1, in2;																		/* temporary variables */
-	q7_t x0, x1, x2, x3, c0, c1;														/* temporary variables for holding input and coefficient values */
+	q7_t *pIn1;							/* inputA pointer               */
+	q7_t *pIn2;							/* inputB pointer               */
+	q7_t *pOut = pDst;					/* output pointer               */
+	q7_t *px;							/* Intermediate inputA pointer  */
+	q7_t *py;							/* Intermediate inputB pointer  */
+	q7_t *pSrc1;						/* Intermediate pointers        */
+	q31_t sum, acc0, acc1, acc2, acc3;	/* Accumulators                  */
+	q31_t input1, input2;				/* temporary variables */
+	q15_t in1, in2;						/* temporary variables */
+	q7_t x0, x1, x2, x3, c0, c1;		/* temporary variables for holding input and coefficient values */
 	uint32_t j, k = 0U, count, blkCnt, outBlockSize, blockSize1, blockSize2, blockSize3;/* loop counter                 */
 	int32_t inc = 1;
 
@@ -121,7 +121,7 @@ void arm_correlate_q7(
 
 		/* Updating the pointer position to non zero value */
 		pOut += j;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = (pSrcB);
 
@@ -532,7 +532,7 @@ void arm_correlate_q7(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* If the srcBLen is not a multiple of 4,
 		 * the blockSize2 loop cannot be unrolled by 4 */
 		blkCnt = blockSize2;
@@ -666,16 +666,16 @@ void arm_correlate_q7(
 		blockSize3--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
-	q7_t *pIn1 = pSrcA;					/* inputA pointer */
+	q7_t *pIn1 = pSrcA;	/* inputA pointer */
 	q7_t *pIn2 = pSrcB + (srcBLen - 1U);/* inputB pointer */
-	q31_t sum;							/* Accumulator */
-	uint32_t i = 0U, j;					/* loop counters */
-	uint32_t inv = 0U;					/* Reverse order flag */
-	uint32_t tot = 0U;					/* Length */
+	q31_t sum;			/* Accumulator */
+	uint32_t i = 0U, j;	/* loop counters */
+	uint32_t inv = 0U;	/* Reverse order flag */
+	uint32_t tot = 0U;	/* Length */
 
 	/* The algorithm implementation is based on the lengths of the inputs. */
 	/* srcB is always made to slide across srcA. */
@@ -706,7 +706,7 @@ void arm_correlate_q7(
 
 		/* Initialise the pointer after zero padding */
 		pDst += j;
-	} else if (srcALen < srcBLen)   {
+	} else if (srcALen < srcBLen) {
 		/* Initialization to inputB pointer */
 		pIn1 = pSrcB;
 
@@ -746,7 +746,7 @@ void arm_correlate_q7(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_correlate_q7 */
+}	/* arm_correlate_q7 */
 
 /**
  * @} end of Corr group

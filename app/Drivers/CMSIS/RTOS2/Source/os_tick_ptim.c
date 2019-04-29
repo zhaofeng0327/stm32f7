@@ -28,12 +28,12 @@
 
 #if defined(PTIM)
 
-# include "os_tick.h"
-# include "irq_ctrl.h"
+#include "os_tick.h"
+#include "irq_ctrl.h"
 
-# ifndef PTIM_IRQ_PRIORITY
-#  define PTIM_IRQ_PRIORITY    0xFFU
-# endif
+#ifndef PTIM_IRQ_PRIORITY
+#define PTIM_IRQ_PRIORITY    0xFFU
+#endif
 
 static uint8_t PTIM_PendIRQ;// Timer interrupt pending flag
 
@@ -97,7 +97,7 @@ int32_t OS_Tick_Setup(uint32_t freq, IRQHandler_t handler)
 	PTIM_SetControl(0x06U);
 
 	return (0);
-} /* OS_Tick_Setup */
+}	/* OS_Tick_Setup */
 
 /// Enable OS Tick.
 void OS_Tick_Enable(void)

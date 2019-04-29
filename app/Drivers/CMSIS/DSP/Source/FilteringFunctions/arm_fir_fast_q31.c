@@ -279,7 +279,7 @@ void arm_fir_fast_q31(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* arm_fir_fast_q31 */
+}	/* arm_fir_fast_q31 */
 
 IAR_ONLY_LOW_OPTIMIZATION_EXIT
 

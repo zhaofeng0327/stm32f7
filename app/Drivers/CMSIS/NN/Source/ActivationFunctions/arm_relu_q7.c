@@ -86,7 +86,7 @@ void arm_relu_q7(q7_t *data, uint16_t size)
 		i--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
 
 	uint16_t i;
@@ -97,7 +97,7 @@ void arm_relu_q7(q7_t *data, uint16_t size)
 	}
 
 	#endif	/* ARM_MATH_DSP */
-} /* arm_relu_q7 */
+}	/* arm_relu_q7 */
 
 /**
  * @} end of Acti group

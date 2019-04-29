@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_HAL_SDRAM_H
-# define __STM32F7xx_HAL_SDRAM_H
+#define __STM32F7xx_HAL_SDRAM_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_ll_fmc.h"
+#include "stm32f7xx_ll_fmc.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -57,11 +57,11 @@ typedef enum {
 /**
  * @brief  SDRAM handle Structure definition
  */
-# if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
 typedef struct __SDRAM_HandleTypeDef
-# else
+#else
 typedef struct
-# endif	/* USE_HAL_SDRAM_REGISTER_CALLBACKS  */
+#endif	/* USE_HAL_SDRAM_REGISTER_CALLBACKS  */
 {
 	FMC_SDRAM_TypeDef           *Instance;	/*!< Register base address                 */
 
@@ -73,16 +73,16 @@ typedef struct
 
 	DMA_HandleTypeDef           *hdma;	/*!< Pointer DMA handler                   */
 
-	# if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
 	void (*MspInitCallback)(struct __SDRAM_HandleTypeDef *hsdram);		/*!< SDRAM Msp Init callback              */
 	void (*MspDeInitCallback)(struct __SDRAM_HandleTypeDef *hsdram);	/*!< SDRAM Msp DeInit callback            */
 	void (*RefreshErrorCallback)(struct __SDRAM_HandleTypeDef *hsdram);	/*!< SDRAM Refresh Error callback         */
 	void (*DmaXferCpltCallback)(DMA_HandleTypeDef *hdma);				/*!< SDRAM DMA Xfer Complete callback     */
 	void (*DmaXferErrorCallback)(DMA_HandleTypeDef *hdma);				/*!< SDRAM DMA Xfer Error callback        */
-	# endif
+	#endif
 } SDRAM_HandleTypeDef;
 
-# if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  HAL SDRAM Callback ID enumeration definition
@@ -100,7 +100,7 @@ typedef enum {
  */
 typedef void (*pSDRAM_CallbackTypeDef)(SDRAM_HandleTypeDef *hsdram);
 typedef void (*pSDRAM_DmaCallbackTypeDef)(DMA_HandleTypeDef *hdma);
-# endif	// if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
+#endif	// if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
 
 /**
  * @}
@@ -117,16 +117,16 @@ typedef void (*pSDRAM_DmaCallbackTypeDef)(DMA_HandleTypeDef *hdma);
  * @param  __HANDLE__ specifies the SDRAM handle.
  * @retval None
  */
-# if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
-#  define __HAL_SDRAM_RESET_HANDLE_STATE(__HANDLE__) \
+#if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
+#define __HAL_SDRAM_RESET_HANDLE_STATE(__HANDLE__) \
 	do {                                               \
 		(__HANDLE__)->State = HAL_SDRAM_STATE_RESET;  \
 		(__HANDLE__)->MspInitCallback   = NULL;         \
 		(__HANDLE__)->MspDeInitCallback = NULL;       \
 	} while (0)
-# else
-#  define __HAL_SDRAM_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_SDRAM_STATE_RESET)
-# endif
+#else
+#define __HAL_SDRAM_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_SDRAM_STATE_RESET)
+#endif
 
 /**
  * @}
@@ -179,14 +179,14 @@ HAL_StatusTypeDef HAL_SDRAM_Read_DMA(SDRAM_HandleTypeDef *hsdram, uint32_t *pAdd
 HAL_StatusTypeDef HAL_SDRAM_Write_DMA(SDRAM_HandleTypeDef *hsdram, uint32_t *pAddress, uint32_t *pSrcBuffer,
   uint32_t BufferSize);
 
-# if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_SDRAM_REGISTER_CALLBACKS == 1)
 /* SDRAM callback registering/unregistering */
 HAL_StatusTypeDef HAL_SDRAM_RegisterCallback(SDRAM_HandleTypeDef *hsdram, HAL_SDRAM_CallbackIDTypeDef CallbackId,
   pSDRAM_CallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_SDRAM_UnRegisterCallback(SDRAM_HandleTypeDef *hsdram, HAL_SDRAM_CallbackIDTypeDef CallbackId);
 HAL_StatusTypeDef HAL_SDRAM_RegisterDmaCallback(SDRAM_HandleTypeDef *hsdram, HAL_SDRAM_CallbackIDTypeDef CallbackId,
   pSDRAM_DmaCallbackTypeDef pCallback);
-# endif
+#endif
 
 /**
  * @}
@@ -230,9 +230,9 @@ HAL_SDRAM_StateTypeDef  HAL_SDRAM_GetState(SDRAM_HandleTypeDef *hsdram);
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_HAL_SDRAM_H */
 

@@ -114,7 +114,7 @@
 /* Status register need 5 RC LSI divided by prescaler clock to be updated. With
  * higher prescaler (256), and according to LSI variation, we need to wait at
  * least 6 cycles so 48 ms. */
-# define HAL_IWDG_DEFAULT_TIMEOUT    48u
+#define HAL_IWDG_DEFAULT_TIMEOUT    48u
 
 /**
  * @}
@@ -198,14 +198,14 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
 		 * even if window feature is disabled, Watchdog will be reloaded by writing
 		 * windows register */
 		hiwdg->Instance->WINR = hiwdg->Init.Window;
-	} else   {
+	} else {
 		/* Reload IWDG counter with value defined in the reload register */
 		__HAL_IWDG_RELOAD_COUNTER(hiwdg);
 	}
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_IWDG_Init */
+}	/* HAL_IWDG_Init */
 
 /**
  * @}

@@ -81,38 +81,38 @@ void arm_abs_q15(
 
 
 		/* Store the Absolute result in the destination buffer by packing the two values, in a single cycle */
-		# ifndef  ARM_MATH_BIG_ENDIAN
+		#ifndef  ARM_MATH_BIG_ENDIAN
 		*simd++ =
 		  __PKHBT(((in1 > 0) ? in1 : (q15_t) __QSUB16(0, in1)),
 			((in2 > 0) ? in2 : (q15_t) __QSUB16(0, in2)), 16);
 
-		# else
+		#else
 
 
 		*simd++ =
 		  __PKHBT(((in2 > 0) ? in2 : (q15_t) __QSUB16(0, in2)),
 			((in1 > 0) ? in1 : (q15_t) __QSUB16(0, in1)), 16);
 
-		# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
+		#endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 		in1 = *pSrc++;
 		in2 = *pSrc++;
 
 
-		# ifndef  ARM_MATH_BIG_ENDIAN
+		#ifndef  ARM_MATH_BIG_ENDIAN
 
 		*simd++ =
 		  __PKHBT(((in1 > 0) ? in1 : (q15_t) __QSUB16(0, in1)),
 			((in2 > 0) ? in2 : (q15_t) __QSUB16(0, in2)), 16);
 
-		# else
+		#else
 
 
 		*simd++ =
 		  __PKHBT(((in2 > 0) ? in2 : (q15_t) __QSUB16(0, in2)),
 			((in1 > 0) ? in1 : (q15_t) __QSUB16(0, in1)), 16);
 
-		# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
+		#endif	/* #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 		/* Decrement the loop counter */
 		blkCnt--;
@@ -135,7 +135,7 @@ void arm_abs_q15(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -157,7 +157,7 @@ void arm_abs_q15(
 	}
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_abs_q15 */
+}	/* arm_abs_q15 */
 
 /**
  * @} end of BasicAbs group

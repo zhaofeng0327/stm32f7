@@ -320,7 +320,7 @@ arm_status arm_convolve_HWC_q7_fast(const q7_t *Im_in,
 			pOut++;
 		}
 	}
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
 
 	uint16_t i, j, k, l, m, n;
@@ -360,7 +360,7 @@ arm_status arm_convolve_HWC_q7_fast(const q7_t *Im_in,
 
 	/* Return to application */
 	return ARM_MATH_SUCCESS;
-} /* arm_convolve_HWC_q7_fast */
+}	/* arm_convolve_HWC_q7_fast */
 
 /**
  * @} end of NNConv group

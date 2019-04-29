@@ -60,14 +60,14 @@
  */
 
 #ifndef FREERTOS_MESSAGE_BUFFER_H
-# define FREERTOS_MESSAGE_BUFFER_H
+#define FREERTOS_MESSAGE_BUFFER_H
 
 /* Message buffers are built onto of stream buffers. */
-# include "stream_buffer.h"
+#include "stream_buffer.h"
 
-# if defined( __cplusplus )
+#if defined( __cplusplus )
 extern "C" {
-# endif
+#endif
 
 /**
  * Type by which message buffers are referenced.  For example, a call to
@@ -135,7 +135,7 @@ typedef void *MessageBufferHandle_t;
  * \defgroup xMessageBufferCreate xMessageBufferCreate
  * \ingroup MessageBufferManagement
  */
-# define xMessageBufferCreate(xBufferSizeBytes) \
+#define xMessageBufferCreate(xBufferSizeBytes) \
 	(MessageBufferHandle_t) xStreamBufferGenericCreate(xBufferSizeBytes, \
 	  (size_t) 0, \
 	  pdTRUE)
@@ -204,7 +204,7 @@ typedef void *MessageBufferHandle_t;
  * \defgroup xMessageBufferCreateStatic xMessageBufferCreateStatic
  * \ingroup MessageBufferManagement
  */
-# define xMessageBufferCreateStatic(xBufferSizeBytes, pucMessageBufferStorageArea, \
+#define xMessageBufferCreateStatic(xBufferSizeBytes, pucMessageBufferStorageArea, \
 	  pxStaticMessageBuffer)    (MessageBufferHandle_t) xStreamBufferGenericCreateStatic(xBufferSizeBytes, 0, pdTRUE, \
 	  pucMessageBufferStorageArea, \
 	  pxStaticMessageBuffer)
@@ -306,7 +306,7 @@ typedef void *MessageBufferHandle_t;
  * \defgroup xMessageBufferSend xMessageBufferSend
  * \ingroup MessageBufferManagement
  */
-# define xMessageBufferSend(xMessageBuffer, pvTxData, xDataLengthBytes, \
+#define xMessageBufferSend(xMessageBuffer, pvTxData, xDataLengthBytes, \
 	  xTicksToWait)    xStreamBufferSend( (StreamBufferHandle_t) xMessageBuffer, pvTxData, xDataLengthBytes, \
 	  xTicksToWait)
 
@@ -412,7 +412,7 @@ typedef void *MessageBufferHandle_t;
  * \defgroup xMessageBufferSendFromISR xMessageBufferSendFromISR
  * \ingroup MessageBufferManagement
  */
-# define xMessageBufferSendFromISR(xMessageBuffer, pvTxData, xDataLengthBytes, \
+#define xMessageBufferSendFromISR(xMessageBuffer, pvTxData, xDataLengthBytes, \
 	  pxHigherPriorityTaskWoken)    xStreamBufferSendFromISR( (StreamBufferHandle_t) xMessageBuffer, pvTxData, \
 	  xDataLengthBytes, pxHigherPriorityTaskWoken)
 
@@ -502,7 +502,7 @@ typedef void *MessageBufferHandle_t;
  * \defgroup xMessageBufferReceive xMessageBufferReceive
  * \ingroup MessageBufferManagement
  */
-# define xMessageBufferReceive(xMessageBuffer, pvRxData, xBufferLengthBytes, \
+#define xMessageBufferReceive(xMessageBuffer, pvRxData, xBufferLengthBytes, \
 	  xTicksToWait)    xStreamBufferReceive( (StreamBufferHandle_t) xMessageBuffer, pvRxData, xBufferLengthBytes, \
 	  xTicksToWait)
 
@@ -605,7 +605,7 @@ typedef void *MessageBufferHandle_t;
  * \defgroup xMessageBufferReceiveFromISR xMessageBufferReceiveFromISR
  * \ingroup MessageBufferManagement
  */
-# define xMessageBufferReceiveFromISR(xMessageBuffer, pvRxData, xBufferLengthBytes, \
+#define xMessageBufferReceiveFromISR(xMessageBuffer, pvRxData, xBufferLengthBytes, \
 	  pxHigherPriorityTaskWoken)    xStreamBufferReceiveFromISR( (StreamBufferHandle_t) xMessageBuffer, pvRxData, \
 	  xBufferLengthBytes, pxHigherPriorityTaskWoken)
 
@@ -627,7 +627,7 @@ typedef void *MessageBufferHandle_t;
  * @param xMessageBuffer The handle of the message buffer to be deleted.
  *
  */
-# define vMessageBufferDelete(xMessageBuffer)    vStreamBufferDelete( (StreamBufferHandle_t) xMessageBuffer)
+#define vMessageBufferDelete(xMessageBuffer)    vStreamBufferDelete( (StreamBufferHandle_t) xMessageBuffer)
 
 /**
  * message_buffer.h
@@ -644,7 +644,7 @@ typedef void *MessageBufferHandle_t;
  * @return If the message buffer referenced by xMessageBuffer is full then
  * pdTRUE is returned.  Otherwise pdFALSE is returned.
  */
-# define xMessageBufferIsFull(xMessageBuffer)    xStreamBufferIsFull( (StreamBufferHandle_t) xMessageBuffer)
+#define xMessageBufferIsFull(xMessageBuffer)    xStreamBufferIsFull( (StreamBufferHandle_t) xMessageBuffer)
 
 /**
  * message_buffer.h
@@ -660,7 +660,7 @@ typedef void *MessageBufferHandle_t;
  * pdTRUE is returned.  Otherwise pdFALSE is returned.
  *
  */
-# define xMessageBufferIsEmpty(xMessageBuffer)    xStreamBufferIsEmpty( (StreamBufferHandle_t) xMessageBuffer)
+#define xMessageBufferIsEmpty(xMessageBuffer)    xStreamBufferIsEmpty( (StreamBufferHandle_t) xMessageBuffer)
 
 /**
  * message_buffer.h
@@ -683,7 +683,7 @@ typedef void *MessageBufferHandle_t;
  * \defgroup xMessageBufferReset xMessageBufferReset
  * \ingroup MessageBufferManagement
  */
-# define xMessageBufferReset(xMessageBuffer)    xStreamBufferReset( (StreamBufferHandle_t) xMessageBuffer)
+#define xMessageBufferReset(xMessageBuffer)    xStreamBufferReset( (StreamBufferHandle_t) xMessageBuffer)
 
 
 /**
@@ -705,7 +705,7 @@ typedef void *MessageBufferHandle_t;
  * \defgroup xMessageBufferSpaceAvailable xMessageBufferSpaceAvailable
  * \ingroup MessageBufferManagement
  */
-# define xMessageBufferSpaceAvailable(xMessageBuffer) \
+#define xMessageBufferSpaceAvailable(xMessageBuffer) \
 	xStreamBufferSpacesAvailable( \
 		(StreamBufferHandle_t) xMessageBuffer)
 
@@ -746,7 +746,7 @@ typedef void *MessageBufferHandle_t;
  * \defgroup xMessageBufferSendCompletedFromISR xMessageBufferSendCompletedFromISR
  * \ingroup StreamBufferManagement
  */
-# define xMessageBufferSendCompletedFromISR(xMessageBuffer, \
+#define xMessageBufferSendCompletedFromISR(xMessageBuffer, \
 	  pxHigherPriorityTaskWoken)    xStreamBufferSendCompletedFromISR( (StreamBufferHandle_t) xMessageBuffer, \
 	  pxHigherPriorityTaskWoken)
 
@@ -788,12 +788,12 @@ typedef void *MessageBufferHandle_t;
  * \defgroup xMessageBufferReceiveCompletedFromISR xMessageBufferReceiveCompletedFromISR
  * \ingroup StreamBufferManagement
  */
-# define xMessageBufferReceiveCompletedFromISR(xMessageBuffer, \
+#define xMessageBufferReceiveCompletedFromISR(xMessageBuffer, \
 	  pxHigherPriorityTaskWoken)    xStreamBufferReceiveCompletedFromISR( (StreamBufferHandle_t) xMessageBuffer, \
 	  pxHigherPriorityTaskWoken)
 
-# if defined( __cplusplus )
+#if defined( __cplusplus )
 }	/* extern "C" */
-# endif
+#endif
 
 #endif	/* !defined( FREERTOS_MESSAGE_BUFFER_H ) */

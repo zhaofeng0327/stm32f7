@@ -123,10 +123,10 @@ void arm_fir_lattice_f32(
 	float32_t                          *pDst,
 	uint32_t                           blockSize)
 {
-	float32_t *pState;				/* State pointer */
+	float32_t *pState;	/* State pointer */
 	float32_t *pCoeffs = S->pCoeffs;/* Coefficient pointer */
-	float32_t *px;					/* temporary state pointer */
-	float32_t *pk;					/* temporary coefficient pointer */
+	float32_t *px;	/* temporary state pointer */
+	float32_t *pk;	/* temporary coefficient pointer */
 
 
 	#if defined(ARM_MATH_DSP)
@@ -406,7 +406,7 @@ void arm_fir_lattice_f32(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -474,7 +474,7 @@ void arm_fir_lattice_f32(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_fir_lattice_f32 */
+}	/* arm_fir_lattice_f32 */
 
 /**
  * @} end of FIR_Lattice group

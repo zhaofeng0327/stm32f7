@@ -94,17 +94,17 @@ void arm_q7_to_q15(
 		in1 = in1 & 0xFF00FF00;
 		in2 = in2 & 0xFF00FF00;
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		out2 = __PKHTB(in1, in2, 16);
 		out1 = __PKHBT(in2, in1, 16);
 
-		# else
+		#else
 
 		out1 = __PKHTB(in1, in2, 16);
 		out2 = __PKHBT(in2, in1, 16);
 
-		# endif
+		#endif
 
 		*__SIMD32(pDst)++ = out1;
 		*__SIMD32(pDst)++ = out2;
@@ -117,7 +117,7 @@ void arm_q7_to_q15(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -134,7 +134,7 @@ void arm_q7_to_q15(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_q7_to_q15 */
+}	/* arm_q7_to_q15 */
 
 /**
  * @} end of q7_to_x group

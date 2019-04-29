@@ -22,15 +22,15 @@
 #define _FFCONF    68300/* Revision ID */
 
 /*-----------------------------------------------------------------------------/
-*  / Additional user header to be used
-*  /-----------------------------------------------------------------------------*/
+ *  / Additional user header to be used
+ *  /-----------------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f7xx_hal.h"
 #include "cmsis_os.h"	/* _FS_REENTRANT set to 1 */
 
 /*-----------------------------------------------------------------------------/
-*  / Function Configurations
-*  /-----------------------------------------------------------------------------*/
+ *  / Function Configurations
+ *  /-----------------------------------------------------------------------------*/
 
 #define _FS_READONLY    0	/* 0:Read/Write or 1:Read only */
 
@@ -86,8 +86,8 @@
 /* This option switches f_forward() function. (0:Disable or 1:Enable) */
 
 /*-----------------------------------------------------------------------------/
-*  / Locale and Namespace Configurations
-*  /-----------------------------------------------------------------------------*/
+ *  / Locale and Namespace Configurations
+ *  /-----------------------------------------------------------------------------*/
 
 #define _CODE_PAGE    850
 
@@ -240,13 +240,13 @@
 #define _NORTC_YEAR    2015
 
 /* The option _FS_NORTC switches timestamp functiton. If the system does not have
-*  /  any RTC function or valid timestamp is not needed, set _FS_NORTC = 1 to disable
-*  /  the timestamp function. All objects modified by FatFs will have a fixed timestamp
-*  /  defined by _NORTC_MON, _NORTC_MDAY and _NORTC_YEAR in local time.
-*  /  To enable timestamp function (_FS_NORTC = 0), get_fattime() function need to be
-*  /  added to the project to get current time form real-time clock. _NORTC_MON,
-*  /  _NORTC_MDAY and _NORTC_YEAR have no effect.
-*  /  These options have no effect at read-only configuration (_FS_READONLY = 1). */
+ *  /  any RTC function or valid timestamp is not needed, set _FS_NORTC = 1 to disable
+ *  /  the timestamp function. All objects modified by FatFs will have a fixed timestamp
+ *  /  defined by _NORTC_MON, _NORTC_MDAY and _NORTC_YEAR in local time.
+ *  /  To enable timestamp function (_FS_NORTC = 0), get_fattime() function need to be
+ *  /  added to the project to get current time form real-time clock. _NORTC_MON,
+ *  /  _NORTC_MDAY and _NORTC_YEAR have no effect.
+ *  /  These options have no effect at read-only configuration (_FS_READONLY = 1). */
 
 #define _FS_LOCK    2	/* 0:Disable or >=1:Enable */
 
@@ -283,9 +283,9 @@
 
 /* define the ff_malloc ff_free macros as standard malloc free */
 #if !defined(ff_malloc) && !defined(ff_free)
-# include <stdlib.h>
-# define ff_malloc    malloc
-# define ff_free      free
+#include <stdlib.h>
+#define ff_malloc    malloc
+#define ff_free      free
 #endif
 
 #endif	/* _FFCONF */

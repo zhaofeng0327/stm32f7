@@ -152,7 +152,7 @@ arm_status arm_convolve_HWC_q15_basic(const q15_t *Im_in,
 		}
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
 	uint16_t i, j, k, l, m, n;
 	int conv_out;
@@ -185,7 +185,7 @@ arm_status arm_convolve_HWC_q15_basic(const q15_t *Im_in,
 
 	/* Return to application */
 	return ARM_MATH_SUCCESS;
-} /* arm_convolve_HWC_q15_basic */
+}	/* arm_convolve_HWC_q15_basic */
 
 /**
  * @} end of NNConv group

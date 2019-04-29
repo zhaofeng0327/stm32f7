@@ -138,23 +138,23 @@
  */
 #ifdef HAL_MDIOS_MODULE_ENABLED
 
-# if defined(MDIOS)
+#if defined(MDIOS)
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#  define MDIOS_PORT_ADDRESS_SHIFT    ((uint32_t) 8)
-#  define MDIOS_ALL_REG_FLAG          ((uint32_t) 0xFFFFFFFFU)
-#  define MDIOS_ALL_ERRORS_FLAG       ((uint32_t) (MDIOS_SR_PERF | MDIOS_SR_SERF | MDIOS_SR_TERF))
+#define MDIOS_PORT_ADDRESS_SHIFT    ((uint32_t) 8)
+#define MDIOS_ALL_REG_FLAG          ((uint32_t) 0xFFFFFFFFU)
+#define MDIOS_ALL_ERRORS_FLAG       ((uint32_t) (MDIOS_SR_PERF | MDIOS_SR_SERF | MDIOS_SR_TERF))
 
-#  define MDIOS_DIN_BASE_ADDR         (MDIOS_BASE + 0x100)
-#  define MDIOS_DOUT_BASE_ADDR        (MDIOS_BASE + 0x180)
+#define MDIOS_DIN_BASE_ADDR         (MDIOS_BASE + 0x100)
+#define MDIOS_DOUT_BASE_ADDR        (MDIOS_BASE + 0x180)
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-#  if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
 static void MDIOS_InitCallbacksToDefault(MDIOS_HandleTypeDef *hmdios);
-#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 /* Private functions ---------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
 
@@ -204,7 +204,7 @@ HAL_StatusTypeDef HAL_MDIOS_Init(MDIOS_HandleTypeDef *hmdios)
 	__HAL_LOCK(hmdios);
 
 	if (hmdios->State == HAL_MDIOS_STATE_RESET) {
-		#  if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
 
 		MDIOS_InitCallbacksToDefault(hmdios);
 
@@ -215,11 +215,11 @@ HAL_StatusTypeDef HAL_MDIOS_Init(MDIOS_HandleTypeDef *hmdios)
 		/* Init the low level hardware */
 		hmdios->MspInitCallback(hmdios);
 
-		#  else	 /* if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1) */
+		#else	/* if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1) */
 		/* Init the low level hardware */
 		HAL_MDIOS_MspInit(hmdios);
 
-		#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 	}
 
 	/* Change the MDIOS state */
@@ -247,7 +247,7 @@ HAL_StatusTypeDef HAL_MDIOS_Init(MDIOS_HandleTypeDef *hmdios)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_MDIOS_Init */
+}	/* HAL_MDIOS_Init */
 
 /**
  * @brief  DeInitializes the MDIOS peripheral.
@@ -270,7 +270,7 @@ HAL_StatusTypeDef HAL_MDIOS_DeInit(MDIOS_HandleTypeDef *hmdios)
 	/* Disable the Peripheral */
 	__HAL_MDIOS_DISABLE(hmdios);
 
-	#  if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
 
 	if (hmdios->MspDeInitCallback == NULL) {
 		hmdios->MspDeInitCallback = HAL_MDIOS_MspDeInit;
@@ -278,12 +278,12 @@ HAL_StatusTypeDef HAL_MDIOS_DeInit(MDIOS_HandleTypeDef *hmdios)
 	/* DeInit the low level hardware */
 	hmdios->MspDeInitCallback(hmdios);
 
-	#  else
+	#else
 
 	/* DeInit the low level hardware */
 	HAL_MDIOS_MspDeInit(hmdios);
 
-	#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 
 	/* Change the MDIOS state */
 	hmdios->State = HAL_MDIOS_STATE_RESET;
@@ -293,7 +293,7 @@ HAL_StatusTypeDef HAL_MDIOS_DeInit(MDIOS_HandleTypeDef *hmdios)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_MDIOS_DeInit */
+}	/* HAL_MDIOS_DeInit */
 
 /**
  * @brief  MDIOS MSP Init
@@ -325,7 +325,7 @@ __weak void HAL_MDIOS_MspDeInit(MDIOS_HandleTypeDef *hmdios)
 	 */
 }
 
-#  if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User MDIOS Callback
@@ -409,7 +409,7 @@ HAL_StatusTypeDef HAL_MDIOS_RegisterCallback(MDIOS_HandleTypeDef *hmdios, HAL_MD
 	__HAL_UNLOCK(hmdios);
 
 	return status;
-} /* HAL_MDIOS_RegisterCallback */
+}	/* HAL_MDIOS_RegisterCallback */
 
 /**
  * @brief  Unregister an MDIOS Callback
@@ -487,7 +487,7 @@ HAL_StatusTypeDef HAL_MDIOS_UnRegisterCallback(MDIOS_HandleTypeDef *hmdios, HAL_
 	__HAL_UNLOCK(hmdios);
 
 	return status;
-} /* HAL_MDIOS_UnRegisterCallback */
+}	/* HAL_MDIOS_UnRegisterCallback */
 
 static void MDIOS_InitCallbacksToDefault(MDIOS_HandleTypeDef *hmdios)
 {
@@ -498,7 +498,7 @@ static void MDIOS_InitCallbacksToDefault(MDIOS_HandleTypeDef *hmdios)
 	hmdios->WakeUpCallback    = HAL_MDIOS_WakeUpCallback;	/* Legacy weak WakeUpCallback      */
 }
 
-#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -691,13 +691,13 @@ void HAL_MDIOS_IRQHandler(MDIOS_HandleTypeDef *hmdios)
 	if (__HAL_MDIOS_GET_IT_SOURCE(hmdios, MDIOS_IT_WRITE) != RESET) {
 		/* Write register flag */
 		if (HAL_MDIOS_GetWrittenRegAddress(hmdios) != RESET) {
-			#  if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
 			/* Call registered Write complete callback */
 			hmdios->WriteCpltCallback(hmdios);
-			#  else
+			#else
 			/* Write callback function */
 			HAL_MDIOS_WriteCpltCallback(hmdios);
-			#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 
 			/* Clear write register flag */
 			HAL_MDIOS_ClearWriteRegAddress(hmdios, MDIOS_ALL_REG_FLAG);
@@ -708,13 +708,13 @@ void HAL_MDIOS_IRQHandler(MDIOS_HandleTypeDef *hmdios)
 	if (__HAL_MDIOS_GET_IT_SOURCE(hmdios, MDIOS_IT_READ) != RESET) {
 		/* Read register flag */
 		if (HAL_MDIOS_GetReadRegAddress(hmdios) != RESET) {
-			#  if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
 			/* Call registered Read complete callback */
 			hmdios->ReadCpltCallback(hmdios);
-			#  else
+			#else
 			/* Read callback function  */
 			HAL_MDIOS_ReadCpltCallback(hmdios);
-			#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 
 			/* Clear read register flag */
 			HAL_MDIOS_ClearReadRegAddress(hmdios, MDIOS_ALL_REG_FLAG);
@@ -725,13 +725,13 @@ void HAL_MDIOS_IRQHandler(MDIOS_HandleTypeDef *hmdios)
 	if (__HAL_MDIOS_GET_IT_SOURCE(hmdios, MDIOS_IT_ERROR) != RESET) {
 		/* All Errors Flag */
 		if (__HAL_MDIOS_GET_ERROR_FLAG(hmdios, MDIOS_ALL_ERRORS_FLAG) != RESET) {
-			#  if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
 			/* Call registered Error callback */
 			hmdios->ErrorCallback(hmdios);
-			#  else
+			#else
 			/* Error Callback */
 			HAL_MDIOS_ErrorCallback(hmdios);
-			#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 
 			/* Clear errors flag */
 			__HAL_MDIOS_CLEAR_ERROR_FLAG(hmdios, MDIOS_ALL_ERRORS_FLAG);
@@ -740,18 +740,18 @@ void HAL_MDIOS_IRQHandler(MDIOS_HandleTypeDef *hmdios)
 
 	/* check MDIOS WAKEUP exti flag */
 	if (__HAL_MDIOS_WAKEUP_EXTI_GET_FLAG() != RESET) {
-		#  if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
 		/* Call registered WakeUp callback */
 		hmdios->WakeUpCallback(hmdios);
-		#  else
+		#else
 		/* MDIOS WAKEUP interrupt user callback */
 		HAL_MDIOS_WakeUpCallback(hmdios);
-		#  endif/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 
 		/* Clear MDIOS WAKEUP Exti pending bit */
 		__HAL_MDIOS_WAKEUP_EXTI_CLEAR_FLAG();
 	}
-} /* HAL_MDIOS_IRQHandler */
+}	/* HAL_MDIOS_IRQHandler */
 
 /**
  * @brief  Write Complete Callback
@@ -862,7 +862,7 @@ HAL_MDIOS_StateTypeDef HAL_MDIOS_GetState(MDIOS_HandleTypeDef *hmdios)
 /**
  * @}
  */
-# endif	/* MDIOS */
+#endif	/* MDIOS */
 #endif	/* HAL_MDIOS_MODULE_ENABLED */
 
 /**

@@ -91,7 +91,7 @@ arm_status arm_conv_partial_fast_opt_q15(
 	if ((firstIndex + numPoints) > ((srcALen + (srcBLen - 1U)))) {
 		/* Set status as ARM_MATH_ARGUMENT_ERROR */
 		status = ARM_MATH_ARGUMENT_ERROR;
-	} else   {
+	} else {
 		/* The algorithm implementation is based on the lengths of the inputs. */
 		/* srcB is always made to slide across srcA. */
 		/* So srcBLen is always considered as shorter or equal to srcALen */
@@ -101,7 +101,7 @@ arm_status arm_conv_partial_fast_opt_q15(
 
 			/* Initialization of inputB pointer */
 			pIn2 = pSrcB;
-		} else   {
+		} else {
 			/* Initialization of inputA pointer */
 			pIn1 = pSrcB;
 
@@ -218,11 +218,11 @@ arm_status arm_conv_partial_fast_opt_q15(
 				acc2 = __SMLAD(x2, y1, acc2);
 
 				/* pack input data */
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 				x3 = __PKHBT(x2, x1, 0);
-				# else
+				#else
 				x3 = __PKHBT(x1, x2, 0);
-				# endif
+				#endif
 
 				/* multiply and accumlate */
 				acc1 = __SMLADX(x3, y1, acc1);
@@ -236,22 +236,22 @@ arm_status arm_conv_partial_fast_opt_q15(
 				acc2 = __SMLAD(x1, y2, acc2);
 
 				/* pack input data */
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 				x3 = __PKHBT(x1, x2, 0);
-				# else
+				#else
 				x3 = __PKHBT(x2, x1, 0);
-				# endif
+				#endif
 
 				acc3 = __SMLADX(x3, y1, acc3);
 				acc1 = __SMLADX(x3, y2, acc1);
 
 				x2 = _SIMD32_OFFSET(pScr1 + 2U);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 				x3 = __PKHBT(x2, x1, 0);
-				# else
+				#else
 				x3 = __PKHBT(x1, x2, 0);
-				# endif
+				#endif
 
 				acc3 = __SMLADX(x3, y2, acc3);
 
@@ -288,21 +288,21 @@ arm_status arm_conv_partial_fast_opt_q15(
 
 			/* Store the results in the accumulators in the destination buffer. */
 
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			*__SIMD32(pOut)++ =
 			  __PKHBT(__SSAT((acc0 >> 15), 16), __SSAT((acc1 >> 15), 16), 16);
 			*__SIMD32(pOut)++ =
 			  __PKHBT(__SSAT((acc2 >> 15), 16), __SSAT((acc3 >> 15), 16), 16);
 
-			# else
+			#else
 
 			*__SIMD32(pOut)++ =
 			  __PKHBT(__SSAT((acc1 >> 15), 16), __SSAT((acc0 >> 15), 16), 16);
 			*__SIMD32(pOut)++ =
 			  __PKHBT(__SSAT((acc3 >> 15), 16), __SSAT((acc2 >> 15), 16), 16);
 
-			# endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
+			#endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 			/* Initialization of inputB pointer */
 			pIn2 = py;
@@ -363,9 +363,9 @@ arm_status arm_conv_partial_fast_opt_q15(
 	}
 	/* Return to application */
 	return (status);
-} /* arm_conv_partial_fast_opt_q15 */
+}	/* arm_conv_partial_fast_opt_q15 */
 
-#else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
 arm_status arm_conv_partial_fast_opt_q15(
 	q15_t    *pSrcA,
@@ -397,7 +397,7 @@ arm_status arm_conv_partial_fast_opt_q15(
 	if ((firstIndex + numPoints) > ((srcALen + (srcBLen - 1U)))) {
 		/* Set status as ARM_MATH_ARGUMENT_ERROR */
 		status = ARM_MATH_ARGUMENT_ERROR;
-	} else   {
+	} else {
 		/* The algorithm implementation is based on the lengths of the inputs. */
 		/* srcB is always made to slide across srcA. */
 		/* So srcBLen is always considered as shorter or equal to srcALen */
@@ -407,7 +407,7 @@ arm_status arm_conv_partial_fast_opt_q15(
 
 			/* Initialization of inputB pointer */
 			pIn2 = pSrcB;
-		} else   {
+		} else {
 			/* Initialization of inputA pointer */
 			pIn1 = pSrcB;
 
@@ -700,7 +700,7 @@ arm_status arm_conv_partial_fast_opt_q15(
 
 	/* Return to application */
 	return (status);
-} /* arm_conv_partial_fast_opt_q15 */
+}	/* arm_conv_partial_fast_opt_q15 */
 
 #endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
 

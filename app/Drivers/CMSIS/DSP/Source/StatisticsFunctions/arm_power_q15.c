@@ -69,8 +69,8 @@ void arm_power_q15(
 	#if defined(ARM_MATH_DSP)
 	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
-	q31_t in32;		/* Temporary variable to store input value */
-	q15_t in16;		/* Temporary variable to store input value */
+	q31_t in32;	/* Temporary variable to store input value */
+	q15_t in16;	/* Temporary variable to store input value */
 	uint32_t blkCnt;/* loop counter */
 
 
@@ -105,10 +105,10 @@ void arm_power_q15(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
-	q15_t in;		/* Temporary variable to store input value */
+	q15_t in;	/* Temporary variable to store input value */
 	uint32_t blkCnt;/* loop counter */
 
 
@@ -129,7 +129,7 @@ void arm_power_q15(
 
 	/* Store the results in 34.30 format  */
 	*pResult = sum;
-} /* arm_power_q15 */
+}	/* arm_power_q15 */
 
 /**
  * @} end of power group

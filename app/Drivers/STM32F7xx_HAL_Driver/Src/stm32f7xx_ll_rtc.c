@@ -22,9 +22,9 @@
 #include "stm32f7xx_ll_rtc.h"
 #include "stm32f7xx_ll_cortex.h"
 #ifdef  USE_FULL_ASSERT
-# include "stm32_assert.h"
+#include "stm32_assert.h"
 #else
-# define assert_param(expr)    ((void) 0U)
+#define assert_param(expr)    ((void) 0U)
 #endif
 
 /** @addtogroup STM32F7xx_LL_Driver
@@ -45,12 +45,12 @@
  * @{
  */
 /* Default values used for prescaler */
-# define RTC_ASYNCH_PRESC_DEFAULT    0x0000007FU
-# define RTC_SYNCH_PRESC_DEFAULT     0x000000FFU
+#define RTC_ASYNCH_PRESC_DEFAULT    0x0000007FU
+#define RTC_SYNCH_PRESC_DEFAULT     0x000000FFU
 
 /* Values used for timeout */
-# define RTC_INITMODE_TIMEOUT    1000U	/* 1s when tick set to 1ms */
-# define RTC_SYNCHRO_TIMEOUT     1000U	/* 1s when tick set to 1ms */
+#define RTC_INITMODE_TIMEOUT    1000U	/* 1s when tick set to 1ms */
+#define RTC_SYNCHRO_TIMEOUT     1000U	/* 1s when tick set to 1ms */
 
 /**
  * @}
@@ -62,28 +62,28 @@
  * @{
  */
 
-# define IS_LL_RTC_HOURFORMAT(__VALUE__) \
+#define IS_LL_RTC_HOURFORMAT(__VALUE__) \
 	(((__VALUE__) == LL_RTC_HOURFORMAT_24HOUR) \
 	|| ((__VALUE__) == LL_RTC_HOURFORMAT_AMPM))
 
-# define IS_LL_RTC_ASYNCH_PREDIV(__VALUE__)    ((__VALUE__) <= 0x7FU)
+#define IS_LL_RTC_ASYNCH_PREDIV(__VALUE__)    ((__VALUE__) <= 0x7FU)
 
-# define IS_LL_RTC_SYNCH_PREDIV(__VALUE__)     ((__VALUE__) <= 0x7FFFU)
+#define IS_LL_RTC_SYNCH_PREDIV(__VALUE__)     ((__VALUE__) <= 0x7FFFU)
 
-# define IS_LL_RTC_FORMAT(__VALUE__) \
+#define IS_LL_RTC_FORMAT(__VALUE__) \
 	(((__VALUE__) == LL_RTC_FORMAT_BIN) \
 	|| ((__VALUE__) == LL_RTC_FORMAT_BCD))
 
-# define IS_LL_RTC_TIME_FORMAT(__VALUE__) \
+#define IS_LL_RTC_TIME_FORMAT(__VALUE__) \
 	(((__VALUE__) == LL_RTC_TIME_FORMAT_AM_OR_24) \
 	|| ((__VALUE__) == LL_RTC_TIME_FORMAT_PM))
 
-# define IS_LL_RTC_HOUR12(__HOUR__)        (((__HOUR__) > 0U) && ((__HOUR__) <= 12U))
-# define IS_LL_RTC_HOUR24(__HOUR__)        ((__HOUR__) <= 23U)
-# define IS_LL_RTC_MINUTES(__MINUTES__)    ((__MINUTES__) <= 59U)
-# define IS_LL_RTC_SECONDS(__SECONDS__)    ((__SECONDS__) <= 59U)
+#define IS_LL_RTC_HOUR12(__HOUR__)        (((__HOUR__) > 0U) && ((__HOUR__) <= 12U))
+#define IS_LL_RTC_HOUR24(__HOUR__)        ((__HOUR__) <= 23U)
+#define IS_LL_RTC_MINUTES(__MINUTES__)    ((__MINUTES__) <= 59U)
+#define IS_LL_RTC_SECONDS(__SECONDS__)    ((__SECONDS__) <= 59U)
 
-# define IS_LL_RTC_WEEKDAY(__VALUE__) \
+#define IS_LL_RTC_WEEKDAY(__VALUE__) \
 	(((__VALUE__) == LL_RTC_WEEKDAY_MONDAY) \
 	|| ((__VALUE__) == LL_RTC_WEEKDAY_TUESDAY) \
 	|| ((__VALUE__) == LL_RTC_WEEKDAY_WEDNESDAY) \
@@ -92,9 +92,9 @@
 	|| ((__VALUE__) == LL_RTC_WEEKDAY_SATURDAY) \
 	|| ((__VALUE__) == LL_RTC_WEEKDAY_SUNDAY))
 
-# define IS_LL_RTC_DAY(__DAY__)    (((__DAY__) >= 1U) && ((__DAY__) <= 31U))
+#define IS_LL_RTC_DAY(__DAY__)    (((__DAY__) >= 1U) && ((__DAY__) <= 31U))
 
-# define IS_LL_RTC_MONTH(__VALUE__) \
+#define IS_LL_RTC_MONTH(__VALUE__) \
 	(((__VALUE__) == LL_RTC_MONTH_JANUARY) \
 	|| ((__VALUE__) == LL_RTC_MONTH_FEBRUARY) \
 	|| ((__VALUE__) == LL_RTC_MONTH_MARCH) \
@@ -108,9 +108,9 @@
 	|| ((__VALUE__) == LL_RTC_MONTH_NOVEMBER) \
 	|| ((__VALUE__) == LL_RTC_MONTH_DECEMBER))
 
-# define IS_LL_RTC_YEAR(__YEAR__)    ((__YEAR__) <= 99U)
+#define IS_LL_RTC_YEAR(__YEAR__)    ((__YEAR__) <= 99U)
 
-# define IS_LL_RTC_ALMA_MASK(__VALUE__) \
+#define IS_LL_RTC_ALMA_MASK(__VALUE__) \
 	(((__VALUE__) == LL_RTC_ALMA_MASK_NONE) \
 	|| ((__VALUE__) == LL_RTC_ALMA_MASK_DATEWEEKDAY) \
 	|| ((__VALUE__) == LL_RTC_ALMA_MASK_HOURS) \
@@ -118,7 +118,7 @@
 	|| ((__VALUE__) == LL_RTC_ALMA_MASK_SECONDS) \
 	|| ((__VALUE__) == LL_RTC_ALMA_MASK_ALL))
 
-# define IS_LL_RTC_ALMB_MASK(__VALUE__) \
+#define IS_LL_RTC_ALMB_MASK(__VALUE__) \
 	(((__VALUE__) == LL_RTC_ALMB_MASK_NONE) \
 	|| ((__VALUE__) == LL_RTC_ALMB_MASK_DATEWEEKDAY) \
 	|| ((__VALUE__) == LL_RTC_ALMB_MASK_HOURS) \
@@ -127,11 +127,11 @@
 	|| ((__VALUE__) == LL_RTC_ALMB_MASK_ALL))
 
 
-# define IS_LL_RTC_ALMA_DATE_WEEKDAY_SEL(__SEL__) \
+#define IS_LL_RTC_ALMA_DATE_WEEKDAY_SEL(__SEL__) \
 	(((__SEL__) == LL_RTC_ALMA_DATEWEEKDAYSEL_DATE) || \
 	((__SEL__) == LL_RTC_ALMA_DATEWEEKDAYSEL_WEEKDAY))
 
-# define IS_LL_RTC_ALMB_DATE_WEEKDAY_SEL(__SEL__) \
+#define IS_LL_RTC_ALMB_DATE_WEEKDAY_SEL(__SEL__) \
 	(((__SEL__) == LL_RTC_ALMB_DATEWEEKDAYSEL_DATE) || \
 	((__SEL__) == LL_RTC_ALMB_DATEWEEKDAYSEL_WEEKDAY))
 
@@ -173,16 +173,16 @@ ErrorStatus LL_RTC_DeInit(RTC_TypeDef *RTCx)
 	if (LL_RTC_EnterInitMode(RTCx) != ERROR) {
 		/* Reset TR, DR and CR registers */
 		LL_RTC_WriteReg(RTCx, TR, 0x00000000U);
-		# if defined(RTC_WAKEUP_SUPPORT)
+		#if defined(RTC_WAKEUP_SUPPORT)
 		LL_RTC_WriteReg(RTCx, WUTR, RTC_WUTR_WUT);
-		# endif	/* RTC_WAKEUP_SUPPORT */
+		#endif	/* RTC_WAKEUP_SUPPORT */
 		LL_RTC_WriteReg(RTCx, DR, (RTC_DR_WDU_0 | RTC_DR_MU_0 | RTC_DR_DU_0));
 		/* Reset All CR bits except CR[2:0] */
-		# if defined(RTC_WAKEUP_SUPPORT)
+		#if defined(RTC_WAKEUP_SUPPORT)
 		LL_RTC_WriteReg(RTCx, CR, (LL_RTC_ReadReg(RTCx, CR) & RTC_CR_WUCKSEL));
-		# else
+		#else
 		LL_RTC_WriteReg(RTCx, CR, 0x00000000U);
-		# endif	/* RTC_WAKEUP_SUPPORT */
+		#endif	/* RTC_WAKEUP_SUPPORT */
 		LL_RTC_WriteReg(RTCx, PRER, (RTC_PRER_PREDIV_A | RTC_SYNCH_PRESC_DEFAULT));
 		LL_RTC_WriteReg(RTCx, ALRMAR, 0x00000000U);
 		LL_RTC_WriteReg(RTCx, ALRMBR, 0x00000000U);
@@ -208,7 +208,7 @@ ErrorStatus LL_RTC_DeInit(RTC_TypeDef *RTCx)
 	LL_RTC_EnableWriteProtection(RTCx);
 
 	return status;
-} /* LL_RTC_DeInit */
+}	/* LL_RTC_DeInit */
 
 /**
  * @brief  Initializes the RTC registers according to the specified parameters
@@ -339,7 +339,7 @@ ErrorStatus LL_RTC_TIME_Init(RTC_TypeDef *RTCx, uint32_t RTC_Format, LL_RTC_Time
 	LL_RTC_EnableWriteProtection(RTCx);
 
 	return status;
-} /* LL_RTC_TIME_Init */
+}	/* LL_RTC_TIME_Init */
 
 /**
  * @brief  Set each @ref LL_RTC_TimeTypeDef field to default value (Time = 00h:00min:00sec).
@@ -417,7 +417,7 @@ ErrorStatus LL_RTC_DATE_Init(RTC_TypeDef *RTCx, uint32_t RTC_Format, LL_RTC_Date
 	LL_RTC_EnableWriteProtection(RTCx);
 
 	return status;
-} /* LL_RTC_DATE_Init */
+}	/* LL_RTC_DATE_Init */
 
 /**
  * @brief  Set each @ref LL_RTC_DateTypeDef field to default value (date = Monday, January 01 xx00)
@@ -525,7 +525,7 @@ ErrorStatus LL_RTC_ALMA_Init(RTC_TypeDef *RTCx, uint32_t RTC_Format, LL_RTC_Alar
 	LL_RTC_EnableWriteProtection(RTCx);
 
 	return SUCCESS;
-} /* LL_RTC_ALMA_Init */
+}	/* LL_RTC_ALMA_Init */
 
 /**
  * @brief  Set the RTC Alarm B.
@@ -619,7 +619,7 @@ ErrorStatus LL_RTC_ALMB_Init(RTC_TypeDef *RTCx, uint32_t RTC_Format, LL_RTC_Alar
 	LL_RTC_EnableWriteProtection(RTCx);
 
 	return SUCCESS;
-} /* LL_RTC_ALMB_Init */
+}	/* LL_RTC_ALMB_Init */
 
 /**
  * @brief  Set each @ref LL_RTC_AlarmTypeDef of ALARMA field to default value (Time = 00h:00mn:00sec /
@@ -780,7 +780,7 @@ ErrorStatus LL_RTC_WaitForSynchro(RTC_TypeDef *RTCx)
 	}
 
 	return (status);
-} /* LL_RTC_WaitForSynchro */
+}	/* LL_RTC_WaitForSynchro */
 
 /**
  * @}

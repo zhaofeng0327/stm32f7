@@ -22,9 +22,9 @@
 #include "stm32f7xx_ll_system.h"
 #include "stm32f7xx_ll_pwr.h"
 #ifdef  USE_FULL_ASSERT
-# include "stm32_assert.h"
+#include "stm32_assert.h"
 #else
-# define assert_param(expr)    ((void) 0U)
+#define assert_param(expr)    ((void) 0U)
 #endif	/* USE_FULL_ASSERT */
 
 /** @addtogroup STM32F7xx_LL_Driver
@@ -181,11 +181,11 @@
 	|| ((__VALUE__) == LL_RCC_PLLP_DIV_8))
 
 #define IS_LL_UTILS_PLLVCO_INPUT(__VALUE__) \
-		((UTILS_PLLVCO_INPUT_MIN <= (__VALUE__)) && \
+	((UTILS_PLLVCO_INPUT_MIN <= (__VALUE__)) && \
 	((__VALUE__) <= UTILS_PLLVCO_INPUT_MAX))
 
 #define IS_LL_UTILS_PLLVCO_OUTPUT(__VALUE__) \
-		((UTILS_PLLVCO_OUTPUT_MIN <= (__VALUE__)) && \
+	((UTILS_PLLVCO_OUTPUT_MIN <= (__VALUE__)) && \
 	((__VALUE__) <= UTILS_PLLVCO_OUTPUT_MAX))
 
 #define IS_LL_UTILS_PLL_FREQUENCY(__VALUE__) \
@@ -446,7 +446,7 @@ ErrorStatus LL_PLL_ConfigSystemClock_HSE(uint32_t HSEFrequency, uint32_t HSEBypa
 	}
 
 	return status;
-} /* LL_PLL_ConfigSystemClock_HSE */
+}	/* LL_PLL_ConfigSystemClock_HSE */
 
 /**
  * @}
@@ -556,7 +556,7 @@ static ErrorStatus UTILS_SetFlashLatency(uint32_t HCLK_Frequency)
 		}
 	}
 	return status;
-} /* UTILS_SetFlashLatency */
+}	/* UTILS_SetFlashLatency */
 
 /**
  * @brief  Function to check that PLL can be modified
@@ -679,7 +679,7 @@ static ErrorStatus UTILS_EnablePLLAndSwitchSystem(uint32_t SYSCLK_Frequency,
 	}
 
 	return status;
-} /* UTILS_EnablePLLAndSwitchSystem */
+}	/* UTILS_EnablePLLAndSwitchSystem */
 
 /**
  * @}

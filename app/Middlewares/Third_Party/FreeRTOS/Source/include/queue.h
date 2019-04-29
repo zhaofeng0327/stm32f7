@@ -27,15 +27,15 @@
 
 
 #ifndef QUEUE_H
-# define QUEUE_H
+#define QUEUE_H
 
-# ifndef INC_FREERTOS_H
-#  error "include FreeRTOS.h" must appear in source files before "include queue.h"
-# endif
+#ifndef INC_FREERTOS_H
+#error "include FreeRTOS.h" must appear in source files before "include queue.h"
+#endif
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 
 /**
@@ -60,17 +60,17 @@ typedef void *QueueSetHandle_t;
 typedef void *QueueSetMemberHandle_t;
 
 /* For internal use only. */
-# define queueSEND_TO_BACK     ( (BaseType_t) 0 )
-# define queueSEND_TO_FRONT    ( (BaseType_t) 1 )
-# define queueOVERWRITE        ( (BaseType_t) 2 )
+#define queueSEND_TO_BACK     ( (BaseType_t) 0 )
+#define queueSEND_TO_FRONT    ( (BaseType_t) 1 )
+#define queueOVERWRITE        ( (BaseType_t) 2 )
 
 /* For internal use only.  These definitions *must* match those in queue.c. */
-# define queueQUEUE_TYPE_BASE                  ( (uint8_t) 0U )
-# define queueQUEUE_TYPE_SET                   ( (uint8_t) 0U )
-# define queueQUEUE_TYPE_MUTEX                 ( (uint8_t) 1U )
-# define queueQUEUE_TYPE_COUNTING_SEMAPHORE    ( (uint8_t) 2U )
-# define queueQUEUE_TYPE_BINARY_SEMAPHORE      ( (uint8_t) 3U )
-# define queueQUEUE_TYPE_RECURSIVE_MUTEX       ( (uint8_t) 4U )
+#define queueQUEUE_TYPE_BASE                  ( (uint8_t) 0U )
+#define queueQUEUE_TYPE_SET                   ( (uint8_t) 0U )
+#define queueQUEUE_TYPE_MUTEX                 ( (uint8_t) 1U )
+#define queueQUEUE_TYPE_COUNTING_SEMAPHORE    ( (uint8_t) 2U )
+#define queueQUEUE_TYPE_BINARY_SEMAPHORE      ( (uint8_t) 3U )
+#define queueQUEUE_TYPE_RECURSIVE_MUTEX       ( (uint8_t) 4U )
 
 /**
  * queue. h
@@ -140,11 +140,11 @@ typedef void *QueueSetMemberHandle_t;
  * \defgroup xQueueCreate xQueueCreate
  * \ingroup QueueManagement
  */
-# if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
-#  define xQueueCreate(uxQueueLength, uxItemSize) \
+#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+#define xQueueCreate(uxQueueLength, uxItemSize) \
 	xQueueGenericCreate( ( uxQueueLength ), ( uxItemSize ), \
 	  ( queueQUEUE_TYPE_BASE ) )
-# endif
+#endif
 
 /**
  * queue. h
@@ -228,11 +228,11 @@ typedef void *QueueSetMemberHandle_t;
  * \defgroup xQueueCreateStatic xQueueCreateStatic
  * \ingroup QueueManagement
  */
-# if ( configSUPPORT_STATIC_ALLOCATION == 1 )
-#  define xQueueCreateStatic(uxQueueLength, uxItemSize, pucQueueStorage, \
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#define xQueueCreateStatic(uxQueueLength, uxItemSize, pucQueueStorage, \
 	  pxQueueBuffer)    xQueueGenericCreateStatic( ( uxQueueLength ), ( uxItemSize ), ( pucQueueStorage ), \
 	  ( pxQueueBuffer ), ( queueQUEUE_TYPE_BASE ) )
-# endif	/* configSUPPORT_STATIC_ALLOCATION */
+#endif	/* configSUPPORT_STATIC_ALLOCATION */
 
 /**
  * queue. h
@@ -312,7 +312,7 @@ typedef void *QueueSetMemberHandle_t;
  * \defgroup xQueueSend xQueueSend
  * \ingroup QueueManagement
  */
-# define xQueueSendToFront(xQueue, pvItemToQueue, xTicksToWait) \
+#define xQueueSendToFront(xQueue, pvItemToQueue, xTicksToWait) \
 	xQueueGenericSend( ( xQueue ), ( pvItemToQueue ), \
 	  ( xTicksToWait ), queueSEND_TO_FRONT)
 
@@ -396,7 +396,7 @@ typedef void *QueueSetMemberHandle_t;
  * \defgroup xQueueSend xQueueSend
  * \ingroup QueueManagement
  */
-# define xQueueSendToBack(xQueue, pvItemToQueue, xTicksToWait) \
+#define xQueueSendToBack(xQueue, pvItemToQueue, xTicksToWait) \
 	xQueueGenericSend( ( xQueue ), ( pvItemToQueue ), \
 	  ( xTicksToWait ), queueSEND_TO_BACK)
 
@@ -482,7 +482,7 @@ typedef void *QueueSetMemberHandle_t;
  * \defgroup xQueueSend xQueueSend
  * \ingroup QueueManagement
  */
-# define xQueueSend(xQueue, pvItemToQueue, xTicksToWait) \
+#define xQueueSend(xQueue, pvItemToQueue, xTicksToWait) \
 	xQueueGenericSend( ( xQueue ), ( pvItemToQueue ), \
 	  ( xTicksToWait ), queueSEND_TO_BACK)
 
@@ -567,7 +567,7 @@ typedef void *QueueSetMemberHandle_t;
  * \defgroup xQueueOverwrite xQueueOverwrite
  * \ingroup QueueManagement
  */
-# define xQueueOverwrite(xQueue, pvItemToQueue)    xQueueGenericSend( ( xQueue ), ( pvItemToQueue ), 0, queueOVERWRITE)
+#define xQueueOverwrite(xQueue, pvItemToQueue)    xQueueGenericSend( ( xQueue ), ( pvItemToQueue ), 0, queueOVERWRITE)
 
 
 /**
@@ -990,7 +990,7 @@ void vQueueDelete(QueueHandle_t xQueue) PRIVILEGED_FUNCTION;
  * \defgroup xQueueSendFromISR xQueueSendFromISR
  * \ingroup QueueManagement
  */
-# define xQueueSendToFrontFromISR(xQueue, pvItemToQueue, \
+#define xQueueSendToFrontFromISR(xQueue, pvItemToQueue, \
 	  pxHigherPriorityTaskWoken)    xQueueGenericSendFromISR( ( xQueue ), ( pvItemToQueue ), \
 	  ( pxHigherPriorityTaskWoken ), queueSEND_TO_FRONT)
 
@@ -1063,7 +1063,7 @@ void vQueueDelete(QueueHandle_t xQueue) PRIVILEGED_FUNCTION;
  * \defgroup xQueueSendFromISR xQueueSendFromISR
  * \ingroup QueueManagement
  */
-# define xQueueSendToBackFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken) \
+#define xQueueSendToBackFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken) \
 	xQueueGenericSendFromISR( \
 		( xQueue ), ( pvItemToQueue ), ( pxHigherPriorityTaskWoken ), queueSEND_TO_BACK)
 
@@ -1152,7 +1152,7 @@ void vQueueDelete(QueueHandle_t xQueue) PRIVILEGED_FUNCTION;
  * \defgroup xQueueOverwriteFromISR xQueueOverwriteFromISR
  * \ingroup QueueManagement
  */
-# define xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken) \
+#define xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken) \
 	xQueueGenericSendFromISR( \
 		( xQueue ), ( pvItemToQueue ), ( pxHigherPriorityTaskWoken ), queueOVERWRITE)
 
@@ -1228,7 +1228,7 @@ void vQueueDelete(QueueHandle_t xQueue) PRIVILEGED_FUNCTION;
  * \defgroup xQueueSendFromISR xQueueSendFromISR
  * \ingroup QueueManagement
  */
-# define xQueueSendFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken) \
+#define xQueueSendFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken) \
 	xQueueGenericSendFromISR( ( xQueue ), \
 	  ( pvItemToQueue ), ( pxHigherPriorityTaskWoken ), queueSEND_TO_BACK)
 
@@ -1452,7 +1452,7 @@ BaseType_t xQueueGiveMutexRecursive(QueueHandle_t pxMutex) PRIVILEGED_FUNCTION;
  * Reset a queue back to its original empty state.  The return value is now
  * obsolete and is always set to pdPASS.
  */
-# define xQueueReset(xQueue)    xQueueGenericReset(xQueue, pdFALSE)
+#define xQueueReset(xQueue)    xQueueGenericReset(xQueue, pdFALSE)
 
 /*
  * The registry is provided as a means for kernel aware debuggers to
@@ -1476,9 +1476,9 @@ BaseType_t xQueueGiveMutexRecursive(QueueHandle_t pxMutex) PRIVILEGED_FUNCTION;
  * stores a pointer to the string - so the string must be persistent (global or
  * preferably in ROM/Flash), not on the stack.
  */
-# if ( configQUEUE_REGISTRY_SIZE > 0 )
+#if ( configQUEUE_REGISTRY_SIZE > 0 )
 void vQueueAddToRegistry(QueueHandle_t xQueue, const char *pcName) PRIVILEGED_FUNCTION;	/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
-# endif
+#endif
 
 /*
  * The registry is provided as a means for kernel aware debuggers to
@@ -1490,9 +1490,9 @@ void vQueueAddToRegistry(QueueHandle_t xQueue, const char *pcName) PRIVILEGED_FU
  *
  * @param xQueue The handle of the queue being removed from the registry.
  */
-# if ( configQUEUE_REGISTRY_SIZE > 0 )
+#if ( configQUEUE_REGISTRY_SIZE > 0 )
 void vQueueUnregisterQueue(QueueHandle_t xQueue) PRIVILEGED_FUNCTION;
-# endif
+#endif
 
 /*
  * The queue registry is provided as a means for kernel aware debuggers to
@@ -1505,30 +1505,30 @@ void vQueueUnregisterQueue(QueueHandle_t xQueue) PRIVILEGED_FUNCTION;
  * queue is returned.  If the queue is not in the registry then NULL is
  * returned.
  */
-# if ( configQUEUE_REGISTRY_SIZE > 0 )
+#if ( configQUEUE_REGISTRY_SIZE > 0 )
 const char *pcQueueGetName(QueueHandle_t xQueue) PRIVILEGED_FUNCTION;	/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
-# endif
+#endif
 
 /*
  * Generic version of the function used to creaet a queue using dynamic memory
  * allocation.  This is called by other functions and macros that create other
  * RTOS objects that use the queue structure as their base.
  */
-# if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 QueueHandle_t xQueueGenericCreate(const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize,
   const uint8_t ucQueueType) PRIVILEGED_FUNCTION;
-# endif
+#endif
 
 /*
  * Generic version of the function used to creaet a queue using dynamic memory
  * allocation.  This is called by other functions and macros that create other
  * RTOS objects that use the queue structure as their base.
  */
-# if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 QueueHandle_t xQueueGenericCreateStatic(const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize,
   uint8_t *pucQueueStorage, StaticQueue_t *pxStaticQueue,
   const uint8_t ucQueueType) PRIVILEGED_FUNCTION;
-# endif
+#endif
 
 /*
  * Queue sets provide a mechanism to allow a task to block (pend) on a read
@@ -1675,8 +1675,8 @@ UBaseType_t uxQueueGetQueueNumber(QueueHandle_t xQueue) PRIVILEGED_FUNCTION;
 uint8_t ucQueueGetQueueType(QueueHandle_t xQueue) PRIVILEGED_FUNCTION;
 
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* QUEUE_H */

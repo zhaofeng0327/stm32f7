@@ -23,9 +23,9 @@
 #include "stm32f7xx_ll_rcc.h"
 #include "stm32f7xx_ll_bus.h"
 #ifdef  USE_FULL_ASSERT
-# include "stm32_assert.h"
+#include "stm32_assert.h"
 #else
-# define assert_param(expr)    ((void) 0U)
+#define assert_param(expr)    ((void) 0U)
 #endif
 
 /** @addtogroup STM32F7xx_LL_Driver
@@ -59,57 +59,57 @@
 
 /* __BAUDRATE__ The maximum Baud Rate is derived from the maximum clock available
  *              divided by the smallest oversampling used on the USART (i.e. 8)    */
-# define IS_LL_USART_BAUDRATE(__BAUDRATE__)    ((__BAUDRATE__) <= 27000000U)
+#define IS_LL_USART_BAUDRATE(__BAUDRATE__)    ((__BAUDRATE__) <= 27000000U)
 
 /* __VALUE__ In case of oversampling by 16 and 8, BRR content must be greater than or equal to 16d. */
-# define IS_LL_USART_BRR_MIN(__VALUE__)    ((__VALUE__) >= 16U)
+#define IS_LL_USART_BRR_MIN(__VALUE__)    ((__VALUE__) >= 16U)
 
 /* __VALUE__ BRR content must be lower than or equal to 0xFFFF. */
-# define IS_LL_USART_BRR_MAX(__VALUE__)    ((__VALUE__) <= 0x0000FFFFU)
+#define IS_LL_USART_BRR_MAX(__VALUE__)    ((__VALUE__) <= 0x0000FFFFU)
 
-# define IS_LL_USART_DIRECTION(__VALUE__) \
+#define IS_LL_USART_DIRECTION(__VALUE__) \
 	(((__VALUE__) == LL_USART_DIRECTION_NONE) \
 	|| ((__VALUE__) == LL_USART_DIRECTION_RX) \
 	|| ((__VALUE__) == LL_USART_DIRECTION_TX) \
 	|| ((__VALUE__) == LL_USART_DIRECTION_TX_RX))
 
-# define IS_LL_USART_PARITY(__VALUE__) \
+#define IS_LL_USART_PARITY(__VALUE__) \
 	(((__VALUE__) == LL_USART_PARITY_NONE) \
 	|| ((__VALUE__) == LL_USART_PARITY_EVEN) \
 	|| ((__VALUE__) == LL_USART_PARITY_ODD))
 
-# define IS_LL_USART_DATAWIDTH(__VALUE__) \
+#define IS_LL_USART_DATAWIDTH(__VALUE__) \
 	(((__VALUE__) == LL_USART_DATAWIDTH_7B) \
 	|| ((__VALUE__) == LL_USART_DATAWIDTH_8B) \
 	|| ((__VALUE__) == LL_USART_DATAWIDTH_9B))
 
-# define IS_LL_USART_OVERSAMPLING(__VALUE__) \
+#define IS_LL_USART_OVERSAMPLING(__VALUE__) \
 	(((__VALUE__) == LL_USART_OVERSAMPLING_16) \
 	|| ((__VALUE__) == LL_USART_OVERSAMPLING_8))
 
-# define IS_LL_USART_LASTBITCLKOUTPUT(__VALUE__) \
+#define IS_LL_USART_LASTBITCLKOUTPUT(__VALUE__) \
 	(((__VALUE__) == LL_USART_LASTCLKPULSE_NO_OUTPUT) \
 	|| ((__VALUE__) == LL_USART_LASTCLKPULSE_OUTPUT))
 
-# define IS_LL_USART_CLOCKPHASE(__VALUE__) \
+#define IS_LL_USART_CLOCKPHASE(__VALUE__) \
 	(((__VALUE__) == LL_USART_PHASE_1EDGE) \
 	|| ((__VALUE__) == LL_USART_PHASE_2EDGE))
 
-# define IS_LL_USART_CLOCKPOLARITY(__VALUE__) \
+#define IS_LL_USART_CLOCKPOLARITY(__VALUE__) \
 	(((__VALUE__) == LL_USART_POLARITY_LOW) \
 	|| ((__VALUE__) == LL_USART_POLARITY_HIGH))
 
-# define IS_LL_USART_CLOCKOUTPUT(__VALUE__) \
+#define IS_LL_USART_CLOCKOUTPUT(__VALUE__) \
 	(((__VALUE__) == LL_USART_CLOCK_DISABLE) \
 	|| ((__VALUE__) == LL_USART_CLOCK_ENABLE))
 
-# define IS_LL_USART_STOPBITS(__VALUE__) \
+#define IS_LL_USART_STOPBITS(__VALUE__) \
 	(((__VALUE__) == LL_USART_STOPBITS_0_5) \
 	|| ((__VALUE__) == LL_USART_STOPBITS_1) \
 	|| ((__VALUE__) == LL_USART_STOPBITS_1_5) \
 	|| ((__VALUE__) == LL_USART_STOPBITS_2))
 
-# define IS_LL_USART_HWCONTROL(__VALUE__) \
+#define IS_LL_USART_HWCONTROL(__VALUE__) \
 	(((__VALUE__) == LL_USART_HWCONTROL_NONE) \
 	|| ((__VALUE__) == LL_USART_HWCONTROL_RTS) \
 	|| ((__VALUE__) == LL_USART_HWCONTROL_CTS) \
@@ -198,7 +198,7 @@ ErrorStatus LL_USART_DeInit(USART_TypeDef *USARTx)
 	}
 
 	return (status);
-} /* LL_USART_DeInit */
+}	/* LL_USART_DeInit */
 
 /**
  * @brief  Initialize USART registers according to the specified
@@ -303,7 +303,7 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
 	/* Endif (=> USART not in Disabled state => return ERROR) */
 
 	return (status);
-} /* LL_USART_Init */
+}	/* LL_USART_Init */
 
 /**
  * @brief Set each @ref LL_USART_InitTypeDef field to default value.
@@ -382,7 +382,7 @@ ErrorStatus LL_USART_ClockInit(USART_TypeDef *USARTx, LL_USART_ClockInitTypeDef 
 	}
 
 	return (status);
-} /* LL_USART_ClockInit */
+}	/* LL_USART_ClockInit */
 
 /**
  * @brief Set each field of a @ref LL_USART_ClockInitTypeDef type structure to default value.

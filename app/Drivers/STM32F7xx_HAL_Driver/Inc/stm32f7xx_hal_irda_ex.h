@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef STM32F7xx_HAL_IRDA_EX_H
-# define STM32F7xx_HAL_IRDA_EX_H
+#define STM32F7xx_HAL_IRDA_EX_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -46,9 +46,9 @@ extern "C" {
 /** @defgroup IRDAEx_Word_Length IRDAEx Word Length
  * @{
  */
-# define IRDA_WORDLENGTH_7B    USART_CR1_M1	/*!< 7-bit long frame */
-# define IRDA_WORDLENGTH_8B    0x00000000U	/*!< 8-bit long frame */
-# define IRDA_WORDLENGTH_9B    USART_CR1_M0	/*!< 9-bit long frame */
+#define IRDA_WORDLENGTH_7B    USART_CR1_M1	/*!< 7-bit long frame */
+#define IRDA_WORDLENGTH_8B    0x00000000U	/*!< 8-bit long frame */
+#define IRDA_WORDLENGTH_9B    USART_CR1_M0	/*!< 9-bit long frame */
 
 /**
  * @}
@@ -71,7 +71,7 @@ extern "C" {
  * @param  __CLOCKSOURCE__ output variable.
  * @retval IRDA clocking source, written in __CLOCKSOURCE__.
  */
-# define IRDA_GETCLOCKSOURCE(__HANDLE__, __CLOCKSOURCE__)       \
+#define IRDA_GETCLOCKSOURCE(__HANDLE__, __CLOCKSOURCE__)       \
 	do {                                                        \
 		if ((__HANDLE__)->Instance == USART1)                      \
 		{                                                         \
@@ -252,7 +252,7 @@ extern "C" {
  * @param  __HANDLE__ specifies the IRDA Handle.
  * @retval None, the mask to apply to the associated UART RDR register is stored in (__HANDLE__)->Mask field.
  */
-# define IRDA_MASK_COMPUTATION(__HANDLE__)                             \
+#define IRDA_MASK_COMPUTATION(__HANDLE__)                             \
 	do {                                                                \
 		if ((__HANDLE__)->Init.WordLength == IRDA_WORDLENGTH_9B)            \
 		{                                                                   \
@@ -297,7 +297,7 @@ extern "C" {
  * @param __LENGTH__ IRDA frame length.
  * @retval SET (__LENGTH__ is valid) or RESET (__LENGTH__ is invalid)
  */
-# define IS_IRDA_WORD_LENGTH(__LENGTH__) \
+#define IS_IRDA_WORD_LENGTH(__LENGTH__) \
 	(((__LENGTH__) == IRDA_WORDLENGTH_7B) || \
 	((__LENGTH__) == IRDA_WORDLENGTH_8B) || \
 	((__LENGTH__) == IRDA_WORDLENGTH_9B))
@@ -316,9 +316,9 @@ extern "C" {
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* STM32F7xx_HAL_IRDA_EX_H */
 

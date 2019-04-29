@@ -26,17 +26,17 @@
  */
 
 #ifndef CO_ROUTINE_H
-# define CO_ROUTINE_H
+#define CO_ROUTINE_H
 
-# ifndef INC_FREERTOS_H
-#  error "include FreeRTOS.h must appear in source files before include croutine.h"
-# endif
+#ifndef INC_FREERTOS_H
+#error "include FreeRTOS.h must appear in source files before include croutine.h"
+#endif
 
-# include "list.h"
+#include "list.h"
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Used to hide the implementation of the co-routine control block.  The
  * control block structure however has to be included in the header due to
@@ -200,7 +200,7 @@ void vCoRoutineSchedule(void);
  * \defgroup crSTART crSTART
  * \ingroup Tasks
  */
-# define crSTART(pxCRCB)    switch ( ( (CRCB_t *) ( pxCRCB ) )->uxState) { case 0:
+#define crSTART(pxCRCB)    switch ( ( (CRCB_t *) ( pxCRCB ) )->uxState) { case 0:
 
 /**
  * croutine. h
@@ -231,15 +231,15 @@ void vCoRoutineSchedule(void);
  * \defgroup crSTART crSTART
  * \ingroup Tasks
  */
-# define crEND()    }
+#define crEND()    }
 
 /*
  * These macros are intended for internal use by the co-routine implementation
  * only.  The macros should not be used directly by application writers.
  */
-# define crSET_STATE0(xHandle)    ( (CRCB_t *) ( xHandle ) )->uxState = (__LINE__ * 2); return; case (__LINE__ * 2):
-# define crSET_STATE1(xHandle) \
-								  ( (CRCB_t *) ( xHandle ) )->uxState = ((__LINE__ * 2) + 1); return; \
+#define crSET_STATE0(xHandle)    ( (CRCB_t *) ( xHandle ) )->uxState = (__LINE__ * 2); return; case (__LINE__ * 2):
+#define crSET_STATE1(xHandle) \
+	( (CRCB_t *) ( xHandle ) )->uxState = ((__LINE__ * 2) + 1); return; \
 	case ((__LINE__ * 2) + 1):
 
 /**
@@ -288,7 +288,7 @@ void vCoRoutineSchedule(void);
  * \defgroup crDELAY crDELAY
  * \ingroup Tasks
  */
-# define crDELAY(xHandle, xTicksToDelay)                                               \
+#define crDELAY(xHandle, xTicksToDelay)                                               \
 	if ( ( xTicksToDelay ) > 0)                                                         \
 	{                                                                                   \
 		vCoRoutineAddToDelayedList( ( xTicksToDelay ), NULL);                          \
@@ -378,7 +378,7 @@ void vCoRoutineSchedule(void);
  * \defgroup crQUEUE_SEND crQUEUE_SEND
  * \ingroup Tasks
  */
-# define crQUEUE_SEND(xHandle, pxQueue, pvItemToQueue, xTicksToWait, pxResult)         \
+#define crQUEUE_SEND(xHandle, pxQueue, pvItemToQueue, xTicksToWait, pxResult)         \
 	{                                                                                       \
 		*( pxResult ) = xQueueCRSend( ( pxQueue), ( pvItemToQueue), ( xTicksToWait ) );   \
 		if (*( pxResult ) == errQUEUE_BLOCKED)                                             \
@@ -470,7 +470,7 @@ void vCoRoutineSchedule(void);
  * \defgroup crQUEUE_RECEIVE crQUEUE_RECEIVE
  * \ingroup Tasks
  */
-# define crQUEUE_RECEIVE(xHandle, pxQueue, pvBuffer, xTicksToWait, pxResult)           \
+#define crQUEUE_RECEIVE(xHandle, pxQueue, pvBuffer, xTicksToWait, pxResult)           \
 	{                                                                                       \
 		*( pxResult ) = xQueueCRReceive( ( pxQueue), ( pvBuffer ), ( xTicksToWait ) );     \
 		if (*( pxResult ) == errQUEUE_BLOCKED)                                             \
@@ -579,7 +579,7 @@ void vCoRoutineSchedule(void);
  * \defgroup crQUEUE_SEND_FROM_ISR crQUEUE_SEND_FROM_ISR
  * \ingroup Tasks
  */
-# define crQUEUE_SEND_FROM_ISR(pxQueue, pvItemToQueue, xCoRoutinePreviouslyWoken) \
+#define crQUEUE_SEND_FROM_ISR(pxQueue, pvItemToQueue, xCoRoutinePreviouslyWoken) \
 	xQueueCRSendFromISR( ( pxQueue ), \
 	  ( pvItemToQueue ), ( xCoRoutinePreviouslyWoken ) )
 
@@ -694,7 +694,7 @@ void vCoRoutineSchedule(void);
  * \defgroup crQUEUE_RECEIVE_FROM_ISR crQUEUE_RECEIVE_FROM_ISR
  * \ingroup Tasks
  */
-# define crQUEUE_RECEIVE_FROM_ISR(pxQueue, pvBuffer, pxCoRoutineWoken) \
+#define crQUEUE_RECEIVE_FROM_ISR(pxQueue, pvBuffer, pxCoRoutineWoken) \
 	xQueueCRReceiveFromISR( ( pxQueue ), \
 	  ( pvBuffer ), ( pxCoRoutineWoken ) )
 
@@ -718,8 +718,8 @@ void vCoRoutineAddToDelayedList(TickType_t xTicksToDelay, List_t *pxEventList);
  */
 BaseType_t xCoRoutineRemoveFromEventList(const List_t *pxEventList);
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* CO_ROUTINE_H */

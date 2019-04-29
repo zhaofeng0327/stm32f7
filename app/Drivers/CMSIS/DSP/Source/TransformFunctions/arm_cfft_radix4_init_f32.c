@@ -144,7 +144,7 @@ arm_status arm_cfft_radix4_init_f32(
 	}
 
 	return (status);
-} /* arm_cfft_radix4_init_f32 */
+}	/* arm_cfft_radix4_init_f32 */
 
 /**
  * @} end of ComplexFFT group

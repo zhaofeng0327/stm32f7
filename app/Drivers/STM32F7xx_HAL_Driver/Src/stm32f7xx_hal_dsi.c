@@ -136,7 +136,7 @@
 
 #ifdef HAL_DSI_MODULE_ENABLED
 
-# if defined(DSI)
+#if defined(DSI)
 
 /** @addtogroup DSI
  * @{
@@ -148,22 +148,22 @@
 /** @addtogroup DSI_Private_Constants
  * @{
  */
-#  define DSI_TIMEOUT_VALUE    ((uint32_t) 1000U)	/* 1s */
+#define DSI_TIMEOUT_VALUE    ((uint32_t) 1000U)	/* 1s */
 
-#  define DSI_ERROR_ACK_MASK \
+#define DSI_ERROR_ACK_MASK \
 	(DSI_ISR0_AE0 | DSI_ISR0_AE1 | DSI_ISR0_AE2 | DSI_ISR0_AE3   \
 	| DSI_ISR0_AE4 | DSI_ISR0_AE5 | DSI_ISR0_AE6 | DSI_ISR0_AE7   \
 	| DSI_ISR0_AE8 | DSI_ISR0_AE9 | DSI_ISR0_AE10 | DSI_ISR0_AE11   \
 	| DSI_ISR0_AE12 | DSI_ISR0_AE13 | DSI_ISR0_AE14 | DSI_ISR0_AE15)
-#  define DSI_ERROR_PHY_MASK    (DSI_ISR0_PE0 | DSI_ISR0_PE1 | DSI_ISR0_PE2 | DSI_ISR0_PE3 | DSI_ISR0_PE4)
-#  define DSI_ERROR_TX_MASK     DSI_ISR1_TOHSTX
-#  define DSI_ERROR_RX_MASK     DSI_ISR1_TOLPRX
-#  define DSI_ERROR_ECC_MASK    (DSI_ISR1_ECCSE | DSI_ISR1_ECCME)
-#  define DSI_ERROR_CRC_MASK    DSI_ISR1_CRCE
-#  define DSI_ERROR_PSE_MASK    DSI_ISR1_PSE
-#  define DSI_ERROR_EOT_MASK    DSI_ISR1_EOTPE
-#  define DSI_ERROR_OVF_MASK    DSI_ISR1_LPWRE
-#  define DSI_ERROR_GEN_MASK    (DSI_ISR1_GCWRE | DSI_ISR1_GPWRE | DSI_ISR1_GPTXE | DSI_ISR1_GPRDE | DSI_ISR1_GPRXE)
+#define DSI_ERROR_PHY_MASK    (DSI_ISR0_PE0 | DSI_ISR0_PE1 | DSI_ISR0_PE2 | DSI_ISR0_PE3 | DSI_ISR0_PE4)
+#define DSI_ERROR_TX_MASK     DSI_ISR1_TOHSTX
+#define DSI_ERROR_RX_MASK     DSI_ISR1_TOLPRX
+#define DSI_ERROR_ECC_MASK    (DSI_ISR1_ECCSE | DSI_ISR1_ECCME)
+#define DSI_ERROR_CRC_MASK    DSI_ISR1_CRCE
+#define DSI_ERROR_PSE_MASK    DSI_ISR1_PSE
+#define DSI_ERROR_EOT_MASK    DSI_ISR1_EOTPE
+#define DSI_ERROR_OVF_MASK    DSI_ISR1_LPWRE
+#define DSI_ERROR_GEN_MASK    (DSI_ISR1_GCWRE | DSI_ISR1_GPWRE | DSI_ISR1_GPTXE | DSI_ISR1_GPRDE | DSI_ISR1_GPRXE)
 
 /**
  * @}
@@ -295,7 +295,7 @@ HAL_StatusTypeDef HAL_DSI_Init(DSI_HandleTypeDef *hdsi, DSI_PLLInitTypeDef *PLLI
 	assert_param(IS_DSI_AUTO_CLKLANE_CONTROL(hdsi->Init.AutomaticClockLaneControl));
 	assert_param(IS_DSI_NUMBER_OF_LANES(hdsi->Init.NumberOfLanes));
 
-	#  if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
 	if (hdsi->State == HAL_DSI_STATE_RESET) {
 		/* Reset the DSI callback to the legacy weak callbacks */
 		hdsi->TearingEffectCallback = HAL_DSI_TearingEffectCallback;/* Legacy weak TearingEffectCallback */
@@ -308,12 +308,12 @@ HAL_StatusTypeDef HAL_DSI_Init(DSI_HandleTypeDef *hdsi, DSI_PLLInitTypeDef *PLLI
 		/* Initialize the low level hardware */
 		hdsi->MspInitCallback(hdsi);
 	}
-	#  else	 /* if (USE_HAL_DSI_REGISTER_CALLBACKS == 1) */
+	#else	/* if (USE_HAL_DSI_REGISTER_CALLBACKS == 1) */
 	if (hdsi->State == HAL_DSI_STATE_RESET) {
 		/* Initialize the low level hardware */
 		HAL_DSI_MspInit(hdsi);
 	}
-	#  endif/* USE_HAL_DSI_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_DSI_REGISTER_CALLBACKS */
 
 	/* Change DSI peripheral state */
 	hdsi->State = HAL_DSI_STATE_BUSY;
@@ -396,7 +396,7 @@ HAL_StatusTypeDef HAL_DSI_Init(DSI_HandleTypeDef *hdsi, DSI_PLLInitTypeDef *PLLI
 	hdsi->State = HAL_DSI_STATE_READY;
 
 	return HAL_OK;
-} /* HAL_DSI_Init */
+}	/* HAL_DSI_Init */
 
 /**
  * @brief  De-initializes the DSI peripheral registers to their default reset
@@ -430,16 +430,16 @@ HAL_StatusTypeDef HAL_DSI_DeInit(DSI_HandleTypeDef *hdsi)
 	/* Disable the regulator */
 	__HAL_DSI_REG_DISABLE(hdsi);
 
-	#  if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
 	if (hdsi->MspDeInitCallback == NULL) {
 		hdsi->MspDeInitCallback = HAL_DSI_MspDeInit;
 	}
 	/* DeInit the low level hardware */
 	hdsi->MspDeInitCallback(hdsi);
-	#  else
+	#else
 	/* DeInit the low level hardware */
 	HAL_DSI_MspDeInit(hdsi);
-	#  endif/* USE_HAL_DSI_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_DSI_REGISTER_CALLBACKS */
 
 	/* Initialise the error code */
 	hdsi->ErrorCode = HAL_DSI_ERROR_NONE;
@@ -451,7 +451,7 @@ HAL_StatusTypeDef HAL_DSI_DeInit(DSI_HandleTypeDef *hdsi)
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_DeInit */
+}	/* HAL_DSI_DeInit */
 
 /**
  * @brief  Enable the error monitor flags
@@ -526,7 +526,7 @@ HAL_StatusTypeDef HAL_DSI_ConfigErrorMonitor(DSI_HandleTypeDef *hdsi, uint32_t A
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_ConfigErrorMonitor */
+}	/* HAL_DSI_ConfigErrorMonitor */
 
 /**
  * @brief  Initializes the DSI MSP.
@@ -560,7 +560,7 @@ __weak void HAL_DSI_MspDeInit(DSI_HandleTypeDef *hdsi)
 	 */
 }
 
-#  if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User DSI Callback
@@ -647,7 +647,7 @@ HAL_StatusTypeDef HAL_DSI_RegisterCallback(DSI_HandleTypeDef *hdsi, HAL_DSI_Call
 	__HAL_UNLOCK(hdsi);
 
 	return status;
-} /* HAL_DSI_RegisterCallback */
+}	/* HAL_DSI_RegisterCallback */
 
 /**
  * @brief  Unregister a DSI Callback
@@ -726,9 +726,9 @@ HAL_StatusTypeDef HAL_DSI_UnRegisterCallback(DSI_HandleTypeDef *hdsi, HAL_DSI_Ca
 	__HAL_UNLOCK(hdsi);
 
 	return status;
-} /* HAL_DSI_UnRegisterCallback */
+}	/* HAL_DSI_UnRegisterCallback */
 
-#  endif/* USE_HAL_DSI_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_DSI_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -765,13 +765,13 @@ void HAL_DSI_IRQHandler(DSI_HandleTypeDef *hdsi)
 			__HAL_DSI_CLEAR_FLAG(hdsi, DSI_FLAG_TE);
 
 			/* Tearing Effect Callback */
-			#  if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
 			/*Call registered Tearing Effect callback */
 			hdsi->TearingEffectCallback(hdsi);
-			#  else
+			#else
 			/*Call legacy Tearing Effect callback*/
 			HAL_DSI_TearingEffectCallback(hdsi);
-			#  endif/* USE_HAL_DSI_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_DSI_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -782,13 +782,13 @@ void HAL_DSI_IRQHandler(DSI_HandleTypeDef *hdsi)
 			__HAL_DSI_CLEAR_FLAG(hdsi, DSI_FLAG_ER);
 
 			/* End of Refresh Callback */
-			#  if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
 			/*Call registered End of refresh callback */
 			hdsi->EndOfRefreshCallback(hdsi);
-			#  else
+			#else
 			/*Call Legacy End of refresh callback */
 			HAL_DSI_EndOfRefreshCallback(hdsi);
-			#  endif/* USE_HAL_DSI_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_DSI_REGISTER_CALLBACKS */
 		}
 	}
 
@@ -842,16 +842,16 @@ void HAL_DSI_IRQHandler(DSI_HandleTypeDef *hdsi)
 		/* Check only selected errors */
 		if (hdsi->ErrorCode != HAL_DSI_ERROR_NONE) {
 			/* DSI error interrupt callback */
-			#  if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_DSI_REGISTER_CALLBACKS == 1)
 			/*Call registered Error callback */
 			hdsi->ErrorCallback(hdsi);
-			#  else
+			#else
 			/*Call Legacy Error callback */
 			HAL_DSI_ErrorCallback(hdsi);
-			#  endif/* USE_HAL_DSI_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_DSI_REGISTER_CALLBACKS */
 		}
 	}
-} /* HAL_DSI_IRQHandler */
+}	/* HAL_DSI_IRQHandler */
 
 /**
  * @brief  Tearing Effect DSI callback.
@@ -1113,7 +1113,7 @@ HAL_StatusTypeDef HAL_DSI_ConfigVideoMode(DSI_HandleTypeDef *hdsi, DSI_VidCfgTyp
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_ConfigVideoMode */
+}	/* HAL_DSI_ConfigVideoMode */
 
 /**
  * @brief  Select adapted command mode and configure the corresponding parameters
@@ -1183,7 +1183,7 @@ HAL_StatusTypeDef HAL_DSI_ConfigAdaptedCommandMode(DSI_HandleTypeDef *hdsi, DSI_
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_ConfigAdaptedCommandMode */
+}	/* HAL_DSI_ConfigAdaptedCommandMode */
 
 /**
  * @brief  Configure command transmission mode: High-speed or Low-power
@@ -1247,7 +1247,7 @@ HAL_StatusTypeDef HAL_DSI_ConfigCommand(DSI_HandleTypeDef *hdsi, DSI_LPCmdTypeDe
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_ConfigCommand */
+}	/* HAL_DSI_ConfigCommand */
 
 /**
  * @brief  Configure the flow control parameters
@@ -1374,7 +1374,7 @@ HAL_StatusTypeDef HAL_DSI_ConfigHostTimeouts(DSI_HandleTypeDef *hdsi, DSI_HOST_T
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_ConfigHostTimeouts */
+}	/* HAL_DSI_ConfigHostTimeouts */
 
 /**
  * @brief  Start the DSI module
@@ -1609,7 +1609,7 @@ HAL_StatusTypeDef HAL_DSI_LongWrite(DSI_HandleTypeDef *hdsi,
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_LongWrite */
+}	/* HAL_DSI_LongWrite */
 
 /**
  * @brief  Read command (DCS or generic)
@@ -1702,7 +1702,7 @@ HAL_StatusTypeDef HAL_DSI_Read(DSI_HandleTypeDef *hdsi,
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_Read */
+}	/* HAL_DSI_Read */
 
 /**
  * @brief  Enter the ULPM (Ultra Low Power Mode) with the D-PHY PLL running
@@ -1756,7 +1756,7 @@ HAL_StatusTypeDef HAL_DSI_EnterULPMData(DSI_HandleTypeDef *hdsi)
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_EnterULPMData */
+}	/* HAL_DSI_EnterULPMData */
 
 /**
  * @brief  Exit the ULPM (Ultra Low Power Mode) with the D-PHY PLL running
@@ -1816,7 +1816,7 @@ HAL_StatusTypeDef HAL_DSI_ExitULPMData(DSI_HandleTypeDef *hdsi)
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_ExitULPMData */
+}	/* HAL_DSI_ExitULPMData */
 
 /**
  * @brief  Enter the ULPM (Ultra Low Power Mode) with the D-PHY PLL turned off
@@ -1879,7 +1879,7 @@ HAL_StatusTypeDef HAL_DSI_EnterULPM(DSI_HandleTypeDef *hdsi)
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_EnterULPM */
+}	/* HAL_DSI_EnterULPM */
 
 /**
  * @brief  Exit the ULPM (Ultra Low Power Mode) with the D-PHY PLL turned off
@@ -1964,7 +1964,7 @@ HAL_StatusTypeDef HAL_DSI_ExitULPM(DSI_HandleTypeDef *hdsi)
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_ExitULPM */
+}	/* HAL_DSI_ExitULPM */
 
 /**
  * @brief  Start test pattern generation
@@ -2096,7 +2096,7 @@ HAL_StatusTypeDef HAL_DSI_SetSlewRateAndDelayTuning(DSI_HandleTypeDef *hdsi, uin
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_SetSlewRateAndDelayTuning */
+}	/* HAL_DSI_SetSlewRateAndDelayTuning */
 
 /**
  * @brief  Low-Power Reception Filter Tuning
@@ -2217,7 +2217,7 @@ HAL_StatusTypeDef HAL_DSI_SetLanePinsConfiguration(DSI_HandleTypeDef *hdsi, uint
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_SetLanePinsConfiguration */
+}	/* HAL_DSI_SetLanePinsConfiguration */
 
 /**
  * @brief  Set custom timing for the PHY
@@ -2355,7 +2355,7 @@ HAL_StatusTypeDef HAL_DSI_SetPHYTimings(DSI_HandleTypeDef *hdsi, uint32_t Timing
 	__HAL_UNLOCK(hdsi);
 
 	return HAL_OK;
-} /* HAL_DSI_SetPHYTimings */
+}	/* HAL_DSI_SetPHYTimings */
 
 /**
  * @brief  Force the Clock/Data Lane in TX Stop Mode
@@ -2551,7 +2551,7 @@ uint32_t HAL_DSI_GetError(DSI_HandleTypeDef *hdsi)
  * @}
  */
 
-# endif	/* DSI */
+#endif	/* DSI */
 
 #endif	/* HAL_DSI_MODULE_ENABLED */
 

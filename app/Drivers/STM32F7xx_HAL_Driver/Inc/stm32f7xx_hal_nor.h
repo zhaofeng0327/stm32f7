@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_HAL_NOR_H
-# define __STM32F7xx_HAL_NOR_H
+#define __STM32F7xx_HAL_NOR_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_ll_fmc.h"
+#include "stm32f7xx_ll_fmc.h"
 
 
 /** @addtogroup STM32F7xx_HAL_Driver
@@ -100,11 +100,11 @@ typedef struct {
 /**
  * @brief  NOR handle Structure definition
  */
-# if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
 typedef struct __NOR_HandleTypeDef
-# else
+#else
 typedef struct
-# endif	/* USE_HAL_NOR_REGISTER_CALLBACKS  */
+#endif	/* USE_HAL_NOR_REGISTER_CALLBACKS  */
 
 {
 	FMC_NORSRAM_TypeDef          *Instance;	/*!< Register base address                        */
@@ -117,13 +117,13 @@ typedef struct
 
 	__IO HAL_NOR_StateTypeDef    State;	/*!< NOR device access state                      */
 
-	# if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
 	void (*MspInitCallback)(struct __NOR_HandleTypeDef *hnor);	/*!< NOR Msp Init callback              */
 	void (*MspDeInitCallback)(struct __NOR_HandleTypeDef *hnor);/*!< NOR Msp DeInit callback            */
-	# endif
+	#endif
 } NOR_HandleTypeDef;
 
-# if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  HAL NOR Callback ID enumeration definition
@@ -137,7 +137,7 @@ typedef enum {
  * @brief  HAL NOR Callback pointer definition
  */
 typedef void (*pNOR_CallbackTypeDef)(NOR_HandleTypeDef *hnor);
-# endif
+#endif
 
 /**
  * @}
@@ -154,16 +154,16 @@ typedef void (*pNOR_CallbackTypeDef)(NOR_HandleTypeDef *hnor);
  * @param  __HANDLE__ specifies the NOR handle.
  * @retval None
  */
-# if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
-#  define __HAL_NOR_RESET_HANDLE_STATE(__HANDLE__) \
+#if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
+#define __HAL_NOR_RESET_HANDLE_STATE(__HANDLE__) \
 	do {                                             \
 		(__HANDLE__)->State = HAL_NOR_STATE_RESET;  \
 		(__HANDLE__)->MspInitCallback   = NULL;       \
 		(__HANDLE__)->MspDeInitCallback = NULL;     \
 	} while (0)
-# else
-#  define __HAL_NOR_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_NOR_STATE_RESET)
-# endif
+#else
+#define __HAL_NOR_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_NOR_STATE_RESET)
+#endif
 
 /**
  * @}
@@ -210,12 +210,12 @@ HAL_StatusTypeDef HAL_NOR_Erase_Block(NOR_HandleTypeDef *hnor, uint32_t BlockAdd
 HAL_StatusTypeDef HAL_NOR_Erase_Chip(NOR_HandleTypeDef *hnor, uint32_t Address);
 HAL_StatusTypeDef HAL_NOR_Read_CFI(NOR_HandleTypeDef *hnor, NOR_CFITypeDef *pNOR_CFI);
 
-# if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_NOR_REGISTER_CALLBACKS == 1)
 /* NOR callback registering/unregistering */
 HAL_StatusTypeDef HAL_NOR_RegisterCallback(NOR_HandleTypeDef *hnor, HAL_NOR_CallbackIDTypeDef CallbackId,
   pNOR_CallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_NOR_UnRegisterCallback(NOR_HandleTypeDef *hnor, HAL_NOR_CallbackIDTypeDef CallbackId);
-# endif
+#endif
 
 /**
  * @}
@@ -257,29 +257,29 @@ HAL_NOR_StatusTypeDef HAL_NOR_GetStatus(NOR_HandleTypeDef *hnor, uint32_t Addres
  * @{
  */
 /* NOR device IDs addresses */
-# define MC_ADDRESS           ((uint16_t) 0x0000U)
-# define DEVICE_CODE1_ADDR    ((uint16_t) 0x0001U)
-# define DEVICE_CODE2_ADDR    ((uint16_t) 0x000EU)
-# define DEVICE_CODE3_ADDR    ((uint16_t) 0x000FU)
+#define MC_ADDRESS           ((uint16_t) 0x0000U)
+#define DEVICE_CODE1_ADDR    ((uint16_t) 0x0001U)
+#define DEVICE_CODE2_ADDR    ((uint16_t) 0x000EU)
+#define DEVICE_CODE3_ADDR    ((uint16_t) 0x000FU)
 
 /* NOR CFI IDs addresses */
-# define CFI1_ADDRESS    ((uint16_t) 0x61U)
-# define CFI2_ADDRESS    ((uint16_t) 0x62U)
-# define CFI3_ADDRESS    ((uint16_t) 0x63U)
-# define CFI4_ADDRESS    ((uint16_t) 0x64U)
+#define CFI1_ADDRESS    ((uint16_t) 0x61U)
+#define CFI2_ADDRESS    ((uint16_t) 0x62U)
+#define CFI3_ADDRESS    ((uint16_t) 0x63U)
+#define CFI4_ADDRESS    ((uint16_t) 0x64U)
 
 /* NOR operation wait timeout */
-# define NOR_TMEOUT    ((uint16_t) 0xFFFFU)
+#define NOR_TMEOUT    ((uint16_t) 0xFFFFU)
 
 /* NOR memory data width */
-# define NOR_MEMORY_8B     ((uint8_t) 0x0U)
-# define NOR_MEMORY_16B    ((uint8_t) 0x1U)
+#define NOR_MEMORY_8B     ((uint8_t) 0x0U)
+#define NOR_MEMORY_16B    ((uint8_t) 0x1U)
 
 /* NOR memory device read/write start address */
-# define NOR_MEMORY_ADRESS1    ((uint32_t) 0x60000000U)
-# define NOR_MEMORY_ADRESS2    ((uint32_t) 0x64000000U)
-# define NOR_MEMORY_ADRESS3    ((uint32_t) 0x68000000U)
-# define NOR_MEMORY_ADRESS4    ((uint32_t) 0x6C000000U)
+#define NOR_MEMORY_ADRESS1    ((uint32_t) 0x60000000U)
+#define NOR_MEMORY_ADRESS2    ((uint32_t) 0x64000000U)
+#define NOR_MEMORY_ADRESS3    ((uint32_t) 0x68000000U)
+#define NOR_MEMORY_ADRESS4    ((uint32_t) 0x6C000000U)
 
 /**
  * @}
@@ -298,7 +298,7 @@ HAL_NOR_StatusTypeDef HAL_NOR_GetStatus(NOR_HandleTypeDef *hnor, uint32_t Addres
  * @param  __ADDRESS__ NOR memory address
  * @retval NOR shifted address value
  */
-# define NOR_ADDR_SHIFT(__NOR_ADDRESS, __NOR_MEMORY_WIDTH_, __ADDRESS__)       \
+#define NOR_ADDR_SHIFT(__NOR_ADDRESS, __NOR_MEMORY_WIDTH_, __ADDRESS__)       \
 	((uint32_t) (((__NOR_MEMORY_WIDTH_) == NOR_MEMORY_16B) ?              \
 	((uint32_t) ((__NOR_ADDRESS) +(2 * (__ADDRESS__)))) :              \
 	((uint32_t) ((__NOR_ADDRESS) + (__ADDRESS__)))))
@@ -309,7 +309,7 @@ HAL_NOR_StatusTypeDef HAL_NOR_GetStatus(NOR_HandleTypeDef *hnor, uint32_t Addres
  * @param  __DATA__ Data to write
  * @retval None
  */
-# define NOR_WRITE(__ADDRESS__, __DATA__) \
+#define NOR_WRITE(__ADDRESS__, __DATA__) \
 	do {                                                             \
 		(*(__IO uint16_t *) ((uint32_t) (__ADDRESS__)) = (__DATA__)); \
 		__DSB();                                                    \
@@ -327,9 +327,9 @@ HAL_NOR_StatusTypeDef HAL_NOR_GetStatus(NOR_HandleTypeDef *hnor, uint32_t Addres
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_HAL_NOR_H */
 

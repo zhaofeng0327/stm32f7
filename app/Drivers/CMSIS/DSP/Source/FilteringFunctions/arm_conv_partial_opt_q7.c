@@ -82,14 +82,14 @@ arm_status arm_conv_partial_opt_q7(
 	q31_t acc0, acc1, acc2, acc3;	/* Accumulator */
 	q31_t x1, x2, x3, y1;			/* Temporary input variables */
 	arm_status status;
-	q7_t *pOut = pDst;			/* output pointer */
+	q7_t *pOut = pDst;	/* output pointer */
 	q7_t out0, out1, out2, out3;/* temporary variables */
 
 	/* Check for range of output samples to be calculated */
 	if ((firstIndex + numPoints) > ((srcALen + (srcBLen - 1U)))) {
 		/* Set status as ARM_MATH_ARGUMENT_ERROR */
 		status = ARM_MATH_ARGUMENT_ERROR;
-	} else   {
+	} else {
 		/* The algorithm implementation is based on the lengths of the inputs. */
 		/* srcB is always made to slide across srcA. */
 		/* So srcBLen is always considered as shorter or equal to srcALen */
@@ -99,7 +99,7 @@ arm_status arm_conv_partial_opt_q7(
 
 			/* Initialization of inputB pointer */
 			pIn2 = pSrcB;
-		} else   {
+		} else {
 			/* Initialization of inputA pointer */
 			pIn1 = pSrcB;
 
@@ -244,11 +244,11 @@ arm_status arm_conv_partial_opt_q7(
 				acc2 = __SMLAD(x2, y1, acc2);
 
 				/* pack input data */
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 				x3 = __PKHBT(x2, x1, 0);
-				# else
+				#else
 				x3 = __PKHBT(x1, x2, 0);
-				# endif
+				#endif
 
 				/* multiply and accumlate */
 				acc1 = __SMLADX(x3, y1, acc1);
@@ -257,11 +257,11 @@ arm_status arm_conv_partial_opt_q7(
 				x1 = *__SIMD32(pScr1)++;
 
 				/* pack input data */
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 				x3 = __PKHBT(x1, x2, 0);
-				# else
+				#else
 				x3 = __PKHBT(x2, x1, 0);
-				# endif
+				#endif
 
 				acc3 = __SMLADX(x3, y1, acc3);
 
@@ -276,11 +276,11 @@ arm_status arm_conv_partial_opt_q7(
 
 				x2 = *__SIMD32(pScr1)++;
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 				x3 = __PKHBT(x2, x1, 0);
-				# else
+				#else
 				x3 = __PKHBT(x1, x2, 0);
-				# endif
+				#endif
 
 				acc3 = __SMLADX(x3, y1, acc3);
 
@@ -380,9 +380,9 @@ arm_status arm_conv_partial_opt_q7(
 	}
 
 	return (status);
-} /* arm_conv_partial_opt_q7 */
+}	/* arm_conv_partial_opt_q7 */
 
-#else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
 arm_status arm_conv_partial_opt_q7(
 	q7_t     *pSrcA,
@@ -411,7 +411,7 @@ arm_status arm_conv_partial_opt_q7(
 	if ((firstIndex + numPoints) > ((srcALen + (srcBLen - 1U)))) {
 		/* Set status as ARM_MATH_ARGUMENT_ERROR */
 		status = ARM_MATH_ARGUMENT_ERROR;
-	} else   {
+	} else {
 		/* The algorithm implementation is based on the lengths of the inputs. */
 		/* srcB is always made to slide across srcA. */
 		/* So srcBLen is always considered as shorter or equal to srcALen */
@@ -421,7 +421,7 @@ arm_status arm_conv_partial_opt_q7(
 
 			/* Initialization of inputB pointer */
 			pIn2 = pSrcB;
-		} else   {
+		} else {
 			/* Initialization of inputA pointer */
 			pIn1 = pSrcB;
 
@@ -724,7 +724,7 @@ arm_status arm_conv_partial_opt_q7(
 	}
 
 	return (status);
-} /* arm_conv_partial_opt_q7 */
+}	/* arm_conv_partial_opt_q7 */
 
 #endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
 

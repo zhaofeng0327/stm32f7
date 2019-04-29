@@ -109,7 +109,7 @@ void arm_rms_q31(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
 	blkCnt = blockSize;
@@ -129,7 +129,7 @@ void arm_rms_q31(
 	/* Convert data in 2.62 to 1.31 by 31 right shifts and saturate */
 	/* Compute Rms and store the result in the destination vector */
 	arm_sqrt_q31(clip_q63_to_q31((sum / (q63_t) blockSize) >> 31), pResult);
-} /* arm_rms_q31 */
+}	/* arm_rms_q31 */
 
 /**
  * @} end of RMS group

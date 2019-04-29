@@ -31,7 +31,7 @@
 
 /* TZ_START_NS: Start address of non-secure application */
 #ifndef TZ_START_NS
-# define TZ_START_NS    (0x200000U)
+#define TZ_START_NS    (0x200000U)
 #endif
 
 /* typedef for non-secure callback functions */

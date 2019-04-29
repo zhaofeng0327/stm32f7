@@ -89,7 +89,7 @@ void arm_mult_q7(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -107,7 +107,7 @@ void arm_mult_q7(
 		/* Decrement the blockSize loop counter */
 		blkCnt--;
 	}
-} /* arm_mult_q7 */
+}	/* arm_mult_q7 */
 
 /**
  * @} end of BasicMult group

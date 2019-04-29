@@ -364,15 +364,15 @@ arm_status arm_conv_partial_fast_q15(
 				if (k == 1U) {
 					/* Read y[srcBLen - 5] */
 					c0 = *(py + 1);
-					# ifdef  ARM_MATH_BIG_ENDIAN
+					#ifdef  ARM_MATH_BIG_ENDIAN
 
 					c0 = c0 << 16U;
 
-					# else
+					#else
 
 					c0 = c0 & 0x0000FFFF;
 
-					# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+					#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 
 					/* Read x[7] */
 					x3 = *__SIMD32(px);
@@ -420,13 +420,13 @@ arm_status arm_conv_partial_fast_q15(
 					acc3 = __SMLADX(x2, c0, acc3);
 
 					c0 = *(py - 1);
-					# ifdef  ARM_MATH_BIG_ENDIAN
+					#ifdef  ARM_MATH_BIG_ENDIAN
 
 					c0 = c0 << 16U;
-					# else
+					#else
 
 					c0 = c0 & 0x0000FFFF;
-					# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+					#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 
 					/* Read x[10] */
 					x3  = _SIMD32_OFFSET(px + 2);
@@ -440,17 +440,17 @@ arm_status arm_conv_partial_fast_q15(
 				}
 
 				/* Store the results in the accumulators in the destination buffer. */
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*__SIMD32(pOut)++ = __PKHBT(acc0 >> 15, acc1 >> 15, 16);
 				*__SIMD32(pOut)++ = __PKHBT(acc2 >> 15, acc3 >> 15, 16);
 
-				# else
+				#else
 
 				*__SIMD32(pOut)++ = __PKHBT(acc1 >> 15, acc0 >> 15, 16);
 				*__SIMD32(pOut)++ = __PKHBT(acc3 >> 15, acc2 >> 15, 16);
 
-				# endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
+				#endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 				/* Increment the pointer pIn1 index, count by 4 */
 				count += 4U;
@@ -688,7 +688,7 @@ arm_status arm_conv_partial_fast_q15(
 	/* Return to application */
 	return (status);
 
-	#else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+	#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 
 	q15_t *pIn1;						/* inputA pointer               */
 	q15_t *pIn2;						/* inputB pointer               */
@@ -924,19 +924,19 @@ arm_status arm_conv_partial_fast_q15(
 				a = *px++;
 				b = *px++;
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				x0 = __PKHBT(a, b, 16);
 				a  = *px;
 				x1 = __PKHBT(b, a, 16);
 
-				# else
+				#else
 
 				x0 = __PKHBT(b, a, 16);
 				a  = *px;
 				x1 = __PKHBT(a, b, 16);
 
-				# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	   */
+				#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	   */
 
 				/* Apply loop unrolling and compute 4 MACs simultaneously. */
 				k = srcBLen >> 2U;
@@ -950,16 +950,16 @@ arm_status arm_conv_partial_fast_q15(
 					b   = *(py + 1);
 					py -= 2;
 
-					# ifndef ARM_MATH_BIG_ENDIAN
+					#ifndef ARM_MATH_BIG_ENDIAN
 
 					c0 = __PKHBT(a, b, 16);
 
-					# else
+					#else
 
 					c0 = __PKHBT(b, a, 16);
 					;
 
-					# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+					#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 					/* acc0 +=  x[0] * y[srcBLen - 1] + x[1] * y[srcBLen - 2] */
 					acc0 = __SMLADX(x0, c0, acc0);
@@ -970,19 +970,19 @@ arm_status arm_conv_partial_fast_q15(
 					a = *px;
 					b = *(px + 1);
 
-					# ifndef ARM_MATH_BIG_ENDIAN
+					#ifndef ARM_MATH_BIG_ENDIAN
 
 					x2 = __PKHBT(a, b, 16);
 					a  = *(px + 2);
 					x3 = __PKHBT(b, a, 16);
 
-					# else
+					#else
 
 					x2 = __PKHBT(b, a, 16);
 					a  = *(px + 2);
 					x3 = __PKHBT(a, b, 16);
 
-					# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	   */
+					#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	   */
 
 					/* acc2 +=  x[2] * y[srcBLen - 1] + x[3] * y[srcBLen - 2] */
 					acc2 = __SMLADX(x2, c0, acc2);
@@ -995,16 +995,16 @@ arm_status arm_conv_partial_fast_q15(
 					b   = *(py + 1);
 					py -= 2;
 
-					# ifndef ARM_MATH_BIG_ENDIAN
+					#ifndef ARM_MATH_BIG_ENDIAN
 
 					c0 = __PKHBT(a, b, 16);
 
-					# else
+					#else
 
 					c0 = __PKHBT(b, a, 16);
 					;
 
-					# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+					#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 					/* acc0 +=  x[2] * y[srcBLen - 3] + x[3] * y[srcBLen - 4] */
 					acc0 = __SMLADX(x2, c0, acc0);
@@ -1016,19 +1016,19 @@ arm_status arm_conv_partial_fast_q15(
 					a = *(px + 2);
 					b = *(px + 3);
 
-					# ifndef ARM_MATH_BIG_ENDIAN
+					#ifndef ARM_MATH_BIG_ENDIAN
 
 					x0 = __PKHBT(a, b, 16);
 					a  = *(px + 4);
 					x1 = __PKHBT(b, a, 16);
 
-					# else
+					#else
 
 					x0 = __PKHBT(b, a, 16);
 					a  = *(px + 4);
 					x1 = __PKHBT(a, b, 16);
 
-					# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	   */
+					#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	   */
 
 					px += 4U;
 
@@ -1050,31 +1050,31 @@ arm_status arm_conv_partial_fast_q15(
 					/* Read y[srcBLen - 5] */
 					c0 = *(py + 1);
 
-					# ifdef  ARM_MATH_BIG_ENDIAN
+					#ifdef  ARM_MATH_BIG_ENDIAN
 
 					c0 = c0 << 16U;
 
-					# else
+					#else
 
 					c0 = c0 & 0x0000FFFF;
 
-					# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+					#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 
 					/* Read x[7] */
 					a = *px;
 					b = *(px + 1);
 					px++;
 
-					# ifndef ARM_MATH_BIG_ENDIAN
+					#ifndef ARM_MATH_BIG_ENDIAN
 
 					x3 = __PKHBT(a, b, 16);
 
-					# else
+					#else
 
 					x3 = __PKHBT(b, a, 16);
 					;
 
-					# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+					#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 
 					/* Perform the multiply-accumulates */
@@ -1089,34 +1089,34 @@ arm_status arm_conv_partial_fast_q15(
 					a = *py;
 					b = *(py + 1);
 
-					# ifndef ARM_MATH_BIG_ENDIAN
+					#ifndef ARM_MATH_BIG_ENDIAN
 
 					c0 = __PKHBT(a, b, 16);
 
-					# else
+					#else
 
 					c0 = __PKHBT(b, a, 16);
 					;
 
-					# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+					#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 					/* Read x[7], x[8], x[9] */
 					a = *px;
 					b = *(px + 1);
 
-					# ifndef ARM_MATH_BIG_ENDIAN
+					#ifndef ARM_MATH_BIG_ENDIAN
 
 					x3 = __PKHBT(a, b, 16);
 					a  = *(px + 2);
 					x2 = __PKHBT(b, a, 16);
 
-					# else
+					#else
 
 					x3 = __PKHBT(b, a, 16);
 					a  = *(px + 2);
 					x2 = __PKHBT(a, b, 16);
 
-					# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	   */
+					#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	   */
 					px += 2U;
 
 					/* Perform the multiply-accumulates */
@@ -1131,34 +1131,34 @@ arm_status arm_conv_partial_fast_q15(
 					a = *py;
 					b = *(py + 1);
 
-					# ifndef ARM_MATH_BIG_ENDIAN
+					#ifndef ARM_MATH_BIG_ENDIAN
 
 					c0 = __PKHBT(a, b, 16);
 
-					# else
+					#else
 
 					c0 = __PKHBT(b, a, 16);
 					;
 
-					# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+					#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 					/* Read x[7], x[8], x[9] */
 					a = *px;
 					b = *(px + 1);
 
-					# ifndef ARM_MATH_BIG_ENDIAN
+					#ifndef ARM_MATH_BIG_ENDIAN
 
 					x3 = __PKHBT(a, b, 16);
 					a  = *(px + 2);
 					x2 = __PKHBT(b, a, 16);
 
-					# else
+					#else
 
 					x3 = __PKHBT(b, a, 16);
 					a  = *(px + 2);
 					x2 = __PKHBT(a, b, 16);
 
-					# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	   */
+					#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	   */
 
 					/* Perform the multiply-accumulates */
 					acc0 = __SMLADX(x0, c0, acc0);
@@ -1168,28 +1168,28 @@ arm_status arm_conv_partial_fast_q15(
 
 					/* Read y[srcBLen - 7] */
 					c0 = *(py - 1);
-					# ifdef  ARM_MATH_BIG_ENDIAN
+					#ifdef  ARM_MATH_BIG_ENDIAN
 
 					c0 = c0 << 16U;
-					# else
+					#else
 
 					c0 = c0 & 0x0000FFFF;
-					# endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
+					#endif	/*      #ifdef  ARM_MATH_BIG_ENDIAN     */
 
 					/* Read x[10] */
 					a = *(px + 2);
 					b = *(px + 3);
 
-					# ifndef ARM_MATH_BIG_ENDIAN
+					#ifndef ARM_MATH_BIG_ENDIAN
 
 					x3 = __PKHBT(a, b, 16);
 
-					# else
+					#else
 
 					x3 = __PKHBT(b, a, 16);
 					;
 
-					# endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
+					#endif	/*	#ifndef ARM_MATH_BIG_ENDIAN	*/
 
 					px += 3U;
 
@@ -1431,7 +1431,7 @@ arm_status arm_conv_partial_fast_q15(
 	return (status);
 
 	#endif	/*     #ifndef UNALIGNED_SUPPORT_DISABLE      */
-} /* arm_conv_partial_fast_q15 */
+}	/* arm_conv_partial_fast_q15 */
 
 /**
  * @} end of PartialConv group

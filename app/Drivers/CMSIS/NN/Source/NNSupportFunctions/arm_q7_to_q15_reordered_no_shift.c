@@ -102,13 +102,13 @@ void arm_q7_to_q15_reordered_no_shift(const q7_t *pSrc, q15_t *pDst, uint32_t bl
 		/* extend remainig two q7_t values to q15_t values */
 		in2 = __SXTB16(in);
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 		*__SIMD32(pDst)++ = in2;
 		*__SIMD32(pDst)++ = in1;
-		# else
+		#else
 		*__SIMD32(pDst)++ = in1;
 		*__SIMD32(pDst)++ = in2;
-		# endif
+		#endif
 
 		/* Decrement the loop counter */
 		blkCnt--;
@@ -118,7 +118,7 @@ void arm_q7_to_q15_reordered_no_shift(const q7_t *pSrc, q15_t *pDst, uint32_t bl
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4u;
 
-	#else  /* ifndef ARM_MATH_CM0_FAMILY */
+	#else	/* ifndef ARM_MATH_CM0_FAMILY */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -135,7 +135,7 @@ void arm_q7_to_q15_reordered_no_shift(const q7_t *pSrc, q15_t *pDst, uint32_t bl
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_q7_to_q15_reordered_no_shift */
+}	/* arm_q7_to_q15_reordered_no_shift */
 
 /**
  * @} end of q7_to_x group

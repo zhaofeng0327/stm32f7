@@ -62,7 +62,7 @@ void arm_pid_init_q31(
 	S->A1 = -__QADD(__QADD(S->Kd, S->Kd), S->Kp);
 
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -86,7 +86,7 @@ void arm_pid_init_q31(
 		/* Clear the state buffer.  The size will be always 3 samples */
 		memset(S->state, 0, 3U * sizeof(q31_t));
 	}
-} /* arm_pid_init_q31 */
+}	/* arm_pid_init_q31 */
 
 /**
  * @} end of PID group

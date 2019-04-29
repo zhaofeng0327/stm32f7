@@ -456,7 +456,7 @@ void arm_fir_f32(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* arm_fir_f32 */
+}	/* arm_fir_f32 */
 
 #elif defined(ARM_MATH_CM0_FAMILY)
 
@@ -532,9 +532,9 @@ void arm_fir_f32(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* arm_fir_f32 */
+}	/* arm_fir_f32 */
 
-#else  /* if defined(ARM_MATH_CM7) */
+#else	/* if defined(ARM_MATH_CM7) */
 
 /* Run the below code for Cortex-M4 and Cortex-M3 */
 
@@ -956,9 +956,9 @@ void arm_fir_f32(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* arm_fir_f32 */
+}	/* arm_fir_f32 */
 
-#endif /* if defined(ARM_MATH_CM7) */
+#endif	/* if defined(ARM_MATH_CM7) */
 
 /**
  * @} end of FIR group

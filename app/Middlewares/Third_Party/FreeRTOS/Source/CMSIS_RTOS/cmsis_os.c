@@ -104,22 +104,22 @@
  */
 #if   defined( __CC_ARM )
 
-# define __ASM              __asm
-# define __INLINE           __inline
-# define __STATIC_INLINE    static __inline
+#define __ASM              __asm
+#define __INLINE           __inline
+#define __STATIC_INLINE    static __inline
 
-# include "cmsis_armcc.h"
+#include "cmsis_armcc.h"
 
 /*
  * GNU Compiler
  */
 #elif defined( __GNUC__ )
 
-# define __ASM              __asm	/*!< asm keyword for GNU Compiler          */
-# define __INLINE           inline	/*!< inline keyword for GNU Compiler       */
-# define __STATIC_INLINE    static inline
+#define __ASM              __asm	/*!< asm keyword for GNU Compiler          */
+#define __INLINE           inline	/*!< inline keyword for GNU Compiler       */
+#define __STATIC_INLINE    static inline
 
-# include "cmsis_gcc.h"
+#include "cmsis_gcc.h"
 
 
 /*
@@ -127,18 +127,18 @@
  */
 #elif defined( __ICCARM__ )
 
-# ifndef   __ASM
-#  define __ASM    __asm
-# endif
-# ifndef   __INLINE
-#  define __INLINE    inline
-# endif
-# ifndef   __STATIC_INLINE
-#  define __STATIC_INLINE    static inline
-# endif
+#ifndef   __ASM
+#define __ASM    __asm
+#endif
+#ifndef   __INLINE
+#define __INLINE    inline
+#endif
+#ifndef   __STATIC_INLINE
+#define __STATIC_INLINE    static inline
+#endif
 
-# include <cmsis_iar.h>
-#endif /* if   defined( __CC_ARM ) */
+#include <cmsis_iar.h>
+#endif	/* if   defined( __CC_ARM ) */
 
 extern void xPortSysTickHandler(void);
 
@@ -167,7 +167,7 @@ static osPriority makeCmsisPriority(unsigned portBASE_TYPE fpriority)
 	return priority;
 }
 
-#endif /* if (INCLUDE_uxTaskPriorityGet == 1) */
+#endif	/* if (INCLUDE_uxTaskPriorityGet == 1) */
 
 
 /* Determine whether we are in thread mode or handler mode. */
@@ -270,14 +270,14 @@ osThreadId osThreadCreate(const osThreadDef_t *thread_def, void *argument)
 	handle = xTaskCreateStatic((TaskFunction_t) thread_def->pthread, (const portCHAR *) thread_def->name,
 		thread_def->stacksize, argument, makeFreeRtosPriority(thread_def->tpriority),
 		thread_def->buffer, thread_def->controlblock);
-	#else  /* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
+	#else	/* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
 	if (xTaskCreate((TaskFunction_t) thread_def->pthread, (const portCHAR *) thread_def->name,
 	  thread_def->stacksize, argument, makeFreeRtosPriority(thread_def->tpriority),
 	  &handle) != pdPASS)
 	{
 		return NULL;
 	}
-	#endif /* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
+	#endif	/* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
 
 	return handle;
 }
@@ -388,7 +388,7 @@ osStatus osDelay(uint32_t millisec)
 
 	return osErrorResource;
 
-	#endif /* if INCLUDE_vTaskDelay */
+	#endif	/* if INCLUDE_vTaskDelay */
 }
 
 #if (defined(osFeature_Wait) && (osFeature_Wait != 0))	/* Generic Wait available */
@@ -417,7 +417,7 @@ osTimerId osTimerCreate(const osTimerDef_t *timer_def, os_timer_type type, void 
 {
 	#if (configUSE_TIMERS == 1)
 
-	# if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+	#if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
 	if (timer_def->controlblock != NULL) {
 		return xTimerCreateStatic((const char *) "",
 				 1,	// period should be filled when starting the Timer using osTimerStart
@@ -432,7 +432,7 @@ osTimerId osTimerCreate(const osTimerDef_t *timer_def, os_timer_type type, void 
 				 (void *) argument,
 				 (TaskFunction_t) timer_def->ptimer);
 	}
-	# elif ( configSUPPORT_STATIC_ALLOCATION == 1 )
+	#elif ( configSUPPORT_STATIC_ALLOCATION == 1 )
 	return xTimerCreateStatic((const char *) "",
 			 1,	// period should be filled when starting the Timer using osTimerStart
 			 (type == osTimerPeriodic) ? pdTRUE : pdFALSE,
@@ -440,20 +440,20 @@ osTimerId osTimerCreate(const osTimerDef_t *timer_def, os_timer_type type, void 
 			 (TaskFunction_t) timer_def->ptimer,
 			 (StaticTimer_t *) timer_def->controlblock);
 
-	# else  /* if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) ) */
+	#else	/* if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) ) */
 	return xTimerCreate((const char *) "",
 			 1,	// period should be filled when starting the Timer using osTimerStart
 			 (type == osTimerPeriodic) ? pdTRUE : pdFALSE,
 			 (void *) argument,
 			 (TaskFunction_t) timer_def->ptimer);
 
-	# endif	/* if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) ) */
+	#endif	/* if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) ) */
 
-	#else  /* if (configUSE_TIMERS == 1) */
+	#else	/* if (configUSE_TIMERS == 1) */
 	return NULL;
 
-	#endif /* if (configUSE_TIMERS == 1) */
-} /* osTimerCreate */
+	#endif	/* if (configUSE_TIMERS == 1) */
+}	/* osTimerCreate */
 
 /**
  * @brief  Start or restart a timer.
@@ -483,9 +483,9 @@ osStatus osTimerStart(osTimerId timer_id, uint32_t millisec)
 			result = osErrorOS;
 	}
 
-	#else  /* if (configUSE_TIMERS == 1) */
+	#else	/* if (configUSE_TIMERS == 1) */
 	result = osErrorOS;
-	#endif /* if (configUSE_TIMERS == 1) */
+	#endif	/* if (configUSE_TIMERS == 1) */
 	return result;
 }
 
@@ -511,9 +511,9 @@ osStatus osTimerStop(osTimerId timer_id)
 			result = osErrorOS;
 		}
 	}
-	#else  /* if (configUSE_TIMERS == 1) */
+	#else	/* if (configUSE_TIMERS == 1) */
 	result = osErrorOS;
-	#endif /* if (configUSE_TIMERS == 1) */
+	#endif	/* if (configUSE_TIMERS == 1) */
 	return result;
 }
 
@@ -539,7 +539,7 @@ osStatus osTimerDelete(osTimerId timer_id)
 
 	#else
 	result = osErrorOS;
-	#endif /* if (configUSE_TIMERS == 1) */
+	#endif	/* if (configUSE_TIMERS == 1) */
 
 	return result;
 }
@@ -571,13 +571,13 @@ int32_t osSignalSet(osThreadId thread_id, int32_t signal)
 
 	return ulPreviousNotificationValue;
 
-	#else  /* if ( configUSE_TASK_NOTIFICATIONS == 1 ) */
+	#else	/* if ( configUSE_TASK_NOTIFICATIONS == 1 ) */
 	(void) thread_id;
 	(void) signal;
 
 	return 0x80000000;	/* Task Notification not supported */
 
-	#endif /* if ( configUSE_TASK_NOTIFICATIONS == 1 ) */
+	#endif	/* if ( configUSE_TASK_NOTIFICATIONS == 1 ) */
 }
 
 /**
@@ -625,15 +625,15 @@ osEvent osSignalWait(int32_t signals, uint32_t millisec)
 			ret.status = osErrorValue;
 		} else { ret.status = osEventSignal; }
 	}
-	#else  /* if ( configUSE_TASK_NOTIFICATIONS == 1 ) */
+	#else	/* if ( configUSE_TASK_NOTIFICATIONS == 1 ) */
 	(void) signals;
 	(void) millisec;
 
 	ret.status = osErrorOS;	/* Task Notification not supported */
-	#endif /* if ( configUSE_TASK_NOTIFICATIONS == 1 ) */
+	#endif	/* if ( configUSE_TASK_NOTIFICATIONS == 1 ) */
 
 	return ret;
-} /* osSignalWait */
+}	/* osSignalWait */
 
 /****************************  Mutex Management ********************************/
 
@@ -647,24 +647,24 @@ osMutexId osMutexCreate(const osMutexDef_t *mutex_def)
 {
 	#if ( configUSE_MUTEXES == 1)
 
-	# if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+	#if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 
 	if (mutex_def->controlblock != NULL) {
 		return xSemaphoreCreateMutexStatic(mutex_def->controlblock);
 	} else {
 		return xSemaphoreCreateMutex();
 	}
-	# elif ( configSUPPORT_STATIC_ALLOCATION == 1 )
+	#elif ( configSUPPORT_STATIC_ALLOCATION == 1 )
 	return xSemaphoreCreateMutexStatic(mutex_def->controlblock);
 
-	# else
+	#else
 	return xSemaphoreCreateMutex();
 
-	# endif	/* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
-	#else  /* if ( configUSE_MUTEXES == 1) */
+	#endif	/* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
+	#else	/* if ( configUSE_MUTEXES == 1) */
 	return NULL;
 
-	#endif /* if ( configUSE_MUTEXES == 1) */
+	#endif	/* if ( configUSE_MUTEXES == 1) */
 }
 
 /**
@@ -758,7 +758,7 @@ osStatus osMutexDelete(osMutexId mutex_id)
  */
 osSemaphoreId osSemaphoreCreate(const osSemaphoreDef_t *semaphore_def, int32_t count)
 {
-	# if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+	#if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 
 	osSemaphoreId sema;
 
@@ -766,57 +766,57 @@ osSemaphoreId osSemaphoreCreate(const osSemaphoreDef_t *semaphore_def, int32_t c
 		if (count == 1) {
 			return xSemaphoreCreateBinaryStatic(semaphore_def->controlblock);
 		} else {
-			#  if (configUSE_COUNTING_SEMAPHORES == 1 )
+			#if (configUSE_COUNTING_SEMAPHORES == 1 )
 			return xSemaphoreCreateCountingStatic(count, count, semaphore_def->controlblock);
 
-			#  else
+			#else
 			return NULL;
 
-			#  endif
+			#endif
 		}
 	} else {
 		if (count == 1) {
 			vSemaphoreCreateBinary(sema);
 			return sema;
 		} else {
-			#  if (configUSE_COUNTING_SEMAPHORES == 1 )
+			#if (configUSE_COUNTING_SEMAPHORES == 1 )
 			return xSemaphoreCreateCounting(count, count);
 
-			#  else
+			#else
 			return NULL;
 
-			#  endif
+			#endif
 		}
 	}
-	# elif ( configSUPPORT_STATIC_ALLOCATION == 1 )	// configSUPPORT_DYNAMIC_ALLOCATION == 0
+	#elif ( configSUPPORT_STATIC_ALLOCATION == 1 )	// configSUPPORT_DYNAMIC_ALLOCATION == 0
 	if (count == 1) {
 		return xSemaphoreCreateBinaryStatic(semaphore_def->controlblock);
 	} else {
-		#  if (configUSE_COUNTING_SEMAPHORES == 1 )
+		#if (configUSE_COUNTING_SEMAPHORES == 1 )
 		return xSemaphoreCreateCountingStatic(count, count, semaphore_def->controlblock);
 
-		#  else
+		#else
 		return NULL;
 
-		#  endif
+		#endif
 	}
-	# else	// configSUPPORT_STATIC_ALLOCATION == 0  && configSUPPORT_DYNAMIC_ALLOCATION == 1
+	#else	// configSUPPORT_STATIC_ALLOCATION == 0  && configSUPPORT_DYNAMIC_ALLOCATION == 1
 	osSemaphoreId sema;
 
 	if (count == 1) {
 		vSemaphoreCreateBinary(sema);
 		return sema;
 	} else {
-		#  if (configUSE_COUNTING_SEMAPHORES == 1 )
+		#if (configUSE_COUNTING_SEMAPHORES == 1 )
 		return xSemaphoreCreateCounting(count, count);
 
-		#  else
+		#else
 		return NULL;
 
-		#  endif
+		#endif
 	}
-	# endif	/* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
-} /* osSemaphoreCreate */
+	#endif	/* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
+}	/* osSemaphoreCreate */
 
 /**
  * @brief Wait until a Semaphore token becomes available
@@ -928,7 +928,7 @@ typedef struct os_pool_cb {
  */
 osPoolId osPoolCreate(const osPoolDef_t *pool_def)
 {
-	# if (configSUPPORT_DYNAMIC_ALLOCATION == 1)
+	#if (configSUPPORT_DYNAMIC_ALLOCATION == 1)
 	osPoolId thePool;
 	int itemSize = 4 * ((pool_def->item_sz + 3) / 4);
 	uint32_t i;
@@ -966,11 +966,11 @@ osPoolId osPoolCreate(const osPoolDef_t *pool_def)
 
 	return thePool;
 
-	# else  /* if (configSUPPORT_DYNAMIC_ALLOCATION == 1) */
+	#else	/* if (configSUPPORT_DYNAMIC_ALLOCATION == 1) */
 	return NULL;
 
-	# endif	/* if (configSUPPORT_DYNAMIC_ALLOCATION == 1) */
-} /* osPoolCreate */
+	#endif	/* if (configSUPPORT_DYNAMIC_ALLOCATION == 1) */
+}	/* osPoolCreate */
 
 /**
  * @brief Allocate a memory block from a memory pool
@@ -1012,7 +1012,7 @@ void *osPoolAlloc(osPoolId pool_id)
 	}
 
 	return p;
-} /* osPoolAlloc */
+}	/* osPoolAlloc */
 
 /**
  * @brief Allocate a memory block from a memory pool and set memory block to zero
@@ -1085,20 +1085,20 @@ osMessageQId osMessageCreate(const osMessageQDef_t *queue_def, osThreadId thread
 {
 	(void) thread_id;
 
-	# if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+	#if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 
 	if ((queue_def->buffer != NULL) && (queue_def->controlblock != NULL)) {
 		return xQueueCreateStatic(queue_def->queue_sz, queue_def->item_sz, queue_def->buffer, queue_def->controlblock);
 	} else {
 		return xQueueCreate(queue_def->queue_sz, queue_def->item_sz);
 	}
-	# elif ( configSUPPORT_STATIC_ALLOCATION == 1 )
+	#elif ( configSUPPORT_STATIC_ALLOCATION == 1 )
 	return xQueueCreateStatic(queue_def->queue_sz, queue_def->item_sz, queue_def->buffer, queue_def->controlblock);
 
-	# else
+	#else
 	return xQueueCreate(queue_def->queue_sz, queue_def->item_sz);
 
-	# endif	/* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
+	#endif	/* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
 }
 
 /**
@@ -1184,7 +1184,7 @@ osEvent osMessageGet(osMessageQId queue_id, uint32_t millisec)
 	}
 
 	return event;
-} /* osMessageGet */
+}	/* osMessageGet */
 
 #endif	/* Use Message Queues */
 
@@ -1207,7 +1207,7 @@ typedef struct os_mailQ_cb {
  */
 osMailQId osMailCreate(const osMailQDef_t *queue_def, osThreadId thread_id)
 {
-	# if (configSUPPORT_DYNAMIC_ALLOCATION == 1)
+	#if (configSUPPORT_DYNAMIC_ALLOCATION == 1)
 	(void) thread_id;
 
 	osPoolDef_t pool_def = { queue_def->queue_sz, queue_def->item_sz, NULL };
@@ -1240,11 +1240,11 @@ osMailQId osMailCreate(const osMailQDef_t *queue_def, osThreadId thread_id)
 
 	return *(queue_def->cb);
 
-	# else  /* if (configSUPPORT_DYNAMIC_ALLOCATION == 1) */
+	#else	/* if (configSUPPORT_DYNAMIC_ALLOCATION == 1) */
 	return NULL;
 
-	# endif	/* if (configSUPPORT_DYNAMIC_ALLOCATION == 1) */
-} /* osMailCreate */
+	#endif	/* if (configSUPPORT_DYNAMIC_ALLOCATION == 1) */
+}	/* osMailCreate */
 
 /**
  * @brief Allocate a memory block from a mail
@@ -1371,7 +1371,7 @@ osEvent osMailGet(osMailQId queue_id, uint32_t millisec)
 	}
 
 	return event;
-} /* osMailGet */
+}	/* osMailGet */
 
 /**
  * @brief Free a memory block from a mail
@@ -1504,7 +1504,7 @@ osStatus osThreadResume(osThreadId thread_id)
 	#else
 	return osErrorResource;
 
-	#endif /* if (INCLUDE_vTaskSuspend == 1) */
+	#endif	/* if (INCLUDE_vTaskSuspend == 1) */
 }
 
 /**
@@ -1552,7 +1552,7 @@ osStatus osDelayUntil(uint32_t *PreviousWakeTime, uint32_t millisec)
 
 	return osErrorResource;
 
-	#endif /* if INCLUDE_vTaskDelayUntil */
+	#endif	/* if INCLUDE_vTaskDelayUntil */
 }
 
 /**
@@ -1677,24 +1677,24 @@ osStatus osMessageDelete(osMessageQId queue_id)
 osMutexId osRecursiveMutexCreate(const osMutexDef_t *mutex_def)
 {
 	#if (configUSE_RECURSIVE_MUTEXES == 1)
-	# if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+	#if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 
 	if (mutex_def->controlblock != NULL) {
 		return xSemaphoreCreateRecursiveMutexStatic(mutex_def->controlblock);
 	} else {
 		return xSemaphoreCreateRecursiveMutex();
 	}
-	# elif ( configSUPPORT_STATIC_ALLOCATION == 1 )
+	#elif ( configSUPPORT_STATIC_ALLOCATION == 1 )
 	return xSemaphoreCreateRecursiveMutexStatic(mutex_def->controlblock);
 
-	# else
+	#else
 	return xSemaphoreCreateRecursiveMutex();
 
-	# endif	/* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
-	#else  /* if (configUSE_RECURSIVE_MUTEXES == 1) */
+	#endif	/* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) */
+	#else	/* if (configUSE_RECURSIVE_MUTEXES == 1) */
 	return NULL;
 
-	#endif /* if (configUSE_RECURSIVE_MUTEXES == 1) */
+	#endif	/* if (configUSE_RECURSIVE_MUTEXES == 1) */
 }
 
 /**
@@ -1748,10 +1748,10 @@ osStatus osRecursiveMutexWait(osMutexId mutex_id, uint32_t millisec)
 	}
 	return osOK;
 
-	#else  /* if (configUSE_RECURSIVE_MUTEXES == 1) */
+	#else	/* if (configUSE_RECURSIVE_MUTEXES == 1) */
 	return osErrorResource;
 
-	#endif /* if (configUSE_RECURSIVE_MUTEXES == 1) */
+	#endif	/* if (configUSE_RECURSIVE_MUTEXES == 1) */
 }
 
 /**

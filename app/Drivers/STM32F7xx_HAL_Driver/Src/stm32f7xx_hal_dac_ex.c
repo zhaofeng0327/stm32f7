@@ -223,7 +223,7 @@ HAL_StatusTypeDef HAL_DACEx_DualSetValue(DAC_HandleTypeDef *hdac, uint32_t Align
 	/* Calculate and set dual DAC data holding register value */
 	if (Alignment == DAC_ALIGN_8B_R) {
 		data = ((uint32_t) Data2 << 8) | Data1;
-	} else   {
+	} else {
 		data = ((uint32_t) Data2 << 16) | Data1;
 	}
 
@@ -315,11 +315,11 @@ void DAC_DMAConvCpltCh2(DMA_HandleTypeDef *hdma)
 {
 	DAC_HandleTypeDef *hdac = (DAC_HandleTypeDef *) ((DMA_HandleTypeDef *) hdma)->Parent;
 
-	# if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
 	hdac->ConvCpltCallbackCh2(hdac);
-	# else
+	#else
 	HAL_DACEx_ConvCpltCallbackCh2(hdac);
-	# endif	/* USE_HAL_DAC_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_DAC_REGISTER_CALLBACKS */
 
 	hdac->State = HAL_DAC_STATE_READY;
 }
@@ -334,11 +334,11 @@ void DAC_DMAHalfConvCpltCh2(DMA_HandleTypeDef *hdma)
 {
 	DAC_HandleTypeDef *hdac = (DAC_HandleTypeDef *) ((DMA_HandleTypeDef *) hdma)->Parent;
 	/* Conversion complete callback */
-	# if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
 	hdac->ConvHalfCpltCallbackCh2(hdac);
-	# else
+	#else
 	HAL_DACEx_ConvHalfCpltCallbackCh2(hdac);
-	# endif	/* USE_HAL_DAC_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_DAC_REGISTER_CALLBACKS */
 }
 
 /**
@@ -354,11 +354,11 @@ void DAC_DMAErrorCh2(DMA_HandleTypeDef *hdma)
 	/* Set DAC error code to DMA error */
 	hdac->ErrorCode |= HAL_DAC_ERROR_DMA;
 
-	# if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
 	hdac->ErrorCallbackCh2(hdac);
-	# else
+	#else
 	HAL_DACEx_ErrorCallbackCh2(hdac);
-	# endif	/* USE_HAL_DAC_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_DAC_REGISTER_CALLBACKS */
 
 	hdac->State = HAL_DAC_STATE_READY;
 }

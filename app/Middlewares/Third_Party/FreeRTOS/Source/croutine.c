@@ -36,9 +36,9 @@
  * Some kernel aware debuggers require data to be viewed to be global, rather
  * than file scope.
  */
-# ifdef portREMOVE_STATIC_QUALIFIER
-#  define static
-# endif
+#ifdef portREMOVE_STATIC_QUALIFIER
+#define static
+#endif
 
 
 /* Lists for ready and blocked co-routines. --------------------*/
@@ -55,7 +55,7 @@ static UBaseType_t uxTopCoRoutineReadyPriority = 0;
 static TickType_t xCoRoutineTickCount = 0, xLastTickCount = 0, xPassedTicks = 0;
 
 /* The initial state of the co-routine when it is created. */
-# define corINITIAL_STATE    ( 0 )
+#define corINITIAL_STATE    ( 0 )
 
 /*
  * Place the co-routine represented by pxCRCB into the appropriate ready queue
@@ -64,7 +64,7 @@ static TickType_t xCoRoutineTickCount = 0, xLastTickCount = 0, xPassedTicks = 0;
  * This macro accesses the co-routine ready lists and therefore must not be
  * used from within an ISR.
  */
-# define prvAddCoRoutineToReadyQueue(pxCRCB)                                                                       \
+#define prvAddCoRoutineToReadyQueue(pxCRCB)                                                                       \
 	{                                                                                                                   \
 		if (pxCRCB->uxPriority > uxTopCoRoutineReadyPriority)                                                          \
 		{                                                                                                               \
@@ -108,7 +108,7 @@ BaseType_t xCoRoutineCreate(crCOROUTINE_CODE pxCoRoutineCode, UBaseType_t uxPrio
 	pxCoRoutine = (CRCB_t *) pvPortMalloc(sizeof( CRCB_t ) );
 	if (pxCoRoutine) {
 		/* If pxCurrentCoRoutine is NULL then this is the first co-routine to
-		 * be created and the co-routine data structures need initialising. */
+		* be created and the co-routine data structures need initialising. */
 		if (pxCurrentCoRoutine == NULL) {
 			pxCurrentCoRoutine = pxCoRoutine;
 			prvInitialiseCoRoutineLists();
@@ -149,7 +149,7 @@ BaseType_t xCoRoutineCreate(crCOROUTINE_CODE pxCoRoutineCode, UBaseType_t uxPrio
 	}
 
 	return xReturn;
-} /* xCoRoutineCreate */
+}	/* xCoRoutineCreate */
 
 /*-----------------------------------------------------------*/
 
@@ -244,10 +244,10 @@ static void prvCheckDelayedList(void)
 			portDISABLE_INTERRUPTS();
 			{
 				/* The event could have occurred just before this critical
-				*  section.  If this is the case then the generic list item will
-				*  have been moved to the pending ready list and the following
-				*  line is still valid.  Also the pvContainer parameter will have
-				*  been set to NULL so the following lines are also valid. */
+				 *  section.  If this is the case then the generic list item will
+				 *  have been moved to the pending ready list and the following
+				 *  line is still valid.  Also the pvContainer parameter will have
+				 *  been set to NULL so the following lines are also valid. */
 				(void) uxListRemove(&( pxCRCB->xGenericListItem ) );
 
 				/* Is the co-routine waiting on an event also? */
@@ -262,7 +262,7 @@ static void prvCheckDelayedList(void)
 	}
 
 	xLastTickCount = xCoRoutineTickCount;
-} /* prvCheckDelayedList */
+}	/* prvCheckDelayedList */
 
 /*-----------------------------------------------------------*/
 

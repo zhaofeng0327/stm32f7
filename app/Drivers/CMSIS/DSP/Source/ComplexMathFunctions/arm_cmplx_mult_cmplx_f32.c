@@ -98,7 +98,7 @@ void arm_cmplx_mult_cmplx_f32(
 		c1 = *pSrcB;/* B[2 * i] */
 
 		b1   = *(pSrcA + 1);/* A[2 * i + 1] */
-		acc1 = a1 * c1;		/* acc1 = A[2 * i] * B[2 * i] */
+		acc1 = a1 * c1;	/* acc1 = A[2 * i] * B[2 * i] */
 
 		a2   = *(pSrcA + 2);/* A[2 * i + 2] */
 		acc2 = (b1 * c1);	/* acc2 = A[2 * i + 1] * B[2 * i] */
@@ -108,7 +108,7 @@ void arm_cmplx_mult_cmplx_f32(
 		acc1 -= b1 * d1;		/* acc1 =      A[2 * i] * B[2 * i] - A[2 * i + 1] * B[2 * i + 1] */
 
 		d2   = *(pSrcB + 3);/* B[2 * i + 3] */
-		acc3 = a2 * c2;		/* acc3 =       A[2 * i + 2] * B[2 * i + 2] */
+		acc3 = a2 * c2;	/* acc3 =       A[2 * i + 2] * B[2 * i + 2] */
 
 		b2    = *(pSrcA + 3);	/* A[2 * i + 3] */
 		acc2 += (a1 * d1);		/* acc2 =      A[2 * i + 1] * B[2 * i] + A[2 * i] * B[2 * i + 1] */
@@ -166,7 +166,7 @@ void arm_cmplx_mult_cmplx_f32(
 	** No loop unrolling is used. */
 	blkCnt = numSamples % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 	blkCnt = numSamples;
@@ -188,7 +188,7 @@ void arm_cmplx_mult_cmplx_f32(
 		/* Decrement the numSamples loop counter */
 		blkCnt--;
 	}
-} /* arm_cmplx_mult_cmplx_f32 */
+}	/* arm_cmplx_mult_cmplx_f32 */
 
 /**
  * @} end of CmplxByCmplxMult group

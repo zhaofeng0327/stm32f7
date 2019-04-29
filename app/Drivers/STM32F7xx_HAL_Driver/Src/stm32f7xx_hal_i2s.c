@@ -279,7 +279,7 @@ HAL_StatusTypeDef HAL_I2S_Init(I2S_HandleTypeDef *hi2s)
 		/* Allocate lock resource and initialize it */
 		hi2s->Lock = HAL_UNLOCKED;
 
-		# if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
+		#if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 		/* Init the I2S Callback settings */
 		hi2s->TxCpltCallback     = HAL_I2S_TxCpltCallback;		/* Legacy weak TxCpltCallback       */
 		hi2s->RxCpltCallback     = HAL_I2S_RxCpltCallback;		/* Legacy weak RxCpltCallback       */
@@ -293,10 +293,10 @@ HAL_StatusTypeDef HAL_I2S_Init(I2S_HandleTypeDef *hi2s)
 
 		/* Init the low level hardware : GPIO, CLOCK, NVIC... */
 		hi2s->MspInitCallback(hi2s);
-		# else  /* if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U) */
+		#else	/* if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U) */
 		/* Init the low level hardware : GPIO, CLOCK, CORTEX...etc */
 		HAL_I2S_MspInit(hi2s);
-		# endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
 	}
 
 	hi2s->State = HAL_I2S_STATE_BUSY;
@@ -388,18 +388,18 @@ HAL_StatusTypeDef HAL_I2S_Init(I2S_HandleTypeDef *hi2s)
 	  | hi2s->Init.Standard | hi2s->Init.DataFormat   \
 	  | hi2s->Init.CPOL));
 
-	# if defined(SPI_I2SCFGR_ASTRTEN)
+	#if defined(SPI_I2SCFGR_ASTRTEN)
 	if ((hi2s->Init.Standard == I2S_STANDARD_PCM_SHORT) || ((hi2s->Init.Standard == I2S_STANDARD_PCM_LONG))) {
 		/* Write to SPIx I2SCFGR */
 		SET_BIT(hi2s->Instance->I2SCFGR, SPI_I2SCFGR_ASTRTEN);
 	}
-	# endif
+	#endif
 
 	hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
 	hi2s->State     = HAL_I2S_STATE_READY;
 
 	return HAL_OK;
-} /* HAL_I2S_Init */
+}	/* HAL_I2S_Init */
 
 /**
  * @brief DeInitializes the I2S peripheral
@@ -422,17 +422,17 @@ HAL_StatusTypeDef HAL_I2S_DeInit(I2S_HandleTypeDef *hi2s)
 	/* Disable the I2S Peripheral Clock */
 	__HAL_I2S_DISABLE(hi2s);
 
-	# if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
+	#if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 	if (hi2s->MspDeInitCallback == NULL) {
 		hi2s->MspDeInitCallback = HAL_I2S_MspDeInit;/* Legacy weak MspDeInit  */
 	}
 
 	/* DeInit the low level hardware: GPIO, CLOCK, NVIC... */
 	hi2s->MspDeInitCallback(hi2s);
-	# else
+	#else
 	/* DeInit the low level hardware: GPIO, CLOCK, NVIC... */
 	HAL_I2S_MspDeInit(hi2s);
-	# endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
 
 	hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
 	hi2s->State     = HAL_I2S_STATE_RESET;
@@ -441,7 +441,7 @@ HAL_StatusTypeDef HAL_I2S_DeInit(I2S_HandleTypeDef *hi2s)
 	__HAL_UNLOCK(hi2s);
 
 	return HAL_OK;
-} /* HAL_I2S_DeInit */
+}	/* HAL_I2S_DeInit */
 
 /**
  * @brief I2S MSP Init
@@ -475,7 +475,7 @@ __weak void HAL_I2S_MspDeInit(I2S_HandleTypeDef *hi2s)
 	 */
 }
 
-# if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
+#if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 
 /**
  * @brief  Register a User I2S Callback
@@ -567,7 +567,7 @@ HAL_StatusTypeDef HAL_I2S_RegisterCallback(I2S_HandleTypeDef *hi2s, HAL_I2S_Call
 	/* Release Lock */
 	__HAL_UNLOCK(hi2s);
 	return status;
-} /* HAL_I2S_RegisterCallback */
+}	/* HAL_I2S_RegisterCallback */
 
 /**
  * @brief  Unregister an I2S Callback
@@ -651,9 +651,9 @@ HAL_StatusTypeDef HAL_I2S_UnRegisterCallback(I2S_HandleTypeDef *hi2s, HAL_I2S_Ca
 	/* Release Lock */
 	__HAL_UNLOCK(hi2s);
 	return status;
-} /* HAL_I2S_UnRegisterCallback */
+}	/* HAL_I2S_UnRegisterCallback */
 
-# endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -805,7 +805,7 @@ HAL_StatusTypeDef HAL_I2S_Transmit(I2S_HandleTypeDef *hi2s, uint16_t *pData, uin
 	hi2s->State = HAL_I2S_STATE_READY;
 	__HAL_UNLOCK(hi2s);
 	return HAL_OK;
-} /* HAL_I2S_Transmit */
+}	/* HAL_I2S_Transmit */
 
 /**
  * @brief  Receive an amount of data in blocking mode
@@ -896,7 +896,7 @@ HAL_StatusTypeDef HAL_I2S_Receive(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint
 	hi2s->State = HAL_I2S_STATE_READY;
 	__HAL_UNLOCK(hi2s);
 	return HAL_OK;
-} /* HAL_I2S_Receive */
+}	/* HAL_I2S_Receive */
 
 /**
  * @brief  Transmit an amount of data in non-blocking mode with Interrupt
@@ -954,7 +954,7 @@ HAL_StatusTypeDef HAL_I2S_Transmit_IT(I2S_HandleTypeDef *hi2s, uint16_t *pData, 
 
 	__HAL_UNLOCK(hi2s);
 	return HAL_OK;
-} /* HAL_I2S_Transmit_IT */
+}	/* HAL_I2S_Transmit_IT */
 
 /**
  * @brief  Receive an amount of data in non-blocking mode with Interrupt
@@ -1014,7 +1014,7 @@ HAL_StatusTypeDef HAL_I2S_Receive_IT(I2S_HandleTypeDef *hi2s, uint16_t *pData, u
 
 	__HAL_UNLOCK(hi2s);
 	return HAL_OK;
-} /* HAL_I2S_Receive_IT */
+}	/* HAL_I2S_Receive_IT */
 
 /**
  * @brief  Transmit an amount of data in non-blocking mode with DMA
@@ -1096,7 +1096,7 @@ HAL_StatusTypeDef HAL_I2S_Transmit_DMA(I2S_HandleTypeDef *hi2s, uint16_t *pData,
 
 	__HAL_UNLOCK(hi2s);
 	return HAL_OK;
-} /* HAL_I2S_Transmit_DMA */
+}	/* HAL_I2S_Transmit_DMA */
 
 /**
  * @brief  Receive an amount of data in non-blocking mode with DMA
@@ -1185,7 +1185,7 @@ HAL_StatusTypeDef HAL_I2S_Receive_DMA(I2S_HandleTypeDef *hi2s, uint16_t *pData, 
 
 	__HAL_UNLOCK(hi2s);
 	return HAL_OK;
-} /* HAL_I2S_Receive_DMA */
+}	/* HAL_I2S_Receive_DMA */
 
 /**
  * @brief  Pauses the audio DMA Stream/Channel playing from the Media.
@@ -1291,7 +1291,7 @@ HAL_StatusTypeDef HAL_I2S_DMAStop(I2S_HandleTypeDef *hi2s)
 	hi2s->State = HAL_I2S_STATE_READY;
 
 	return errorcode;
-} /* HAL_I2S_DMAStop */
+}	/* HAL_I2S_DMAStop */
 
 /**
  * @brief  This function handles I2S interrupt request.
@@ -1342,13 +1342,13 @@ void HAL_I2S_IRQHandler(I2S_HandleTypeDef *hi2s)
 		hi2s->State = HAL_I2S_STATE_READY;
 
 		/* Call user error callback */
-		# if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
+		#if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 		hi2s->ErrorCallback(hi2s);
-		# else
+		#else
 		HAL_I2S_ErrorCallback(hi2s);
-		# endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
 	}
-} /* HAL_I2S_IRQHandler */
+}	/* HAL_I2S_IRQHandler */
 
 /**
  * @brief  Tx Transfer Half completed callbacks
@@ -1531,7 +1531,7 @@ static uint32_t I2S_GetClockFreq(I2S_HandleTypeDef *hi2s)
 
 	/* the return result is the value of I2S clock */
 	return i2sclocksource;
-} /* I2S_GetClockFreq */
+}	/* I2S_GetClockFreq */
 
 /**
  * @brief  DMA I2S transmit process complete callback
@@ -1552,11 +1552,11 @@ static void I2S_DMATxCplt(DMA_HandleTypeDef *hdma)
 		hi2s->State       = HAL_I2S_STATE_READY;
 	}
 	/* Call user Tx complete callback */
-	# if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
+	#if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 	hi2s->TxCpltCallback(hi2s);
-	# else
+	#else
 	HAL_I2S_TxCpltCallback(hi2s);
-	# endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1570,11 +1570,11 @@ static void I2S_DMATxHalfCplt(DMA_HandleTypeDef *hdma)
 	I2S_HandleTypeDef *hi2s = (I2S_HandleTypeDef *) ((DMA_HandleTypeDef *) hdma)->Parent;	/* Derogation MISRAC2012-Rule-11.5 */
 
 	/* Call user Tx half complete callback */
-	# if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
+	#if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 	hi2s->TxHalfCpltCallback(hi2s);
-	# else
+	#else
 	HAL_I2S_TxHalfCpltCallback(hi2s);
-	# endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1595,11 +1595,11 @@ static void I2S_DMARxCplt(DMA_HandleTypeDef *hdma)
 		hi2s->State       = HAL_I2S_STATE_READY;
 	}
 	/* Call user Rx complete callback */
-	# if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
+	#if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 	hi2s->RxCpltCallback(hi2s);
-	# else
+	#else
 	HAL_I2S_RxCpltCallback(hi2s);
-	# endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1613,11 +1613,11 @@ static void I2S_DMARxHalfCplt(DMA_HandleTypeDef *hdma)
 	I2S_HandleTypeDef *hi2s = (I2S_HandleTypeDef *) ((DMA_HandleTypeDef *) hdma)->Parent;	/* Derogation MISRAC2012-Rule-11.5 */
 
 	/* Call user Rx half complete callback */
-	# if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
+	#if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 	hi2s->RxHalfCpltCallback(hi2s);
-	# else
+	#else
 	HAL_I2S_RxHalfCpltCallback(hi2s);
-	# endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1640,11 +1640,11 @@ static void I2S_DMAError(DMA_HandleTypeDef *hdma)
 	/* Set the error code and execute error callback*/
 	SET_BIT(hi2s->ErrorCode, HAL_I2S_ERROR_DMA);
 	/* Call user error callback */
-	# if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
+	#if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 	hi2s->ErrorCallback(hi2s);
-	# else
+	#else
 	HAL_I2S_ErrorCallback(hi2s);
-	# endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1666,11 +1666,11 @@ static void I2S_Transmit_IT(I2S_HandleTypeDef *hi2s)
 
 		hi2s->State = HAL_I2S_STATE_READY;
 		/* Call user Tx complete callback */
-		# if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
+		#if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 		hi2s->TxCpltCallback(hi2s);
-		# else
+		#else
 		HAL_I2S_TxCpltCallback(hi2s);
-		# endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
 	}
 }
 
@@ -1693,11 +1693,11 @@ static void I2S_Receive_IT(I2S_HandleTypeDef *hi2s)
 
 		hi2s->State = HAL_I2S_STATE_READY;
 		/* Call user Rx complete callback */
-		# if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
+		#if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 		hi2s->RxCpltCallback(hi2s);
-		# else
+		#else
 		HAL_I2S_RxCpltCallback(hi2s);
-		# endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_I2S_REGISTER_CALLBACKS */
 	}
 }
 

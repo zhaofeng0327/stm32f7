@@ -164,7 +164,7 @@ arm_status arm_fully_connected_q15(const q15_t *pV,
 		rowCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	int i, j;
 	/* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
 	for (i = 0; i < num_of_rows; i++) {
@@ -179,7 +179,7 @@ arm_status arm_fully_connected_q15(const q15_t *pV,
 
 	/* Return to application */
 	return (ARM_MATH_SUCCESS);
-} /* arm_fully_connected_q15 */
+}	/* arm_fully_connected_q15 */
 
 /**
  * @} end of FC group

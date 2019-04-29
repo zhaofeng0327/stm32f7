@@ -64,11 +64,11 @@
 #include "stm32f7xx.h"
 
 #if !defined(HSE_VALUE)
-# define HSE_VALUE    ((uint32_t) 25000000)	/*!< Default value of the External oscillator in Hz */
+#define HSE_VALUE    ((uint32_t) 25000000)	/*!< Default value of the External oscillator in Hz */
 #endif	/* HSE_VALUE */
 
 #if !defined(HSI_VALUE)
-# define HSI_VALUE    ((uint32_t) 16000000)	/*!< Value of the Internal oscillator in Hz*/
+#define HSI_VALUE    ((uint32_t) 16000000)	/*!< Value of the Internal oscillator in Hz*/
 #endif	/* HSI_VALUE */
 
 /**
@@ -241,7 +241,7 @@ void SystemCoreClockUpdate(void)
 			if (pllsource != 0) {
 				/* HSE used as PLL clock source */
 				pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
-			} else   {
+			} else {
 				/* HSI used as PLL clock source */
 				pllvco = (HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
 			}
@@ -258,7 +258,7 @@ void SystemCoreClockUpdate(void)
 	tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> 4)];
 	/* HCLK frequency */
 	SystemCoreClock >>= tmp;
-} /* SystemCoreClockUpdate */
+}	/* SystemCoreClockUpdate */
 
 /**
  * @}

@@ -184,7 +184,7 @@ HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
 		*(__IO uint32_t *) regval |= pExtiConfig->Line;
 	}
 	return HAL_OK;
-} /* HAL_EXTI_SetConfigLine */
+}	/* HAL_EXTI_SetConfigLine */
 
 /**
  * @brief  Get configuration of a dedicated Exti line.
@@ -230,7 +230,7 @@ HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
 	}
 
 	return HAL_OK;
-} /* HAL_EXTI_GetConfigLine */
+}	/* HAL_EXTI_GetConfigLine */
 
 /**
  * @brief  Clear whole configuration of a dedicated Exti line.

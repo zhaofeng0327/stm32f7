@@ -19,20 +19,20 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef STM32F7xx_LL_WWDG_H
-# define STM32F7xx_LL_WWDG_H
+#define STM32F7xx_LL_WWDG_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx.h"
+#include "stm32f7xx.h"
 
 /** @addtogroup STM32F7xx_LL_Driver
  * @{
  */
 
-# if defined(WWDG)
+#if defined(WWDG)
 
 /** @defgroup WWDG_LL WWDG
  * @{
@@ -53,7 +53,7 @@ extern "C" {
  * @brief    IT defines which can be used with LL_WWDG_ReadReg and  LL_WWDG_WriteReg functions
  * @{
  */
-#  define LL_WWDG_CFR_EWI    WWDG_CFR_EWI
+#define LL_WWDG_CFR_EWI    WWDG_CFR_EWI
 
 /**
  * @}
@@ -62,10 +62,10 @@ extern "C" {
 /** @defgroup WWDG_LL_EC_PRESCALER  PRESCALER
  * @{
  */
-#  define LL_WWDG_PRESCALER_1    0x00000000u							/*!< WWDG counter clock = (PCLK1/4096)/1 */
-#  define LL_WWDG_PRESCALER_2    WWDG_CFR_WDGTB_0						/*!< WWDG counter clock = (PCLK1/4096)/2 */
-#  define LL_WWDG_PRESCALER_4    WWDG_CFR_WDGTB_1						/*!< WWDG counter clock = (PCLK1/4096)/4 */
-#  define LL_WWDG_PRESCALER_8    (WWDG_CFR_WDGTB_0 | WWDG_CFR_WDGTB_1)	/*!< WWDG counter clock = (PCLK1/4096)/8 */
+#define LL_WWDG_PRESCALER_1    0x00000000u							/*!< WWDG counter clock = (PCLK1/4096)/1 */
+#define LL_WWDG_PRESCALER_2    WWDG_CFR_WDGTB_0						/*!< WWDG counter clock = (PCLK1/4096)/2 */
+#define LL_WWDG_PRESCALER_4    WWDG_CFR_WDGTB_1						/*!< WWDG counter clock = (PCLK1/4096)/4 */
+#define LL_WWDG_PRESCALER_8    (WWDG_CFR_WDGTB_0 | WWDG_CFR_WDGTB_1)/*!< WWDG counter clock = (PCLK1/4096)/8 */
 
 /**
  * @}
@@ -92,7 +92,7 @@ extern "C" {
  * @param  __VALUE__ Value to be written in the register
  * @retval None
  */
-#  define LL_WWDG_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
+#define LL_WWDG_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
 
 /**
  * @brief  Read a value in WWDG register
@@ -100,7 +100,7 @@ extern "C" {
  * @param  __REG__ Register to be read
  * @retval Register value
  */
-#  define LL_WWDG_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
+#define LL_WWDG_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
 
 /**
  * @}
@@ -315,15 +315,15 @@ __STATIC_INLINE uint32_t LL_WWDG_IsEnabledIT_EWKUP(WWDG_TypeDef *WWDGx)
  * @}
  */
 
-# endif	/* WWDG */
+#endif	/* WWDG */
 
 /**
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_LL_WWDG_H */
 

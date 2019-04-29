@@ -64,4 +64,4 @@ extern const arm_cfft_instance_q15 arm_cfft_sR_q15_len1024;
 extern const arm_cfft_instance_q15 arm_cfft_sR_q15_len2048;
 extern const arm_cfft_instance_q15 arm_cfft_sR_q15_len4096;
 
-#endif // ifndef _ARM_CONST_STRUCTS_H
+#endif	// ifndef _ARM_CONST_STRUCTS_H

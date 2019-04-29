@@ -302,7 +302,7 @@ void arm_cfft_radix8by2_f32(arm_cfft_instance_f32 *S, float32_t *p1)
 	arm_radix8_butterfly_f32(pCol1, L, (float32_t *) S->pTwiddle, 2U);
 	// second col
 	arm_radix8_butterfly_f32(pCol2, L, (float32_t *) S->pTwiddle, 2U);
-} /* arm_cfft_radix8by2_f32 */
+}	/* arm_cfft_radix8by2_f32 */
 
 void arm_cfft_radix8by4_f32(arm_cfft_instance_f32 *S, float32_t *p1)
 {
@@ -541,7 +541,7 @@ void arm_cfft_radix8by4_f32(arm_cfft_instance_f32 *S, float32_t *p1)
 	arm_radix8_butterfly_f32(pCol3, L, (float32_t *) S->pTwiddle, 4U);
 	// fourth col
 	arm_radix8_butterfly_f32(pCol4, L, (float32_t *) S->pTwiddle, 4U);
-} /* arm_cfft_radix8by4_f32 */
+}	/* arm_cfft_radix8by4_f32 */
 
 /**
  * @addtogroup ComplexFFT
@@ -607,7 +607,7 @@ void arm_cfft_f32(
 			pSrc++;
 		}
 	}
-} /* arm_cfft_f32 */
+}	/* arm_cfft_f32 */
 
 /**
  * @} end of ComplexFFT group

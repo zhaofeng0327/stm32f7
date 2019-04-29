@@ -133,7 +133,7 @@ arm_status arm_cfft_radix4_init_q15(
 	}
 
 	return (status);
-} /* arm_cfft_radix4_init_q15 */
+}	/* arm_cfft_radix4_init_q15 */
 
 /**
  * @} end of ComplexFFT group

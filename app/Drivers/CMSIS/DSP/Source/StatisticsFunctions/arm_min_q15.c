@@ -117,7 +117,7 @@ void arm_min_q15(
 	/* if (blockSize - 1U) is not multiple of 4 */
 	blkCnt = (blockSize - 1U) % 4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
 	q15_t minVal1, out;			/* Temporary variables to store the output value. */
@@ -150,7 +150,7 @@ void arm_min_q15(
 	/* Store the minimum value and it's index into destination pointers */
 	*pResult = out;
 	*pIndex  = outIndex;
-} /* arm_min_q15 */
+}	/* arm_min_q15 */
 
 /**
  * @} end of Min group

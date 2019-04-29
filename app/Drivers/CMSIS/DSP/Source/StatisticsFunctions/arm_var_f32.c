@@ -110,13 +110,13 @@ void arm_var_f32(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
-/* Run the below code for Cortex-M0 or Cortex-M3 */
+	#else	/* if defined(ARM_MATH_DSP) */
+	/* Run the below code for Cortex-M0 or Cortex-M3 */
 
 	/* Loop over blockSize number of values */
 	blkCnt = blockSize;
 
-	#endif /* if defined(ARM_MATH_DSP) */
+	#endif	/* if defined(ARM_MATH_DSP) */
 
 	while (blkCnt > 0U) {
 		/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
@@ -153,12 +153,12 @@ void arm_var_f32(
 	}
 
 	blkCnt = blockSize % 0x4U;
-	#else  /* if defined(ARM_MATH_DSP) */
-/* Run the below code for Cortex-M0 or Cortex-M3 */
+	#else	/* if defined(ARM_MATH_DSP) */
+	/* Run the below code for Cortex-M0 or Cortex-M3 */
 
 	/* Loop over blockSize number of values */
 	blkCnt = blockSize;
-	#endif /* if defined(ARM_MATH_DSP) */
+	#endif	/* if defined(ARM_MATH_DSP) */
 
 	while (blkCnt > 0U) {
 		fValue = *pInput++ - fMean;
@@ -170,7 +170,7 @@ void arm_var_f32(
 
 	/* Variance */
 	*pResult = fSum / (float32_t) (blockSize - 1.0f);
-} /* arm_var_f32 */
+}	/* arm_var_f32 */
 
 /**
  * @} end of variance group

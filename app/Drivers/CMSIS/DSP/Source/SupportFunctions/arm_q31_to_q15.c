@@ -84,17 +84,17 @@ void arm_q31_to_q15(
 		in4 = *pIn++;
 
 		/* pack two higher 16-bit values from two 32-bit values */
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		out1 = __PKHTB(in2, in1, 16);
 		out2 = __PKHTB(in4, in3, 16);
 
-		# else
+		#else
 
 		out1 = __PKHTB(in1, in2, 16);
 		out2 = __PKHTB(in3, in4, 16);
 
-		# endif	//      #ifdef ARM_MATH_BIG_ENDIAN
+		#endif	//      #ifdef ARM_MATH_BIG_ENDIAN
 
 		*__SIMD32(pDst)++ = out1;
 		*__SIMD32(pDst)++ = out2;
@@ -107,7 +107,7 @@ void arm_q31_to_q15(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -124,7 +124,7 @@ void arm_q31_to_q15(
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_q31_to_q15 */
+}	/* arm_q31_to_q15 */
 
 /**
  * @} end of q31_to_x group

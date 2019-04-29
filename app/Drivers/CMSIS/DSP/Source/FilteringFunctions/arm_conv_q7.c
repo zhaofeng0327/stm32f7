@@ -94,7 +94,7 @@ void arm_conv_q7(
 
 		/* Initialization of inputB pointer */
 		pIn2 = pSrcB;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = pSrcB;
 
@@ -490,7 +490,7 @@ void arm_conv_q7(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* If the srcBLen is not a multiple of 4,
 		 * the blockSize2 loop cannot be unrolled by 4 */
 		blkCnt = blockSize2;
@@ -617,7 +617,7 @@ void arm_conv_q7(
 		blockSize3--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -645,7 +645,7 @@ void arm_conv_q7(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP)        */
-} /* arm_conv_q7 */
+}	/* arm_conv_q7 */
 
 /**
  * @} end of Conv group

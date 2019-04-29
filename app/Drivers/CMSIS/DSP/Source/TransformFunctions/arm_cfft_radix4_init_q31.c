@@ -129,7 +129,7 @@ arm_status arm_cfft_radix4_init_q31(
 	}
 
 	return (status);
-} /* arm_cfft_radix4_init_q31 */
+}	/* arm_cfft_radix4_init_q31 */
 
 /**
  * @} end of ComplexFFT group

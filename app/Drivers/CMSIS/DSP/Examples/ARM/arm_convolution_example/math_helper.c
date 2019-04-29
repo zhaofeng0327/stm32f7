@@ -99,7 +99,7 @@ float arm_snr_f32(float *pRef, float *pTest, uint32_t buffSize)
 	SNR = 10 * log10(EnergySignal / EnergyError);
 
 	return (SNR);
-} /* arm_snr_f32 */
+}	/* arm_snr_f32 */
 
 /**
  * @brief  Provide guard bits for Input buffer
@@ -414,7 +414,7 @@ void arm_clip_f32(float *pIn, uint32_t numSamples)
 	for (i = 0; i < numSamples; i++) {
 		if (pIn[i] > 1.0f) {
 			pIn[i] = 1.0;
-		} else if (pIn[i] < -1.0f)   {
+		} else if (pIn[i] < -1.0f) {
 			pIn[i] = -1.0;
 		}
 	}

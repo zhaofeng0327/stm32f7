@@ -169,11 +169,11 @@
  */
 
 #ifdef HAL_SPDIFRX_MODULE_ENABLED
-# if defined(SPDIFRX)
+#if defined(SPDIFRX)
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#  define SPDIFRX_TIMEOUT_VALUE    0xFFFFU
+#define SPDIFRX_TIMEOUT_VALUE    0xFFFFU
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -257,16 +257,16 @@ HAL_StatusTypeDef HAL_SPDIFRX_Init(SPDIFRX_HandleTypeDef *hspdif)
 	assert_param(IS_VALIDITY_MASK(hspdif->Init.ValidityBitMask));
 	assert_param(IS_PARITY_ERROR_MASK(hspdif->Init.ParityErrorMask));
 
-	#  if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
 	if (hspdif->State == HAL_SPDIFRX_STATE_RESET) {
 		/* Allocate lock resource and initialize it */
 		hspdif->Lock = HAL_UNLOCKED;
 
 		hspdif->RxHalfCpltCallback = HAL_SPDIFRX_RxHalfCpltCallback;/* Legacy weak RxHalfCpltCallback */
-		hspdif->RxCpltCallback     = HAL_SPDIFRX_RxCpltCallback;	/* Legacy weak RxCpltCallback     */
+		hspdif->RxCpltCallback     = HAL_SPDIFRX_RxCpltCallback;/* Legacy weak RxCpltCallback     */
 		hspdif->CxHalfCpltCallback = HAL_SPDIFRX_CxHalfCpltCallback;/* Legacy weak CxHalfCpltCallback */
-		hspdif->CxCpltCallback     = HAL_SPDIFRX_CxCpltCallback;	/* Legacy weak CxCpltCallback     */
-		hspdif->ErrorCallback      = HAL_SPDIFRX_ErrorCallback;		/* Legacy weak ErrorCallback      */
+		hspdif->CxCpltCallback     = HAL_SPDIFRX_CxCpltCallback;/* Legacy weak CxCpltCallback     */
+		hspdif->ErrorCallback      = HAL_SPDIFRX_ErrorCallback;	/* Legacy weak ErrorCallback      */
 
 		if (hspdif->MspInitCallback == NULL) {
 			hspdif->MspInitCallback = HAL_SPDIFRX_MspInit;	/* Legacy weak MspInit  */
@@ -275,14 +275,14 @@ HAL_StatusTypeDef HAL_SPDIFRX_Init(SPDIFRX_HandleTypeDef *hspdif)
 		/* Init the low level hardware */
 		hspdif->MspInitCallback(hspdif);
 	}
-	#  else	 /* if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1) */
+	#else	/* if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1) */
 	if (hspdif->State == HAL_SPDIFRX_STATE_RESET) {
 		/* Allocate lock resource and initialize it */
 		hspdif->Lock = HAL_UNLOCKED;
 		/* Init the low level hardware : GPIO, CLOCK, CORTEX...etc */
 		HAL_SPDIFRX_MspInit(hspdif);
 	}
-	#  endif/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 
 	/* SPDIFRX peripheral state is BUSY */
 	hspdif->State = HAL_SPDIFRX_STATE_BUSY;
@@ -320,7 +320,7 @@ HAL_StatusTypeDef HAL_SPDIFRX_Init(SPDIFRX_HandleTypeDef *hspdif)
 	hspdif->State = HAL_SPDIFRX_STATE_READY;
 
 	return HAL_OK;
-} /* HAL_SPDIFRX_Init */
+}	/* HAL_SPDIFRX_Init */
 
 /**
  * @brief DeInitializes the SPDIFRX peripheral
@@ -342,17 +342,17 @@ HAL_StatusTypeDef HAL_SPDIFRX_DeInit(SPDIFRX_HandleTypeDef *hspdif)
 	/* Disable SPDIFRX interface (IDLE state) */
 	__HAL_SPDIFRX_IDLE(hspdif);
 
-	#  if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
 	if (hspdif->MspDeInitCallback == NULL) {
 		hspdif->MspDeInitCallback = HAL_SPDIFRX_MspDeInit;	/* Legacy weak MspDeInit  */
 	}
 
 	/* DeInit the low level hardware */
 	hspdif->MspDeInitCallback(hspdif);
-	#  else
+	#else
 	/* DeInit the low level hardware: GPIO, CLOCK, NVIC... */
 	HAL_SPDIFRX_MspDeInit(hspdif);
-	#  endif/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 
 	hspdif->ErrorCode = HAL_SPDIFRX_ERROR_NONE;
 
@@ -363,7 +363,7 @@ HAL_StatusTypeDef HAL_SPDIFRX_DeInit(SPDIFRX_HandleTypeDef *hspdif)
 	__HAL_UNLOCK(hspdif);
 
 	return HAL_OK;
-} /* HAL_SPDIFRX_DeInit */
+}	/* HAL_SPDIFRX_DeInit */
 
 /**
  * @brief SPDIFRX MSP Init
@@ -395,7 +395,7 @@ __weak void HAL_SPDIFRX_MspDeInit(SPDIFRX_HandleTypeDef *hspdif)
 	 */
 }
 
-#  if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User SPDIFRX Callback
@@ -490,7 +490,7 @@ HAL_StatusTypeDef HAL_SPDIFRX_RegisterCallback(SPDIFRX_HandleTypeDef *hspdif, HA
 	/* Release Lock */
 	__HAL_UNLOCK(hspdif);
 	return status;
-} /* HAL_SPDIFRX_RegisterCallback */
+}	/* HAL_SPDIFRX_RegisterCallback */
 
 /**
  * @brief  Unregister a SPDIFRX Callback
@@ -571,9 +571,9 @@ HAL_StatusTypeDef HAL_SPDIFRX_UnRegisterCallback(SPDIFRX_HandleTypeDef *hspdif,
 	/* Release Lock */
 	__HAL_UNLOCK(hspdif);
 	return status;
-} /* HAL_SPDIFRX_UnRegisterCallback */
+}	/* HAL_SPDIFRX_UnRegisterCallback */
 
-#  endif/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 
 /**
  * @brief Set the SPDIFRX  data format according to the specified parameters in the SPDIFRX_InitTypeDef.
@@ -622,7 +622,7 @@ HAL_StatusTypeDef HAL_SPDIFRX_SetDataFormat(SPDIFRX_HandleTypeDef *hspdif, SPDIF
 	hspdif->Instance->CR = tmpreg;
 
 	return HAL_OK;
-} /* HAL_SPDIFRX_SetDataFormat */
+}	/* HAL_SPDIFRX_SetDataFormat */
 
 /**
  * @}
@@ -735,7 +735,7 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow(SPDIFRX_HandleTypeDef *hspdif, uin
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SPDIFRX_ReceiveDataFlow */
+}	/* HAL_SPDIFRX_ReceiveDataFlow */
 
 /**
  * @brief  Receives an amount of data (Control Flow) in blocking mode.
@@ -802,7 +802,7 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow(SPDIFRX_HandleTypeDef *hspdif, 
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SPDIFRX_ReceiveControlFlow */
+}	/* HAL_SPDIFRX_ReceiveControlFlow */
 
 /**
  * @brief Receive an amount of data (Data Flow) in non-blocking mode with Interrupt
@@ -880,7 +880,7 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow_IT(SPDIFRX_HandleTypeDef *hspdif, 
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SPDIFRX_ReceiveDataFlow_IT */
+}	/* HAL_SPDIFRX_ReceiveDataFlow_IT */
 
 /**
  * @brief Receive an amount of data (Control Flow) with Interrupt
@@ -958,7 +958,7 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow_IT(SPDIFRX_HandleTypeDef *hspdi
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SPDIFRX_ReceiveControlFlow_IT */
+}	/* HAL_SPDIFRX_ReceiveControlFlow_IT */
 
 /**
  * @brief Receive an amount of data (Data Flow) mode with DMA
@@ -1053,7 +1053,7 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow_DMA(SPDIFRX_HandleTypeDef *hspdif,
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SPDIFRX_ReceiveDataFlow_DMA */
+}	/* HAL_SPDIFRX_ReceiveDataFlow_DMA */
 
 /**
  * @brief Receive an amount of data (Control Flow) with DMA
@@ -1148,7 +1148,7 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow_DMA(SPDIFRX_HandleTypeDef *hspd
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SPDIFRX_ReceiveControlFlow_DMA */
+}	/* HAL_SPDIFRX_ReceiveControlFlow_DMA */
 
 /**
  * @brief stop the audio stream receive from the Media.
@@ -1222,7 +1222,7 @@ void HAL_SPDIFRX_IRQHandler(SPDIFRX_HandleTypeDef *hspdif)
 		/* the transfer is not stopped */
 		HAL_SPDIFRX_ErrorCallback(hspdif);
 	}
-} /* HAL_SPDIFRX_IRQHandler */
+}	/* HAL_SPDIFRX_IRQHandler */
 
 /**
  * @brief Rx Transfer (Data flow) half completed callbacks
@@ -1357,11 +1357,11 @@ static void SPDIFRX_DMARxCplt(DMA_HandleTypeDef *hdma)
 		hspdif->RxXferCount   = 0;
 		hspdif->State         = HAL_SPDIFRX_STATE_READY;
 	}
-	#  if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
 	hspdif->RxCpltCallback(hspdif);
-	#  else
+	#else
 	HAL_SPDIFRX_RxCpltCallback(hspdif);
-	#  endif/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1373,11 +1373,11 @@ static void SPDIFRX_DMARxHalfCplt(DMA_HandleTypeDef *hdma)
 {
 	SPDIFRX_HandleTypeDef *hspdif = (SPDIFRX_HandleTypeDef *) ((DMA_HandleTypeDef *) hdma)->Parent;
 
-	#  if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
 	hspdif->RxHalfCpltCallback(hspdif);
-	#  else
+	#else
 	HAL_SPDIFRX_RxHalfCpltCallback(hspdif);
-	#  endif/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1394,11 +1394,11 @@ static void SPDIFRX_DMACxCplt(DMA_HandleTypeDef *hdma)
 	hspdif->CsXferCount   = 0;
 
 	hspdif->State = HAL_SPDIFRX_STATE_READY;
-	#  if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
 	hspdif->CxCpltCallback(hspdif);
-	#  else
+	#else
 	HAL_SPDIFRX_CxCpltCallback(hspdif);
-	#  endif/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1410,11 +1410,11 @@ static void SPDIFRX_DMACxHalfCplt(DMA_HandleTypeDef *hdma)
 {
 	SPDIFRX_HandleTypeDef *hspdif = (SPDIFRX_HandleTypeDef *) ((DMA_HandleTypeDef *) hdma)->Parent;
 
-	#  if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
 	hspdif->CxHalfCpltCallback(hspdif);
-	#  else
+	#else
 	HAL_SPDIFRX_CxHalfCpltCallback(hspdif);
-	#  endif/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1435,13 +1435,13 @@ static void SPDIFRX_DMAError(DMA_HandleTypeDef *hdma)
 	/* Set the error code and execute error callback*/
 	hspdif->ErrorCode |= HAL_SPDIFRX_ERROR_DMA;
 
-	#  if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
 	/* The transfer is not stopped */
 	hspdif->ErrorCallback(hspdif);
-	#  else
+	#else
 	/* The transfer is not stopped */
 	HAL_SPDIFRX_ErrorCallback(hspdif);
-	#  endif/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1465,11 +1465,11 @@ static void SPDIFRX_ReceiveDataFlow_IT(SPDIFRX_HandleTypeDef *hspdif)
 		/* Process Unlocked */
 		__HAL_UNLOCK(hspdif);
 
-		#  if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
 		hspdif->RxCpltCallback(hspdif);
-		#  else
+		#else
 		HAL_SPDIFRX_RxCpltCallback(hspdif);
-		#  endif/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 	}
 }
 
@@ -1494,11 +1494,11 @@ static void SPDIFRX_ReceiveControlFlow_IT(SPDIFRX_HandleTypeDef *hspdif)
 		/* Process Unlocked */
 		__HAL_UNLOCK(hspdif);
 
-		#  if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
 		hspdif->CxCpltCallback(hspdif);
-		#  else
+		#else
 		HAL_SPDIFRX_CxCpltCallback(hspdif);
-		#  endif/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 	}
 }
 
@@ -1546,7 +1546,7 @@ static HAL_StatusTypeDef SPDIFRX_WaitOnFlagUntilTimeout(SPDIFRX_HandleTypeDef *h
  */
 
 
-# endif	/* SPDIFRX */
+#endif	/* SPDIFRX */
 #endif	/* HAL_SPDIFRX_MODULE_ENABLED */
 
 /**

@@ -93,7 +93,7 @@ void arm_mean_q7(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
 	/* Loop over blockSize number of values */
@@ -112,7 +112,7 @@ void arm_mean_q7(
 	/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) / blockSize  */
 	/* Store the result to the destination */
 	*pResult = (q7_t) (sum / (int32_t) blockSize);
-} /* arm_mean_q7 */
+}	/* arm_mean_q7 */
 
 /**
  * @} end of mean group

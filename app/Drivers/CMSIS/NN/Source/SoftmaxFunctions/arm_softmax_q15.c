@@ -105,7 +105,7 @@ void arm_softmax_q15(const q15_t *vec_in, const uint16_t dim_vec, q15_t *p_out)
 			p_out[i] = 0;
 		}
 	}
-} /* arm_softmax_q15 */
+}	/* arm_softmax_q15 */
 
 /**
  * @} end of Softmax group

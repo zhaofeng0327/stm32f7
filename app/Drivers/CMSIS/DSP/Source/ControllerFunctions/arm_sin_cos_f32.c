@@ -137,7 +137,7 @@ void arm_sin_cos_f32(
 	if (theta < 0.0f) {
 		*pSinVal = -*pSinVal;
 	}
-} /* arm_sin_cos_f32 */
+}	/* arm_sin_cos_f32 */
 
 /**
  * @} end of SinCos group

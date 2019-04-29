@@ -93,7 +93,7 @@ arm_status arm_fir_init_q15(
 	/* The Number of filter coefficients in the filter must be even and at least 4 */
 	if (numTaps & 0x1U) {
 		status = ARM_MATH_ARGUMENT_ERROR;
-	} else   {
+	} else {
 		/* Assign filter taps */
 		S->numTaps = numTaps;
 
@@ -111,7 +111,7 @@ arm_status arm_fir_init_q15(
 
 	return (status);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -132,7 +132,7 @@ arm_status arm_fir_init_q15(
 	return (status);
 
 	#endif	/*  #if defined (ARM_MATH_DSP) */
-} /* arm_fir_init_q15 */
+}	/* arm_fir_init_q15 */
 
 /**
  * @} end of FIR group

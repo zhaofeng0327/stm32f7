@@ -60,17 +60,17 @@ arm_status arm_mat_trans_q15(
 	#if defined(ARM_MATH_DSP)
 
 	/* Run the below code for Cortex-M4 and Cortex-M3 */
-	# ifndef UNALIGNED_SUPPORT_DISABLE
+	#ifndef UNALIGNED_SUPPORT_DISABLE
 
 	q31_t in;	/* variable to hold temporary output  */
 
-	# else
+	#else
 
 	q15_t in;
 
-	# endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
+	#endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 
 
 	/* Check for matrix mismatch condition */
@@ -78,7 +78,7 @@ arm_status arm_mat_trans_q15(
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/*      #ifdef ARM_MATH_MATRIX_CHECK    */
+	#endif	/*      #ifdef ARM_MATH_MATRIX_CHECK    */
 
 	{
 		/* Matrix transpose by exchanging the rows with columns */
@@ -93,77 +93,77 @@ arm_status arm_mat_trans_q15(
 			/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
 			** a second loop below computes the remaining 1 to 3 samples. */
 			while (col > 0U) {
-				# ifndef UNALIGNED_SUPPORT_DISABLE
+				#ifndef UNALIGNED_SUPPORT_DISABLE
 
 				/* Read two elements from the row */
 				in = *__SIMD32(pSrcA)++;
 
 				/* Unpack and store one element in the destination */
-				#  ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*pOut = (q15_t) in;
 
-				#  else
+				#else
 
 				*pOut = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				#  endif/*    #ifndef ARM_MATH_BIG_ENDIAN    */
+				#endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
 
 				/* Update the pointer pOut to point to the next row of the transposed matrix */
 				pOut += nRows;
 
 				/* Unpack and store the second element in the destination */
 
-				#  ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*pOut = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				#  else
+				#else
 
 				*pOut = (q15_t) in;
 
-				#  endif/*    #ifndef ARM_MATH_BIG_ENDIAN    */
+				#endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
 
 				/* Update the pointer pOut to point to the next row of the transposed matrix */
 				pOut += nRows;
 
 				/* Read two elements from the row */
-				#  ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				in = *__SIMD32(pSrcA)++;
 
-				#  else
+				#else
 
 				in = *__SIMD32(pSrcA)++;
 
-				#  endif/*    #ifndef ARM_MATH_BIG_ENDIAN    */
+				#endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
 
 				/* Unpack and store one element in the destination */
-				#  ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*pOut = (q15_t) in;
 
-				#  else
+				#else
 
 				*pOut = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				#  endif/*    #ifndef ARM_MATH_BIG_ENDIAN    */
+				#endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
 
 				/* Update the pointer pOut to point to the next row of the transposed matrix */
 				pOut += nRows;
 
 				/* Unpack and store the second element in the destination */
-				#  ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				*pOut = (q15_t) ((in & (q31_t) 0xffff0000) >> 16);
 
-				#  else
+				#else
 
 				*pOut = (q15_t) in;
 
-				#  endif/*    #ifndef ARM_MATH_BIG_ENDIAN    */
+				#endif	/*    #ifndef ARM_MATH_BIG_ENDIAN    */
 
-				# else  /* ifndef UNALIGNED_SUPPORT_DISABLE */
+				#else	/* ifndef UNALIGNED_SUPPORT_DISABLE */
 				/* Read one element from the row */
 				in = *pSrcA++;
 
@@ -197,7 +197,7 @@ arm_status arm_mat_trans_q15(
 				/* Store one element in the destination */
 				*pOut = in;
 
-				# endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
+				#endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
 
 				/* Update the pointer pOut to point to the next row of the transposed matrix */
 				pOut += nRows;
@@ -209,18 +209,18 @@ arm_status arm_mat_trans_q15(
 			/* Perform matrix transpose for last 3 samples here. */
 			col = nColumns % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 
 	/* Check for matrix mismatch condition */
 	if ((pSrc->numRows != pDst->numCols) || (pSrc->numCols != pDst->numRows)) {
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
+	#endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
 
 	{
 		/* Matrix transpose by exchanging the rows with columns */
@@ -256,7 +256,7 @@ arm_status arm_mat_trans_q15(
 	}
 	/* Return to application */
 	return (status);
-} /* arm_mat_trans_q15 */
+}	/* arm_mat_trans_q15 */
 
 /**
  * @} end of MatrixTrans group

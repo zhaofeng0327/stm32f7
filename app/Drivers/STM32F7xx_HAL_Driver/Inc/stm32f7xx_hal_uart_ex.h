@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef STM32F7xx_HAL_UART_EX_H
-# define STM32F7xx_HAL_UART_EX_H
+#define STM32F7xx_HAL_UART_EX_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -56,9 +56,9 @@ extern "C" {
 /** @defgroup UARTEx_Word_Length UARTEx Word Length
  * @{
  */
-# define UART_WORDLENGTH_7B    USART_CR1_M1	/*!< 7-bit long UART frame */
-# define UART_WORDLENGTH_8B    0x00000000U	/*!< 8-bit long UART frame */
-# define UART_WORDLENGTH_9B    USART_CR1_M0	/*!< 9-bit long UART frame */
+#define UART_WORDLENGTH_7B    USART_CR1_M1	/*!< 7-bit long UART frame */
+#define UART_WORDLENGTH_8B    0x00000000U	/*!< 8-bit long UART frame */
+#define UART_WORDLENGTH_9B    USART_CR1_M0	/*!< 9-bit long UART frame */
 
 /**
  * @}
@@ -67,8 +67,8 @@ extern "C" {
 /** @defgroup UARTEx_WakeUp_Address_Length UARTEx WakeUp Address Length
  * @{
  */
-# define UART_ADDRESS_DETECT_4B    0x00000000U		/*!< 4-bit long wake-up address */
-# define UART_ADDRESS_DETECT_7B    USART_CR2_ADDM7	/*!< 7-bit long wake-up address */
+#define UART_ADDRESS_DETECT_4B    0x00000000U		/*!< 4-bit long wake-up address */
+#define UART_ADDRESS_DETECT_7B    USART_CR2_ADDM7	/*!< 7-bit long wake-up address */
 
 /**
  * @}
@@ -133,7 +133,7 @@ HAL_StatusTypeDef HAL_MultiProcessorEx_AddressLength_Set(UART_HandleTypeDef *hua
  * @param  __CLOCKSOURCE__ output variable.
  * @retval UART clocking source, written in __CLOCKSOURCE__.
  */
-# define UART_GETCLOCKSOURCE(__HANDLE__, __CLOCKSOURCE__) \
+#define UART_GETCLOCKSOURCE(__HANDLE__, __CLOCKSOURCE__) \
 	do {                                                        \
 		if ((__HANDLE__)->Instance == USART1)                      \
 		{                                                         \
@@ -318,7 +318,7 @@ HAL_StatusTypeDef HAL_MultiProcessorEx_AddressLength_Set(UART_HandleTypeDef *hua
  * @param  __HANDLE__ specifies the UART Handle.
  * @retval None, the mask to apply to UART RDR register is stored in (__HANDLE__)->Mask field.
  */
-# define UART_MASK_COMPUTATION(__HANDLE__)                             \
+#define UART_MASK_COMPUTATION(__HANDLE__)                             \
 	do {                                                                \
 		if ((__HANDLE__)->Init.WordLength == UART_WORDLENGTH_9B)            \
 		{                                                                   \
@@ -364,7 +364,7 @@ HAL_StatusTypeDef HAL_MultiProcessorEx_AddressLength_Set(UART_HandleTypeDef *hua
  * @param __LENGTH__ UART frame length.
  * @retval SET (__LENGTH__ is valid) or RESET (__LENGTH__ is invalid)
  */
-# define IS_UART_WORD_LENGTH(__LENGTH__) \
+#define IS_UART_WORD_LENGTH(__LENGTH__) \
 	(((__LENGTH__) == UART_WORDLENGTH_7B) || \
 	((__LENGTH__) == UART_WORDLENGTH_8B) || \
 	((__LENGTH__) == UART_WORDLENGTH_9B))
@@ -374,7 +374,7 @@ HAL_StatusTypeDef HAL_MultiProcessorEx_AddressLength_Set(UART_HandleTypeDef *hua
  * @param __ADDRESS__ UART wake-up address length.
  * @retval SET (__ADDRESS__ is valid) or RESET (__ADDRESS__ is invalid)
  */
-# define IS_UART_ADDRESSLENGTH_DETECT(__ADDRESS__) \
+#define IS_UART_ADDRESSLENGTH_DETECT(__ADDRESS__) \
 	(((__ADDRESS__) == UART_ADDRESS_DETECT_4B) || \
 	((__ADDRESS__) == UART_ADDRESS_DETECT_7B))
 
@@ -393,9 +393,9 @@ HAL_StatusTypeDef HAL_MultiProcessorEx_AddressLength_Set(UART_HandleTypeDef *hua
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* STM32F7xx_HAL_UART_EX_H */
 

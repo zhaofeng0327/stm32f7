@@ -97,7 +97,7 @@ void HAL_QSPI_MspInit(QSPI_HandleTypeDef *qspiHandle)
 
 		/* USER CODE END QUADSPI_MspInit 1 */
 	}
-} /* HAL_QSPI_MspInit */
+}	/* HAL_QSPI_MspInit */
 
 void HAL_QSPI_MspDeInit(QSPI_HandleTypeDef *qspiHandle)
 {

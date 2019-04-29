@@ -66,8 +66,8 @@ void arm_rms_q15(
 	#if defined(ARM_MATH_DSP)
 	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
-	q31_t in;		/* temporary variable to store the input value */
-	q15_t in1;		/* temporary variable to store the input value */
+	q31_t in;	/* temporary variable to store the input value */
+	q15_t in1;	/* temporary variable to store the input value */
 	uint32_t blkCnt;/* loop counter */
 
 	/* loop Unrolling */
@@ -105,10 +105,10 @@ void arm_rms_q15(
 	/* Store the result in the destination */
 	arm_sqrt_q15(__SSAT((sum / (q63_t) blockSize) >> 15, 16), pResult);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
-	q15_t in;		/* temporary variable to store the input value */
+	q15_t in;	/* temporary variable to store the input value */
 	uint32_t blkCnt;/* loop counter */
 
 	/* Loop over blockSize number of values */
@@ -129,7 +129,7 @@ void arm_rms_q15(
 	arm_sqrt_q15(__SSAT((sum / (q63_t) blockSize) >> 15, 16), pResult);
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_rms_q15 */
+}	/* arm_rms_q15 */
 
 /**
  * @} end of RMS group

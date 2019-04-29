@@ -19,20 +19,20 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef STM32F7xx_LL_RNG_H
-# define STM32F7xx_LL_RNG_H
+#define STM32F7xx_LL_RNG_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx.h"
+#include "stm32f7xx.h"
 
 /** @addtogroup STM32F7xx_LL_Driver
  * @{
  */
 
-# if defined(RNG)
+#if defined(RNG)
 
 /** @defgroup RNG_LL RNG
  * @{
@@ -55,11 +55,11 @@ extern "C" {
  * @brief    Flags defines which can be used with LL_RNG_ReadReg function
  * @{
  */
-#  define LL_RNG_SR_DRDY    RNG_SR_DRDY	/*!< Register contains valid random data */
-#  define LL_RNG_SR_CECS    RNG_SR_CECS	/*!< Clock error current status */
-#  define LL_RNG_SR_SECS    RNG_SR_SECS	/*!< Seed error current status */
-#  define LL_RNG_SR_CEIS    RNG_SR_CEIS	/*!< Clock error interrupt status */
-#  define LL_RNG_SR_SEIS    RNG_SR_SEIS	/*!< Seed error interrupt status */
+#define LL_RNG_SR_DRDY    RNG_SR_DRDY	/*!< Register contains valid random data */
+#define LL_RNG_SR_CECS    RNG_SR_CECS	/*!< Clock error current status */
+#define LL_RNG_SR_SECS    RNG_SR_SECS	/*!< Seed error current status */
+#define LL_RNG_SR_CEIS    RNG_SR_CEIS	/*!< Clock error interrupt status */
+#define LL_RNG_SR_SEIS    RNG_SR_SEIS	/*!< Seed error interrupt status */
 
 /**
  * @}
@@ -69,7 +69,7 @@ extern "C" {
  * @brief    IT defines which can be used with LL_RNG_ReadReg and  LL_RNG_WriteReg macros
  * @{
  */
-#  define LL_RNG_CR_IE    RNG_CR_IE	/*!< RNG Interrupt enable */
+#define LL_RNG_CR_IE    RNG_CR_IE	/*!< RNG Interrupt enable */
 
 /**
  * @}
@@ -96,7 +96,7 @@ extern "C" {
  * @param  __VALUE__ Value to be written in the register
  * @retval None
  */
-#  define LL_RNG_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
+#define LL_RNG_WriteReg(__INSTANCE__, __REG__, __VALUE__)    WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
 
 /**
  * @brief  Read a value in RNG register
@@ -104,7 +104,7 @@ extern "C" {
  * @param  __REG__ Register to be read
  * @retval Register value
  */
-#  define LL_RNG_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
+#define LL_RNG_ReadReg(__INSTANCE__, __REG__)    READ_REG(__INSTANCE__->__REG__)
 
 /**
  * @}
@@ -310,7 +310,7 @@ __STATIC_INLINE uint32_t LL_RNG_ReadRandData32(RNG_TypeDef *RNGx)
  * @}
  */
 
-#  if defined(USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 
 /** @defgroup RNG_LL_EF_Init Initialization and de-initialization functions
  * @{
@@ -320,7 +320,7 @@ ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx);
 /**
  * @}
  */
-#  endif/* USE_FULL_LL_DRIVER */
+#endif	/* USE_FULL_LL_DRIVER */
 
 /**
  * @}
@@ -330,15 +330,15 @@ ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx);
  * @}
  */
 
-# endif	/* RNG */
+#endif	/* RNG */
 
 /**
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_LL_RNG_H */
 

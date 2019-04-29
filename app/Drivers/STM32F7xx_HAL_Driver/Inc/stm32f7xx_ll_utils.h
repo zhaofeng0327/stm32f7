@@ -31,14 +31,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_LL_UTILS_H
-# define __STM32F7xx_LL_UTILS_H
+#define __STM32F7xx_LL_UTILS_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx.h"
+#include "stm32f7xx.h"
 
 /** @addtogroup STM32F7xx_LL_Driver
  * @{
@@ -58,22 +58,22 @@ extern "C" {
  */
 
 /* Max delay can be used in LL_mDelay */
-# define LL_MAX_DELAY    0xFFFFFFFFU
+#define LL_MAX_DELAY    0xFFFFFFFFU
 
 /**
  * @brief Unique device ID register base address
  */
-# define UID_BASE_ADDRESS    UID_BASE
+#define UID_BASE_ADDRESS    UID_BASE
 
 /**
  * @brief Flash size data register base address
  */
-# define FLASHSIZE_BASE_ADDRESS    FLASHSIZE_BASE
+#define FLASHSIZE_BASE_ADDRESS    FLASHSIZE_BASE
 
 /**
  * @brief Package data register base address
  */
-# define PACKAGE_BASE_ADDRESS    PACKAGE_BASE
+#define PACKAGE_BASE_ADDRESS    PACKAGE_BASE
 
 /**
  * @}
@@ -153,8 +153,8 @@ typedef struct {
 /** @defgroup UTILS_EC_HSE_BYPASS HSE Bypass activation
  * @{
  */
-# define LL_UTILS_HSEBYPASS_OFF    0x00000000U	/*!< HSE Bypass is not enabled                */
-# define LL_UTILS_HSEBYPASS_ON     0x00000001U	/*!< HSE Bypass is enabled                    */
+#define LL_UTILS_HSEBYPASS_OFF    0x00000000U	/*!< HSE Bypass is not enabled                */
+#define LL_UTILS_HSEBYPASS_ON     0x00000001U	/*!< HSE Bypass is enabled                    */
 
 /**
  * @}
@@ -163,13 +163,13 @@ typedef struct {
 /** @defgroup UTILS_EC_PACKAGETYPE PACKAGE TYPE
  * @{
  */
-# define LL_UTILS_PACKAGETYPE_LQFP100                      0x00000100U	/*!< LQFP100 package type                         */
-# define LL_UTILS_PACKAGETYPE_LQFP144_WLCSP143             0x00000200U	/*!< LQFP144 or WLCSP143 package type             */
-# define LL_UTILS_PACKAGETYPE_WLCSP180_LQFP176_UFBGA176    0x00000300U	/*!< WLCSP180, LQFP176 or UFBGA176 package type   */
-# define LL_UTILS_PACKAGETYPE_LQFP176_LQFP208_TFBGA216     0x00000400U	/*!< LQFP176, LQFP208 or TFBGA216 package type    */
-# define LL_UTILS_PACKAGETYPE_TFBGA216_LQFP176_LQFP208     0x00000500U	/*!< LQFP176, LQFP208 or TFBGA216 package type    */
-# define LL_UTILS_PACKAGETYPE_LQFP176_TFBGA216_LQFP208     0x00000600U	/*!< LQFP176, LQFP208 or TFBGA216 package type    */
-# define LL_UTILS_PACKAGETYPE_LQFP208_LQFP176_TFBGA216     0x00000700U	/*!< LQFP176, LQFP208 or TFBGA216 package type    */
+#define LL_UTILS_PACKAGETYPE_LQFP100                      0x00000100U	/*!< LQFP100 package type                         */
+#define LL_UTILS_PACKAGETYPE_LQFP144_WLCSP143             0x00000200U	/*!< LQFP144 or WLCSP143 package type             */
+#define LL_UTILS_PACKAGETYPE_WLCSP180_LQFP176_UFBGA176    0x00000300U	/*!< WLCSP180, LQFP176 or UFBGA176 package type   */
+#define LL_UTILS_PACKAGETYPE_LQFP176_LQFP208_TFBGA216     0x00000400U	/*!< LQFP176, LQFP208 or TFBGA216 package type    */
+#define LL_UTILS_PACKAGETYPE_TFBGA216_LQFP176_LQFP208     0x00000500U	/*!< LQFP176, LQFP208 or TFBGA216 package type    */
+#define LL_UTILS_PACKAGETYPE_LQFP176_TFBGA216_LQFP208     0x00000600U	/*!< LQFP176, LQFP208 or TFBGA216 package type    */
+#define LL_UTILS_PACKAGETYPE_LQFP208_LQFP176_TFBGA216     0x00000700U	/*!< LQFP176, LQFP208 or TFBGA216 package type    */
 
 /**
  * @}
@@ -302,9 +302,9 @@ ErrorStatus LL_PLL_ConfigSystemClock_HSE(uint32_t HSEFrequency, uint32_t HSEBypa
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_LL_UTILS_H */
 

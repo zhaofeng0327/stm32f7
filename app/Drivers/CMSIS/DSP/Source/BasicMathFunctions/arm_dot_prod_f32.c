@@ -95,7 +95,7 @@ void arm_dot_prod_f32(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -115,7 +115,7 @@ void arm_dot_prod_f32(
 	}
 	/* Store the result back in the destination buffer */
 	*result = sum;
-} /* arm_dot_prod_f32 */
+}	/* arm_dot_prod_f32 */
 
 /**
  * @} end of dot_prod group

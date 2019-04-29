@@ -99,7 +99,7 @@ void arm_rms_f32(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
 	/* Loop over blockSize number of values */
@@ -119,7 +119,7 @@ void arm_rms_f32(
 
 	/* Compute Rms and store the result in the destination */
 	arm_sqrt_f32(sum / (float32_t) blockSize, pResult);
-} /* arm_rms_f32 */
+}	/* arm_rms_f32 */
 
 /**
  * @} end of RMS group

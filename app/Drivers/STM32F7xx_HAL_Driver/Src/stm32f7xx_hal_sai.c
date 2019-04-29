@@ -230,8 +230,8 @@ typedef enum {
 /** @defgroup SAI_Private_Constants  SAI Private Constants
  * @{
  */
-# define SAI_FIFO_SIZE          8
-# define SAI_DEFAULT_TIMEOUT    4	/* 4ms */
+#define SAI_FIFO_SIZE          8
+#define SAI_DEFAULT_TIMEOUT    4/* 4ms */
 
 /**
  * @}
@@ -401,7 +401,7 @@ HAL_StatusTypeDef HAL_SAI_Init(SAI_HandleTypeDef *hsai)
 		/* Allocate lock resource and initialize it */
 		hsai->Lock = HAL_UNLOCKED;
 
-		# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 		/* Reset callback pointers to the weak predefined callbacks */
 		hsai->RxCpltCallback     = HAL_SAI_RxCpltCallback;
 		hsai->RxHalfCpltCallback = HAL_SAI_RxHalfCpltCallback;
@@ -414,10 +414,10 @@ HAL_StatusTypeDef HAL_SAI_Init(SAI_HandleTypeDef *hsai)
 			hsai->MspInitCallback = HAL_SAI_MspInit;
 		}
 		hsai->MspInitCallback(hsai);
-		# else  /* if (USE_HAL_SAI_REGISTER_CALLBACKS == 1) */
+		#else	/* if (USE_HAL_SAI_REGISTER_CALLBACKS == 1) */
 		/* Init the low level hardware : GPIO, CLOCK, NVIC and DMA */
 		HAL_SAI_MspInit(hsai);
-		# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 	}
 
 	hsai->State = HAL_SAI_STATE_BUSY;
@@ -545,7 +545,7 @@ HAL_StatusTypeDef HAL_SAI_Init(SAI_HandleTypeDef *hsai)
 	__HAL_UNLOCK(hsai);
 
 	return HAL_OK;
-} /* HAL_SAI_Init */
+}	/* HAL_SAI_Init */
 
 /**
  * @brief  DeInitialize the SAI peripheral.
@@ -573,14 +573,14 @@ HAL_StatusTypeDef HAL_SAI_DeInit(SAI_HandleTypeDef *hsai)
 	SET_BIT(hsai->Instance->CR2, SAI_xCR2_FFLUSH);
 
 	/* DeInit the low level hardware: GPIO, CLOCK, NVIC and DMA */
-	# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 	if (hsai->MspDeInitCallback == NULL) {
 		hsai->MspDeInitCallback = HAL_SAI_MspDeInit;
 	}
 	hsai->MspDeInitCallback(hsai);
-	# else
+	#else
 	HAL_SAI_MspDeInit(hsai);
-	# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 
 	/* Initialize the error code */
 	hsai->ErrorCode = HAL_SAI_ERROR_NONE;
@@ -592,7 +592,7 @@ HAL_StatusTypeDef HAL_SAI_DeInit(SAI_HandleTypeDef *hsai)
 	__HAL_UNLOCK(hsai);
 
 	return HAL_OK;
-} /* HAL_SAI_DeInit */
+}	/* HAL_SAI_DeInit */
 
 /**
  * @brief Initialize the SAI MSP.
@@ -626,7 +626,7 @@ __weak void HAL_SAI_MspDeInit(SAI_HandleTypeDef *hsai)
 	 */
 }
 
-# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a user SAI callback
@@ -709,7 +709,7 @@ HAL_StatusTypeDef HAL_SAI_RegisterCallback(SAI_HandleTypeDef *hsai,
 		}
 	}
 	return status;
-} /* HAL_SAI_RegisterCallback */
+}	/* HAL_SAI_RegisterCallback */
 
 /**
  * @brief  Unregister a user SAI callback.
@@ -783,9 +783,9 @@ HAL_StatusTypeDef HAL_SAI_UnRegisterCallback(SAI_HandleTypeDef *hsai,
 		status = HAL_ERROR;
 	}
 	return status;
-} /* HAL_SAI_UnRegisterCallback */
+}	/* HAL_SAI_UnRegisterCallback */
 
-# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -916,7 +916,7 @@ HAL_StatusTypeDef HAL_SAI_Transmit(SAI_HandleTypeDef *hsai, uint8_t *pData, uint
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SAI_Transmit */
+}	/* HAL_SAI_Transmit */
 
 /**
  * @brief  Receive an amount of data in blocking mode.
@@ -999,7 +999,7 @@ HAL_StatusTypeDef HAL_SAI_Receive(SAI_HandleTypeDef *hsai, uint8_t *pData, uint1
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SAI_Receive */
+}	/* HAL_SAI_Receive */
 
 /**
  * @brief  Transmit an amount of data in non-blocking mode with Interrupt.
@@ -1051,7 +1051,7 @@ HAL_StatusTypeDef HAL_SAI_Transmit_IT(SAI_HandleTypeDef *hsai, uint8_t *pData, u
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SAI_Transmit_IT */
+}	/* HAL_SAI_Transmit_IT */
 
 /**
  * @brief  Receive an amount of data in non-blocking mode with Interrupt.
@@ -1101,7 +1101,7 @@ HAL_StatusTypeDef HAL_SAI_Receive_IT(SAI_HandleTypeDef *hsai, uint8_t *pData, ui
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SAI_Receive_IT */
+}	/* HAL_SAI_Receive_IT */
 
 /**
  * @brief Pause the audio stream playing from the Media.
@@ -1200,7 +1200,7 @@ HAL_StatusTypeDef HAL_SAI_DMAStop(SAI_HandleTypeDef *hsai)
 	__HAL_UNLOCK(hsai);
 
 	return status;
-} /* HAL_SAI_DMAStop */
+}	/* HAL_SAI_DMAStop */
 
 /**
  * @brief Abort the current transfer and disable the SAI.
@@ -1259,7 +1259,7 @@ HAL_StatusTypeDef HAL_SAI_Abort(SAI_HandleTypeDef *hsai)
 	__HAL_UNLOCK(hsai);
 
 	return status;
-} /* HAL_SAI_Abort */
+}	/* HAL_SAI_Abort */
 
 /**
  * @brief  Transmit an amount of data in non-blocking mode with DMA.
@@ -1324,7 +1324,7 @@ HAL_StatusTypeDef HAL_SAI_Transmit_DMA(SAI_HandleTypeDef *hsai, uint8_t *pData, 
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SAI_Transmit_DMA */
+}	/* HAL_SAI_Transmit_DMA */
 
 /**
  * @brief  Receive an amount of data in non-blocking mode with DMA.
@@ -1389,7 +1389,7 @@ HAL_StatusTypeDef HAL_SAI_Receive_DMA(SAI_HandleTypeDef *hsai, uint8_t *pData, u
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_SAI_Receive_DMA */
+}	/* HAL_SAI_Receive_DMA */
 
 /**
  * @brief  Enable the Tx mute mode.
@@ -1494,11 +1494,11 @@ void HAL_SAI_IRQHandler(SAI_HandleTypeDef *hsai)
 			/* Change the SAI error code */
 			hsai->ErrorCode |= tmperror;
 			/* the transfer is not stopped, we will forward the information to the user and we let the user decide what needs to be done */
-			# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 			hsai->ErrorCallback(hsai);
-			# else
+			#else
 			HAL_SAI_ErrorCallback(hsai);
-			# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 		}
 		/* SAI mutedet interrupt occurred ----------------------------------*/
 		else if (((itflags & SAI_FLAG_MUTEDET) == SAI_FLAG_MUTEDET) &&
@@ -1536,11 +1536,11 @@ void HAL_SAI_IRQHandler(SAI_HandleTypeDef *hsai)
 				HAL_SAI_Abort(hsai);
 
 				/* Set error callback */
-				# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+				#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 				hsai->ErrorCallback(hsai);
-				# else
+				#else
 				HAL_SAI_ErrorCallback(hsai);
-				# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 			}
 		}
 		/* SAI LFSDET interrupt occurred ----------------------------------*/
@@ -1567,11 +1567,11 @@ void HAL_SAI_IRQHandler(SAI_HandleTypeDef *hsai)
 				HAL_SAI_Abort(hsai);
 
 				/* Set error callback */
-				# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+				#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 				hsai->ErrorCallback(hsai);
-				# else
+				#else
 				HAL_SAI_ErrorCallback(hsai);
-				# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 			}
 		}
 		/* SAI WCKCFG interrupt occurred ----------------------------------*/
@@ -1602,11 +1602,11 @@ void HAL_SAI_IRQHandler(SAI_HandleTypeDef *hsai)
 				hsai->XferCount = 0U;
 
 				/* SAI error Callback */
-				# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+				#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 				hsai->ErrorCallback(hsai);
-				# else
+				#else
 				HAL_SAI_ErrorCallback(hsai);
-				# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 			}
 		}
 		/* SAI CNRDY interrupt occurred ----------------------------------*/
@@ -1616,16 +1616,16 @@ void HAL_SAI_IRQHandler(SAI_HandleTypeDef *hsai)
 			/* Change the SAI error code */
 			hsai->ErrorCode |= HAL_SAI_ERROR_CNREADY;
 			/* the transfer is not stopped, we will forward the information to the user and we let the user decide what needs to be done */
-			# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 			hsai->ErrorCallback(hsai);
-			# else
+			#else
 			HAL_SAI_ErrorCallback(hsai);
-			# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 		} else {
 			/* Nothing to do */
 		}
 	}
-} /* HAL_SAI_IRQHandler */
+}	/* HAL_SAI_IRQHandler */
 
 /**
  * @brief Tx Transfer completed callback.
@@ -1845,7 +1845,7 @@ static HAL_StatusTypeDef SAI_InitI2S(SAI_HandleTypeDef *hsai, uint32_t protocol,
 		}
 	}
 	return HAL_OK;
-} /* SAI_InitI2S */
+}	/* SAI_InitI2S */
 
 /**
  * @brief  Initialize the SAI PCM protocol according to the specified parameters
@@ -1911,7 +1911,7 @@ static HAL_StatusTypeDef SAI_InitPCM(SAI_HandleTypeDef *hsai, uint32_t protocol,
 	}
 
 	return HAL_OK;
-} /* SAI_InitPCM */
+}	/* SAI_InitPCM */
 
 /**
  * @brief  Fill the fifo.
@@ -2006,11 +2006,11 @@ static void SAI_Transmit_IT8Bit(SAI_HandleTypeDef *hsai)
 		/* Disable FREQ and OVRUDR interrupts */
 		__HAL_SAI_DISABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_IT));
 		hsai->State = HAL_SAI_STATE_READY;
-		# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 		hsai->TxCpltCallback(hsai);
-		# else
+		#else
 		HAL_SAI_TxCpltCallback(hsai);
-		# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 	} else {
 		/* Write data on DR register */
 		hsai->Instance->DR = (*hsai->pBuffPtr++);
@@ -2031,11 +2031,11 @@ static void SAI_Transmit_IT16Bit(SAI_HandleTypeDef *hsai)
 		/* Disable FREQ and OVRUDR interrupts */
 		__HAL_SAI_DISABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_IT));
 		hsai->State = HAL_SAI_STATE_READY;
-		# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 		hsai->TxCpltCallback(hsai);
-		# else
+		#else
 		HAL_SAI_TxCpltCallback(hsai);
-		# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 	} else {
 		/* Write data on DR register */
 		hsai->Instance->DR = *(uint16_t *) hsai->pBuffPtr;
@@ -2057,11 +2057,11 @@ static void SAI_Transmit_IT32Bit(SAI_HandleTypeDef *hsai)
 		/* Disable FREQ and OVRUDR interrupts */
 		__HAL_SAI_DISABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_IT));
 		hsai->State = HAL_SAI_STATE_READY;
-		# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 		hsai->TxCpltCallback(hsai);
-		# else
+		#else
 		HAL_SAI_TxCpltCallback(hsai);
-		# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 	} else {
 		/* Write data on DR register */
 		hsai->Instance->DR = *(uint32_t *) hsai->pBuffPtr;
@@ -2091,11 +2091,11 @@ static void SAI_Receive_IT8Bit(SAI_HandleTypeDef *hsai)
 		__HAL_SAI_CLEAR_FLAG(hsai, SAI_FLAG_OVRUDR);
 
 		hsai->State = HAL_SAI_STATE_READY;
-		# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 		hsai->RxCpltCallback(hsai);
-		# else
+		#else
 		HAL_SAI_RxCpltCallback(hsai);
-		# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 	}
 }
 
@@ -2121,11 +2121,11 @@ static void SAI_Receive_IT16Bit(SAI_HandleTypeDef *hsai)
 		__HAL_SAI_CLEAR_FLAG(hsai, SAI_FLAG_OVRUDR);
 
 		hsai->State = HAL_SAI_STATE_READY;
-		# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 		hsai->RxCpltCallback(hsai);
-		# else
+		#else
 		HAL_SAI_RxCpltCallback(hsai);
-		# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 	}
 }
 
@@ -2151,11 +2151,11 @@ static void SAI_Receive_IT32Bit(SAI_HandleTypeDef *hsai)
 		__HAL_SAI_CLEAR_FLAG(hsai, SAI_FLAG_OVRUDR);
 
 		hsai->State = HAL_SAI_STATE_READY;
-		# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 		hsai->RxCpltCallback(hsai);
-		# else
+		#else
 		HAL_SAI_RxCpltCallback(hsai);
-		# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 	}
 }
 
@@ -2180,11 +2180,11 @@ static void SAI_DMATxCplt(DMA_HandleTypeDef *hdma)
 
 		hsai->State = HAL_SAI_STATE_READY;
 	}
-	# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 	hsai->TxCpltCallback(hsai);
-	# else
+	#else
 	HAL_SAI_TxCpltCallback(hsai);
-	# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 }
 
 /**
@@ -2197,11 +2197,11 @@ static void SAI_DMATxHalfCplt(DMA_HandleTypeDef *hdma)
 {
 	SAI_HandleTypeDef *hsai = (SAI_HandleTypeDef *) ((DMA_HandleTypeDef *) hdma)->Parent;
 
-	# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 	hsai->TxHalfCpltCallback(hsai);
-	# else
+	#else
 	HAL_SAI_TxHalfCpltCallback(hsai);
-	# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 }
 
 /**
@@ -2224,11 +2224,11 @@ static void SAI_DMARxCplt(DMA_HandleTypeDef *hdma)
 
 		hsai->State = HAL_SAI_STATE_READY;
 	}
-	# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 	hsai->RxCpltCallback(hsai);
-	# else
+	#else
 	HAL_SAI_RxCpltCallback(hsai);
-	# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 }
 
 /**
@@ -2241,11 +2241,11 @@ static void SAI_DMARxHalfCplt(DMA_HandleTypeDef *hdma)
 {
 	SAI_HandleTypeDef *hsai = (SAI_HandleTypeDef *) ((DMA_HandleTypeDef *) hdma)->Parent;
 
-	# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 	hsai->RxHalfCpltCallback(hsai);
-	# else
+	#else
 	HAL_SAI_RxHalfCpltCallback(hsai);
-	# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 }
 
 /**
@@ -2275,11 +2275,11 @@ static void SAI_DMAError(DMA_HandleTypeDef *hdma)
 		hsai->XferCount = 0U;
 	}
 	/* SAI error Callback */
-	# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 	hsai->ErrorCallback(hsai);
-	# else
+	#else
 	HAL_SAI_ErrorCallback(hsai);
-	# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 }
 
 /**
@@ -2313,11 +2313,11 @@ static void SAI_DMAAbort(DMA_HandleTypeDef *hdma)
 	hsai->XferCount = 0U;
 
 	/* SAI error Callback */
-	# if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
 	hsai->ErrorCallback(hsai);
-	# else
+	#else
 	HAL_SAI_ErrorCallback(hsai);
-	# endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_SAI_REGISTER_CALLBACKS */
 }
 
 /**

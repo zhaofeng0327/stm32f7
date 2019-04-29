@@ -47,7 +47,7 @@
  */
 
 
-# ifdef HAL_CRYP_MODULE_ENABLED
+#ifdef HAL_CRYP_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -55,34 +55,34 @@
 /** @addtogroup CRYPEx_Private_Defines
  * @{
  */
-#  if defined(AES)
-#   define CRYP_PHASE_INIT                             0x00000000U		/*!< GCM/GMAC (or CCM) init phase */
-#   define CRYP_PHASE_HEADER                           AES_CR_GCMPH_0	/*!< GCM/GMAC or CCM header phase */
-#   define CRYP_PHASE_PAYLOAD                          AES_CR_GCMPH_1	/*!< GCM(/CCM) payload phase   */
-#   define CRYP_PHASE_FINAL                            AES_CR_GCMPH		/*!< GCM/GMAC or CCM  final phase  */
+#if defined(AES)
+#define CRYP_PHASE_INIT                             0x00000000U		/*!< GCM/GMAC (or CCM) init phase */
+#define CRYP_PHASE_HEADER                           AES_CR_GCMPH_0	/*!< GCM/GMAC or CCM header phase */
+#define CRYP_PHASE_PAYLOAD                          AES_CR_GCMPH_1	/*!< GCM(/CCM) payload phase   */
+#define CRYP_PHASE_FINAL                            AES_CR_GCMPH	/*!< GCM/GMAC or CCM  final phase  */
 
-#   define CRYP_OPERATINGMODE_ENCRYPT                  0x00000000U	/*!< Encryption mode   */
-#   define CRYP_OPERATINGMODE_KEYDERIVATION            AES_CR_MODE_0/*!< Key derivation mode  only used when performing ECB and CBC decryptions  */
-#   define CRYP_OPERATINGMODE_DECRYPT                  AES_CR_MODE_1/*!< Decryption       */
-#   define CRYP_OPERATINGMODE_KEYDERIVATION_DECRYPT    AES_CR_MODE	/*!< Key derivation and decryption only used when performing ECB and CBC decryptions  */
+#define CRYP_OPERATINGMODE_ENCRYPT                  0x00000000U	/*!< Encryption mode   */
+#define CRYP_OPERATINGMODE_KEYDERIVATION            AES_CR_MODE_0	/*!< Key derivation mode  only used when performing ECB and CBC decryptions  */
+#define CRYP_OPERATINGMODE_DECRYPT                  AES_CR_MODE_1	/*!< Decryption       */
+#define CRYP_OPERATINGMODE_KEYDERIVATION_DECRYPT    AES_CR_MODE	/*!< Key derivation and decryption only used when performing ECB and CBC decryptions  */
 
-#  else	/* CRYP */
+#else	/* CRYP */
 
-#   define CRYP_PHASE_INIT               0x00000000U
-#   define CRYP_PHASE_HEADER             CRYP_CR_GCM_CCMPH_0
-#   define CRYP_PHASE_PAYLOAD            CRYP_CR_GCM_CCMPH_1
-#   define CRYP_PHASE_FINAL              CRYP_CR_GCM_CCMPH
+#define CRYP_PHASE_INIT               0x00000000U
+#define CRYP_PHASE_HEADER             CRYP_CR_GCM_CCMPH_0
+#define CRYP_PHASE_PAYLOAD            CRYP_CR_GCM_CCMPH_1
+#define CRYP_PHASE_FINAL              CRYP_CR_GCM_CCMPH
 
-#   define CRYP_OPERATINGMODE_ENCRYPT    0x00000000U
-#   define CRYP_OPERATINGMODE_DECRYPT    CRYP_CR_ALGODIR
-#  endif/* End AES or CRYP */
+#define CRYP_OPERATINGMODE_ENCRYPT    0x00000000U
+#define CRYP_OPERATINGMODE_DECRYPT    CRYP_CR_ALGODIR
+#endif	/* End AES or CRYP */
 
-#  define  CRYPEx_PHASE_PROCESS    0x02U/*!< CRYP peripheral is in processing phase */
-#  define  CRYPEx_PHASE_FINAL      0x03U/*!< CRYP peripheral is in final phase this is relevant only with CCM and GCM modes */
+#define  CRYPEx_PHASE_PROCESS    0x02U	/*!< CRYP peripheral is in processing phase */
+#define  CRYPEx_PHASE_FINAL      0x03U	/*!< CRYP peripheral is in final phase this is relevant only with CCM and GCM modes */
 
 /*  CTR0 information to use in CCM algorithm */
-#  define CRYP_CCM_CTR0_0    0x07FFFFFFU
-#  define CRYP_CCM_CTR0_3    0xFFFFFF00U
+#define CRYP_CCM_CTR0_0    0x07FFFFFFU
+#define CRYP_CCM_CTR0_3    0xFFFFFF00U
 
 
 /**
@@ -159,7 +159,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 			return HAL_ERROR;
 		}
 
-		#  if defined(CRYP)
+		#if defined(CRYP)
 
 		/* Disable CRYP to start the final phase */
 		__HAL_CRYP_DISABLE(hcryp);
@@ -228,7 +228,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 		tagaddr += 4U;
 		*(uint32_t *) (tagaddr) = hcryp->Instance->DOUT;
 
-		#  else	/* AES*/
+		#else	/* AES*/
 
 		/* Select final phase */
 		MODIFY_REG(hcryp->Instance->CR, AES_CR_GCMPH, CRYP_PHASE_FINAL);
@@ -290,7 +290,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 		/* Clear CCF flag */
 		__HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CCF_CLEAR);
 
-		#  endif/* End AES or CRYP */
+		#endif	/* End AES or CRYP */
 
 		/* Disable the peripheral */
 		__HAL_CRYP_DISABLE(hcryp);
@@ -307,7 +307,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 	}
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_CRYPEx_AESGCM_GenerateAuthTAG */
+}	/* HAL_CRYPEx_AESGCM_GenerateAuthTAG */
 
 /**
  * @brief  AES CCM Authentication TAG generation.
@@ -350,7 +350,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 			return HAL_ERROR;
 		}
 
-		#  if defined(CRYP)
+		#if defined(CRYP)
 
 		/* Disable CRYP to start the final phase */
 		__HAL_CRYP_DISABLE(hcryp);
@@ -431,7 +431,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 		tagaddr += 4U;
 		*(uint32_t *) (tagaddr) = hcryp->Instance->DOUT;
 
-		#  else	/* AES */
+		#else	/* AES */
 
 		/* Select final phase */
 		MODIFY_REG(hcryp->Instance->CR, AES_CR_GCMPH, CRYP_PHASE_FINAL);
@@ -524,7 +524,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 		/* Clear CCF Flag */
 		__HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CCF_CLEAR);
 
-		#  endif/* End of AES || CRYP */
+		#endif	/* End of AES || CRYP */
 
 		/* Change the CRYP peripheral state */
 		hcryp->State = HAL_CRYP_STATE_READY;
@@ -541,13 +541,13 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 	}
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_CRYPEx_AESCCM_GenerateAuthTAG */
+}	/* HAL_CRYPEx_AESCCM_GenerateAuthTAG */
 
 /**
  * @}
  */
 
-#  if defined(AES)
+#if defined(AES)
 
 /** @defgroup CRYPEx_Exported_Functions_Group2 Key Derivation functions
  *  @brief   AutoKeyDerivation functions
@@ -598,8 +598,8 @@ void  HAL_CRYPEx_DisableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp)
  * @}
  */
 
-#  endif/* AES */
-# endif	/* HAL_CRYP_MODULE_ENABLED */
+#endif	/* AES */
+#endif	/* HAL_CRYP_MODULE_ENABLED */
 
 /**
  * @}

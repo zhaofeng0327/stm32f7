@@ -207,7 +207,7 @@ int32_t main(void)
 	 *------------------------------------------------------------------------------*/
 	if (snr > SNR_THRESHOLD) {
 		status = ARM_MATH_SUCCESS;
-	} else   {
+	} else {
 		status = ARM_MATH_TEST_FAILURE;
 	}
 
@@ -221,6 +221,6 @@ int32_t main(void)
 	}
 
 	while (1);	/* main function does not return */
-} /* main */
+}	/* main */
 
 /** \endlink */

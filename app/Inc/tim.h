@@ -18,13 +18,13 @@
  */
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __tim_H
-# define __tim_H
-# ifdef __cplusplus
+#define __tim_H
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "main.h"
+#include "main.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -42,9 +42,9 @@ void MX_TIM6_Init(void);
 
 /* USER CODE END Prototypes */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 #endif	/*__ tim_H */
 
 /**

@@ -49,11 +49,11 @@
  */
 
 #ifndef STREAM_BUFFER_H
-# define STREAM_BUFFER_H
+#define STREAM_BUFFER_H
 
-# if defined( __cplusplus )
+#if defined( __cplusplus )
 extern "C" {
-# endif
+#endif
 
 /**
  * Type by which stream buffers are referenced.  For example, a call to
@@ -129,7 +129,7 @@ typedef void *StreamBufferHandle_t;
  * \defgroup xStreamBufferCreate xStreamBufferCreate
  * \ingroup StreamBufferManagement
  */
-# define xStreamBufferCreate(xBufferSizeBytes, xTriggerLevelBytes) \
+#define xStreamBufferCreate(xBufferSizeBytes, xTriggerLevelBytes) \
 	xStreamBufferGenericCreate(xBufferSizeBytes, \
 	  xTriggerLevelBytes, \
 	  pdFALSE)
@@ -213,7 +213,7 @@ typedef void *StreamBufferHandle_t;
  * \defgroup xStreamBufferCreateStatic xStreamBufferCreateStatic
  * \ingroup StreamBufferManagement
  */
-# define xStreamBufferCreateStatic(xBufferSizeBytes, xTriggerLevelBytes, pucStreamBufferStorageArea, \
+#define xStreamBufferCreateStatic(xBufferSizeBytes, xTriggerLevelBytes, pucStreamBufferStorageArea, \
 	  pxStaticStreamBuffer)    xStreamBufferGenericCreateStatic(xBufferSizeBytes, \
 	  xTriggerLevelBytes, \
 	  pdFALSE, \
@@ -849,15 +849,15 @@ StreamBufferHandle_t xStreamBufferGenericCreateStatic(size_t xBufferSizeBytes,
   uint8_t *const                                             pucStreamBufferStorageArea,
   StaticStreamBuffer_t *const                                pxStaticStreamBuffer) PRIVILEGED_FUNCTION;
 
-# if ( configUSE_TRACE_FACILITY == 1 )
+#if ( configUSE_TRACE_FACILITY == 1 )
 void vStreamBufferSetStreamBufferNumber(StreamBufferHandle_t xStreamBuffer,
   UBaseType_t                                                uxStreamBufferNumber) PRIVILEGED_FUNCTION;
 UBaseType_t uxStreamBufferGetStreamBufferNumber(StreamBufferHandle_t xStreamBuffer) PRIVILEGED_FUNCTION;
 uint8_t ucStreamBufferGetStreamBufferType(StreamBufferHandle_t xStreamBuffer) PRIVILEGED_FUNCTION;
-# endif
+#endif
 
-# if defined( __cplusplus )
+#if defined( __cplusplus )
 }
-# endif
+#endif
 
 #endif	/* !defined( STREAM_BUFFER_H ) */

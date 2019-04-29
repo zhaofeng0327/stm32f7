@@ -28,16 +28,16 @@
 * -------------------------------------------------------------------- */
 
 #ifndef _ARM_NNSUPPORTFUNCTIONS_H_
-# define _ARM_NNSUPPORTFUNCTIONS_H_
+#define _ARM_NNSUPPORTFUNCTIONS_H_
 
-# include "arm_math.h"
-# include "arm_common_tables.h"
+#include "arm_math.h"
+#include "arm_common_tables.h"
 // #include <cstring>
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern    "C"
 {
-# endif
+#endif
 
 /**
  * @brief Union for SIMD access of Q31/Q15/Q7 types
@@ -91,7 +91,7 @@ void      arm_q7_to_q15_no_shift(const q7_t *pSrc, q15_t *pDst, uint32_t blockSi
 
 void      arm_q7_to_q15_reordered_no_shift(const q7_t *pSrc, q15_t *pDst, uint32_t blockSize);
 
-# if defined(ARM_MATH_DSP)
+#if defined(ARM_MATH_DSP)
 
 /**
  * @brief read and expand one Q7 word into two Q15 words
@@ -103,13 +103,13 @@ __STATIC_FORCEINLINE void *read_and_pad(void *source, q31_t *out1, q31_t *out2)
 	q31_t inAbuf1 = __SXTB16(__ROR(inA, 8));
 	q31_t inAbuf2 = __SXTB16(inA);
 
-	#  ifndef ARM_MATH_BIG_ENDIAN
+	#ifndef ARM_MATH_BIG_ENDIAN
 	*out2 = __PKHTB(inAbuf1, inAbuf2, 16);
 	*out1 = __PKHBT(inAbuf2, inAbuf1, 16);
-	#  else
+	#else
 	*out1 = __PKHTB(inAbuf1, inAbuf2, 16);
 	*out2 = __PKHBT(inAbuf2, inAbuf1, 16);
-	#  endif
+	#endif
 
 	return source;
 }
@@ -121,18 +121,18 @@ __STATIC_FORCEINLINE void *read_and_pad(void *source, q31_t *out1, q31_t *out2)
 __STATIC_FORCEINLINE void *read_and_pad_reordered(void *source, q31_t *out1, q31_t *out2)
 {
 	q31_t inA = *__SIMD32(source)++;
-	#  ifndef ARM_MATH_BIG_ENDIAN
+	#ifndef ARM_MATH_BIG_ENDIAN
 	*out2 = __SXTB16(__ROR(inA, 8));
 	*out1 = __SXTB16(inA);
-	#  else
+	#else
 	*out1 = __SXTB16(__ROR(inA, 8));
 	*out2 = __SXTB16(inA);
-	#  endif
+	#endif
 
 	return source;
 }
 
-# endif	// if defined(ARM_MATH_DSP)
+#endif	// if defined(ARM_MATH_DSP)
 
 /**
  * @defgroup NNBasicMath Basic Math Functions for Neural Network Computation
@@ -188,14 +188,14 @@ void arm_nn_mult_q7(
 /**
  * @brief defition to adding rouding offset
  */
-# ifndef ARM_NN_TRUNCATE
-#  define NN_ROUND(out_shift)    ( 0x1 << (out_shift - 1) )
-# else
-#  define NN_ROUND(out_shift)    0
-# endif
+#ifndef ARM_NN_TRUNCATE
+#define NN_ROUND(out_shift)    ( 0x1 << (out_shift - 1) )
+#else
+#define NN_ROUND(out_shift)    0
+#endif
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
-#endif // ifndef _ARM_NNSUPPORTFUNCTIONS_H_
+#endif	// ifndef _ARM_NNSUPPORTFUNCTIONS_H_

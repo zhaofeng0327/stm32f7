@@ -132,7 +132,7 @@ void arm_var_q15(
 	/* mean of the squares minus the square of the mean. */
 	*pResult = (meanOfSquares - squareOfMean) >> 15U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
 	/* Loop over blockSize number of values */
@@ -165,7 +165,7 @@ void arm_var_q15(
 	*pResult = (meanOfSquares - squareOfMean) >> 15;
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_var_q15 */
+}	/* arm_var_q15 */
 
 /**
  * @} end of variance group

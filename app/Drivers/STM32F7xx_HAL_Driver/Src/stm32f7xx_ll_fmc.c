@@ -194,7 +194,7 @@ HAL_StatusTypeDef  FMC_NORSRAM_Init(FMC_NORSRAM_TypeDef *Device, FMC_NORSRAM_Ini
 	}
 
 	return HAL_OK;
-} /* FMC_NORSRAM_Init */
+}	/* FMC_NORSRAM_Init */
 
 /**
  * @brief  DeInitialize the FMC_NORSRAM peripheral
@@ -280,7 +280,7 @@ HAL_StatusTypeDef FMC_NORSRAM_Timing_Init(FMC_NORSRAM_TypeDef *Device, FMC_NORSR
 	}
 
 	return HAL_OK;
-} /* FMC_NORSRAM_Timing_Init */
+}	/* FMC_NORSRAM_Timing_Init */
 
 /**
  * @brief  Initialize the FMC_NORSRAM Extended mode Timing according to the specified
@@ -331,7 +331,7 @@ HAL_StatusTypeDef  FMC_NORSRAM_Extended_Timing_Init(FMC_NORSRAM_EXTENDED_TypeDef
 	}
 
 	return HAL_OK;
-} /* FMC_NORSRAM_Extended_Timing_Init */
+}	/* FMC_NORSRAM_Extended_Timing_Init */
 
 /**
  * @}
@@ -479,7 +479,7 @@ HAL_StatusTypeDef FMC_NAND_Init(FMC_NAND_TypeDef *Device, FMC_NAND_InitTypeDef *
 	Device->PCR = tmpr;
 
 	return HAL_OK;
-} /* FMC_NAND_Init */
+}	/* FMC_NAND_Init */
 
 /**
  * @brief  Initializes the FMC_NAND Common space Timing according to the specified
@@ -796,7 +796,7 @@ HAL_StatusTypeDef FMC_SDRAM_Init(FMC_SDRAM_TypeDef *Device, FMC_SDRAM_InitTypeDe
 	}
 
 	return HAL_OK;
-} /* FMC_SDRAM_Init */
+}	/* FMC_SDRAM_Init */
 
 /**
  * @brief  Initializes the FMC_SDRAM device timing according to the specified
@@ -866,7 +866,7 @@ HAL_StatusTypeDef FMC_SDRAM_Timing_Init(FMC_SDRAM_TypeDef *Device, FMC_SDRAM_Tim
 	}
 
 	return HAL_OK;
-} /* FMC_SDRAM_Timing_Init */
+}	/* FMC_SDRAM_Timing_Init */
 
 /**
  * @brief  DeInitializes the FMC_SDRAM peripheral

@@ -139,7 +139,7 @@ HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart(DMA_HandleTypeDef *hdma, uint32_t S
 		}
 	}
 	return status;
-} /* HAL_DMAEx_MultiBufferStart */
+}	/* HAL_DMAEx_MultiBufferStart */
 
 /**
  * @brief  Starts the multi_buffer DMA Transfer with interrupt enabled.
@@ -209,7 +209,7 @@ HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart_IT(DMA_HandleTypeDef *hdma, uint32_
 		status = HAL_BUSY;
 	}
 	return status;
-} /* HAL_DMAEx_MultiBufferStart_IT */
+}	/* HAL_DMAEx_MultiBufferStart_IT */
 
 /**
  * @brief  Change the memory0 or memory1 address on the fly.

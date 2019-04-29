@@ -141,7 +141,7 @@ void arm_cmplx_dot_prod_q15(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -168,7 +168,7 @@ void arm_cmplx_dot_prod_q15(
 	*realResult = (q31_t) (real_sum >> 6);
 	/* Convert imaginary data in 34.30 to 8.24 by 6 right shifts */
 	*imagResult = (q31_t) (imag_sum >> 6);
-} /* arm_cmplx_dot_prod_q15 */
+}	/* arm_cmplx_dot_prod_q15 */
 
 /**
  * @} end of cmplx_dot_prod group

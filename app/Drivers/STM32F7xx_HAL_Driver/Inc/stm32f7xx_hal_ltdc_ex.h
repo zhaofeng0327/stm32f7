@@ -19,17 +19,17 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef STM32F7xx_HAL_LTDC_EX_H
-# define STM32F7xx_HAL_LTDC_EX_H
+#define STM32F7xx_HAL_LTDC_EX_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
-# if defined(LTDC) && defined(DSI)
+#if defined(LTDC) && defined(DSI)
 
 /* Includes ------------------------------------------------------------------*/
-#  include "stm32f7xx_hal_def.h"
-#  include "stm32f7xx_hal_dsi.h"
+#include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_dsi.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -76,11 +76,11 @@ HAL_StatusTypeDef HAL_LTDCEx_StructInitFromAdaptedCommandConfig(LTDC_HandleTypeD
  * @}
  */
 
-# endif	/* LTDC && DSI */
+#endif	/* LTDC && DSI */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* STM32F7xx_HAL_LTDC_EX_H */
 

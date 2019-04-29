@@ -100,10 +100,10 @@
 #include "arm_nnfunctions.h"
 
 #ifdef _RTE_
-# include "RTE_Components.h"
-# ifdef RTE_Compiler_EventRecorder
-#  include "EventRecorder.h"
-# endif
+#include "RTE_Components.h"
+#ifdef RTE_Compiler_EventRecorder
+#include "EventRecorder.h"
+#endif
 #endif
 
 #define DIM_HISTORY    32
@@ -188,7 +188,7 @@ void gru_example(q15_t *scratch_input, uint16_t input_size, uint16_t history_siz
 	arm_mult_q15(history, update, update, history_size);
 	// calculate history_out
 	arm_sub_q15(hidden_state, update, history, history_size);
-} // gru_example
+}	// gru_example
 
 int main()
 {

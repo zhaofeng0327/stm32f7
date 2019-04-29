@@ -148,7 +148,7 @@ arm_status arm_mat_scale_q31(
 		** No loop unrolling is used. */
 		blkCnt = numSamples % 0x4U;
 
-		#else  /* if defined(ARM_MATH_DSP) */
+		#else	/* if defined(ARM_MATH_DSP) */
 
 		/* Run the below code for Cortex-M0 */
 
@@ -181,7 +181,7 @@ arm_status arm_mat_scale_q31(
 
 	/* Return to application */
 	return (status);
-} /* arm_mat_scale_q31 */
+}	/* arm_mat_scale_q31 */
 
 /**
  * @} end of MatrixScale group

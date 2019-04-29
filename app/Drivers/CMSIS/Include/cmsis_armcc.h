@@ -28,21 +28,21 @@
 
 
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 400677)
-# error "Please use Arm Compiler Toolchain V4.0.677 or later!"
+#error "Please use Arm Compiler Toolchain V4.0.677 or later!"
 #endif
 
 /* CMSIS compiler control architecture macros */
 #if ((defined(__TARGET_ARCH_6_M  ) && (__TARGET_ARCH_6_M == 1)) || \
 	(defined(__TARGET_ARCH_6S_M ) && (__TARGET_ARCH_6S_M == 1))   )
-# define __ARM_ARCH_6M__    1
+#define __ARM_ARCH_6M__    1
 #endif
 
 #if (defined(__TARGET_ARCH_7_M ) && (__TARGET_ARCH_7_M == 1))
-# define __ARM_ARCH_7M__    1
+#define __ARM_ARCH_7M__    1
 #endif
 
 #if (defined(__TARGET_ARCH_7E_M) && (__TARGET_ARCH_7E_M == 1))
-# define __ARM_ARCH_7EM__    1
+#define __ARM_ARCH_7EM__    1
 #endif
 
 /* __ARM_ARCH_8M_BASE__  not applicable */
@@ -51,55 +51,55 @@
 
 /* CMSIS compiler specific defines */
 #ifndef   __ASM
-# define __ASM    __asm
+#define __ASM    __asm
 #endif
 #ifndef   __INLINE
-# define __INLINE    __inline
+#define __INLINE    __inline
 #endif
 #ifndef   __STATIC_INLINE
-# define __STATIC_INLINE    static __inline
+#define __STATIC_INLINE    static __inline
 #endif
 #ifndef   __STATIC_FORCEINLINE
-# define __STATIC_FORCEINLINE    static __forceinline
+#define __STATIC_FORCEINLINE    static __forceinline
 #endif
 #ifndef   __NO_RETURN
-# define __NO_RETURN    __declspec(noreturn)
+#define __NO_RETURN    __declspec(noreturn)
 #endif
 #ifndef   __USED
-# define __USED    __attribute__((used))
+#define __USED    __attribute__((used))
 #endif
 #ifndef   __WEAK
-# define __WEAK    __attribute__((weak))
+#define __WEAK    __attribute__((weak))
 #endif
 #ifndef   __PACKED
-# define __PACKED    __attribute__((packed))
+#define __PACKED    __attribute__((packed))
 #endif
 #ifndef   __PACKED_STRUCT
-# define __PACKED_STRUCT    __packed struct
+#define __PACKED_STRUCT    __packed struct
 #endif
 #ifndef   __PACKED_UNION
-# define __PACKED_UNION __packed union
+#define __PACKED_UNION __packed union
 #endif
 #ifndef   __UNALIGNED_UINT32/* deprecated */
-# define __UNALIGNED_UINT32(x)    (*((__packed uint32_t *) (x)))
+#define __UNALIGNED_UINT32(x)    (*((__packed uint32_t *) (x)))
 #endif
 #ifndef   __UNALIGNED_UINT16_WRITE
-# define __UNALIGNED_UINT16_WRITE(addr, val)    ((*((__packed uint16_t *) (addr))) = (val))
+#define __UNALIGNED_UINT16_WRITE(addr, val)    ((*((__packed uint16_t *) (addr))) = (val))
 #endif
 #ifndef   __UNALIGNED_UINT16_READ
-# define __UNALIGNED_UINT16_READ(addr)    (*((const __packed uint16_t *) (addr)))
+#define __UNALIGNED_UINT16_READ(addr)    (*((const __packed uint16_t *) (addr)))
 #endif
 #ifndef   __UNALIGNED_UINT32_WRITE
-# define __UNALIGNED_UINT32_WRITE(addr, val)    ((*((__packed uint32_t *) (addr))) = (val))
+#define __UNALIGNED_UINT32_WRITE(addr, val)    ((*((__packed uint32_t *) (addr))) = (val))
 #endif
 #ifndef   __UNALIGNED_UINT32_READ
-# define __UNALIGNED_UINT32_READ(addr)    (*((const __packed uint32_t *) (addr)))
+#define __UNALIGNED_UINT32_READ(addr)    (*((const __packed uint32_t *) (addr)))
 #endif
 #ifndef   __ALIGNED
-# define __ALIGNED(x)    __attribute__((aligned(x)))
+#define __ALIGNED(x)    __attribute__((aligned(x)))
 #endif
 #ifndef   __RESTRICT
-# define __RESTRICT    __restrict
+#define __RESTRICT    __restrict
 #endif
 
 /* ###########################  Core Function Access  ########################### */
@@ -253,7 +253,7 @@ __STATIC_INLINE void __set_PRIMASK(uint32_t priMask)
  * \details Enables FIQ interrupts by clearing the F-bit in the CPSR.
  *         Can only be executed in Privileged modes.
  */
-# define __enable_fault_irq    __enable_fiq
+#define __enable_fault_irq    __enable_fiq
 
 
 /**
@@ -261,7 +261,7 @@ __STATIC_INLINE void __set_PRIMASK(uint32_t priMask)
  * \details Disables FIQ interrupts by setting the F-bit in the CPSR.
  *         Can only be executed in Privileged modes.
  */
-# define __disable_fault_irq    __disable_fiq
+#define __disable_fault_irq    __disable_fiq
 
 
 /**
@@ -321,7 +321,7 @@ __STATIC_INLINE void __set_FAULTMASK(uint32_t faultMask)
 }
 
 #endif	/* ((defined (__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__  == 1)) || \
-		*   (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     ) */
+		 *   (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     ) */
 
 
 /**
@@ -504,7 +504,7 @@ __attribute__((section(".revsh_text"))) __STATIC_INLINE __ASM int16_t __REVSH(in
  */
 #if ((defined(__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__ == 1)) || \
 	(defined(__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     )
-# define __RBIT    __rbit
+#define __RBIT    __rbit
 #else
 __attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
 {
@@ -521,7 +521,7 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
 	return result;
 }
 
-#endif // if ((defined(__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__ == 1)) || (defined(__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     )
+#endif	// if ((defined(__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__ == 1)) || (defined(__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     )
 
 
 /**
@@ -542,11 +542,11 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
  * \param [in]    ptr  Pointer to data
  * \return             value of type uint8_t at (*ptr)
  */
-# if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-#  define __LDREXB(ptr)    ((uint8_t) __ldrex(ptr))
-# else
-#  define __LDREXB(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint8_t) __ldrex(ptr))_Pragma("pop")
-# endif
+#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+#define __LDREXB(ptr)    ((uint8_t) __ldrex(ptr))
+#else
+#define __LDREXB(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint8_t) __ldrex(ptr))_Pragma("pop")
+#endif
 
 
 /**
@@ -555,11 +555,11 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
  * \param [in]    ptr  Pointer to data
  * \return        value of type uint16_t at (*ptr)
  */
-# if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-#  define __LDREXH(ptr)    ((uint16_t) __ldrex(ptr))
-# else
-#  define __LDREXH(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint16_t) __ldrex(ptr))_Pragma("pop")
-# endif
+#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+#define __LDREXH(ptr)    ((uint16_t) __ldrex(ptr))
+#else
+#define __LDREXH(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint16_t) __ldrex(ptr))_Pragma("pop")
+#endif
 
 
 /**
@@ -568,11 +568,11 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
  * \param [in]    ptr  Pointer to data
  * \return        value of type uint32_t at (*ptr)
  */
-# if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-#  define __LDREXW(ptr)    ((uint32_t) __ldrex(ptr))
-# else
-#  define __LDREXW(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint32_t) __ldrex(ptr))_Pragma("pop")
-# endif
+#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+#define __LDREXW(ptr)    ((uint32_t) __ldrex(ptr))
+#else
+#define __LDREXW(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint32_t) __ldrex(ptr))_Pragma("pop")
+#endif
 
 
 /**
@@ -583,13 +583,13 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
  * \return          0  Function succeeded
  * \return          1  Function failed
  */
-# if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-#  define __STREXB(value, ptr)    __strex(value, ptr)
-# else
-#  define __STREXB(value, ptr) \
-								  _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, \
+#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+#define __STREXB(value, ptr)    __strex(value, ptr)
+#else
+#define __STREXB(value, ptr) \
+	_Pragma("push") _Pragma("diag_suppress 3731") __strex(value, \
 	  ptr)        _Pragma("pop")
-# endif
+#endif
 
 
 /**
@@ -600,13 +600,13 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
  * \return          0  Function succeeded
  * \return          1  Function failed
  */
-# if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-#  define __STREXH(value, ptr)    __strex(value, ptr)
-# else
-#  define __STREXH(value, ptr) \
-								  _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, \
+#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+#define __STREXH(value, ptr)    __strex(value, ptr)
+#else
+#define __STREXH(value, ptr) \
+	_Pragma("push") _Pragma("diag_suppress 3731") __strex(value, \
 	  ptr)        _Pragma("pop")
-# endif
+#endif
 
 
 /**
@@ -617,20 +617,20 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
  * \return          0  Function succeeded
  * \return          1  Function failed
  */
-# if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-#  define __STREXW(value, ptr)    __strex(value, ptr)
-# else
-#  define __STREXW(value, ptr) \
-								  _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, \
+#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+#define __STREXW(value, ptr)    __strex(value, ptr)
+#else
+#define __STREXW(value, ptr) \
+	_Pragma("push") _Pragma("diag_suppress 3731") __strex(value, \
 	  ptr)        _Pragma("pop")
-# endif
+#endif
 
 
 /**
  * \brief   Remove the exclusive lock
  * \details Removes the exclusive lock which is created by LDREX.
  */
-# define __CLREX    __clrex
+#define __CLREX    __clrex
 
 
 /**
@@ -640,7 +640,7 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
  * \param [in]    sat  Bit position to saturate to (1..32)
  * \return             Saturated value
  */
-# define __SSAT    __ssat
+#define __SSAT    __ssat
 
 
 /**
@@ -650,7 +650,7 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
  * \param [in]    sat  Bit position to saturate to (0..31)
  * \return             Saturated value
  */
-# define __USAT    __usat
+#define __USAT    __usat
 
 
 /**
@@ -660,14 +660,14 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
  * \param [in]    value  Value to rotate
  * \return               Rotated value
  */
-# ifndef __NO_EMBEDDED_ASM
+#ifndef __NO_EMBEDDED_ASM
 __attribute__((section(".rrx_text"))) __STATIC_INLINE __ASM uint32_t __RRX(uint32_t value)
 {
 	rrx r0, r0
 	bx lr
 }
 
-# endif
+#endif
 
 
 /**
@@ -676,7 +676,7 @@ __attribute__((section(".rrx_text"))) __STATIC_INLINE __ASM uint32_t __RRX(uint3
  * \param [in]    ptr  Pointer to data
  * \return             value of type uint8_t at (*ptr)
  */
-# define __LDRBT(ptr)    ((uint8_t)  __ldrt(ptr))
+#define __LDRBT(ptr)    ((uint8_t)  __ldrt(ptr))
 
 
 /**
@@ -685,7 +685,7 @@ __attribute__((section(".rrx_text"))) __STATIC_INLINE __ASM uint32_t __RRX(uint3
  * \param [in]    ptr  Pointer to data
  * \return        value of type uint16_t at (*ptr)
  */
-# define __LDRHT(ptr)    ((uint16_t)  __ldrt(ptr))
+#define __LDRHT(ptr)    ((uint16_t)  __ldrt(ptr))
 
 
 /**
@@ -694,7 +694,7 @@ __attribute__((section(".rrx_text"))) __STATIC_INLINE __ASM uint32_t __RRX(uint3
  * \param [in]    ptr  Pointer to data
  * \return        value of type uint32_t at (*ptr)
  */
-# define __LDRT(ptr)    ((uint32_t) __ldrt(ptr))
+#define __LDRT(ptr)    ((uint32_t) __ldrt(ptr))
 
 
 /**
@@ -703,7 +703,7 @@ __attribute__((section(".rrx_text"))) __STATIC_INLINE __ASM uint32_t __RRX(uint3
  * \param [in]  value  Value to store
  * \param [in]    ptr  Pointer to location
  */
-# define __STRBT(value, ptr)    __strt(value, ptr)
+#define __STRBT(value, ptr)    __strt(value, ptr)
 
 
 /**
@@ -712,7 +712,7 @@ __attribute__((section(".rrx_text"))) __STATIC_INLINE __ASM uint32_t __RRX(uint3
  * \param [in]  value  Value to store
  * \param [in]    ptr  Pointer to location
  */
-# define __STRHT(value, ptr)    __strt(value, ptr)
+#define __STRHT(value, ptr)    __strt(value, ptr)
 
 
 /**
@@ -721,10 +721,10 @@ __attribute__((section(".rrx_text"))) __STATIC_INLINE __ASM uint32_t __RRX(uint3
  * \param [in]  value  Value to store
  * \param [in]    ptr  Pointer to location
  */
-# define __STRT(value, ptr)    __strt(value, ptr)
+#define __STRT(value, ptr)    __strt(value, ptr)
 
 #else	/* ((defined (__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__  == 1)) || \
-		*   (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     ) */
+		 *   (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     ) */
 
 /**
  * \brief   Signed Saturate
@@ -768,7 +768,7 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __USAT(int32_t val, uint
 }
 
 #endif	/* ((defined (__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__  == 1)) || \
-		*   (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     ) */
+		 *   (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     ) */
 
 /*@}*/ /* end of group CMSIS_Core_InstructionInterface */
 
@@ -782,75 +782,75 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __USAT(int32_t val, uint
 
 #if ((defined(__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     )
 
-# define __SADD8      __sadd8
-# define __QADD8      __qadd8
-# define __SHADD8     __shadd8
-# define __UADD8      __uadd8
-# define __UQADD8     __uqadd8
-# define __UHADD8     __uhadd8
-# define __SSUB8      __ssub8
-# define __QSUB8      __qsub8
-# define __SHSUB8     __shsub8
-# define __USUB8      __usub8
-# define __UQSUB8     __uqsub8
-# define __UHSUB8     __uhsub8
-# define __SADD16     __sadd16
-# define __QADD16     __qadd16
-# define __SHADD16    __shadd16
-# define __UADD16     __uadd16
-# define __UQADD16    __uqadd16
-# define __UHADD16    __uhadd16
-# define __SSUB16     __ssub16
-# define __QSUB16     __qsub16
-# define __SHSUB16    __shsub16
-# define __USUB16     __usub16
-# define __UQSUB16    __uqsub16
-# define __UHSUB16    __uhsub16
-# define __SASX       __sasx
-# define __QASX       __qasx
-# define __SHASX      __shasx
-# define __UASX       __uasx
-# define __UQASX      __uqasx
-# define __UHASX      __uhasx
-# define __SSAX       __ssax
-# define __QSAX       __qsax
-# define __SHSAX      __shsax
-# define __USAX       __usax
-# define __UQSAX      __uqsax
-# define __UHSAX      __uhsax
-# define __USAD8      __usad8
-# define __USADA8     __usada8
-# define __SSAT16     __ssat16
-# define __USAT16     __usat16
-# define __UXTB16     __uxtb16
-# define __UXTAB16    __uxtab16
-# define __SXTB16     __sxtb16
-# define __SXTAB16    __sxtab16
-# define __SMUAD      __smuad
-# define __SMUADX     __smuadx
-# define __SMLAD      __smlad
-# define __SMLADX     __smladx
-# define __SMLALD     __smlald
-# define __SMLALDX    __smlaldx
-# define __SMUSD      __smusd
-# define __SMUSDX     __smusdx
-# define __SMLSD      __smlsd
-# define __SMLSDX     __smlsdx
-# define __SMLSLD     __smlsld
-# define __SMLSLDX    __smlsldx
-# define __SEL        __sel
-# define __QADD       __qadd
-# define __QSUB       __qsub
+#define __SADD8      __sadd8
+#define __QADD8      __qadd8
+#define __SHADD8     __shadd8
+#define __UADD8      __uadd8
+#define __UQADD8     __uqadd8
+#define __UHADD8     __uhadd8
+#define __SSUB8      __ssub8
+#define __QSUB8      __qsub8
+#define __SHSUB8     __shsub8
+#define __USUB8      __usub8
+#define __UQSUB8     __uqsub8
+#define __UHSUB8     __uhsub8
+#define __SADD16     __sadd16
+#define __QADD16     __qadd16
+#define __SHADD16    __shadd16
+#define __UADD16     __uadd16
+#define __UQADD16    __uqadd16
+#define __UHADD16    __uhadd16
+#define __SSUB16     __ssub16
+#define __QSUB16     __qsub16
+#define __SHSUB16    __shsub16
+#define __USUB16     __usub16
+#define __UQSUB16    __uqsub16
+#define __UHSUB16    __uhsub16
+#define __SASX       __sasx
+#define __QASX       __qasx
+#define __SHASX      __shasx
+#define __UASX       __uasx
+#define __UQASX      __uqasx
+#define __UHASX      __uhasx
+#define __SSAX       __ssax
+#define __QSAX       __qsax
+#define __SHSAX      __shsax
+#define __USAX       __usax
+#define __UQSAX      __uqsax
+#define __UHSAX      __uhsax
+#define __USAD8      __usad8
+#define __USADA8     __usada8
+#define __SSAT16     __ssat16
+#define __USAT16     __usat16
+#define __UXTB16     __uxtb16
+#define __UXTAB16    __uxtab16
+#define __SXTB16     __sxtb16
+#define __SXTAB16    __sxtab16
+#define __SMUAD      __smuad
+#define __SMUADX     __smuadx
+#define __SMLAD      __smlad
+#define __SMLADX     __smladx
+#define __SMLALD     __smlald
+#define __SMLALDX    __smlaldx
+#define __SMUSD      __smusd
+#define __SMUSDX     __smusdx
+#define __SMLSD      __smlsd
+#define __SMLSDX     __smlsdx
+#define __SMLSLD     __smlsld
+#define __SMLSLDX    __smlsldx
+#define __SEL        __sel
+#define __QADD       __qadd
+#define __QSUB       __qsub
 
-# define __PKHBT(ARG1, ARG2, ARG3) \
+#define __PKHBT(ARG1, ARG2, ARG3) \
 	( ((((uint32_t) (ARG1))          ) & 0x0000FFFFUL)    \
 	| ((((uint32_t) (ARG2)) << (ARG3)) & 0xFFFF0000UL)  )
 
-# define __PKHTB(ARG1, ARG2, ARG3) \
+#define __PKHTB(ARG1, ARG2, ARG3) \
 	( ((((uint32_t) (ARG1))          ) & 0xFFFF0000UL)    \
 	| ((((uint32_t) (ARG2)) >> (ARG3)) & 0x0000FFFFUL)  )
 
-# define __SMMLA(ARG1, ARG2, ARG3) \
+#define __SMMLA(ARG1, ARG2, ARG3) \
 	( (int32_t) ((((int64_t) (ARG1) *(ARG2))   \
 	+ ((int64_t) (ARG3) << 32U)     ) >> 32U))
 

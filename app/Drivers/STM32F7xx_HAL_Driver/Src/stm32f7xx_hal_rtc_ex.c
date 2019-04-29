@@ -177,7 +177,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTimeStamp(RTC_HandleTypeDef *hrtc, uint32_t TimeS
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTCEx_SetTimeStamp */
+}	/* HAL_RTCEx_SetTimeStamp */
 
 /**
  * @brief  Sets TimeStamp with Interrupt.
@@ -247,7 +247,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTimeStamp_IT(RTC_HandleTypeDef *hrtc, uint32_t Ti
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTCEx_SetTimeStamp_IT */
+}	/* HAL_RTCEx_SetTimeStamp_IT */
 
 /**
  * @brief  Deactivates TimeStamp.
@@ -403,7 +403,7 @@ HAL_StatusTypeDef HAL_RTCEx_GetTimeStamp(RTC_HandleTypeDef *hrtc, RTC_TimeTypeDe
 	__HAL_RTC_TIMESTAMP_CLEAR_FLAG(hrtc, RTC_FLAG_TSF);
 
 	return HAL_OK;
-} /* HAL_RTCEx_GetTimeStamp */
+}	/* HAL_RTCEx_GetTimeStamp */
 
 /**
  * @brief  Sets Tamper
@@ -483,7 +483,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper(RTC_HandleTypeDef *hrtc, RTC_TamperTypeDef
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTCEx_SetTamper */
+}	/* HAL_RTCEx_SetTamper */
 
 /**
  * @brief  Sets Tamper with interrupt.
@@ -583,7 +583,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperType
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTCEx_SetTamper_IT */
+}	/* HAL_RTCEx_SetTamper_IT */
 
 /**
  * @brief  Deactivates Tamper.
@@ -638,11 +638,11 @@ void HAL_RTCEx_TamperTimeStampIRQHandler(RTC_HandleTypeDef *hrtc)
 		/* Get the status of the Interrupt */
 		if ((uint32_t) (hrtc->Instance->CR & RTC_IT_TS) != (uint32_t) RESET) {
 			/* TIMESTAMP callback */
-			# if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
 			hrtc->TimeStampEventCallback(hrtc);
-			# else
+			#else
 			HAL_RTCEx_TimeStampEventCallback(hrtc);
-			# endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
 
 			/* Clear the TIMESTAMP interrupt pending bit */
 			__HAL_RTC_TIMESTAMP_CLEAR_FLAG(hrtc, RTC_FLAG_TSF);
@@ -656,11 +656,11 @@ void HAL_RTCEx_TamperTimeStampIRQHandler(RTC_HandleTypeDef *hrtc)
 		  (((hrtc->Instance->TAMPCR & RTC_TAMPCR_TAMP1IE)) != (uint32_t) RESET))
 		{
 			/* Tamper callback */
-			# if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
 			hrtc->Tamper1EventCallback(hrtc);
-			# else
+			#else
 			HAL_RTCEx_Tamper1EventCallback(hrtc);
-			# endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
 
 			/* Clear the Tamper interrupt pending bit */
 			__HAL_RTC_TAMPER_CLEAR_FLAG(hrtc, RTC_FLAG_TAMP1F);
@@ -674,11 +674,11 @@ void HAL_RTCEx_TamperTimeStampIRQHandler(RTC_HandleTypeDef *hrtc)
 		  (((hrtc->Instance->TAMPCR & RTC_TAMPCR_TAMP2IE)) != (uint32_t) RESET))
 		{
 			/* Tamper callback */
-			# if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
 			hrtc->Tamper2EventCallback(hrtc);
-			# else
+			#else
 			HAL_RTCEx_Tamper2EventCallback(hrtc);
-			# endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
 
 			/* Clear the Tamper interrupt pending bit */
 			__HAL_RTC_TAMPER_CLEAR_FLAG(hrtc, RTC_FLAG_TAMP2F);
@@ -692,11 +692,11 @@ void HAL_RTCEx_TamperTimeStampIRQHandler(RTC_HandleTypeDef *hrtc)
 		  (((hrtc->Instance->TAMPCR & RTC_TAMPCR_TAMP3IE)) != (uint32_t) RESET))
 		{
 			/* Tamper callback */
-			# if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
 			hrtc->Tamper3EventCallback(hrtc);
-			# else
+			#else
 			HAL_RTCEx_Tamper3EventCallback(hrtc);
-			# endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
 
 			/* Clear the Tamper interrupt pending bit */
 			__HAL_RTC_TAMPER_CLEAR_FLAG(hrtc, RTC_FLAG_TAMP3F);
@@ -708,7 +708,7 @@ void HAL_RTCEx_TamperTimeStampIRQHandler(RTC_HandleTypeDef *hrtc)
 
 	/* Change RTC state */
 	hrtc->State = HAL_RTC_STATE_READY;
-} /* HAL_RTCEx_TamperTimeStampIRQHandler */
+}	/* HAL_RTCEx_TamperTimeStampIRQHandler */
 
 /**
  * @brief  TimeStamp callback.
@@ -993,7 +993,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer(RTC_HandleTypeDef *hrtc, uint32_t Wak
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTCEx_SetWakeUpTimer */
+}	/* HAL_RTCEx_SetWakeUpTimer */
 
 /**
  * @brief  Sets wake up timer with interrupt
@@ -1090,7 +1090,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer_IT(RTC_HandleTypeDef *hrtc, uint32_t 
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTCEx_SetWakeUpTimer_IT */
+}	/* HAL_RTCEx_SetWakeUpTimer_IT */
 
 /**
  * @brief  Deactivates wake up timer counter.
@@ -1143,7 +1143,7 @@ uint32_t HAL_RTCEx_DeactivateWakeUpTimer(RTC_HandleTypeDef *hrtc)
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTCEx_DeactivateWakeUpTimer */
+}	/* HAL_RTCEx_DeactivateWakeUpTimer */
 
 /**
  * @brief  Gets wake up timer counter.
@@ -1169,11 +1169,11 @@ void HAL_RTCEx_WakeUpTimerIRQHandler(RTC_HandleTypeDef *hrtc)
 		/* Get the status of the Interrupt */
 		if ((uint32_t) (hrtc->Instance->CR & RTC_IT_WUT) != (uint32_t) RESET) {
 			/* WAKEUPTIMER callback */
-			# if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
+			#if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
 			hrtc->WakeUpTimerEventCallback(hrtc);
-			# else
+			#else
 			HAL_RTCEx_WakeUpTimerEventCallback(hrtc);
-			# endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_RTC_REGISTER_CALLBACKS */
 
 			/* Clear the WAKEUPTIMER interrupt pending bit */
 			__HAL_RTC_WAKEUPTIMER_CLEAR_FLAG(hrtc, RTC_FLAG_WUTF);
@@ -1389,7 +1389,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetSmoothCalib(RTC_HandleTypeDef *hrtc, uint32_t Smo
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTCEx_SetSmoothCalib */
+}	/* HAL_RTCEx_SetSmoothCalib */
 
 /**
  * @brief  Configures the Synchronization Shift Control Settings.
@@ -1480,7 +1480,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetSynchroShift(RTC_HandleTypeDef *hrtc, uint32_t Sh
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTCEx_SetSynchroShift */
+}	/* HAL_RTCEx_SetSynchroShift */
 
 /**
  * @brief  Configures the Calibration Pinout (RTC_CALIB) Selection (1Hz or 512Hz).
@@ -1600,7 +1600,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetRefClock(RTC_HandleTypeDef *hrtc)
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTCEx_SetRefClock */
+}	/* HAL_RTCEx_SetRefClock */
 
 /**
  * @brief  Disable the RTC reference clock detection.
@@ -1647,7 +1647,7 @@ HAL_StatusTypeDef HAL_RTCEx_DeactivateRefClock(RTC_HandleTypeDef *hrtc)
 	__HAL_UNLOCK(hrtc);
 
 	return HAL_OK;
-} /* HAL_RTCEx_DeactivateRefClock */
+}	/* HAL_RTCEx_DeactivateRefClock */
 
 /**
  * @brief  Enables the Bypass Shadow feature.

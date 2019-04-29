@@ -90,7 +90,7 @@ void arm_float_to_q31(
 	/* First part of the processing with loop unrolling.  Compute 4 outputs at a time.
 	** a second loop below computes the remaining 1 to 3 samples. */
 	while (blkCnt > 0U) {
-		# ifdef ARM_MATH_ROUNDING
+		#ifdef ARM_MATH_ROUNDING
 
 		/* C = A * 32768 */
 		/* convert from float to Q31 and then store the results in the destination buffer */
@@ -114,7 +114,7 @@ void arm_float_to_q31(
 		in     += in > 0.0f ? 0.5f : -0.5f;
 		*pDst++ = clip_q63_to_q31((q63_t) (in));
 
-		# else  /* ifdef ARM_MATH_ROUNDING */
+		#else	/* ifdef ARM_MATH_ROUNDING */
 
 		/* C = A * 2147483648 */
 		/* convert from float to Q31 and then store the results in the destination buffer */
@@ -123,7 +123,7 @@ void arm_float_to_q31(
 		*pDst++ = clip_q63_to_q31((q63_t) (*pIn++ *2147483648.0f));
 		*pDst++ = clip_q63_to_q31((q63_t) (*pIn++ *2147483648.0f));
 
-		# endif	/*      #ifdef ARM_MATH_ROUNDING        */
+		#endif	/*      #ifdef ARM_MATH_ROUNDING        */
 
 		/* Decrement the loop counter */
 		blkCnt--;
@@ -134,7 +134,7 @@ void arm_float_to_q31(
 	blkCnt = blockSize % 0x4U;
 
 	while (blkCnt > 0U) {
-		# ifdef ARM_MATH_ROUNDING
+		#ifdef ARM_MATH_ROUNDING
 
 		/* C = A * 2147483648 */
 		/* convert from float to Q31 and then store the results in the destination buffer */
@@ -143,20 +143,20 @@ void arm_float_to_q31(
 		in     += in > 0.0f ? 0.5f : -0.5f;
 		*pDst++ = clip_q63_to_q31((q63_t) (in));
 
-		# else
+		#else
 
 		/* C = A * 2147483648 */
 		/* convert from float to Q31 and then store the results in the destination buffer */
 		*pDst++ = clip_q63_to_q31((q63_t) (*pIn++ *2147483648.0f));
 
-		# endif	/*      #ifdef ARM_MATH_ROUNDING        */
+		#endif	/*      #ifdef ARM_MATH_ROUNDING        */
 
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
 
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -164,7 +164,7 @@ void arm_float_to_q31(
 	blkCnt = blockSize;
 
 	while (blkCnt > 0U) {
-		# ifdef ARM_MATH_ROUNDING
+		#ifdef ARM_MATH_ROUNDING
 
 		/* C = A * 2147483648 */
 		/* convert from float to Q31 and then store the results in the destination buffer */
@@ -173,20 +173,20 @@ void arm_float_to_q31(
 		in     += in > 0 ? 0.5f : -0.5f;
 		*pDst++ = clip_q63_to_q31((q63_t) (in));
 
-		# else
+		#else
 
 		/* C = A * 2147483648 */
 		/* convert from float to Q31 and then store the results in the destination buffer */
 		*pDst++ = clip_q63_to_q31((q63_t) (*pIn++ *2147483648.0f));
 
-		# endif	/*      #ifdef ARM_MATH_ROUNDING        */
+		#endif	/*      #ifdef ARM_MATH_ROUNDING        */
 
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_float_to_q31 */
+}	/* arm_float_to_q31 */
 
 /**
  * @} end of float_to_x group

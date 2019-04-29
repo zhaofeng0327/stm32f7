@@ -239,7 +239,7 @@ void arm_iir_lattice_q31(
 	}
 	;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 	/* Sample processing */
@@ -315,7 +315,7 @@ void arm_iir_lattice_q31(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_iir_lattice_q31 */
+}	/* arm_iir_lattice_q31 */
 
 /**
  * @} end of IIR_Lattice group

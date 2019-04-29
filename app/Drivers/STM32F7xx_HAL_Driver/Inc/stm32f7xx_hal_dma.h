@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_HAL_DMA_H
-# define __STM32F7xx_HAL_DMA_H
+#define __STM32F7xx_HAL_DMA_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -177,14 +177,14 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA Error Code
  * @{
  */
-# define HAL_DMA_ERROR_NONE             0x00000000U	/*!< No error                               */
-# define HAL_DMA_ERROR_TE               0x00000001U	/*!< Transfer error                         */
-# define HAL_DMA_ERROR_FE               0x00000002U	/*!< FIFO error                             */
-# define HAL_DMA_ERROR_DME              0x00000004U	/*!< Direct Mode error                      */
-# define HAL_DMA_ERROR_TIMEOUT          0x00000020U	/*!< Timeout error                          */
-# define HAL_DMA_ERROR_PARAM            0x00000040U	/*!< Parameter error                        */
-# define HAL_DMA_ERROR_NO_XFER          0x00000080U	/*!< Abort requested with no Xfer ongoing   */
-# define HAL_DMA_ERROR_NOT_SUPPORTED    0x00000100U	/*!< Not supported mode                     */
+#define HAL_DMA_ERROR_NONE             0x00000000U	/*!< No error                               */
+#define HAL_DMA_ERROR_TE               0x00000001U	/*!< Transfer error                         */
+#define HAL_DMA_ERROR_FE               0x00000002U	/*!< FIFO error                             */
+#define HAL_DMA_ERROR_DME              0x00000004U	/*!< Direct Mode error                      */
+#define HAL_DMA_ERROR_TIMEOUT          0x00000020U	/*!< Timeout error                          */
+#define HAL_DMA_ERROR_PARAM            0x00000040U	/*!< Parameter error                        */
+#define HAL_DMA_ERROR_NO_XFER          0x00000080U	/*!< Abort requested with no Xfer ongoing   */
+#define HAL_DMA_ERROR_NOT_SUPPORTED    0x00000100U	/*!< Not supported mode                     */
 
 /**
  * @}
@@ -194,9 +194,9 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA data transfer direction
  * @{
  */
-# define DMA_PERIPH_TO_MEMORY    0x00000000U	/*!< Peripheral to memory direction */
-# define DMA_MEMORY_TO_PERIPH    DMA_SxCR_DIR_0	/*!< Memory to peripheral direction */
-# define DMA_MEMORY_TO_MEMORY    DMA_SxCR_DIR_1	/*!< Memory to memory direction     */
+#define DMA_PERIPH_TO_MEMORY    0x00000000U		/*!< Peripheral to memory direction */
+#define DMA_MEMORY_TO_PERIPH    DMA_SxCR_DIR_0	/*!< Memory to peripheral direction */
+#define DMA_MEMORY_TO_MEMORY    DMA_SxCR_DIR_1	/*!< Memory to memory direction     */
 
 /**
  * @}
@@ -206,8 +206,8 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA peripheral incremented mode
  * @{
  */
-# define DMA_PINC_ENABLE     DMA_SxCR_PINC	/*!< Peripheral increment mode enable  */
-# define DMA_PINC_DISABLE    0x00000000U	/*!< Peripheral increment mode disable */
+#define DMA_PINC_ENABLE     DMA_SxCR_PINC	/*!< Peripheral increment mode enable  */
+#define DMA_PINC_DISABLE    0x00000000U		/*!< Peripheral increment mode disable */
 
 /**
  * @}
@@ -217,8 +217,8 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA memory incremented mode
  * @{
  */
-# define DMA_MINC_ENABLE     DMA_SxCR_MINC	/*!< Memory increment mode enable  */
-# define DMA_MINC_DISABLE    0x00000000U	/*!< Memory increment mode disable */
+#define DMA_MINC_ENABLE     DMA_SxCR_MINC	/*!< Memory increment mode enable  */
+#define DMA_MINC_DISABLE    0x00000000U		/*!< Memory increment mode disable */
 
 /**
  * @}
@@ -228,9 +228,9 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA peripheral data size
  * @{
  */
-# define DMA_PDATAALIGN_BYTE        0x00000000U		/*!< Peripheral data alignment: Byte     */
-# define DMA_PDATAALIGN_HALFWORD    DMA_SxCR_PSIZE_0/*!< Peripheral data alignment: HalfWord */
-# define DMA_PDATAALIGN_WORD        DMA_SxCR_PSIZE_1/*!< Peripheral data alignment: Word     */
+#define DMA_PDATAALIGN_BYTE        0x00000000U	/*!< Peripheral data alignment: Byte     */
+#define DMA_PDATAALIGN_HALFWORD    DMA_SxCR_PSIZE_0	/*!< Peripheral data alignment: HalfWord */
+#define DMA_PDATAALIGN_WORD        DMA_SxCR_PSIZE_1	/*!< Peripheral data alignment: Word     */
 
 /**
  * @}
@@ -240,9 +240,9 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA memory data size
  * @{
  */
-# define DMA_MDATAALIGN_BYTE        0x00000000U		/*!< Memory data alignment: Byte     */
-# define DMA_MDATAALIGN_HALFWORD    DMA_SxCR_MSIZE_0/*!< Memory data alignment: HalfWord */
-# define DMA_MDATAALIGN_WORD        DMA_SxCR_MSIZE_1/*!< Memory data alignment: Word     */
+#define DMA_MDATAALIGN_BYTE        0x00000000U	/*!< Memory data alignment: Byte     */
+#define DMA_MDATAALIGN_HALFWORD    DMA_SxCR_MSIZE_0	/*!< Memory data alignment: HalfWord */
+#define DMA_MDATAALIGN_WORD        DMA_SxCR_MSIZE_1	/*!< Memory data alignment: Word     */
 
 /**
  * @}
@@ -252,9 +252,9 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA mode
  * @{
  */
-# define DMA_NORMAL      0x00000000U	/*!< Normal mode                  */
-# define DMA_CIRCULAR    DMA_SxCR_CIRC	/*!< Circular mode                */
-# define DMA_PFCTRL      DMA_SxCR_PFCTRL/*!< Peripheral flow control mode */
+#define DMA_NORMAL      0x00000000U		/*!< Normal mode                  */
+#define DMA_CIRCULAR    DMA_SxCR_CIRC	/*!< Circular mode                */
+#define DMA_PFCTRL      DMA_SxCR_PFCTRL	/*!< Peripheral flow control mode */
 
 /**
  * @}
@@ -264,10 +264,10 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA priority levels
  * @{
  */
-# define DMA_PRIORITY_LOW          0x00000000U	/*!< Priority level: Low       */
-# define DMA_PRIORITY_MEDIUM       DMA_SxCR_PL_0/*!< Priority level: Medium    */
-# define DMA_PRIORITY_HIGH         DMA_SxCR_PL_1/*!< Priority level: High      */
-# define DMA_PRIORITY_VERY_HIGH    DMA_SxCR_PL	/*!< Priority level: Very High */
+#define DMA_PRIORITY_LOW          0x00000000U	/*!< Priority level: Low       */
+#define DMA_PRIORITY_MEDIUM       DMA_SxCR_PL_0	/*!< Priority level: Medium    */
+#define DMA_PRIORITY_HIGH         DMA_SxCR_PL_1	/*!< Priority level: High      */
+#define DMA_PRIORITY_VERY_HIGH    DMA_SxCR_PL	/*!< Priority level: Very High */
 
 /**
  * @}
@@ -277,8 +277,8 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA FIFO direct mode
  * @{
  */
-# define DMA_FIFOMODE_DISABLE    0x00000000U	/*!< FIFO mode disable */
-# define DMA_FIFOMODE_ENABLE     DMA_SxFCR_DMDIS/*!< FIFO mode enable  */
+#define DMA_FIFOMODE_DISABLE    0x00000000U	/*!< FIFO mode disable */
+#define DMA_FIFOMODE_ENABLE     DMA_SxFCR_DMDIS	/*!< FIFO mode enable  */
 
 /**
  * @}
@@ -288,10 +288,10 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA FIFO level
  * @{
  */
-# define DMA_FIFO_THRESHOLD_1QUARTERFULL     0x00000000U	/*!< FIFO threshold 1 quart full configuration  */
-# define DMA_FIFO_THRESHOLD_HALFFULL         DMA_SxFCR_FTH_0/*!< FIFO threshold half full configuration     */
-# define DMA_FIFO_THRESHOLD_3QUARTERSFULL    DMA_SxFCR_FTH_1/*!< FIFO threshold 3 quarts full configuration */
-# define DMA_FIFO_THRESHOLD_FULL             DMA_SxFCR_FTH	/*!< FIFO threshold full configuration          */
+#define DMA_FIFO_THRESHOLD_1QUARTERFULL     0x00000000U	/*!< FIFO threshold 1 quart full configuration  */
+#define DMA_FIFO_THRESHOLD_HALFFULL         DMA_SxFCR_FTH_0	/*!< FIFO threshold half full configuration     */
+#define DMA_FIFO_THRESHOLD_3QUARTERSFULL    DMA_SxFCR_FTH_1	/*!< FIFO threshold 3 quarts full configuration */
+#define DMA_FIFO_THRESHOLD_FULL             DMA_SxFCR_FTH	/*!< FIFO threshold full configuration          */
 
 /**
  * @}
@@ -301,10 +301,10 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA memory burst
  * @{
  */
-# define DMA_MBURST_SINGLE    0x00000000U
-# define DMA_MBURST_INC4      DMA_SxCR_MBURST_0
-# define DMA_MBURST_INC8      DMA_SxCR_MBURST_1
-# define DMA_MBURST_INC16     DMA_SxCR_MBURST
+#define DMA_MBURST_SINGLE    0x00000000U
+#define DMA_MBURST_INC4      DMA_SxCR_MBURST_0
+#define DMA_MBURST_INC8      DMA_SxCR_MBURST_1
+#define DMA_MBURST_INC16     DMA_SxCR_MBURST
 
 /**
  * @}
@@ -314,10 +314,10 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA peripheral burst
  * @{
  */
-# define DMA_PBURST_SINGLE    0x00000000U
-# define DMA_PBURST_INC4      DMA_SxCR_PBURST_0
-# define DMA_PBURST_INC8      DMA_SxCR_PBURST_1
-# define DMA_PBURST_INC16     DMA_SxCR_PBURST
+#define DMA_PBURST_SINGLE    0x00000000U
+#define DMA_PBURST_INC4      DMA_SxCR_PBURST_0
+#define DMA_PBURST_INC8      DMA_SxCR_PBURST_1
+#define DMA_PBURST_INC16     DMA_SxCR_PBURST
 
 /**
  * @}
@@ -327,11 +327,11 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA interrupts definition
  * @{
  */
-# define DMA_IT_TC     DMA_SxCR_TCIE
-# define DMA_IT_HT     DMA_SxCR_HTIE
-# define DMA_IT_TE     DMA_SxCR_TEIE
-# define DMA_IT_DME    DMA_SxCR_DMEIE
-# define DMA_IT_FE     0x00000080U
+#define DMA_IT_TC     DMA_SxCR_TCIE
+#define DMA_IT_HT     DMA_SxCR_HTIE
+#define DMA_IT_TE     DMA_SxCR_TEIE
+#define DMA_IT_DME    DMA_SxCR_DMEIE
+#define DMA_IT_FE     0x00000080U
 
 /**
  * @}
@@ -341,26 +341,26 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA flag definitions
  * @{
  */
-# define DMA_FLAG_FEIF0_4     0x00000001U
-# define DMA_FLAG_DMEIF0_4    0x00000004U
-# define DMA_FLAG_TEIF0_4     0x00000008U
-# define DMA_FLAG_HTIF0_4     0x00000010U
-# define DMA_FLAG_TCIF0_4     0x00000020U
-# define DMA_FLAG_FEIF1_5     0x00000040U
-# define DMA_FLAG_DMEIF1_5    0x00000100U
-# define DMA_FLAG_TEIF1_5     0x00000200U
-# define DMA_FLAG_HTIF1_5     0x00000400U
-# define DMA_FLAG_TCIF1_5     0x00000800U
-# define DMA_FLAG_FEIF2_6     0x00010000U
-# define DMA_FLAG_DMEIF2_6    0x00040000U
-# define DMA_FLAG_TEIF2_6     0x00080000U
-# define DMA_FLAG_HTIF2_6     0x00100000U
-# define DMA_FLAG_TCIF2_6     0x00200000U
-# define DMA_FLAG_FEIF3_7     0x00400000U
-# define DMA_FLAG_DMEIF3_7    0x01000000U
-# define DMA_FLAG_TEIF3_7     0x02000000U
-# define DMA_FLAG_HTIF3_7     0x04000000U
-# define DMA_FLAG_TCIF3_7     0x08000000U
+#define DMA_FLAG_FEIF0_4     0x00000001U
+#define DMA_FLAG_DMEIF0_4    0x00000004U
+#define DMA_FLAG_TEIF0_4     0x00000008U
+#define DMA_FLAG_HTIF0_4     0x00000010U
+#define DMA_FLAG_TCIF0_4     0x00000020U
+#define DMA_FLAG_FEIF1_5     0x00000040U
+#define DMA_FLAG_DMEIF1_5    0x00000100U
+#define DMA_FLAG_TEIF1_5     0x00000200U
+#define DMA_FLAG_HTIF1_5     0x00000400U
+#define DMA_FLAG_TCIF1_5     0x00000800U
+#define DMA_FLAG_FEIF2_6     0x00010000U
+#define DMA_FLAG_DMEIF2_6    0x00040000U
+#define DMA_FLAG_TEIF2_6     0x00080000U
+#define DMA_FLAG_HTIF2_6     0x00100000U
+#define DMA_FLAG_TCIF2_6     0x00200000U
+#define DMA_FLAG_FEIF3_7     0x00400000U
+#define DMA_FLAG_DMEIF3_7    0x01000000U
+#define DMA_FLAG_TEIF3_7     0x02000000U
+#define DMA_FLAG_HTIF3_7     0x04000000U
+#define DMA_FLAG_TCIF3_7     0x08000000U
 
 /**
  * @}
@@ -376,7 +376,7 @@ typedef struct __DMA_HandleTypeDef {
  * @param  __HANDLE__ specifies the DMA handle.
  * @retval None
  */
-# define __HAL_DMA_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_DMA_STATE_RESET)
+#define __HAL_DMA_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_DMA_STATE_RESET)
 
 /**
  * @brief  Return the current DMA Stream FIFO filled level.
@@ -390,21 +390,21 @@ typedef struct __DMA_HandleTypeDef {
  *           - DMA_FIFOStatus_Empty: when FIFO is empty
  *           - DMA_FIFOStatus_Full: when FIFO is full
  */
-# define __HAL_DMA_GET_FS(__HANDLE__)    (((__HANDLE__)->Instance->FCR & (DMA_SxFCR_FS)))
+#define __HAL_DMA_GET_FS(__HANDLE__)    (((__HANDLE__)->Instance->FCR & (DMA_SxFCR_FS)))
 
 /**
  * @brief  Enable the specified DMA Stream.
  * @param  __HANDLE__ DMA handle
  * @retval None
  */
-# define __HAL_DMA_ENABLE(__HANDLE__)    ((__HANDLE__)->Instance->CR |= DMA_SxCR_EN)
+#define __HAL_DMA_ENABLE(__HANDLE__)    ((__HANDLE__)->Instance->CR |= DMA_SxCR_EN)
 
 /**
  * @brief  Disable the specified DMA Stream.
  * @param  __HANDLE__ DMA handle
  * @retval None
  */
-# define __HAL_DMA_DISABLE(__HANDLE__)    ((__HANDLE__)->Instance->CR &= ~DMA_SxCR_EN)
+#define __HAL_DMA_DISABLE(__HANDLE__)    ((__HANDLE__)->Instance->CR &= ~DMA_SxCR_EN)
 
 /* Interrupt & Flag management */
 
@@ -413,7 +413,7 @@ typedef struct __DMA_HandleTypeDef {
  * @param  __HANDLE__ DMA handle
  * @retval The specified transfer complete flag index.
  */
-# define __HAL_DMA_GET_TC_FLAG_INDEX(__HANDLE__) \
+#define __HAL_DMA_GET_TC_FLAG_INDEX(__HANDLE__) \
 	(((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA1_Stream0)) ? DMA_FLAG_TCIF0_4 : \
 	((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA2_Stream0)) ? DMA_FLAG_TCIF0_4 : \
 	((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA1_Stream4)) ? DMA_FLAG_TCIF0_4 : \
@@ -433,7 +433,7 @@ typedef struct __DMA_HandleTypeDef {
  * @param  __HANDLE__ DMA handle
  * @retval The specified half transfer complete flag index.
  */
-# define __HAL_DMA_GET_HT_FLAG_INDEX(__HANDLE__) \
+#define __HAL_DMA_GET_HT_FLAG_INDEX(__HANDLE__) \
 	(((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA1_Stream0)) ? DMA_FLAG_HTIF0_4 : \
 	((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA2_Stream0)) ? DMA_FLAG_HTIF0_4 : \
 	((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA1_Stream4)) ? DMA_FLAG_HTIF0_4 : \
@@ -453,7 +453,7 @@ typedef struct __DMA_HandleTypeDef {
  * @param  __HANDLE__ DMA handle
  * @retval The specified transfer error flag index.
  */
-# define __HAL_DMA_GET_TE_FLAG_INDEX(__HANDLE__) \
+#define __HAL_DMA_GET_TE_FLAG_INDEX(__HANDLE__) \
 	(((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA1_Stream0)) ? DMA_FLAG_TEIF0_4 : \
 	((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA2_Stream0)) ? DMA_FLAG_TEIF0_4 : \
 	((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA1_Stream4)) ? DMA_FLAG_TEIF0_4 : \
@@ -473,7 +473,7 @@ typedef struct __DMA_HandleTypeDef {
  * @param  __HANDLE__ DMA handle
  * @retval The specified FIFO error flag index.
  */
-# define __HAL_DMA_GET_FE_FLAG_INDEX(__HANDLE__) \
+#define __HAL_DMA_GET_FE_FLAG_INDEX(__HANDLE__) \
 	(((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA1_Stream0)) ? DMA_FLAG_FEIF0_4 : \
 	((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA2_Stream0)) ? DMA_FLAG_FEIF0_4 : \
 	((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA1_Stream4)) ? DMA_FLAG_FEIF0_4 : \
@@ -493,7 +493,7 @@ typedef struct __DMA_HandleTypeDef {
  * @param  __HANDLE__ DMA handle
  * @retval The specified direct mode error flag index.
  */
-# define __HAL_DMA_GET_DME_FLAG_INDEX(__HANDLE__) \
+#define __HAL_DMA_GET_DME_FLAG_INDEX(__HANDLE__) \
 	(((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA1_Stream0)) ? DMA_FLAG_DMEIF0_4 : \
 	((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA2_Stream0)) ? DMA_FLAG_DMEIF0_4 : \
 	((uint32_t) ((__HANDLE__)->Instance) == ((uint32_t) DMA1_Stream4)) ? DMA_FLAG_DMEIF0_4 : \
@@ -521,7 +521,7 @@ typedef struct __DMA_HandleTypeDef {
  *         Where x can be 0_4, 1_5, 2_6 or 3_7 to select the DMA Stream flag.
  * @retval The state of FLAG (SET or RESET).
  */
-# define __HAL_DMA_GET_FLAG(__HANDLE__, __FLAG__) \
+#define __HAL_DMA_GET_FLAG(__HANDLE__, __FLAG__) \
 	(((uint32_t) ((__HANDLE__)->Instance) > (uint32_t) DMA2_Stream3) ? (DMA2->HISR & (__FLAG__)) : \
 	((uint32_t) ((__HANDLE__)->Instance) > (uint32_t) DMA1_Stream7) ? (DMA2->LISR & (__FLAG__)) : \
 	((uint32_t) ((__HANDLE__)->Instance) > \
@@ -540,7 +540,7 @@ typedef struct __DMA_HandleTypeDef {
  *         Where x can be 0_4, 1_5, 2_6 or 3_7 to select the DMA Stream flag.
  * @retval None
  */
-# define __HAL_DMA_CLEAR_FLAG(__HANDLE__, __FLAG__) \
+#define __HAL_DMA_CLEAR_FLAG(__HANDLE__, __FLAG__) \
 	(((uint32_t) ((__HANDLE__)->Instance) > (uint32_t) DMA2_Stream3) ? (DMA2->HIFCR = (__FLAG__)) : \
 	((uint32_t) ((__HANDLE__)->Instance) > (uint32_t) DMA1_Stream7) ? (DMA2->LIFCR = (__FLAG__)) : \
 	((uint32_t) ((__HANDLE__)->Instance) > \
@@ -558,7 +558,7 @@ typedef struct __DMA_HandleTypeDef {
  *           @arg DMA_IT_DME: Direct mode error interrupt.
  * @retval None
  */
-# define __HAL_DMA_ENABLE_IT(__HANDLE__, __INTERRUPT__) \
+#define __HAL_DMA_ENABLE_IT(__HANDLE__, __INTERRUPT__) \
 	(((__INTERRUPT__) != DMA_IT_FE) ? \
 	((__HANDLE__)->Instance->CR |= (__INTERRUPT__)) : ((__HANDLE__)->Instance->FCR |= (__INTERRUPT__)))
 
@@ -574,7 +574,7 @@ typedef struct __DMA_HandleTypeDef {
  *            @arg DMA_IT_DME: Direct mode error interrupt.
  * @retval None
  */
-# define __HAL_DMA_DISABLE_IT(__HANDLE__, __INTERRUPT__) \
+#define __HAL_DMA_DISABLE_IT(__HANDLE__, __INTERRUPT__) \
 	(((__INTERRUPT__) != DMA_IT_FE) ? \
 	((__HANDLE__)->Instance->CR &= ~(__INTERRUPT__)) : ((__HANDLE__)->Instance->FCR &= ~(__INTERRUPT__)))
 
@@ -590,7 +590,7 @@ typedef struct __DMA_HandleTypeDef {
  *            @arg DMA_IT_DME: Direct mode error interrupt.
  * @retval The state of DMA_IT.
  */
-# define __HAL_DMA_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__) \
+#define __HAL_DMA_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__) \
 	(((__INTERRUPT__) != DMA_IT_FE) ? \
 	((__HANDLE__)->Instance->CR & (__INTERRUPT__)) : \
 	((__HANDLE__)->Instance->FCR & (__INTERRUPT__)))
@@ -612,7 +612,7 @@ typedef struct __DMA_HandleTypeDef {
  *
  * @retval The number of remaining data units in the current DMAy Streamx transfer.
  */
-# define __HAL_DMA_SET_COUNTER(__HANDLE__, __COUNTER__)    ((__HANDLE__)->Instance->NDTR = (uint16_t) (__COUNTER__))
+#define __HAL_DMA_SET_COUNTER(__HANDLE__, __COUNTER__)    ((__HANDLE__)->Instance->NDTR = (uint16_t) (__COUNTER__))
 
 /**
  * @brief  Returns the number of remaining data units in the current DMAy Streamx transfer.
@@ -620,11 +620,11 @@ typedef struct __DMA_HandleTypeDef {
  *
  * @retval The number of remaining data units in the current DMA Stream transfer.
  */
-# define __HAL_DMA_GET_COUNTER(__HANDLE__)    ((__HANDLE__)->Instance->NDTR)
+#define __HAL_DMA_GET_COUNTER(__HANDLE__)    ((__HANDLE__)->Instance->NDTR)
 
 
 /* Include DMA HAL Extension module */
-# include "stm32f7xx_hal_dma_ex.h"
+#include "stm32f7xx_hal_dma_ex.h"
 
 /* Exported functions --------------------------------------------------------*/
 
@@ -695,59 +695,59 @@ uint32_t             HAL_DMA_GetError(DMA_HandleTypeDef *hdma);
  * @brief    DMA private macros
  * @{
  */
-# define IS_DMA_DIRECTION(DIRECTION) \
+#define IS_DMA_DIRECTION(DIRECTION) \
 	(((DIRECTION) == DMA_PERIPH_TO_MEMORY ) || \
 	((DIRECTION) == DMA_MEMORY_TO_PERIPH) || \
 	((DIRECTION) == DMA_MEMORY_TO_MEMORY))
 
-# define IS_DMA_BUFFER_SIZE(SIZE)    (((SIZE) >= 0x01U) && ((SIZE) < 0x10000U))
+#define IS_DMA_BUFFER_SIZE(SIZE)    (((SIZE) >= 0x01U) && ((SIZE) < 0x10000U))
 
-# define IS_DMA_PERIPHERAL_INC_STATE(STATE) \
+#define IS_DMA_PERIPHERAL_INC_STATE(STATE) \
 	(((STATE) == DMA_PINC_ENABLE) || \
 	((STATE) == DMA_PINC_DISABLE))
 
-# define IS_DMA_MEMORY_INC_STATE(STATE) \
+#define IS_DMA_MEMORY_INC_STATE(STATE) \
 	(((STATE) == DMA_MINC_ENABLE) || \
 	((STATE) == DMA_MINC_DISABLE))
 
-# define IS_DMA_PERIPHERAL_DATA_SIZE(SIZE) \
+#define IS_DMA_PERIPHERAL_DATA_SIZE(SIZE) \
 	(((SIZE) == DMA_PDATAALIGN_BYTE) || \
 	((SIZE) == DMA_PDATAALIGN_HALFWORD) || \
 	((SIZE) == DMA_PDATAALIGN_WORD))
 
-# define IS_DMA_MEMORY_DATA_SIZE(SIZE) \
+#define IS_DMA_MEMORY_DATA_SIZE(SIZE) \
 	(((SIZE) == DMA_MDATAALIGN_BYTE) || \
 	((SIZE) == DMA_MDATAALIGN_HALFWORD) || \
 	((SIZE) == DMA_MDATAALIGN_WORD ))
 
-# define IS_DMA_MODE(MODE) \
+#define IS_DMA_MODE(MODE) \
 	(((MODE) == DMA_NORMAL ) || \
 	((MODE) == DMA_CIRCULAR) || \
 	((MODE) == DMA_PFCTRL))
 
-# define IS_DMA_PRIORITY(PRIORITY) \
+#define IS_DMA_PRIORITY(PRIORITY) \
 	(((PRIORITY) == DMA_PRIORITY_LOW ) || \
 	((PRIORITY) == DMA_PRIORITY_MEDIUM) || \
 	((PRIORITY) == DMA_PRIORITY_HIGH) || \
 	((PRIORITY) == DMA_PRIORITY_VERY_HIGH))
 
-# define IS_DMA_FIFO_MODE_STATE(STATE) \
+#define IS_DMA_FIFO_MODE_STATE(STATE) \
 	(((STATE) == DMA_FIFOMODE_DISABLE ) || \
 	((STATE) == DMA_FIFOMODE_ENABLE))
 
-# define IS_DMA_FIFO_THRESHOLD(THRESHOLD) \
+#define IS_DMA_FIFO_THRESHOLD(THRESHOLD) \
 	(((THRESHOLD) == DMA_FIFO_THRESHOLD_1QUARTERFULL ) || \
 	((THRESHOLD) == DMA_FIFO_THRESHOLD_HALFFULL) || \
 	((THRESHOLD) == DMA_FIFO_THRESHOLD_3QUARTERSFULL) || \
 	((THRESHOLD) == DMA_FIFO_THRESHOLD_FULL))
 
-# define IS_DMA_MEMORY_BURST(BURST) \
+#define IS_DMA_MEMORY_BURST(BURST) \
 	(((BURST) == DMA_MBURST_SINGLE) || \
 	((BURST) == DMA_MBURST_INC4) || \
 	((BURST) == DMA_MBURST_INC8) || \
 	((BURST) == DMA_MBURST_INC16))
 
-# define IS_DMA_PERIPHERAL_BURST(BURST) \
+#define IS_DMA_PERIPHERAL_BURST(BURST) \
 	(((BURST) == DMA_PBURST_SINGLE) || \
 	((BURST) == DMA_PBURST_INC4) || \
 	((BURST) == DMA_PBURST_INC8) || \
@@ -776,9 +776,9 @@ uint32_t             HAL_DMA_GetError(DMA_HandleTypeDef *hdma);
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_HAL_DMA_H */
 

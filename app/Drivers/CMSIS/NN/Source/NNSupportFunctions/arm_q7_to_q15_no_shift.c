@@ -84,17 +84,17 @@ void arm_q7_to_q15_no_shift(const q7_t *pSrc, q15_t *pDst, uint32_t blockSize)
 		/* extend remainig two q7_t values to q15_t values */
 		in2 = __SXTB16(in);
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		out2 = __PKHTB(in1, in2, 16);
 		out1 = __PKHBT(in2, in1, 16);
 
-		# else
+		#else
 
 		out1 = __PKHTB(in1, in2, 16);
 		out2 = __PKHBT(in2, in1, 16);
 
-		# endif
+		#endif
 
 		*__SIMD32(pDst)++ = out1;
 		*__SIMD32(pDst)++ = out2;
@@ -107,7 +107,7 @@ void arm_q7_to_q15_no_shift(const q7_t *pSrc, q15_t *pDst, uint32_t blockSize)
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4u;
 
-	#else  /* ifndef ARM_MATH_CM0_FAMILY */
+	#else	/* ifndef ARM_MATH_CM0_FAMILY */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -124,7 +124,7 @@ void arm_q7_to_q15_no_shift(const q7_t *pSrc, q15_t *pDst, uint32_t blockSize)
 		/* Decrement the loop counter */
 		blkCnt--;
 	}
-} /* arm_q7_to_q15_no_shift */
+}	/* arm_q7_to_q15_no_shift */
 
 /**
  * @} end of nndata_convert group

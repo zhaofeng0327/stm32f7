@@ -321,9 +321,9 @@ void arm_iir_lattice_f32(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* arm_iir_lattice_f32 */
+}	/* arm_iir_lattice_f32 */
 
-#else  /* if defined(ARM_MATH_DSP) */
+#else	/* if defined(ARM_MATH_DSP) */
 
 void arm_iir_lattice_f32(
 	const arm_iir_lattice_instance_f32 *S,
@@ -411,7 +411,7 @@ void arm_iir_lattice_f32(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* arm_iir_lattice_f32 */
+}	/* arm_iir_lattice_f32 */
 
 #endif	/*   #if defined (ARM_MATH_DSP) */
 

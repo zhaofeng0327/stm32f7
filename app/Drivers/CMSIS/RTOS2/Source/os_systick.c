@@ -31,9 +31,9 @@
 
 #ifdef  SysTick
 
-# ifndef SYSTICK_IRQ_PRIORITY
-#  define SYSTICK_IRQ_PRIORITY    0xFFU
-# endif
+#ifndef SYSTICK_IRQ_PRIORITY
+#define SYSTICK_IRQ_PRIORITY    0xFFU
+#endif
 
 static uint8_t PendST;
 
@@ -55,19 +55,19 @@ __WEAK int32_t OS_Tick_Setup(uint32_t freq, IRQHandler_t handler)
 	}
 
 	// Set SysTick Interrupt Priority
-	# if   ((defined(__ARM_ARCH_8M_MAIN__) && (__ARM_ARCH_8M_MAIN__ != 0)) || \
+	#if   ((defined(__ARM_ARCH_8M_MAIN__) && (__ARM_ARCH_8M_MAIN__ != 0)) || \
 	(defined(__CORTEX_M) && (__CORTEX_M == 7U)))
 	SCB->SHPR[11] = SYSTICK_IRQ_PRIORITY;
-	# elif  (defined(__ARM_ARCH_8M_BASE__) && (__ARM_ARCH_8M_BASE__ != 0))
+	#elif  (defined(__ARM_ARCH_8M_BASE__) && (__ARM_ARCH_8M_BASE__ != 0))
 	SCB->SHPR[1] |= ((uint32_t) SYSTICK_IRQ_PRIORITY << 24);
-	# elif ((defined(__ARM_ARCH_7M__) && (__ARM_ARCH_7M__ != 0)) || \
+	#elif ((defined(__ARM_ARCH_7M__) && (__ARM_ARCH_7M__ != 0)) || \
 	(defined(__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ != 0)))
 	SCB->SHP[11] = SYSTICK_IRQ_PRIORITY;
-	# elif  (defined(__ARM_ARCH_6M__) && (__ARM_ARCH_6M__ != 0))
+	#elif  (defined(__ARM_ARCH_6M__) && (__ARM_ARCH_6M__ != 0))
 	SCB->SHP[1] |= ((uint32_t) SYSTICK_IRQ_PRIORITY << 24);
-	# else
-	#  error "Unknown ARM Core!"
-	# endif	/* if   ((defined(__ARM_ARCH_8M_MAIN__) && (__ARM_ARCH_8M_MAIN__ != 0)) || (defined(__CORTEX_M) && (__CORTEX_M == 7U))) */
+	#else
+	#error "Unknown ARM Core!"
+	#endif	/* if   ((defined(__ARM_ARCH_8M_MAIN__) && (__ARM_ARCH_8M_MAIN__ != 0)) || (defined(__CORTEX_M) && (__CORTEX_M == 7U))) */
 
 	SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk;
 	SysTick->LOAD = load;
@@ -76,7 +76,7 @@ __WEAK int32_t OS_Tick_Setup(uint32_t freq, IRQHandler_t handler)
 	PendST = 0U;
 
 	return (0);
-} /* OS_Tick_Setup */
+}	/* OS_Tick_Setup */
 
 /// Enable OS Tick.
 __WEAK void OS_Tick_Enable(void)

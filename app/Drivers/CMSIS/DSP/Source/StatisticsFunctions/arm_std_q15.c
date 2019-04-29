@@ -133,7 +133,7 @@ void arm_std_q15(
 	/* Compute standard deviation and store the result to the destination */
 	arm_sqrt_q15(__SSAT((meanOfSquares - squareOfMean) >> 15U, 16U), pResult);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 
 	/* Loop over blockSize number of values */
@@ -167,7 +167,7 @@ void arm_std_q15(
 	arm_sqrt_q15(__SSAT((meanOfSquares - squareOfMean) >> 15U, 16U), pResult);
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_std_q15 */
+}	/* arm_std_q15 */
 
 /**
  * @} end of STD group

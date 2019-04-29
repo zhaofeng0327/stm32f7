@@ -100,7 +100,7 @@ void arm_cfft_q15(
 				arm_cfft_radix4by2_inverse_q15(p1, L, S->pTwiddle);
 				break;
 		}
-	} else   {
+	} else {
 		switch (L) {
 			case 16:
 			case 64:
@@ -121,7 +121,7 @@ void arm_cfft_q15(
 
 	if (bitReverseFlag)
 		arm_bitreversal_16((uint16_t *) p1, S->bitRevLength, S->pBitRevTable);
-} /* arm_cfft_q15 */
+}	/* arm_cfft_q15 */
 
 /**
  * @} end of ComplexFFT group
@@ -165,17 +165,17 @@ void arm_cfft_radix4by2_q15(
 		_SIMD32_OFFSET(pSi) = __SHADD16(T, S);
 		pSi += 2;
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		out1 = __SMUAD(coeff, R) >> 16;
 		out2 = __SMUSDX(coeff, R);
 
-		# else
+		#else
 
 		out1 = __SMUSDX(R, coeff) >> 16U;
 		out2 = __SMUAD(coeff, R);
 
-		# endif	//     #ifndef ARM_MATH_BIG_ENDIAN
+		#endif	//     #ifndef ARM_MATH_BIG_ENDIAN
 
 		_SIMD32_OFFSET(pSl) =
 		  (q31_t) ((out2) & 0xFFFF0000) | (out1 & 0x0000FFFF);
@@ -229,7 +229,7 @@ void arm_cfft_radix4by2_q15(
 		pSrc[4 * i + 2] = p2;
 		pSrc[4 * i + 3] = p3;
 	}
-} /* arm_cfft_radix4by2_q15 */
+}	/* arm_cfft_radix4by2_q15 */
 
 void arm_cfft_radix4by2_inverse_q15(
 	q15_t       *pSrc,
@@ -269,16 +269,16 @@ void arm_cfft_radix4by2_inverse_q15(
 		_SIMD32_OFFSET(pSi) = __SHADD16(T, S);
 		pSi += 2;
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		out1 = __SMUSD(coeff, R) >> 16;
 		out2 = __SMUADX(coeff, R);
-		# else
+		#else
 
 		out1 = __SMUADX(R, coeff) >> 16U;
 		out2 = __SMUSD(__QSUB(0, coeff), R);
 
-		# endif	//     #ifndef ARM_MATH_BIG_ENDIAN
+		#endif	//     #ifndef ARM_MATH_BIG_ENDIAN
 
 		_SIMD32_OFFSET(pSl) =
 		  (q31_t) ((out2) & 0xFFFF0000) | (out1 & 0x0000FFFF);
@@ -331,4 +331,4 @@ void arm_cfft_radix4by2_inverse_q15(
 		pSrc[4 * i + 2] = p2;
 		pSrc[4 * i + 3] = p3;
 	}
-} /* arm_cfft_radix4by2_inverse_q15 */
+}	/* arm_cfft_radix4by2_inverse_q15 */

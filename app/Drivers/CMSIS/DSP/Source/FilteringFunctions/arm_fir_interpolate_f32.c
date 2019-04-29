@@ -449,9 +449,9 @@ void arm_fir_interpolate_f32(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* arm_fir_interpolate_f32 */
+}	/* arm_fir_interpolate_f32 */
 
-#else  /* if defined(ARM_MATH_DSP) */
+#else	/* if defined(ARM_MATH_DSP) */
 
 /* Run the below code for Cortex-M0 */
 
@@ -463,8 +463,8 @@ void arm_fir_interpolate_f32(
 {
 	float32_t *pState  = S->pState;	/* State pointer */
 	float32_t *pCoeffs = S->pCoeffs;/* Coefficient pointer */
-	float32_t *pStateCurnt;			/* Points to the current sample of the state */
-	float32_t *ptr1, *ptr2;			/* Temporary pointers for state and coefficient buffers */
+	float32_t *pStateCurnt;	/* Points to the current sample of the state */
+	float32_t *ptr1, *ptr2;	/* Temporary pointers for state and coefficient buffers */
 
 
 	float32_t sum;								/* Accumulator */
@@ -541,7 +541,7 @@ void arm_fir_interpolate_f32(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* arm_fir_interpolate_f32 */
+}	/* arm_fir_interpolate_f32 */
 
 #endif	/*   #if defined (ARM_MATH_DSP) */
 

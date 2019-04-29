@@ -78,9 +78,9 @@ void arm_iir_lattice_q15(
 	q15_t *pStateCurnt;						/* State current pointer */
 	q15_t out;								/* Temporary variable for output */
 	q31_t v;								/* Temporary variable for ladder coefficient */
-	# ifdef UNALIGNED_SUPPORT_DISABLE
+	#ifdef UNALIGNED_SUPPORT_DISABLE
 	q15_t v1, v2;
-	# endif
+	#endif
 
 
 	blkCnt = blockSize;
@@ -154,39 +154,39 @@ void arm_iir_lattice_q15(
 			*px2++ = (q15_t) gnext2;
 
 			/* Read vN-1 and vN-2 at a time */
-			# ifndef UNALIGNED_SUPPORT_DISABLE
+			#ifndef UNALIGNED_SUPPORT_DISABLE
 
 			v = *__SIMD32(pv)++;
 
-			# else
+			#else
 
 			v1 = *pv++;
 			v2 = *pv++;
 
-			#  ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 
 			v = __PKHBT(v1, v2, 16);
 
-			#  else
+			#else
 
 			v = __PKHBT(v2, v1, 16);
 
-			#  endif/*  #ifndef ARM_MATH_BIG_ENDIAN		*/
+			#endif	/*  #ifndef ARM_MATH_BIG_ENDIAN		*/
 
-			# endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE */
+			#endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE */
 
 
 			/* Pack gN-1(n) and gN-2(n) */
 
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			gnext = __PKHBT(gnext1, gnext2, 16);
 
-			# else
+			#else
 
 			gnext = __PKHBT(gnext2, gnext1, 16);
 
-			# endif	/*   #ifndef  ARM_MATH_BIG_ENDIAN    */
+			#endif	/*   #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 			/* y(n) += gN-1(n) * vN-1  */
 			/* process for gN-5(n) * vN-5, gN-9(n) * vN-9 ... */
@@ -223,38 +223,38 @@ void arm_iir_lattice_q15(
 			*px2++ = (q15_t) gnext2;
 
 			/* Read vN-3 and vN-4 at a time */
-			# ifndef UNALIGNED_SUPPORT_DISABLE
+			#ifndef UNALIGNED_SUPPORT_DISABLE
 
 			v = *__SIMD32(pv)++;
 
-			# else
+			#else
 
 			v1 = *pv++;
 			v2 = *pv++;
 
-			#  ifndef ARM_MATH_BIG_ENDIAN
+			#ifndef ARM_MATH_BIG_ENDIAN
 
 			v = __PKHBT(v1, v2, 16);
 
-			#  else
+			#else
 
 			v = __PKHBT(v2, v1, 16);
 
-			#  endif/* #ifndef ARM_MATH_BIG_ENDIAN	 */
+			#endif	/* #ifndef ARM_MATH_BIG_ENDIAN	 */
 
-			# endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE */
+			#endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE */
 
 
 			/* Pack gN-3(n) and gN-4(n) */
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			gnext = __PKHBT(gnext1, gnext2, 16);
 
-			# else
+			#else
 
 			gnext = __PKHBT(gnext2, gnext1, 16);
 
-			# endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
+			#endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 			/* y(n) += gN-4(n) * vN-4  */
 			/* process for gN-8(n) * vN-8, gN-12(n) * vN-12 ... */
@@ -309,19 +309,19 @@ void arm_iir_lattice_q15(
 
 	/* copy data */
 	while (stgCnt > 0U) {
-		# ifndef UNALIGNED_SUPPORT_DISABLE
+		#ifndef UNALIGNED_SUPPORT_DISABLE
 
 		*__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
 		*__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
 
-		# else
+		#else
 
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
 
-		# endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE */
+		#endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE */
 
 		/* Decrement the loop counter */
 		stgCnt--;
@@ -338,7 +338,7 @@ void arm_iir_lattice_q15(
 		stgCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -427,7 +427,7 @@ void arm_iir_lattice_q15(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_iir_lattice_q15 */
+}	/* arm_iir_lattice_q15 */
 
 /**
  * @} end of IIR_Lattice group

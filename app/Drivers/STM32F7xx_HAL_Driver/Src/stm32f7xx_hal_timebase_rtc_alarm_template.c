@@ -69,12 +69,12 @@
 /* #define RTC_CLOCK_SOURCE_LSI */
 
 #ifdef RTC_CLOCK_SOURCE_HSE
-# define RTC_ASYNCH_PREDIV        99U
-# define RTC_SYNCH_PREDIV         9U
-# define RCC_RTCCLKSOURCE_1MHZ    ((uint32_t) ((uint32_t) RCC_BDCR_RTCSEL | (uint32_t) ((HSE_VALUE / 1000000U) << 16U)))
+#define RTC_ASYNCH_PREDIV        99U
+#define RTC_SYNCH_PREDIV         9U
+#define RCC_RTCCLKSOURCE_1MHZ    ((uint32_t) ((uint32_t) RCC_BDCR_RTCSEL | (uint32_t) ((HSE_VALUE / 1000000U) << 16U)))
 #else	/* RTC_CLOCK_SOURCE_LSE || RTC_CLOCK_SOURCE_LSI */
-# define RTC_ASYNCH_PREDIV        0U
-# define RTC_SYNCH_PREDIV         31U
+#define RTC_ASYNCH_PREDIV        0U
+#define RTC_SYNCH_PREDIV         31U
 #endif	/* RTC_CLOCK_SOURCE_HSE */
 
 /* Private macro -------------------------------------------------------------*/
@@ -119,8 +119,8 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 	RCC_OscInitStruct.HSEState       = RCC_HSE_ON;
 	/* Ensure that RTC is clocked by 1MHz */
 	PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_1MHZ;
-	#else  /* ifdef RTC_CLOCK_SOURCE_LSE */
-	# error Please select the RTC Clock source
+	#else	/* ifdef RTC_CLOCK_SOURCE_LSE */
+	#error Please select the RTC Clock source
 	#endif	/* RTC_CLOCK_SOURCE_LSE */
 
 	if (HAL_RCC_OscConfig(&RCC_OscInitStruct) == HAL_OK) {
@@ -203,7 +203,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 		}
 	}
 	return HAL_ERROR;
-} /* HAL_InitTick */
+}	/* HAL_InitTick */
 
 /**
  * @brief  Suspend Tick increment.

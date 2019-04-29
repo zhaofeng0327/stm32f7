@@ -34,18 +34,18 @@
 #include "task.h"
 
 #ifndef __VFP_FP__
-# error This port can only be used when the project options are configured to enable hardware floating point support.
+#error This port can only be used when the project options are configured to enable hardware floating point support.
 #endif
 
 #ifndef configSYSTICK_CLOCK_HZ
-# define configSYSTICK_CLOCK_HZ      configCPU_CLOCK_HZ
+#define configSYSTICK_CLOCK_HZ      configCPU_CLOCK_HZ
 /* Ensure the SysTick is clocked at the same frequency as the core. */
-# define portNVIC_SYSTICK_CLK_BIT    ( 1UL << 2UL )
+#define portNVIC_SYSTICK_CLK_BIT    ( 1UL << 2UL )
 #else
 
 /* The way the SysTick is clocked is not modified in case it is not the same
  * as the core. */
-# define portNVIC_SYSTICK_CLK_BIT    ( 0 )
+#define portNVIC_SYSTICK_CLK_BIT    ( 0 )
 #endif
 
 /* Constants required to manipulate the core.  Registers first... */
@@ -100,9 +100,9 @@
  * prvTaskExitError() in case it messes up unwinding of the stack in the
  * debugger. */
 #ifdef configTASK_RETURN_ADDRESS
-# define portTASK_RETURN_ADDRESS    configTASK_RETURN_ADDRESS
+#define portTASK_RETURN_ADDRESS    configTASK_RETURN_ADDRESS
 #else
-# define portTASK_RETURN_ADDRESS    prvTaskExitError
+#define portTASK_RETURN_ADDRESS    prvTaskExitError
 #endif
 
 /*
@@ -239,11 +239,11 @@ static void prvTaskExitError(void)
 void vPortSVCHandler(void)
 {
 	__asm volatile (
-		"	ldr	r3, pxCurrentTCBConst2		\n"/* Restore the context. */
-		"	ldr r1, [r3]					\n"/* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
-		"	ldr r0, [r1]					\n"/* The first item in pxCurrentTCB is the task top of stack. */
-		"	ldmia r0!, {r4-r11, r14}		\n"/* Pop the registers that are not automatically saved on exception entry and the critical nesting count. */
-		"	msr psp, r0						\n"/* Restore the task stack pointer. */
+		"	ldr	r3, pxCurrentTCBConst2		\n"	/* Restore the context. */
+		"	ldr r1, [r3]					\n"	/* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
+		"	ldr r0, [r1]					\n"	/* The first item in pxCurrentTCB is the task top of stack. */
+		"	ldmia r0!, {r4-r11, r14}		\n"	/* Pop the registers that are not automatically saved on exception entry and the critical nesting count. */
+		"	msr psp, r0						\n"	/* Restore the task stack pointer. */
 		"	isb								\n"
 		"	mov r0, #0 						\n"
 		"	msr	basepri, r0					\n"
@@ -266,14 +266,14 @@ static void prvPortStartFirstTask(void)
 		" ldr r0, =0xE000ED08 	\n"	/* Use the NVIC offset register to locate the stack. */
 		" ldr r0, [r0] 			\n"
 		" ldr r0, [r0] 			\n"
-		" msr msp, r0			\n"/* Set the msp back to the start of the stack. */
-		" mov r0, #0			\n"/* Clear the bit that indicates the FPU is in use, see comment above. */
+		" msr msp, r0			\n"	/* Set the msp back to the start of the stack. */
+		" mov r0, #0			\n"	/* Clear the bit that indicates the FPU is in use, see comment above. */
 		" msr control, r0		\n"
-		" cpsie i				\n"/* Globally enable interrupts. */
+		" cpsie i				\n"	/* Globally enable interrupts. */
 		" cpsie f				\n"
 		" dsb					\n"
 		" isb					\n"
-		" svc 0					\n"/* System call to start first task. */
+		" svc 0					\n"	/* System call to start first task. */
 		" nop					\n"
 	);
 }
@@ -322,23 +322,23 @@ BaseType_t xPortStartScheduler(void)
 			ucMaxPriorityValue <<= (uint8_t) 0x01;
 		}
 
-		# ifdef __NVIC_PRIO_BITS
+		#ifdef __NVIC_PRIO_BITS
 		{
 			/* Check the CMSIS configuration that defines the number of
 			 * priority bits matches the number of priority bits actually queried
 			 * from the hardware. */
 			configASSERT( ( portMAX_PRIGROUP_BITS - ulMaxPRIGROUPValue ) == __NVIC_PRIO_BITS);
 		}
-		# endif
+		#endif
 
-		# ifdef configPRIO_BITS
+		#ifdef configPRIO_BITS
 		{
 			/* Check the FreeRTOS configuration that defines the number of
 			 * priority bits matches the number of priority bits actually queried
 			 * from the hardware. */
 			configASSERT( ( portMAX_PRIGROUP_BITS - ulMaxPRIGROUPValue ) == configPRIO_BITS);
 		}
-		# endif
+		#endif
 
 		/* Shift the priority group value back to its position within the AIRCR
 		 * register. */
@@ -382,7 +382,7 @@ BaseType_t xPortStartScheduler(void)
 
 	/* Should not get here! */
 	return 0;
-} /* xPortStartScheduler */
+}	/* xPortStartScheduler */
 
 /*-----------------------------------------------------------*/
 
@@ -432,34 +432,34 @@ void xPortPendSVHandler(void)
 		"	mrs r0, psp							\n"
 		"	isb									\n"
 		"										\n"
-		"	ldr	r3, pxCurrentTCBConst			\n"/* Get the location of the current TCB. */
+		"	ldr	r3, pxCurrentTCBConst			\n"	/* Get the location of the current TCB. */
 		"	ldr	r2, [r3]						\n"
 		"										\n"
-		"	tst r14, #0x10						\n"/* Is the task using the FPU context?  If so, push high vfp registers. */
+		"	tst r14, #0x10						\n"	/* Is the task using the FPU context?  If so, push high vfp registers. */
 		"	it eq								\n"
 		"	vstmdbeq r0!, {s16-s31}				\n"
 		"										\n"
-		"	stmdb r0!, {r4-r11, r14}			\n"/* Save the core registers. */
-		"	str r0, [r2]						\n"/* Save the new top of stack into the first member of the TCB. */
+		"	stmdb r0!, {r4-r11, r14}			\n"	/* Save the core registers. */
+		"	str r0, [r2]						\n"	/* Save the new top of stack into the first member of the TCB. */
 		"										\n"
 		"	stmdb sp!, {r0, r3}					\n"
 		"	mov r0, %0 							\n"
-		"	cpsid i								\n"/* Errata workaround. */
+		"	cpsid i								\n"	/* Errata workaround. */
 		"	msr basepri, r0						\n"
 		"	dsb									\n"
 		"	isb									\n"
-		"	cpsie i								\n"/* Errata workaround. */
+		"	cpsie i								\n"	/* Errata workaround. */
 		"	bl vTaskSwitchContext				\n"
 		"	mov r0, #0							\n"
 		"	msr basepri, r0						\n"
 		"	ldmia sp!, {r0, r3}					\n"
 		"										\n"
-		"	ldr r1, [r3]						\n"/* The first item in pxCurrentTCB is the task top of stack. */
+		"	ldr r1, [r3]						\n"	/* The first item in pxCurrentTCB is the task top of stack. */
 		"	ldr r0, [r1]						\n"
 		"										\n"
-		"	ldmia r0!, {r4-r11, r14}			\n"/* Pop the core registers. */
+		"	ldmia r0!, {r4-r11, r14}			\n"	/* Pop the core registers. */
 		"										\n"
-		"	tst r14, #0x10						\n"/* Is the task using the FPU context?  If so, pop the high vfp registers too. */
+		"	tst r14, #0x10						\n"	/* Is the task using the FPU context?  If so, pop the high vfp registers too. */
 		"	it eq								\n"
 		"	vldmiaeq r0!, {s16-s31}				\n"
 		"										\n"
@@ -467,10 +467,10 @@ void xPortPendSVHandler(void)
 		"	isb									\n"
 		"										\n"
 		#ifdef WORKAROUND_PMU_CM001	/* XMC4000 specific errata workaround. */
-		# if WORKAROUND_PMU_CM001 == 1
+		#if WORKAROUND_PMU_CM001 == 1
 		"			push { r14 }				\n"
 		"			pop { pc }					\n"
-		# endif
+		#endif
 		#endif
 		"										\n"
 		"	bx r14								\n"
@@ -479,7 +479,7 @@ void xPortPendSVHandler(void)
 		"pxCurrentTCBConst: .word pxCurrentTCB	\n"
 		::"i" (configMAX_SYSCALL_INTERRUPT_PRIORITY)
 	);
-} /* xPortPendSVHandler */
+}	/* xPortPendSVHandler */
 
 /*-----------------------------------------------------------*/
 
@@ -660,7 +660,7 @@ __attribute__((weak)) void vPortSuppressTicksAndSleep(TickType_t xExpectedIdleTi
 		/* Exit with interrpts enabled. */
 		__asm volatile ( "cpsie i" ::: "memory" );
 	}
-} /* vPortSuppressTicksAndSleep */
+}	/* vPortSuppressTicksAndSleep */
 
 #endif	/* #if configUSE_TICKLESS_IDLE */
 /*-----------------------------------------------------------*/
@@ -696,10 +696,10 @@ static void vPortEnableVFP(void)
 {
 	__asm volatile
 	(
-		"	ldr.w r0, =0xE000ED88		\n"/* The FPU enable bits are in the CPACR. */
+		"	ldr.w r0, =0xE000ED88		\n"	/* The FPU enable bits are in the CPACR. */
 		"	ldr r1, [r0]				\n"
 		"								\n"
-		"	orr r1, r1, #( 0xf << 20 )	\n"/* Enable CP10 and CP11 coprocessors, then save back. */
+		"	orr r1, r1, #( 0xf << 20 )	\n"	/* Enable CP10 and CP11 coprocessors, then save back. */
 		"	str r1, [r0]				\n"
 		"	bx r14						"
 	);

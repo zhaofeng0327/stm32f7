@@ -22,9 +22,9 @@
 #include "stm32f7xx_ll_i2c.h"
 #include "stm32f7xx_ll_bus.h"
 #ifdef  USE_FULL_ASSERT
-# include "stm32_assert.h"
+#include "stm32_assert.h"
 #else
-# define assert_param(expr)    ((void) 0U)
+#define assert_param(expr)    ((void) 0U)
 #endif
 
 /** @addtogroup STM32F7xx_LL_Driver
@@ -46,25 +46,25 @@
  * @{
  */
 
-# define IS_LL_I2C_PERIPHERAL_MODE(__VALUE__) \
+#define IS_LL_I2C_PERIPHERAL_MODE(__VALUE__) \
 	(((__VALUE__) == LL_I2C_MODE_I2C) || \
 	((__VALUE__) == LL_I2C_MODE_SMBUS_HOST) || \
 	((__VALUE__) == LL_I2C_MODE_SMBUS_DEVICE) || \
 	((__VALUE__) == LL_I2C_MODE_SMBUS_DEVICE_ARP))
 
-# define IS_LL_I2C_ANALOG_FILTER(__VALUE__) \
+#define IS_LL_I2C_ANALOG_FILTER(__VALUE__) \
 	(((__VALUE__) == LL_I2C_ANALOGFILTER_ENABLE) || \
 	((__VALUE__) == LL_I2C_ANALOGFILTER_DISABLE))
 
-# define IS_LL_I2C_DIGITAL_FILTER(__VALUE__)    ((__VALUE__) <= 0x0000000FU)
+#define IS_LL_I2C_DIGITAL_FILTER(__VALUE__)    ((__VALUE__) <= 0x0000000FU)
 
-# define IS_LL_I2C_OWN_ADDRESS1(__VALUE__)      ((__VALUE__) <= 0x000003FFU)
+#define IS_LL_I2C_OWN_ADDRESS1(__VALUE__)      ((__VALUE__) <= 0x000003FFU)
 
-# define IS_LL_I2C_TYPE_ACKNOWLEDGE(__VALUE__) \
+#define IS_LL_I2C_TYPE_ACKNOWLEDGE(__VALUE__) \
 	(((__VALUE__) == LL_I2C_ACK) || \
 	((__VALUE__) == LL_I2C_NACK))
 
-# define IS_LL_I2C_OWN_ADDRSIZE(__VALUE__) \
+#define IS_LL_I2C_OWN_ADDRSIZE(__VALUE__) \
 	(((__VALUE__) == LL_I2C_OWNADDRESS1_7BIT) || \
 	((__VALUE__) == LL_I2C_OWNADDRESS1_10BIT))
 
@@ -104,20 +104,20 @@ ErrorStatus LL_I2C_DeInit(I2C_TypeDef *I2Cx)
 
 		/* Release reset of I2C clock */
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C1);
-	} else if (I2Cx == I2C2)   {
+	} else if (I2Cx == I2C2) {
 		/* Force reset of I2C clock */
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_I2C2);
 
 		/* Release reset of I2C clock */
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C2);
-	} else if (I2Cx == I2C3)   {
+	} else if (I2Cx == I2C3) {
 		/* Force reset of I2C clock */
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_I2C3);
 
 		/* Release reset of I2C clock */
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C3);
 	}
-	# if defined(I2C4)
+	#if defined(I2C4)
 	else if (I2Cx == I2C4) {
 		/* Force reset of I2C clock */
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_I2C4);
@@ -125,13 +125,13 @@ ErrorStatus LL_I2C_DeInit(I2C_TypeDef *I2Cx)
 		/* Release reset of I2C clock */
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C4);
 	}
-	# endif
+	#endif
 	else {
 		status = ERROR;
 	}
 
 	return status;
-} /* LL_I2C_DeInit */
+}	/* LL_I2C_DeInit */
 
 /**
  * @brief  Initialize the I2C registers according to the specified parameters in I2C_InitStruct.
@@ -201,7 +201,7 @@ ErrorStatus LL_I2C_Init(I2C_TypeDef *I2Cx, LL_I2C_InitTypeDef *I2C_InitStruct)
 	LL_I2C_AcknowledgeNextData(I2Cx, I2C_InitStruct->TypeAcknowledge);
 
 	return SUCCESS;
-} /* LL_I2C_Init */
+}	/* LL_I2C_Init */
 
 /**
  * @brief  Set each @ref LL_I2C_InitTypeDef field to default value.

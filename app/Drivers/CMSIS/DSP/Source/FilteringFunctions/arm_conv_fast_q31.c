@@ -91,7 +91,7 @@ void arm_conv_fast_q31(
 
 		/* Initialization of inputB pointer */
 		pIn2 = pSrcB;
-	} else   {
+	} else {
 		/* Initialization of inputA pointer */
 		pIn1 = pSrcB;
 
@@ -421,7 +421,7 @@ void arm_conv_fast_q31(
 			/* Decrement the loop counter */
 			blkCnt--;
 		}
-	} else   {
+	} else {
 		/* If the srcBLen is not a multiple of 4,
 		 * the blockSize2 loop cannot be unrolled by 4 */
 		blkCnt = blockSize2;
@@ -537,7 +537,7 @@ void arm_conv_fast_q31(
 		/* Decrement the loop counter */
 		blockSize3--;
 	}
-} /* arm_conv_fast_q31 */
+}	/* arm_conv_fast_q31 */
 
 /**
  * @} end of Conv group

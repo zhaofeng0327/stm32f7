@@ -84,10 +84,10 @@ arm_status arm_mat_mult_q31(
 	/* Run the below code for Cortex-M4 and Cortex-M3 */
 
 	uint16_t col, i = 0U, j, row = numRowsA, colCnt;/* loop counters */
-	arm_status status;								/* status of matrix multiplication */
+	arm_status status;	/* status of matrix multiplication */
 	q31_t a0, a1, a2, a3, b0, b1, b2, b3;
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 
 
 	/* Check for matrix mismatch condition */
@@ -97,7 +97,7 @@ arm_status arm_mat_mult_q31(
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
+	#endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
 
 	{
 		/* The following loop performs the dot-product of each row in pSrcA with each column in pSrcB */
@@ -183,7 +183,7 @@ arm_status arm_mat_mult_q31(
 				col--;
 			} while (col > 0U);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -192,7 +192,7 @@ arm_status arm_mat_mult_q31(
 	arm_status status;								/* status of matrix multiplication */
 
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 
 	/* Check for matrix mismatch condition */
 	if ((pSrcA->numCols != pSrcB->numRows) ||
@@ -201,7 +201,7 @@ arm_status arm_mat_mult_q31(
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
+	#endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
 
 	{
 		/* The following loop performs the dot-product of each row in pSrcA with each column in pSrcB */
@@ -249,7 +249,7 @@ arm_status arm_mat_mult_q31(
 				pIn2 = pInB + (numColsB - col);
 			} while (col > 0U);
 
-			#endif /* if defined(ARM_MATH_DSP) */
+			#endif	/* if defined(ARM_MATH_DSP) */
 
 			/* Update the pointer pInA to point to the  starting address of the next row */
 			i    = i + numColsB;
@@ -264,7 +264,7 @@ arm_status arm_mat_mult_q31(
 	}
 	/* Return to application */
 	return (status);
-} /* arm_mat_mult_q31 */
+}	/* arm_mat_mult_q31 */
 
 /**
  * @} end of MatrixMult group

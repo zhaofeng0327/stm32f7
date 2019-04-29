@@ -577,7 +577,7 @@ arm_status arm_conv_partial_fast_q31(
 
 	/* Return to application */
 	return (status);
-} /* arm_conv_partial_fast_q31 */
+}	/* arm_conv_partial_fast_q31 */
 
 /**
  * @} end of PartialConv group

@@ -145,17 +145,17 @@ void arm_biquad_cascade_df1_q15(
 			/* x[n-N], x[n-N-1] are packed together to make state_in of type q31 */
 			/* y[n-N], y[n-N-1] are packed together to make state_out of type q31 */
 
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			state_in  = __PKHBT(in, state_in, 16);
 			state_out = __PKHBT(out, state_out, 16);
 
-			# else
+			#else
 
 			state_in  = __PKHBT(state_in >> 16, (in >> 16), 16);
 			state_out = __PKHBT(state_out >> 16, (out), 16);
 
-			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
+			#endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
 
 			/* out =  b0 * x[n] + 0 * 0 */
 			out = __SMUADX(b0, in);
@@ -178,15 +178,15 @@ void arm_biquad_cascade_df1_q15(
 
 			/* Store the output in the destination buffer. */
 
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			*__SIMD32(pOut)++ = __PKHBT(state_out, out, 16);
 
-			# else
+			#else
 
 			*__SIMD32(pOut)++ = __PKHBT(out, state_out >> 16, 16);
 
-			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
+			#endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
 
 			/* Every time after the output is computed state should be updated. */
 			/* The states should be updated as:  */
@@ -196,17 +196,17 @@ void arm_biquad_cascade_df1_q15(
 			/* Yn1 = acc   */
 			/* x[n-N], x[n-N-1] are packed together to make state_in of type q31 */
 			/* y[n-N], y[n-N-1] are packed together to make state_out of type q31 */
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			state_in  = __PKHBT(in >> 16, state_in, 16);
 			state_out = __PKHBT(out, state_out, 16);
 
-			# else
+			#else
 
 			state_in  = __PKHBT(state_in >> 16, in, 16);
 			state_out = __PKHBT(state_out >> 16, out, 16);
 
-			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
+			#endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
 
 
 			/* Decrement the loop counter */
@@ -222,15 +222,15 @@ void arm_biquad_cascade_df1_q15(
 
 			/* out =  b0 * x[n] + 0 * 0 */
 
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			out = __SMUAD(b0, in);
 
-			# else
+			#else
 
 			out = __SMUADX(b0, in);
 
-			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
+			#endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
 
 			/* acc =  b1 * x[n-1] + b2 * x[n-2] + out */
 			acc = __SMLALD(b1, state_in, out);
@@ -261,17 +261,17 @@ void arm_biquad_cascade_df1_q15(
 			/* x[n-N], x[n-N-1] are packed together to make state_in of type q31 */
 			/* y[n-N], y[n-N-1] are packed together to make state_out of type q31 */
 
-			# ifndef  ARM_MATH_BIG_ENDIAN
+			#ifndef  ARM_MATH_BIG_ENDIAN
 
 			state_in  = __PKHBT(in, state_in, 16);
 			state_out = __PKHBT(out, state_out, 16);
 
-			# else
+			#else
 
 			state_in  = __PKHBT(state_in >> 16, in, 16);
 			state_out = __PKHBT(state_out >> 16, out, 16);
 
-			# endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
+			#endif	/* #ifndef  ARM_MATH_BIG_ENDIAN */
 		}
 
 		/*  The first stage goes from the input wire to the output wire.  */
@@ -290,7 +290,7 @@ void arm_biquad_cascade_df1_q15(
 		stage--;
 	} while (stage > 0U);
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -379,7 +379,7 @@ void arm_biquad_cascade_df1_q15(
 	} while (--stage);
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_biquad_cascade_df1_q15 */
+}	/* arm_biquad_cascade_df1_q15 */
 
 /**
  * @} end of BiquadCascadeDF1 group

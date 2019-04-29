@@ -22,9 +22,9 @@
 #include "stm32f7xx_ll_gpio.h"
 #include "stm32f7xx_ll_bus.h"
 #ifdef  USE_FULL_ASSERT
-# include "stm32_assert.h"
+#include "stm32_assert.h"
 #else
-# define assert_param(expr)    ((void) 0U)
+#define assert_param(expr)    ((void) 0U)
 #endif
 
 /** @addtogroup STM32F7xx_LL_Driver
@@ -46,30 +46,30 @@
 /** @addtogroup GPIO_LL_Private_Macros
  * @{
  */
-# define IS_LL_GPIO_PIN(__VALUE__)    (((0x00000000U) < (__VALUE__)) && ((__VALUE__) <= (LL_GPIO_PIN_ALL)))
+#define IS_LL_GPIO_PIN(__VALUE__)    (((0x00000000U) < (__VALUE__)) && ((__VALUE__) <= (LL_GPIO_PIN_ALL)))
 
-# define IS_LL_GPIO_MODE(__VALUE__) \
+#define IS_LL_GPIO_MODE(__VALUE__) \
 	(((__VALUE__) == LL_GPIO_MODE_INPUT) || \
 	((__VALUE__) == LL_GPIO_MODE_OUTPUT) || \
 	((__VALUE__) == LL_GPIO_MODE_ALTERNATE) || \
 	((__VALUE__) == LL_GPIO_MODE_ANALOG))
 
-# define IS_LL_GPIO_OUTPUT_TYPE(__VALUE__) \
+#define IS_LL_GPIO_OUTPUT_TYPE(__VALUE__) \
 	(((__VALUE__) == LL_GPIO_OUTPUT_PUSHPULL) || \
 	((__VALUE__) == LL_GPIO_OUTPUT_OPENDRAIN))
 
-# define IS_LL_GPIO_SPEED(__VALUE__) \
+#define IS_LL_GPIO_SPEED(__VALUE__) \
 	(((__VALUE__) == LL_GPIO_SPEED_FREQ_LOW) || \
 	((__VALUE__) == LL_GPIO_SPEED_FREQ_MEDIUM) || \
 	((__VALUE__) == LL_GPIO_SPEED_FREQ_HIGH) || \
 	((__VALUE__) == LL_GPIO_SPEED_FREQ_VERY_HIGH))
 
-# define IS_LL_GPIO_PULL(__VALUE__) \
+#define IS_LL_GPIO_PULL(__VALUE__) \
 	(((__VALUE__) == LL_GPIO_PULL_NO) || \
 	((__VALUE__) == LL_GPIO_PULL_UP) || \
 	((__VALUE__) == LL_GPIO_PULL_DOWN))
 
-# define IS_LL_GPIO_ALTERNATE(__VALUE__) \
+#define IS_LL_GPIO_ALTERNATE(__VALUE__) \
 	(((__VALUE__) == LL_GPIO_AF_0  ) || \
 	((__VALUE__) == LL_GPIO_AF_1  ) || \
 	((__VALUE__) == LL_GPIO_AF_2  ) || \
@@ -128,60 +128,60 @@ ErrorStatus LL_GPIO_DeInit(GPIO_TypeDef *GPIOx)
 		LL_AHB1_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_GPIOC);
 		LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_GPIOC);
 	}
-	# if defined(GPIOD)
+	#if defined(GPIOD)
 	else if (GPIOx == GPIOD) {
 		LL_AHB1_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_GPIOD);
 		LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_GPIOD);
 	}
-	# endif	/* GPIOD */
-	# if defined(GPIOE)
+	#endif	/* GPIOD */
+	#if defined(GPIOE)
 	else if (GPIOx == GPIOE) {
 		LL_AHB1_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_GPIOE);
 		LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_GPIOE);
 	}
-	# endif	/* GPIOE */
-	# if defined(GPIOF)
+	#endif	/* GPIOE */
+	#if defined(GPIOF)
 	else if (GPIOx == GPIOF) {
 		LL_AHB1_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_GPIOF);
 		LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_GPIOF);
 	}
-	# endif	/* GPIOF */
-	# if defined(GPIOG)
+	#endif	/* GPIOF */
+	#if defined(GPIOG)
 	else if (GPIOx == GPIOG) {
 		LL_AHB1_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_GPIOG);
 		LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_GPIOG);
 	}
-	# endif	/* GPIOG */
-	# if defined(GPIOH)
+	#endif	/* GPIOG */
+	#if defined(GPIOH)
 	else if (GPIOx == GPIOH) {
 		LL_AHB1_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_GPIOH);
 		LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_GPIOH);
 	}
-	# endif	/* GPIOH */
-	# if defined(GPIOI)
+	#endif	/* GPIOH */
+	#if defined(GPIOI)
 	else if (GPIOx == GPIOI) {
 		LL_AHB1_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_GPIOI);
 		LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_GPIOI);
 	}
-	# endif	/* GPIOI */
-	# if defined(GPIOJ)
+	#endif	/* GPIOI */
+	#if defined(GPIOJ)
 	else if (GPIOx == GPIOJ) {
 		LL_AHB1_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_GPIOJ);
 		LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_GPIOJ);
 	}
-	# endif	/* GPIOJ */
-	# if defined(GPIOK)
+	#endif	/* GPIOJ */
+	#if defined(GPIOK)
 	else if (GPIOx == GPIOK) {
 		LL_AHB1_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_GPIOK);
 		LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_GPIOK);
 	}
-	# endif	/* GPIOK */
+	#endif	/* GPIOK */
 	else {
 		status = ERROR;
 	}
 
 	return (status);
-} /* LL_GPIO_DeInit */
+}	/* LL_GPIO_DeInit */
 
 /**
  * @brief  Initialize GPIO registers according to the specified parameters in GPIO_InitStruct.
@@ -250,7 +250,7 @@ ErrorStatus LL_GPIO_Init(GPIO_TypeDef *GPIOx, LL_GPIO_InitTypeDef *GPIO_InitStru
 		LL_GPIO_SetPinOutputType(GPIOx, GPIO_InitStruct->Pin, GPIO_InitStruct->OutputType);
 	}
 	return (SUCCESS);
-} /* LL_GPIO_Init */
+}	/* LL_GPIO_Init */
 
 /**
  * @brief Set each @ref LL_GPIO_InitTypeDef field to default value.

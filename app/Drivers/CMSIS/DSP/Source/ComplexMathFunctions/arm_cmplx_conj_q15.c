@@ -76,21 +76,21 @@ void arm_cmplx_conj_q15(
 		in3 = *__SIMD32(pSrc)++;
 		in4 = *__SIMD32(pSrc)++;
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		in1 = __QASX(zero, in1);
 		in2 = __QASX(zero, in2);
 		in3 = __QASX(zero, in3);
 		in4 = __QASX(zero, in4);
 
-		# else
+		#else
 
 		in1 = __QSAX(zero, in1);
 		in2 = __QSAX(zero, in2);
 		in3 = __QSAX(zero, in3);
 		in4 = __QSAX(zero, in4);
 
-		# endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
+		#endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
 
 		in1 = ((uint32_t) in1 >> 16) | ((uint32_t) in1 << 16);
 		in2 = ((uint32_t) in2 >> 16) | ((uint32_t) in2 << 16);
@@ -120,7 +120,7 @@ void arm_cmplx_conj_q15(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	q15_t in;
 
@@ -138,7 +138,7 @@ void arm_cmplx_conj_q15(
 	}
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_cmplx_conj_q15 */
+}	/* arm_cmplx_conj_q15 */
 
 /**
  * @} end of cmplx_conj group

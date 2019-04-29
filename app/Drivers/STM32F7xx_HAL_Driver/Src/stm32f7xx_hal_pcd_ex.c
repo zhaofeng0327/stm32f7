@@ -35,7 +35,7 @@
 
 #ifdef HAL_PCD_MODULE_ENABLED
 
-# if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
 /* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
@@ -60,7 +60,7 @@
  #####@endverbatim
  * @{
  */
-#  if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
 
 /**
  * @brief  Set Tx FIFO
@@ -88,7 +88,7 @@ HAL_StatusTypeDef HAL_PCDEx_SetTxFiFo(PCD_HandleTypeDef *hpcd, uint8_t fifo, uin
 
 	if (fifo == 0U) {
 		hpcd->Instance->DIEPTXF0_HNPTXFSIZ = ((uint32_t) size << 16) | Tx_Offset;
-	} else   {
+	} else {
 		Tx_Offset += (hpcd->Instance->DIEPTXF0_HNPTXFSIZ) >> 16;
 		for (i = 0U; i < (fifo - 1U); i++) {
 			Tx_Offset += (hpcd->Instance->DIEPTXF[i] >> 16);
@@ -147,7 +147,7 @@ HAL_StatusTypeDef HAL_PCDEx_DeActivateLPM(PCD_HandleTypeDef *hpcd)
 	return HAL_OK;
 }
 
-#  endif/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+#endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
 /**
  * @brief  Send LPM message to user layer callback.
@@ -190,7 +190,7 @@ __weak void HAL_PCDEx_BCD_Callback(PCD_HandleTypeDef *hpcd, PCD_BCD_MsgTypeDef m
 /**
  * @}
  */
-# endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+#endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 #endif	/* HAL_PCD_MODULE_ENABLED */
 
 /**

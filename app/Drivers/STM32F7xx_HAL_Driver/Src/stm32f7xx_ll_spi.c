@@ -24,9 +24,9 @@
 #include "stm32f7xx_ll_rcc.h"
 
 #ifdef  USE_FULL_ASSERT
-# include "stm32_assert.h"
+#include "stm32_assert.h"
 #else
-# define assert_param(expr)    ((void) 0U)
+#define assert_param(expr)    ((void) 0U)
 #endif
 
 /** @addtogroup STM32F7xx_LL_Driver
@@ -48,7 +48,7 @@
  * @{
  */
 /* SPI registers Masks */
-# define SPI_CR1_CLEAR_MASK \
+#define SPI_CR1_CLEAR_MASK \
 	(SPI_CR1_CPHA | SPI_CR1_CPOL | SPI_CR1_MSTR     \
 	| SPI_CR1_BR | SPI_CR1_LSBFIRST | SPI_CR1_SSI      \
 	| SPI_CR1_SSM | SPI_CR1_RXONLY | SPI_CR1_CRCL     \
@@ -64,17 +64,17 @@
 /** @defgroup SPI_LL_Private_Macros SPI Private Macros
  * @{
  */
-# define IS_LL_SPI_TRANSFER_DIRECTION(__VALUE__) \
+#define IS_LL_SPI_TRANSFER_DIRECTION(__VALUE__) \
 	(((__VALUE__) == LL_SPI_FULL_DUPLEX)    \
 	|| ((__VALUE__) == LL_SPI_SIMPLEX_RX)     \
 	|| ((__VALUE__) == LL_SPI_HALF_DUPLEX_RX) \
 	|| ((__VALUE__) == LL_SPI_HALF_DUPLEX_TX))
 
-# define IS_LL_SPI_MODE(__VALUE__) \
+#define IS_LL_SPI_MODE(__VALUE__) \
 	(((__VALUE__) == LL_SPI_MODE_MASTER) \
 	|| ((__VALUE__) == LL_SPI_MODE_SLAVE))
 
-# define IS_LL_SPI_DATAWIDTH(__VALUE__) \
+#define IS_LL_SPI_DATAWIDTH(__VALUE__) \
 	(((__VALUE__) == LL_SPI_DATAWIDTH_4BIT)  \
 	|| ((__VALUE__) == LL_SPI_DATAWIDTH_5BIT)  \
 	|| ((__VALUE__) == LL_SPI_DATAWIDTH_6BIT)  \
@@ -89,20 +89,20 @@
 	|| ((__VALUE__) == LL_SPI_DATAWIDTH_15BIT) \
 	|| ((__VALUE__) == LL_SPI_DATAWIDTH_16BIT))
 
-# define IS_LL_SPI_POLARITY(__VALUE__) \
+#define IS_LL_SPI_POLARITY(__VALUE__) \
 	(((__VALUE__) == LL_SPI_POLARITY_LOW) \
 	|| ((__VALUE__) == LL_SPI_POLARITY_HIGH))
 
-# define IS_LL_SPI_PHASE(__VALUE__) \
+#define IS_LL_SPI_PHASE(__VALUE__) \
 	(((__VALUE__) == LL_SPI_PHASE_1EDGE) \
 	|| ((__VALUE__) == LL_SPI_PHASE_2EDGE))
 
-# define IS_LL_SPI_NSS(__VALUE__) \
+#define IS_LL_SPI_NSS(__VALUE__) \
 	(((__VALUE__) == LL_SPI_NSS_SOFT) \
 	|| ((__VALUE__) == LL_SPI_NSS_HARD_INPUT) \
 	|| ((__VALUE__) == LL_SPI_NSS_HARD_OUTPUT))
 
-# define IS_LL_SPI_BAUDRATE(__VALUE__) \
+#define IS_LL_SPI_BAUDRATE(__VALUE__) \
 	(((__VALUE__) == LL_SPI_BAUDRATEPRESCALER_DIV2)   \
 	|| ((__VALUE__) == LL_SPI_BAUDRATEPRESCALER_DIV4)   \
 	|| ((__VALUE__) == LL_SPI_BAUDRATEPRESCALER_DIV8)   \
@@ -112,15 +112,15 @@
 	|| ((__VALUE__) == LL_SPI_BAUDRATEPRESCALER_DIV128) \
 	|| ((__VALUE__) == LL_SPI_BAUDRATEPRESCALER_DIV256))
 
-# define IS_LL_SPI_BITORDER(__VALUE__) \
+#define IS_LL_SPI_BITORDER(__VALUE__) \
 	(((__VALUE__) == LL_SPI_LSB_FIRST) \
 	|| ((__VALUE__) == LL_SPI_MSB_FIRST))
 
-# define IS_LL_SPI_CRCCALCULATION(__VALUE__) \
+#define IS_LL_SPI_CRCCALCULATION(__VALUE__) \
 	(((__VALUE__) == LL_SPI_CRCCALCULATION_ENABLE) \
 	|| ((__VALUE__) == LL_SPI_CRCCALCULATION_DISABLE))
 
-# define IS_LL_SPI_CRC_POLYNOMIAL(__VALUE__)    ((__VALUE__) >= 0x1U)
+#define IS_LL_SPI_CRC_POLYNOMIAL(__VALUE__)    ((__VALUE__) >= 0x1U)
 
 /**
  * @}
@@ -152,7 +152,7 @@ ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
 	/* Check the parameters */
 	assert_param(IS_SPI_ALL_INSTANCE(SPIx));
 
-	# if defined(SPI1)
+	#if defined(SPI1)
 	if (SPIx == SPI1) {
 		/* Force reset of SPI clock */
 		LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_SPI1);
@@ -162,8 +162,8 @@ ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
 
 		status = SUCCESS;
 	}
-	# endif	/* SPI1 */
-	# if defined(SPI2)
+	#endif	/* SPI1 */
+	#if defined(SPI2)
 	if (SPIx == SPI2) {
 		/* Force reset of SPI clock */
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_SPI2);
@@ -173,8 +173,8 @@ ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
 
 		status = SUCCESS;
 	}
-	# endif	/* SPI2 */
-	# if defined(SPI3)
+	#endif	/* SPI2 */
+	#if defined(SPI3)
 	if (SPIx == SPI3) {
 		/* Force reset of SPI clock */
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_SPI3);
@@ -184,8 +184,8 @@ ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
 
 		status = SUCCESS;
 	}
-	# endif	/* SPI3 */
-	# if defined(SPI4)
+	#endif	/* SPI3 */
+	#if defined(SPI4)
 	if (SPIx == SPI4) {
 		/* Force reset of SPI clock */
 		LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_SPI4);
@@ -195,8 +195,8 @@ ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
 
 		status = SUCCESS;
 	}
-	# endif	/* SPI4 */
-	# if defined(SPI5)
+	#endif	/* SPI4 */
+	#if defined(SPI5)
 	if (SPIx == SPI5) {
 		/* Force reset of SPI clock */
 		LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_SPI5);
@@ -206,8 +206,8 @@ ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
 
 		status = SUCCESS;
 	}
-	# endif	/* SPI5 */
-	# if defined(SPI6)
+	#endif	/* SPI5 */
+	#if defined(SPI6)
 	if (SPIx == SPI6) {
 		/* Force reset of SPI clock */
 		LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_SPI6);
@@ -217,10 +217,10 @@ ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
 
 		status = SUCCESS;
 	}
-	# endif	/* SPI6 */
+	#endif	/* SPI6 */
 
 	return status;
-} /* LL_SPI_DeInit */
+}	/* LL_SPI_DeInit */
 
 /**
  * @brief  Initialize the SPI registers according to the specified parameters in SPI_InitStruct.
@@ -290,7 +290,7 @@ ErrorStatus LL_SPI_Init(SPI_TypeDef *SPIx, LL_SPI_InitTypeDef *SPI_InitStruct)
 	/* Activate the SPI mode (Reset I2SMOD bit in I2SCFGR register) */
 	CLEAR_BIT(SPIx->I2SCFGR, SPI_I2SCFGR_I2SMOD);
 	return status;
-} /* LL_SPI_Init */
+}	/* LL_SPI_Init */
 
 /**
  * @brief  Set each @ref LL_SPI_InitTypeDef field to default value.
@@ -337,12 +337,12 @@ void LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct)
  * @{
  */
 /* I2S registers Masks */
-# define I2S_I2SCFGR_CLEAR_MASK \
+#define I2S_I2SCFGR_CLEAR_MASK \
 	(SPI_I2SCFGR_CHLEN | SPI_I2SCFGR_DATLEN   \
 	| SPI_I2SCFGR_CKPOL | SPI_I2SCFGR_I2SSTD   \
 	| SPI_I2SCFGR_I2SCFG | SPI_I2SCFGR_I2SMOD )
 
-# define I2S_I2SPR_CLEAR_MASK    0x0002U
+#define I2S_I2SPR_CLEAR_MASK    0x0002U
 
 /**
  * @}
@@ -353,41 +353,41 @@ void LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct)
  * @{
  */
 
-# define IS_LL_I2S_DATAFORMAT(__VALUE__) \
+#define IS_LL_I2S_DATAFORMAT(__VALUE__) \
 	(((__VALUE__) == LL_I2S_DATAFORMAT_16B)          \
 	|| ((__VALUE__) == LL_I2S_DATAFORMAT_16B_EXTENDED) \
 	|| ((__VALUE__) == LL_I2S_DATAFORMAT_24B)          \
 	|| ((__VALUE__) == LL_I2S_DATAFORMAT_32B))
 
-# define IS_LL_I2S_CPOL(__VALUE__) \
+#define IS_LL_I2S_CPOL(__VALUE__) \
 	(((__VALUE__) == LL_I2S_POLARITY_LOW)  \
 	|| ((__VALUE__) == LL_I2S_POLARITY_HIGH))
 
-# define IS_LL_I2S_STANDARD(__VALUE__) \
+#define IS_LL_I2S_STANDARD(__VALUE__) \
 	(((__VALUE__) == LL_I2S_STANDARD_PHILIPS)   \
 	|| ((__VALUE__) == LL_I2S_STANDARD_MSB)       \
 	|| ((__VALUE__) == LL_I2S_STANDARD_LSB)       \
 	|| ((__VALUE__) == LL_I2S_STANDARD_PCM_SHORT) \
 	|| ((__VALUE__) == LL_I2S_STANDARD_PCM_LONG))
 
-# define IS_LL_I2S_MODE(__VALUE__) \
+#define IS_LL_I2S_MODE(__VALUE__) \
 	(((__VALUE__) == LL_I2S_MODE_SLAVE_TX)  \
 	|| ((__VALUE__) == LL_I2S_MODE_SLAVE_RX)  \
 	|| ((__VALUE__) == LL_I2S_MODE_MASTER_TX) \
 	|| ((__VALUE__) == LL_I2S_MODE_MASTER_RX))
 
-# define IS_LL_I2S_MCLK_OUTPUT(__VALUE__) \
+#define IS_LL_I2S_MCLK_OUTPUT(__VALUE__) \
 	(((__VALUE__) == LL_I2S_MCLK_OUTPUT_ENABLE) \
 	|| ((__VALUE__) == LL_I2S_MCLK_OUTPUT_DISABLE))
 
-# define IS_LL_I2S_AUDIO_FREQ(__VALUE__) \
+#define IS_LL_I2S_AUDIO_FREQ(__VALUE__) \
 	((((__VALUE__) >= LL_I2S_AUDIOFREQ_8K)    \
 	&& ((__VALUE__) <= LL_I2S_AUDIOFREQ_192K)) \
 	|| ((__VALUE__) == LL_I2S_AUDIOFREQ_DEFAULT))
 
-# define IS_LL_I2S_PRESCALER_LINEAR(__VALUE__)    ((__VALUE__) >= 0x2U)
+#define IS_LL_I2S_PRESCALER_LINEAR(__VALUE__)    ((__VALUE__) >= 0x2U)
 
-# define IS_LL_I2S_PRESCALER_PARITY(__VALUE__) \
+#define IS_LL_I2S_PRESCALER_PARITY(__VALUE__) \
 	(((__VALUE__) == LL_I2S_PRESCALER_PARITY_EVEN) \
 	|| ((__VALUE__) == LL_I2S_PRESCALER_PARITY_ODD))
 
@@ -488,7 +488,7 @@ ErrorStatus LL_I2S_Init(SPI_TypeDef *SPIx, LL_I2S_InitTypeDef *I2S_InitStruct)
 			if (I2S_InitStruct->MCLKOutput == LL_I2S_MCLK_OUTPUT_ENABLE) {
 				/* MCLK output is enabled */
 				tmp = (((((sourceclock / 256U) * 10U) / I2S_InitStruct->AudioFreq)) + 5U);
-			} else   {
+			} else {
 				/* MCLK output is disabled */
 				tmp = (((((sourceclock / (32U * packetlength)) * 10U) / I2S_InitStruct->AudioFreq)) + 5U);
 			}
@@ -519,7 +519,7 @@ ErrorStatus LL_I2S_Init(SPI_TypeDef *SPIx, LL_I2S_InitTypeDef *I2S_InitStruct)
 		status = SUCCESS;
 	}
 	return status;
-} /* LL_I2S_Init */
+}	/* LL_I2S_Init */
 
 /**
  * @brief  Set each @ref LL_I2S_InitTypeDef field to default value.

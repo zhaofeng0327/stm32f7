@@ -99,17 +99,17 @@ void arm_nn_mult_q15(
 		out4 = (q15_t) __SSAT((mul4 + NN_ROUND(out_shift)) >> out_shift, 16);
 
 		/* store the result */
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		*__SIMD32(pDst)++ = __PKHBT(out2, out1, 16);
 		*__SIMD32(pDst)++ = __PKHBT(out4, out3, 16);
 
-		# else
+		#else
 
 		*__SIMD32(pDst)++ = __PKHBT(out2, out1, 16);
 		*__SIMD32(pDst)++ = __PKHBT(out4, out3, 16);
 
-		# endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
+		#endif	/* #ifndef ARM_MATH_BIG_ENDIAN */
 
 		/* Decrement the blockSize loop counter */
 		blkCnt--;
@@ -119,7 +119,7 @@ void arm_nn_mult_q15(
 	** No loop unrolling is used. */
 	blkCnt = blockSize % 0x4U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -137,7 +137,7 @@ void arm_nn_mult_q15(
 		/* Decrement the blockSize loop counter */
 		blkCnt--;
 	}
-} /* arm_nn_mult_q15 */
+}	/* arm_nn_mult_q15 */
 
 /**
  * @} end of NNBasicMath group

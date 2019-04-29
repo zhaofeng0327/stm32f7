@@ -264,36 +264,36 @@ void arm_fir_sparse_q15(
 		in1 = *pScr2++;
 		in2 = *pScr2++;
 
-		# ifndef  ARM_MATH_BIG_ENDIAN
+		#ifndef  ARM_MATH_BIG_ENDIAN
 
 		*__SIMD32(pOut)++ =
 		  __PKHBT((q15_t) __SSAT(in1 >> 15, 16), (q15_t) __SSAT(in2 >> 15, 16),
 			16);
 
-		# else
+		#else
 		*__SIMD32(pOut)++ =
 		  __PKHBT((q15_t) __SSAT(in2 >> 15, 16), (q15_t) __SSAT(in1 >> 15, 16),
 			16);
 
-		# endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
+		#endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 		in1 = *pScr2++;
 
 		in2 = *pScr2++;
 
-		# ifndef  ARM_MATH_BIG_ENDIAN
+		#ifndef  ARM_MATH_BIG_ENDIAN
 
 		*__SIMD32(pOut)++ =
 		  __PKHBT((q15_t) __SSAT(in1 >> 15, 16), (q15_t) __SSAT(in2 >> 15, 16),
 			16);
 
-		# else
+		#else
 
 		*__SIMD32(pOut)++ =
 		  __PKHBT((q15_t) __SSAT(in2 >> 15, 16), (q15_t) __SSAT(in1 >> 15, 16),
 			16);
 
-		# endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
+		#endif	/*      #ifndef  ARM_MATH_BIG_ENDIAN    */
 
 
 		blkCnt--;
@@ -308,7 +308,7 @@ void arm_fir_sparse_q15(
 		blkCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -441,7 +441,7 @@ void arm_fir_sparse_q15(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_fir_sparse_q15 */
+}	/* arm_fir_sparse_q15 */
 
 /**
  * @} end of FIR_Sparse group

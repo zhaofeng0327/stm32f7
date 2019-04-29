@@ -346,19 +346,19 @@ void arm_fir_interpolate_q15(
 
 	/* copy data */
 	while (i > 0U) {
-		# ifndef UNALIGNED_SUPPORT_DISABLE
+		#ifndef UNALIGNED_SUPPORT_DISABLE
 
 		*__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
 		*__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
 
-		# else
+		#else
 
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
 		*pStateCurnt++ = *pState++;
 
-		# endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
+		#endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
 
 		/* Decrement the loop counter */
 		i--;
@@ -372,9 +372,9 @@ void arm_fir_interpolate_q15(
 		/* Decrement the loop counter */
 		i--;
 	}
-} /* arm_fir_interpolate_q15 */
+}	/* arm_fir_interpolate_q15 */
 
-#else  /* if defined(ARM_MATH_DSP) */
+#else	/* if defined(ARM_MATH_DSP) */
 
 /* Run the below code for Cortex-M0 */
 
@@ -469,7 +469,7 @@ void arm_fir_interpolate_q15(
 		/* Decrement the loop counter */
 		i--;
 	}
-} /* arm_fir_interpolate_q15 */
+}	/* arm_fir_interpolate_q15 */
 
 #endif	/*   #if defined (ARM_MATH_DSP) */
 

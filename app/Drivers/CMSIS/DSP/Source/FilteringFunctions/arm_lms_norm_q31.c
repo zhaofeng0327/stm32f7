@@ -88,9 +88,9 @@ void arm_lms_norm_q31(
 	q31_t x0;						/* temporary variable to hold input sample */
 	//  uint32_t shift = 32U - ((uint32_t) S->postShift + 1U);        /* Shift to be applied to the output */
 	q31_t errorXmu, oneByEnergy;/* Temporary variables to store error and mu product and reciprocal of energy */
-	q31_t postShift;			/* Post shift to be applied to weight after reciprocal calculation */
-	q31_t coef;					/* Temporary variable for coef */
-	q31_t acc_l, acc_h;			/*  temporary input */
+	q31_t postShift;	/* Post shift to be applied to weight after reciprocal calculation */
+	q31_t coef;			/* Temporary variable for coef */
+	q31_t acc_l, acc_h;	/*  temporary input */
 	uint32_t uShift = ((uint32_t) S->postShift + 1U);
 	uint32_t lShift = 32U - uShift;	/*  Shift to be applied to the output */
 
@@ -277,7 +277,7 @@ void arm_lms_norm_q31(
 		tapCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -399,7 +399,7 @@ void arm_lms_norm_q31(
 	}
 
 	#endif	/*   #if defined (ARM_MATH_DSP) */
-} /* arm_lms_norm_q31 */
+}	/* arm_lms_norm_q31 */
 
 /**
  * @} end of LMS_NORM group

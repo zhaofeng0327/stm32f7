@@ -16504,7 +16504,7 @@ arm_status arm_dct4_init_f32(
 
 	/* return the status of DCT4 Init function */
 	return (status);
-} /* arm_dct4_init_f32 */
+}	/* arm_dct4_init_f32 */
 
 /**
  * @} end of DCT4_IDCT4 group

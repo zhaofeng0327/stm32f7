@@ -25,24 +25,24 @@
  */
 
 #if defined(ARMCM33)
-# include "ARMCM33.h"
+#include "ARMCM33.h"
 #elif defined(ARMCM33_TZ)
-# include "ARMCM33_TZ.h"
+#include "ARMCM33_TZ.h"
 
-# if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-#  include "partition_ARMCM33.h"
-# endif
+#if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+#include "partition_ARMCM33.h"
+#endif
 #elif defined(ARMCM33_DSP_FP)
-# include "ARMCM33_DSP_FP.h"
+#include "ARMCM33_DSP_FP.h"
 #elif defined(ARMCM33_DSP_FP_TZ)
-# include "ARMCM33_DSP_FP_TZ.h"
+#include "ARMCM33_DSP_FP_TZ.h"
 
-# if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-#  include "partition_ARMCM33.h"
-# endif
-#else  /* if defined(ARMCM33) */
-# error device not specified!
-#endif /* if defined(ARMCM33) */
+#if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+#include "partition_ARMCM33.h"
+#endif
+#else	/* if defined(ARMCM33) */
+#error device not specified!
+#endif	/* if defined(ARMCM33) */
 
 /*----------------------------------------------------------------------------
  * Define clocks

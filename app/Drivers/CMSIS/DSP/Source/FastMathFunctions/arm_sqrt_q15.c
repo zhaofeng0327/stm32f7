@@ -70,7 +70,7 @@ arm_status arm_sqrt_q15(
 		/* Shift by the number of signBits1 */
 		if ((signBits1 % 2) == 0) {
 			number = number << signBits1;
-		} else   {
+		} else {
 			number = number << (signBits1 - 1);
 		}
 
@@ -117,7 +117,7 @@ arm_status arm_sqrt_q15(
 		/* Shift the output down accordingly */
 		if ((signBits1 % 2) == 0) {
 			var1 = var1 >> (signBits1 / 2);
-		} else   {
+		} else {
 			var1 = var1 >> ((signBits1 - 1) / 2);
 		}
 		*pOut = var1;
@@ -129,7 +129,7 @@ arm_status arm_sqrt_q15(
 		*pOut = 0;
 		return (ARM_MATH_ARGUMENT_ERROR);
 	}
-} /* arm_sqrt_q15 */
+}	/* arm_sqrt_q15 */
 
 /**
  * @} end of SQRT group

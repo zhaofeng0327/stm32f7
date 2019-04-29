@@ -46,7 +46,7 @@
 #undef MPU_WRAPPERS_INCLUDED_FROM_API_FILE
 
 #if ( configSUPPORT_DYNAMIC_ALLOCATION == 0 )
-# error This file must not be used if configSUPPORT_DYNAMIC_ALLOCATION is 0
+#error This file must not be used if configSUPPORT_DYNAMIC_ALLOCATION is 0
 #endif
 
 /* A few bytes might be lost to byte aligning the heap start address. */
@@ -57,7 +57,7 @@
 #if ( configAPPLICATION_ALLOCATED_HEAP == 1 )
 
 /* The application writer has already defined the array used for the RTOS
- * heap - probably so it can be placed in a special segment or address. */
+* heap - probably so it can be placed in a special segment or address. */
 extern uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
 #else
 static uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
@@ -116,7 +116,7 @@ void *pvPortMalloc(size_t xWantedSize)
 	#endif
 
 	return pvReturn;
-} /* pvPortMalloc */
+}	/* pvPortMalloc */
 
 /*-----------------------------------------------------------*/
 

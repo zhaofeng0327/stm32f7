@@ -29,12 +29,12 @@
 
 /// Number of process slots (threads may call secure library code)
 #ifndef TZ_PROCESS_STACK_SLOTS
-# define TZ_PROCESS_STACK_SLOTS    8U
+#define TZ_PROCESS_STACK_SLOTS    8U
 #endif
 
 /// Stack size of the secure library code
 #ifndef TZ_PROCESS_STACK_SIZE
-# define TZ_PROCESS_STACK_SIZE    256U
+#define TZ_PROCESS_STACK_SIZE    256U
 #endif
 
 typedef struct {

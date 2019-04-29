@@ -73,7 +73,7 @@ arm_status arm_mat_trans_f32(
 	arm_status status;						/* status of matrix transpose  */
 
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 
 
 	/* Check for matrix mismatch condition */
@@ -81,7 +81,7 @@ arm_status arm_mat_trans_f32(
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
+	#endif	/*    #ifdef ARM_MATH_MATRIX_CHECK    */
 
 	{
 		/* Matrix transpose by exchanging the rows with columns */
@@ -138,7 +138,7 @@ arm_status arm_mat_trans_f32(
 				blkCnt--;
 			}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 
@@ -146,14 +146,14 @@ arm_status arm_mat_trans_f32(
 	arm_status status;					/* status of matrix transpose  */
 
 
-	# ifdef ARM_MATH_MATRIX_CHECK
+	#ifdef ARM_MATH_MATRIX_CHECK
 
 	/* Check for matrix mismatch condition */
 	if ((pSrc->numRows != pDst->numCols) || (pSrc->numCols != pDst->numRows)) {
 		/* Set status as ARM_MATH_SIZE_MISMATCH */
 		status = ARM_MATH_SIZE_MISMATCH;
 	} else
-	# endif	/*      #ifdef ARM_MATH_MATRIX_CHECK    */
+	#endif	/*      #ifdef ARM_MATH_MATRIX_CHECK    */
 
 	{
 		/* Matrix transpose by exchanging the rows with columns */
@@ -190,7 +190,7 @@ arm_status arm_mat_trans_f32(
 
 	/* Return to application */
 	return (status);
-} /* arm_mat_trans_f32 */
+}	/* arm_mat_trans_f32 */
 
 /**
  * @} end of MatrixTrans group

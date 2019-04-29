@@ -64,7 +64,7 @@ void ref_biquad_cascade_df2T_f32(
 		/* decrement the loop counter */
 		stage--;
 	} while (stage > 0U);
-} /* ref_biquad_cascade_df2T_f32 */
+}	/* ref_biquad_cascade_df2T_f32 */
 
 void ref_biquad_cascade_stereo_df2T_f32(
 	const arm_biquad_cascade_stereo_df2T_instance_f32 *S,
@@ -139,7 +139,7 @@ void ref_biquad_cascade_stereo_df2T_f32(
 		/* decrement the loop counter */
 		stage--;
 	} while (stage > 0U);
-} /* ref_biquad_cascade_stereo_df2T_f32 */
+}	/* ref_biquad_cascade_stereo_df2T_f32 */
 
 void ref_biquad_cascade_df2T_f64(
 	const arm_biquad_cascade_df2T_instance_f64 *S,
@@ -205,7 +205,7 @@ void ref_biquad_cascade_df2T_f64(
 		/* decrement the loop counter */
 		stage--;
 	} while (stage > 0U);
-} /* ref_biquad_cascade_df2T_f64 */
+}	/* ref_biquad_cascade_df2T_f64 */
 
 void ref_biquad_cascade_df1_f32(
 	const arm_biquad_casd_df1_inst_f32 *S,
@@ -284,7 +284,7 @@ void ref_biquad_cascade_df1_f32(
 		/* decrement the loop counter */
 		stage--;
 	} while (stage > 0U);
-} /* ref_biquad_cascade_df1_f32 */
+}	/* ref_biquad_cascade_df1_f32 */
 
 void ref_biquad_cas_df1_32x64_q31(
 	const arm_biquad_cas_df1_32x64_ins_q31 *S,
@@ -370,7 +370,7 @@ void ref_biquad_cas_df1_32x64_q31(
 		*pState++ = Yn1;
 		*pState++ = Yn2;
 	} while (--stage);
-} /* ref_biquad_cas_df1_32x64_q31 */
+}	/* ref_biquad_cas_df1_32x64_q31 */
 
 void ref_biquad_cascade_df1_q31(
 	const arm_biquad_casd_df1_inst_q31 *S,
@@ -461,7 +461,7 @@ void ref_biquad_cascade_df1_q31(
 		*pState++ = Yn1;
 		*pState++ = Yn2;
 	} while (--stage);
-} /* ref_biquad_cascade_df1_q31 */
+}	/* ref_biquad_cascade_df1_q31 */
 
 void ref_biquad_cascade_df1_fast_q31(
 	const arm_biquad_casd_df1_inst_q31 *S,
@@ -536,7 +536,7 @@ void ref_biquad_cascade_df1_fast_q31(
 		*pState++ = Yn1;
 		*pState++ = Yn2;
 	} while (--stage);
-} /* ref_biquad_cascade_df1_fast_q31 */
+}	/* ref_biquad_cascade_df1_fast_q31 */
 
 void ref_biquad_cascade_df1_fast_q15(
 	const arm_biquad_casd_df1_inst_q15 *S,
@@ -608,7 +608,7 @@ void ref_biquad_cascade_df1_fast_q15(
 		*pState++ = Yn1;
 		*pState++ = Yn2;
 	} while (--stage);
-} /* ref_biquad_cascade_df1_fast_q15 */
+}	/* ref_biquad_cascade_df1_fast_q15 */
 
 void ref_biquad_cascade_df1_q15(
 	const arm_biquad_casd_df1_inst_q15 *S,
@@ -680,4 +680,4 @@ void ref_biquad_cascade_df1_q15(
 		*pState++ = Yn1;
 		*pState++ = Yn2;
 	} while (--stage);
-} /* ref_biquad_cascade_df1_q15 */
+}	/* ref_biquad_cascade_df1_q15 */

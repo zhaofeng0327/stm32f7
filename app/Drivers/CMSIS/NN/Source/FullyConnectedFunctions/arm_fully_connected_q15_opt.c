@@ -123,7 +123,7 @@ arm_status arm_fully_connected_q15_opt(const q15_t *pV,
 
 		pA = pV;
 
-		# ifdef USE_INTRINSIC
+		#ifdef USE_INTRINSIC
 
 		while (colCnt) {
 			q31_t inM11, inM12, inM13, inM14;
@@ -141,7 +141,7 @@ arm_status arm_fully_connected_q15_opt(const q15_t *pV,
 			colCnt--;
 		}
 
-		# else  /* ifdef USE_INTRINSIC */
+		#else	/* ifdef USE_INTRINSIC */
 
 		/*
 		 * register needed:
@@ -167,7 +167,7 @@ arm_status arm_fully_connected_q15_opt(const q15_t *pV,
 		[sum2] "+r" (sum2), [sum3] "+r" (sum3),
 		[sum4] "+r" (sum4), [pB] "+r" (pB), [pA] "+r" (pA) :[colCnt] "r" (colCnt) : "r0", "r1", "r2", "r3", "r4");
 
-		# endif	/* USE_INTRINSIC */
+		#endif	/* USE_INTRINSIC */
 
 		colCnt = dim_vec & 0x1;
 		while (colCnt) {
@@ -230,7 +230,7 @@ arm_status arm_fully_connected_q15_opt(const q15_t *pV,
 		rowCnt--;
 	}
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
 	uint16_t rowCnt = num_of_rows >> 2;
 	const q15_t *pB = pM;
@@ -310,7 +310,7 @@ arm_status arm_fully_connected_q15_opt(const q15_t *pV,
 
 	/* Return to ARM_MATH_SUCCESS */
 	return (ARM_MATH_SUCCESS);
-} /* arm_fully_connected_q15_opt */
+}	/* arm_fully_connected_q15_opt */
 
 /**
  * @} end of FC group

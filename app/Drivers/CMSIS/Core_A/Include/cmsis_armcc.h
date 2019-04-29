@@ -27,65 +27,65 @@
 #define __CMSIS_ARMCC_H
 
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 400677)
-# error "Please use Arm Compiler Toolchain V4.0.677 or later!"
+#error "Please use Arm Compiler Toolchain V4.0.677 or later!"
 #endif
 
 /* CMSIS compiler control architecture macros */
 #if (defined(__TARGET_ARCH_7_A ) && (__TARGET_ARCH_7_A == 1))
-# define __ARM_ARCH_7A__    1
+#define __ARM_ARCH_7A__    1
 #endif
 
 /* CMSIS compiler specific defines */
 #ifndef   __ASM
-# define __ASM    __asm
+#define __ASM    __asm
 #endif
 #ifndef   __INLINE
-# define __INLINE    __inline
+#define __INLINE    __inline
 #endif
 #ifndef   __FORCEINLINE
-# define __FORCEINLINE    __forceinline
+#define __FORCEINLINE    __forceinline
 #endif
 #ifndef   __STATIC_INLINE
-# define __STATIC_INLINE    static __inline
+#define __STATIC_INLINE    static __inline
 #endif
 #ifndef   __STATIC_FORCEINLINE
-# define __STATIC_FORCEINLINE    static __forceinline
+#define __STATIC_FORCEINLINE    static __forceinline
 #endif
 #ifndef   __NO_RETURN
-# define __NO_RETURN    __declspec(noreturn)
+#define __NO_RETURN    __declspec(noreturn)
 #endif
 #ifndef   CMSIS_DEPRECATED
-# define CMSIS_DEPRECATED    __attribute__((deprecated))
+#define CMSIS_DEPRECATED    __attribute__((deprecated))
 #endif
 #ifndef   __USED
-# define __USED    __attribute__((used))
+#define __USED    __attribute__((used))
 #endif
 #ifndef   __WEAK
-# define __WEAK    __attribute__((weak))
+#define __WEAK    __attribute__((weak))
 #endif
 #ifndef   __PACKED
-# define __PACKED    __attribute__((packed))
+#define __PACKED    __attribute__((packed))
 #endif
 #ifndef   __PACKED_STRUCT
-# define __PACKED_STRUCT    __packed struct
+#define __PACKED_STRUCT    __packed struct
 #endif
 #ifndef   __UNALIGNED_UINT16_WRITE
-# define __UNALIGNED_UINT16_WRITE(addr, val)    ((*((__packed uint16_t *) (addr))) = (val))
+#define __UNALIGNED_UINT16_WRITE(addr, val)    ((*((__packed uint16_t *) (addr))) = (val))
 #endif
 #ifndef   __UNALIGNED_UINT16_READ
-# define __UNALIGNED_UINT16_READ(addr)    (*((const __packed uint16_t *) (addr)))
+#define __UNALIGNED_UINT16_READ(addr)    (*((const __packed uint16_t *) (addr)))
 #endif
 #ifndef   __UNALIGNED_UINT32_WRITE
-# define __UNALIGNED_UINT32_WRITE(addr, val)    ((*((__packed uint32_t *) (addr))) = (val))
+#define __UNALIGNED_UINT32_WRITE(addr, val)    ((*((__packed uint32_t *) (addr))) = (val))
 #endif
 #ifndef   __UNALIGNED_UINT32_READ
-# define __UNALIGNED_UINT32_READ(addr)    (*((const __packed uint32_t *) (addr)))
+#define __UNALIGNED_UINT32_READ(addr)    (*((const __packed uint32_t *) (addr)))
 #endif
 #ifndef   __ALIGNED
-# define __ALIGNED(x)    __attribute__((aligned(x)))
+#define __ALIGNED(x)    __attribute__((aligned(x)))
 #endif
 #ifndef   __PACKED
-# define __PACKED    __attribute__((packed))
+#define __PACKED    __attribute__((packed))
 #endif
 
 /* ##########################  Core Instruction Access  ######################### */
@@ -214,9 +214,9 @@ __attribute__((section(".revsh_text"))) __STATIC_INLINE __ASM int16_t __REVSH(in
  * \return             value of type uint8_t at (*ptr)
  */
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-# define __LDREXB(ptr)    ((uint8_t) __ldrex(ptr))
+#define __LDREXB(ptr)    ((uint8_t) __ldrex(ptr))
 #else
-# define __LDREXB(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint8_t) __ldrex(ptr))_Pragma("pop")
+#define __LDREXB(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint8_t) __ldrex(ptr))_Pragma("pop")
 #endif
 
 /**
@@ -226,9 +226,9 @@ __attribute__((section(".revsh_text"))) __STATIC_INLINE __ASM int16_t __REVSH(in
  * \return        value of type uint16_t at (*ptr)
  */
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-# define __LDREXH(ptr)    ((uint16_t) __ldrex(ptr))
+#define __LDREXH(ptr)    ((uint16_t) __ldrex(ptr))
 #else
-# define __LDREXH(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint16_t) __ldrex(ptr))_Pragma("pop")
+#define __LDREXH(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint16_t) __ldrex(ptr))_Pragma("pop")
 #endif
 
 /**
@@ -238,9 +238,9 @@ __attribute__((section(".revsh_text"))) __STATIC_INLINE __ASM int16_t __REVSH(in
  * \return        value of type uint32_t at (*ptr)
  */
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-# define __LDREXW(ptr)    ((uint32_t) __ldrex(ptr))
+#define __LDREXW(ptr)    ((uint32_t) __ldrex(ptr))
 #else
-# define __LDREXW(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint32_t) __ldrex(ptr))_Pragma("pop")
+#define __LDREXW(ptr)    _Pragma("push") _Pragma("diag_suppress 3731") ((uint32_t) __ldrex(ptr))_Pragma("pop")
 #endif
 
 /**
@@ -252,9 +252,9 @@ __attribute__((section(".revsh_text"))) __STATIC_INLINE __ASM int16_t __REVSH(in
  * \return          1  Function failed
  */
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-# define __STREXB(value, ptr)    __strex(value, ptr)
+#define __STREXB(value, ptr)    __strex(value, ptr)
 #else
-# define __STREXB(value, ptr)    _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, ptr)        _Pragma("pop")
+#define __STREXB(value, ptr)    _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, ptr)        _Pragma("pop")
 #endif
 
 /**
@@ -266,9 +266,9 @@ __attribute__((section(".revsh_text"))) __STATIC_INLINE __ASM int16_t __REVSH(in
  * \return          1  Function failed
  */
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-# define __STREXH(value, ptr)    __strex(value, ptr)
+#define __STREXH(value, ptr)    __strex(value, ptr)
 #else
-# define __STREXH(value, ptr)    _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, ptr)        _Pragma("pop")
+#define __STREXH(value, ptr)    _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, ptr)        _Pragma("pop")
 #endif
 
 /**
@@ -280,9 +280,9 @@ __attribute__((section(".revsh_text"))) __STATIC_INLINE __ASM int16_t __REVSH(in
  * \return          1  Function failed
  */
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
-# define __STREXW(value, ptr)    __strex(value, ptr)
+#define __STREXW(value, ptr)    __strex(value, ptr)
 #else
-# define __STREXW(value, ptr)    _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, ptr)        _Pragma("pop")
+#define __STREXW(value, ptr)    _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, ptr)        _Pragma("pop")
 #endif
 
 /**
@@ -465,11 +465,12 @@ __STATIC_INLINE void __set_FPEXC(uint32_t fpexc)
  */
 
 #define __get_CP(cp, op1, Rt, CRn, CRm, op2) \
-												do { register volatile uint32_t tmp __ASM( \
+	do { register volatile uint32_t tmp __ASM( \
 			 "cp" # cp ":" # op1 ":c" # CRn ":c" # CRm ":" # op2); (Rt) = tmp; } while (0)
-#define __set_CP(cp, op1, Rt, CRn, CRm, op2)    do { register volatile uint32_t tmp __ASM( \
-															 "cp" # cp ":" # op1 ":c" # CRn ":c" # CRm ":" # op2); \
-														 tmp = (Rt); } while (0)
+#define __set_CP(cp, op1, Rt, CRn, CRm, op2) \
+	do { register volatile uint32_t tmp __ASM( \
+			 "cp" # cp ":" # op1 ":c" # CRn ":c" # CRm ":" # op2); \
+		 tmp = (Rt); } while (0)
 #define __get_CP64(cp, op1, Rt, CRm) \
 	do { \
 		uint32_t ltmp, htmp; \
@@ -556,6 +557,6 @@ __STATIC_INLINE __ASM void __FPU_Enable(void)
 	VMSR FPSCR, R2
 
 	BX LR
-} // __FPU_Enable
+}	// __FPU_Enable
 
 #endif	/* __CMSIS_ARMCC_H */

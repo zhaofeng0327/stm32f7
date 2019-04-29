@@ -23,9 +23,9 @@
 #include "stm32f7xx_ll_bus.h"
 
 #ifdef  USE_FULL_ASSERT
-# include "stm32_assert.h"
+#include "stm32_assert.h"
 #else
-# define assert_param(expr)    ((void) 0U)
+#define assert_param(expr)    ((void) 0U)
 #endif
 
 /** @addtogroup STM32F7xx_LL_Driver
@@ -48,19 +48,19 @@
 /** @addtogroup TIM_LL_Private_Macros
  * @{
  */
-# define IS_LL_TIM_COUNTERMODE(__VALUE__) \
+#define IS_LL_TIM_COUNTERMODE(__VALUE__) \
 	(((__VALUE__) == LL_TIM_COUNTERMODE_UP) \
 	|| ((__VALUE__) == LL_TIM_COUNTERMODE_DOWN) \
 	|| ((__VALUE__) == LL_TIM_COUNTERMODE_CENTER_UP) \
 	|| ((__VALUE__) == LL_TIM_COUNTERMODE_CENTER_DOWN) \
 	|| ((__VALUE__) == LL_TIM_COUNTERMODE_CENTER_UP_DOWN))
 
-# define IS_LL_TIM_CLOCKDIVISION(__VALUE__) \
+#define IS_LL_TIM_CLOCKDIVISION(__VALUE__) \
 	(((__VALUE__) == LL_TIM_CLOCKDIVISION_DIV1) \
 	|| ((__VALUE__) == LL_TIM_CLOCKDIVISION_DIV2) \
 	|| ((__VALUE__) == LL_TIM_CLOCKDIVISION_DIV4))
 
-# define IS_LL_TIM_OCMODE(__VALUE__) \
+#define IS_LL_TIM_OCMODE(__VALUE__) \
 	(((__VALUE__) == LL_TIM_OCMODE_FROZEN) \
 	|| ((__VALUE__) == LL_TIM_OCMODE_ACTIVE) \
 	|| ((__VALUE__) == LL_TIM_OCMODE_INACTIVE) \
@@ -76,30 +76,30 @@
 	|| ((__VALUE__) == LL_TIM_OCMODE_ASSYMETRIC_PWM1) \
 	|| ((__VALUE__) == LL_TIM_OCMODE_ASSYMETRIC_PWM2))
 
-# define IS_LL_TIM_OCSTATE(__VALUE__) \
+#define IS_LL_TIM_OCSTATE(__VALUE__) \
 	(((__VALUE__) == LL_TIM_OCSTATE_DISABLE) \
 	|| ((__VALUE__) == LL_TIM_OCSTATE_ENABLE))
 
-# define IS_LL_TIM_OCPOLARITY(__VALUE__) \
+#define IS_LL_TIM_OCPOLARITY(__VALUE__) \
 	(((__VALUE__) == LL_TIM_OCPOLARITY_HIGH) \
 	|| ((__VALUE__) == LL_TIM_OCPOLARITY_LOW))
 
-# define IS_LL_TIM_OCIDLESTATE(__VALUE__) \
+#define IS_LL_TIM_OCIDLESTATE(__VALUE__) \
 	(((__VALUE__) == LL_TIM_OCIDLESTATE_LOW) \
 	|| ((__VALUE__) == LL_TIM_OCIDLESTATE_HIGH))
 
-# define IS_LL_TIM_ACTIVEINPUT(__VALUE__) \
+#define IS_LL_TIM_ACTIVEINPUT(__VALUE__) \
 	(((__VALUE__) == LL_TIM_ACTIVEINPUT_DIRECTTI) \
 	|| ((__VALUE__) == LL_TIM_ACTIVEINPUT_INDIRECTTI) \
 	|| ((__VALUE__) == LL_TIM_ACTIVEINPUT_TRC))
 
-# define IS_LL_TIM_ICPSC(__VALUE__) \
+#define IS_LL_TIM_ICPSC(__VALUE__) \
 	(((__VALUE__) == LL_TIM_ICPSC_DIV1) \
 	|| ((__VALUE__) == LL_TIM_ICPSC_DIV2) \
 	|| ((__VALUE__) == LL_TIM_ICPSC_DIV4) \
 	|| ((__VALUE__) == LL_TIM_ICPSC_DIV8))
 
-# define IS_LL_TIM_IC_FILTER(__VALUE__) \
+#define IS_LL_TIM_IC_FILTER(__VALUE__) \
 	(((__VALUE__) == LL_TIM_IC_FILTER_FDIV1) \
 	|| ((__VALUE__) == LL_TIM_IC_FILTER_FDIV1_N2) \
 	|| ((__VALUE__) == LL_TIM_IC_FILTER_FDIV1_N4) \
@@ -117,43 +117,43 @@
 	|| ((__VALUE__) == LL_TIM_IC_FILTER_FDIV32_N6) \
 	|| ((__VALUE__) == LL_TIM_IC_FILTER_FDIV32_N8))
 
-# define IS_LL_TIM_IC_POLARITY(__VALUE__) \
+#define IS_LL_TIM_IC_POLARITY(__VALUE__) \
 	(((__VALUE__) == LL_TIM_IC_POLARITY_RISING) \
 	|| ((__VALUE__) == LL_TIM_IC_POLARITY_FALLING) \
 	|| ((__VALUE__) == LL_TIM_IC_POLARITY_BOTHEDGE))
 
-# define IS_LL_TIM_ENCODERMODE(__VALUE__) \
+#define IS_LL_TIM_ENCODERMODE(__VALUE__) \
 	(((__VALUE__) == LL_TIM_ENCODERMODE_X2_TI1) \
 	|| ((__VALUE__) == LL_TIM_ENCODERMODE_X2_TI2) \
 	|| ((__VALUE__) == LL_TIM_ENCODERMODE_X4_TI12))
 
-# define IS_LL_TIM_IC_POLARITY_ENCODER(__VALUE__) \
+#define IS_LL_TIM_IC_POLARITY_ENCODER(__VALUE__) \
 	(((__VALUE__) == LL_TIM_IC_POLARITY_RISING) \
 	|| ((__VALUE__) == LL_TIM_IC_POLARITY_FALLING))
 
-# define IS_LL_TIM_OSSR_STATE(__VALUE__) \
+#define IS_LL_TIM_OSSR_STATE(__VALUE__) \
 	(((__VALUE__) == LL_TIM_OSSR_DISABLE) \
 	|| ((__VALUE__) == LL_TIM_OSSR_ENABLE))
 
-# define IS_LL_TIM_OSSI_STATE(__VALUE__) \
+#define IS_LL_TIM_OSSI_STATE(__VALUE__) \
 	(((__VALUE__) == LL_TIM_OSSI_DISABLE) \
 	|| ((__VALUE__) == LL_TIM_OSSI_ENABLE))
 
-# define IS_LL_TIM_LOCK_LEVEL(__VALUE__) \
+#define IS_LL_TIM_LOCK_LEVEL(__VALUE__) \
 	(((__VALUE__) == LL_TIM_LOCKLEVEL_OFF) \
 	|| ((__VALUE__) == LL_TIM_LOCKLEVEL_1)   \
 	|| ((__VALUE__) == LL_TIM_LOCKLEVEL_2)   \
 	|| ((__VALUE__) == LL_TIM_LOCKLEVEL_3))
 
-# define IS_LL_TIM_BREAK_STATE(__VALUE__) \
+#define IS_LL_TIM_BREAK_STATE(__VALUE__) \
 	(((__VALUE__) == LL_TIM_BREAK_DISABLE) \
 	|| ((__VALUE__) == LL_TIM_BREAK_ENABLE))
 
-# define IS_LL_TIM_BREAK_POLARITY(__VALUE__) \
+#define IS_LL_TIM_BREAK_POLARITY(__VALUE__) \
 	(((__VALUE__) == LL_TIM_BREAK_POLARITY_LOW) \
 	|| ((__VALUE__) == LL_TIM_BREAK_POLARITY_HIGH))
 
-# define IS_LL_TIM_BREAK_FILTER(__VALUE__) \
+#define IS_LL_TIM_BREAK_FILTER(__VALUE__) \
 	(((__VALUE__) == LL_TIM_BREAK_FILTER_FDIV1)     \
 	|| ((__VALUE__) == LL_TIM_BREAK_FILTER_FDIV1_N2)  \
 	|| ((__VALUE__) == LL_TIM_BREAK_FILTER_FDIV1_N4)  \
@@ -171,15 +171,15 @@
 	|| ((__VALUE__) == LL_TIM_BREAK_FILTER_FDIV32_N6) \
 	|| ((__VALUE__) == LL_TIM_BREAK_FILTER_FDIV32_N8))
 
-# define IS_LL_TIM_BREAK2_STATE(__VALUE__) \
+#define IS_LL_TIM_BREAK2_STATE(__VALUE__) \
 	(((__VALUE__) == LL_TIM_BREAK2_DISABLE) \
 	|| ((__VALUE__) == LL_TIM_BREAK2_ENABLE))
 
-# define IS_LL_TIM_BREAK2_POLARITY(__VALUE__) \
+#define IS_LL_TIM_BREAK2_POLARITY(__VALUE__) \
 	(((__VALUE__) == LL_TIM_BREAK2_POLARITY_LOW) \
 	|| ((__VALUE__) == LL_TIM_BREAK2_POLARITY_HIGH))
 
-# define IS_LL_TIM_BREAK2_FILTER(__VALUE__) \
+#define IS_LL_TIM_BREAK2_FILTER(__VALUE__) \
 	(((__VALUE__) == LL_TIM_BREAK2_FILTER_FDIV1)    \
 	|| ((__VALUE__) == LL_TIM_BREAK2_FILTER_FDIV1_N2)  \
 	|| ((__VALUE__) == LL_TIM_BREAK2_FILTER_FDIV1_N4)  \
@@ -197,7 +197,7 @@
 	|| ((__VALUE__) == LL_TIM_BREAK2_FILTER_FDIV32_N6) \
 	|| ((__VALUE__) == LL_TIM_BREAK2_FILTER_FDIV32_N8))
 
-# define IS_LL_TIM_AUTOMATIC_OUTPUT_STATE(__VALUE__) \
+#define IS_LL_TIM_AUTOMATIC_OUTPUT_STATE(__VALUE__) \
 	(((__VALUE__) == LL_TIM_AUTOMATICOUTPUT_DISABLE) \
 	|| ((__VALUE__) == LL_TIM_AUTOMATICOUTPUT_ENABLE))
 
@@ -257,84 +257,84 @@ ErrorStatus LL_TIM_DeInit(TIM_TypeDef *TIMx)
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM2);
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM2);
 	}
-	# if defined(TIM3)
+	#if defined(TIM3)
 	else if (TIMx == TIM3) {
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM3);
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM3);
 	}
-	# endif
-	# if defined(TIM4)
+	#endif
+	#if defined(TIM4)
 	else if (TIMx == TIM4) {
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM4);
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM4);
 	}
-	# endif
-	# if defined(TIM5)
+	#endif
+	#if defined(TIM5)
 	else if (TIMx == TIM5) {
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM5);
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM5);
 	}
-	# endif
-	# if defined(TIM6)
+	#endif
+	#if defined(TIM6)
 	else if (TIMx == TIM6) {
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM6);
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM6);
 	}
-	# endif
-	# if defined(TIM7)
+	#endif
+	#if defined(TIM7)
 	else if (TIMx == TIM7) {
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM7);
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM7);
 	}
-	# endif
-	# if defined(TIM8)
+	#endif
+	#if defined(TIM8)
 	else if (TIMx == TIM8) {
 		LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_TIM8);
 		LL_APB2_GRP1_ReleaseReset(LL_APB2_GRP1_PERIPH_TIM8);
 	}
-	# endif
-	# if defined(TIM9)
+	#endif
+	#if defined(TIM9)
 	else if (TIMx == TIM9) {
 		LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_TIM9);
 		LL_APB2_GRP1_ReleaseReset(LL_APB2_GRP1_PERIPH_TIM9);
 	}
-	# endif
-	# if defined(TIM10)
+	#endif
+	#if defined(TIM10)
 	else if (TIMx == TIM10) {
 		LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_TIM10);
 		LL_APB2_GRP1_ReleaseReset(LL_APB2_GRP1_PERIPH_TIM10);
 	}
-	# endif
-	# if defined(TIM11)
+	#endif
+	#if defined(TIM11)
 	else if (TIMx == TIM11) {
 		LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_TIM11);
 		LL_APB2_GRP1_ReleaseReset(LL_APB2_GRP1_PERIPH_TIM11);
 	}
-	# endif
-	# if defined(TIM12)
+	#endif
+	#if defined(TIM12)
 	else if (TIMx == TIM12) {
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM12);
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM12);
 	}
-	# endif
-	# if defined(TIM13)
+	#endif
+	#if defined(TIM13)
 	else if (TIMx == TIM13) {
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM13);
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM13);
 	}
-	# endif
-	# if defined(TIM14)
+	#endif
+	#if defined(TIM14)
 	else if (TIMx == TIM14) {
 		LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM14);
 		LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM14);
 	}
-	# endif
+	#endif
 	else {
 		result = ERROR;
 	}
 
 	return result;
-} /* LL_TIM_DeInit */
+}	/* LL_TIM_DeInit */
 
 /**
  * @brief  Set the fields of the time base unit configuration data structure
@@ -400,7 +400,7 @@ ErrorStatus LL_TIM_Init(TIM_TypeDef *TIMx, LL_TIM_InitTypeDef *TIM_InitStruct)
 	LL_TIM_GenerateEvent_UPDATE(TIMx);
 
 	return SUCCESS;
-} /* LL_TIM_Init */
+}	/* LL_TIM_Init */
 
 /**
  * @brief  Set the fields of the TIMx output channel configuration data
@@ -599,7 +599,7 @@ ErrorStatus LL_TIM_ENCODER_Init(TIM_TypeDef *TIMx, LL_TIM_ENCODER_InitTypeDef *T
 	LL_TIM_WriteReg(TIMx, CCER, tmpccer);
 
 	return SUCCESS;
-} /* LL_TIM_ENCODER_Init */
+}	/* LL_TIM_ENCODER_Init */
 
 /**
  * @brief  Set the fields of the TIMx Hall sensor interface configuration data
@@ -706,7 +706,7 @@ ErrorStatus LL_TIM_HALLSENSOR_Init(TIM_TypeDef *TIMx, LL_TIM_HALLSENSOR_InitType
 	LL_TIM_OC_SetCompareCH2(TIMx, TIM_HallSensorInitStruct->CommutationDelay);
 
 	return SUCCESS;
-} /* LL_TIM_HALLSENSOR_Init */
+}	/* LL_TIM_HALLSENSOR_Init */
 
 /**
  * @brief  Set the fields of the Break and Dead Time configuration data structure
@@ -791,7 +791,7 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, LL_TIM_BDTR_InitTypeDef *TIM_BDT
 	LL_TIM_WriteReg(TIMx, BDTR, tmpbdtr);
 
 	return SUCCESS;
-} /* LL_TIM_BDTR_Init */
+}	/* LL_TIM_BDTR_Init */
 
 /**
  * @}
@@ -882,7 +882,7 @@ static ErrorStatus OC1Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
 	LL_TIM_WriteReg(TIMx, CCER, tmpccer);
 
 	return SUCCESS;
-} /* OC1Config */
+}	/* OC1Config */
 
 /**
  * @brief  Configure the TIMx output channel 2.
@@ -960,7 +960,7 @@ static ErrorStatus OC2Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
 	LL_TIM_WriteReg(TIMx, CCER, tmpccer);
 
 	return SUCCESS;
-} /* OC2Config */
+}	/* OC2Config */
 
 /**
  * @brief  Configure the TIMx output channel 3.
@@ -1038,7 +1038,7 @@ static ErrorStatus OC3Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
 	LL_TIM_WriteReg(TIMx, CCER, tmpccer);
 
 	return SUCCESS;
-} /* OC3Config */
+}	/* OC3Config */
 
 /**
  * @brief  Configure the TIMx output channel 4.
@@ -1107,7 +1107,7 @@ static ErrorStatus OC4Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
 	LL_TIM_WriteReg(TIMx, CCER, tmpccer);
 
 	return SUCCESS;
-} /* OC4Config */
+}	/* OC4Config */
 
 /**
  * @brief  Configure the TIMx output channel 5.
@@ -1166,7 +1166,7 @@ static ErrorStatus OC5Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
 	LL_TIM_WriteReg(TIMx, CCER, tmpccer);
 
 	return SUCCESS;
-} /* OC5Config */
+}	/* OC5Config */
 
 /**
  * @brief  Configure the TIMx output channel 6.
@@ -1225,7 +1225,7 @@ static ErrorStatus OC6Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
 	LL_TIM_WriteReg(TIMx, CCER, tmpccer);
 
 	return SUCCESS;
-} /* OC6Config */
+}	/* OC6Config */
 
 /**
  * @brief  Configure the TIMx input channel 1.

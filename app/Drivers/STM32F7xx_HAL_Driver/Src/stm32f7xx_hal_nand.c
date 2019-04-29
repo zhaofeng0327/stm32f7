@@ -167,7 +167,7 @@ HAL_StatusTypeDef  HAL_NAND_Init(NAND_HandleTypeDef *hnand, FMC_NAND_PCC_TimingT
 		/* Allocate lock resource and initialize it */
 		hnand->Lock = HAL_UNLOCKED;
 
-		# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 		if (hnand->MspInitCallback == NULL) {
 			hnand->MspInitCallback = HAL_NAND_MspInit;
 		}
@@ -175,10 +175,10 @@ HAL_StatusTypeDef  HAL_NAND_Init(NAND_HandleTypeDef *hnand, FMC_NAND_PCC_TimingT
 
 		/* Init the low level hardware */
 		hnand->MspInitCallback(hnand);
-		# else
+		#else
 		/* Initialize the low level hardware (MSP) */
 		HAL_NAND_MspInit(hnand);
-		# endif
+		#endif
 	}
 
 	/* Initialize NAND control Interface */
@@ -197,7 +197,7 @@ HAL_StatusTypeDef  HAL_NAND_Init(NAND_HandleTypeDef *hnand, FMC_NAND_PCC_TimingT
 	hnand->State = HAL_NAND_STATE_READY;
 
 	return HAL_OK;
-} /* HAL_NAND_Init */
+}	/* HAL_NAND_Init */
 
 /**
  * @brief  Perform NAND memory De-Initialization sequence
@@ -207,17 +207,17 @@ HAL_StatusTypeDef  HAL_NAND_Init(NAND_HandleTypeDef *hnand, FMC_NAND_PCC_TimingT
  */
 HAL_StatusTypeDef HAL_NAND_DeInit(NAND_HandleTypeDef *hnand)
 {
-	# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 	if (hnand->MspDeInitCallback == NULL) {
 		hnand->MspDeInitCallback = HAL_NAND_MspDeInit;
 	}
 
 	/* DeInit the low level hardware */
 	hnand->MspDeInitCallback(hnand);
-	# else
+	#else
 	/* Initialize the low level hardware (MSP) */
 	HAL_NAND_MspDeInit(hnand);
-	# endif
+	#endif
 
 	/* Configure the NAND registers with their reset values */
 	FMC_NAND_DeInit(hnand->Instance, hnand->Init.NandBank);
@@ -274,11 +274,11 @@ void HAL_NAND_IRQHandler(NAND_HandleTypeDef *hnand)
 	/* Check NAND interrupt Rising edge flag */
 	if (__FMC_NAND_GET_FLAG(hnand->Instance, hnand->Init.NandBank, FMC_FLAG_RISING_EDGE)) {
 		/* NAND interrupt callback*/
-		# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 		hnand->ItCallback(hnand);
-		# else
+		#else
 		HAL_NAND_ITCallback(hnand);
-		# endif
+		#endif
 
 		/* Clear NAND interrupt Rising edge pending bit */
 		__FMC_NAND_CLEAR_FLAG(hnand->Instance, FMC_FLAG_RISING_EDGE);
@@ -287,11 +287,11 @@ void HAL_NAND_IRQHandler(NAND_HandleTypeDef *hnand)
 	/* Check NAND interrupt Level flag */
 	if (__FMC_NAND_GET_FLAG(hnand->Instance, hnand->Init.NandBank, FMC_FLAG_LEVEL)) {
 		/* NAND interrupt callback*/
-		# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 		hnand->ItCallback(hnand);
-		# else
+		#else
 		HAL_NAND_ITCallback(hnand);
-		# endif
+		#endif
 
 		/* Clear NAND interrupt Level pending bit */
 		__FMC_NAND_CLEAR_FLAG(hnand->Instance, FMC_FLAG_LEVEL);
@@ -300,11 +300,11 @@ void HAL_NAND_IRQHandler(NAND_HandleTypeDef *hnand)
 	/* Check NAND interrupt Falling edge flag */
 	if (__FMC_NAND_GET_FLAG(hnand->Instance, hnand->Init.NandBank, FMC_FLAG_FALLING_EDGE)) {
 		/* NAND interrupt callback*/
-		# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 		hnand->ItCallback(hnand);
-		# else
+		#else
 		HAL_NAND_ITCallback(hnand);
-		# endif
+		#endif
 
 		/* Clear NAND interrupt Falling edge pending bit */
 		__FMC_NAND_CLEAR_FLAG(hnand->Instance, FMC_FLAG_FALLING_EDGE);
@@ -313,16 +313,16 @@ void HAL_NAND_IRQHandler(NAND_HandleTypeDef *hnand)
 	/* Check NAND interrupt FIFO empty flag */
 	if (__FMC_NAND_GET_FLAG(hnand->Instance, hnand->Init.NandBank, FMC_FLAG_FEMPT)) {
 		/* NAND interrupt callback*/
-		# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+		#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 		hnand->ItCallback(hnand);
-		# else
+		#else
 		HAL_NAND_ITCallback(hnand);
-		# endif
+		#endif
 
 		/* Clear NAND interrupt FIFO empty pending bit */
 		__FMC_NAND_CLEAR_FLAG(hnand->Instance, FMC_FLAG_FEMPT);
 	}
-} /* HAL_NAND_IRQHandler */
+}	/* HAL_NAND_IRQHandler */
 
 /**
  * @brief  NAND interrupt feature callback
@@ -419,7 +419,7 @@ HAL_StatusTypeDef HAL_NAND_Read_ID(NAND_HandleTypeDef *hnand, NAND_IDTypeDef *pN
 	__HAL_UNLOCK(hnand);
 
 	return HAL_OK;
-} /* HAL_NAND_Read_ID */
+}	/* HAL_NAND_Read_ID */
 
 /**
  * @brief  NAND memory reset
@@ -604,7 +604,7 @@ HAL_StatusTypeDef HAL_NAND_Read_Page_8b(NAND_HandleTypeDef *hnand, NAND_AddressT
 	__HAL_UNLOCK(hnand);
 
 	return HAL_OK;
-} /* HAL_NAND_Read_Page_8b */
+}	/* HAL_NAND_Read_Page_8b */
 
 /**
  * @brief  Read Page(s) from NAND memory block (16-bits addressing)
@@ -732,7 +732,7 @@ HAL_StatusTypeDef HAL_NAND_Read_Page_16b(NAND_HandleTypeDef *hnand, NAND_Address
 	__HAL_UNLOCK(hnand);
 
 	return HAL_OK;
-} /* HAL_NAND_Read_Page_16b */
+}	/* HAL_NAND_Read_Page_16b */
 
 /**
  * @brief  Write Page(s) to NAND memory block (8-bits addressing)
@@ -857,7 +857,7 @@ HAL_StatusTypeDef HAL_NAND_Write_Page_8b(NAND_HandleTypeDef *hnand, NAND_Address
 	__HAL_UNLOCK(hnand);
 
 	return HAL_OK;
-} /* HAL_NAND_Write_Page_8b */
+}	/* HAL_NAND_Write_Page_8b */
 
 /**
  * @brief  Write Page(s) to NAND memory block (16-bits addressing)
@@ -982,7 +982,7 @@ HAL_StatusTypeDef HAL_NAND_Write_Page_16b(NAND_HandleTypeDef *hnand, NAND_Addres
 	__HAL_UNLOCK(hnand);
 
 	return HAL_OK;
-} /* HAL_NAND_Write_Page_16b */
+}	/* HAL_NAND_Write_Page_16b */
 
 /**
  * @brief  Read Spare area(s) from NAND memory (8-bits addressing)
@@ -1117,7 +1117,7 @@ HAL_StatusTypeDef HAL_NAND_Read_SpareArea_8b(NAND_HandleTypeDef *hnand, NAND_Add
 	__HAL_UNLOCK(hnand);
 
 	return HAL_OK;
-} /* HAL_NAND_Read_SpareArea_8b */
+}	/* HAL_NAND_Read_SpareArea_8b */
 
 /**
  * @brief  Read Spare area(s) from NAND memory (16-bits addressing)
@@ -1252,7 +1252,7 @@ HAL_StatusTypeDef HAL_NAND_Read_SpareArea_16b(NAND_HandleTypeDef *hnand, NAND_Ad
 	__HAL_UNLOCK(hnand);
 
 	return HAL_OK;
-} /* HAL_NAND_Read_SpareArea_16b */
+}	/* HAL_NAND_Read_SpareArea_16b */
 
 /**
  * @brief  Write Spare area(s) to NAND memory (8-bits addressing)
@@ -1386,7 +1386,7 @@ HAL_StatusTypeDef HAL_NAND_Write_SpareArea_8b(NAND_HandleTypeDef *hnand, NAND_Ad
 	__HAL_UNLOCK(hnand);
 
 	return HAL_OK;
-} /* HAL_NAND_Write_SpareArea_8b */
+}	/* HAL_NAND_Write_SpareArea_8b */
 
 /**
  * @brief  Write Spare area(s) to NAND memory (16-bits addressing)
@@ -1520,7 +1520,7 @@ HAL_StatusTypeDef HAL_NAND_Write_SpareArea_16b(NAND_HandleTypeDef *hnand, NAND_A
 	__HAL_UNLOCK(hnand);
 
 	return HAL_OK;
-} /* HAL_NAND_Write_SpareArea_16b */
+}	/* HAL_NAND_Write_SpareArea_16b */
 
 /**
  * @brief  NAND memory Block erase
@@ -1567,7 +1567,7 @@ HAL_StatusTypeDef HAL_NAND_Erase_Block(NAND_HandleTypeDef *hnand, NAND_AddressTy
 	__HAL_UNLOCK(hnand);
 
 	return HAL_OK;
-} /* HAL_NAND_Erase_Block */
+}	/* HAL_NAND_Erase_Block */
 
 /**
  * @brief  Increment the NAND memory address
@@ -1603,7 +1603,7 @@ uint32_t HAL_NAND_Address_Inc(NAND_HandleTypeDef *hnand, NAND_AddressTypeDef *pA
 	return (status);
 }
 
-# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User NAND Callback
@@ -1666,7 +1666,7 @@ HAL_StatusTypeDef HAL_NAND_RegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAND_
 	/* Release Lock */
 	__HAL_UNLOCK(hnand);
 	return status;
-} /* HAL_NAND_RegisterCallback */
+}	/* HAL_NAND_RegisterCallback */
 
 /**
  * @brief  Unregister a User NAND Callback
@@ -1723,9 +1723,9 @@ HAL_StatusTypeDef HAL_NAND_UnRegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAN
 	/* Release Lock */
 	__HAL_UNLOCK(hnand);
 	return status;
-} /* HAL_NAND_UnRegisterCallback */
+}	/* HAL_NAND_UnRegisterCallback */
 
-# endif	/* if (USE_HAL_NAND_REGISTER_CALLBACKS == 1) */
+#endif	/* if (USE_HAL_NAND_REGISTER_CALLBACKS == 1) */
 
 /**
  * @}

@@ -75,7 +75,7 @@ arm_status arm_fir_decimate_init_f32(
 	if ((blockSize % M) != 0U) {
 		/* Set status as ARM_MATH_LENGTH_ERROR */
 		status = ARM_MATH_LENGTH_ERROR;
-	} else   {
+	} else {
 		/* Assign filter taps */
 		S->numTaps = numTaps;
 

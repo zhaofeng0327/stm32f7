@@ -93,7 +93,7 @@ void arm_rfft_q15(
 		for (i = 0; i < S->fftLenReal; i++) {
 			pDst[i] = pDst[i] << 1;
 		}
-	} else   {
+	} else {
 		/* Calculation of RFFT of input */
 
 		/* Complex FFT process */
@@ -165,34 +165,34 @@ void arm_split_rfft_q15(
 		 * pIn[2 * n - 2 * i + 1] * pBTable[2 * i]); */
 
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		/* pSrc[2 * i] * pATable[2 * i] - pSrc[2 * i + 1] * pATable[2 * i + 1] */
 		outR = __SMUSD(*__SIMD32(pSrc1), *__SIMD32(pCoefA));
 
-		# else
+		#else
 
 		/* -(pSrc[2 * i + 1] * pATable[2 * i + 1] - pSrc[2 * i] * pATable[2 * i]) */
 		outR = -(__SMUSD(*__SIMD32(pSrc1), *__SIMD32(pCoefA)));
 
-		# endif	/*      #ifndef ARM_MATH_BIG_ENDIAN     */
+		#endif	/*      #ifndef ARM_MATH_BIG_ENDIAN     */
 
 		/* pSrc[2 * n - 2 * i] * pBTable[2 * i] +
 		 * pSrc[2 * n - 2 * i + 1] * pBTable[2 * i + 1]) */
 		outR = __SMLAD(*__SIMD32(pSrc2), *__SIMD32(pCoefB), outR) >> 16U;
 
 		/* pIn[2 * n - 2 * i] * pBTable[2 * i + 1] -
-		 * pIn[2 * n - 2 * i + 1] * pBTable[2 * i] */
+		* pIn[2 * n - 2 * i + 1] * pBTable[2 * i] */
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		outI = __SMUSDX(*__SIMD32(pSrc2)--, *__SIMD32(pCoefB));
 
-		# else
+		#else
 
 		outI = __SMUSDX(*__SIMD32(pCoefB), *__SIMD32(pSrc2)--);
 
-		# endif	/*      #ifndef ARM_MATH_BIG_ENDIAN     */
+		#endif	/*      #ifndef ARM_MATH_BIG_ENDIAN     */
 
 		/* (pIn[2 * i + 1] * pATable[2 * i] + pIn[2 * i] * pATable[2 * i + 1] */
 		outI = __SMLADX(*__SIMD32(pSrc1)++, *__SIMD32(pCoefA), outI);
@@ -217,7 +217,7 @@ void arm_split_rfft_q15(
 	pDst[0] = (pSrc[0] + pSrc[1]) >> 1;
 	pDst[1] = 0;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	/* Run the below code for Cortex-M0 */
 	i = 1U;
@@ -271,7 +271,7 @@ void arm_split_rfft_q15(
 	pDst[1] = 0;
 
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_split_rfft_q15 */
+}	/* arm_split_rfft_q15 */
 
 /**
  * @brief  Core Real IFFT process
@@ -321,19 +321,19 @@ void arm_split_rifft_q15(
 		 */
 
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		/* pIn[2 * n - 2 * i] * pBTable[2 * i] -
 		 * pIn[2 * n - 2 * i + 1] * pBTable[2 * i + 1]) */
 		outR = __SMUSD(*__SIMD32(pSrc2), *__SIMD32(pCoefB));
 
-		# else
+		#else
 
 		/* -(-pIn[2 * n - 2 * i] * pBTable[2 * i] +
 		 * pIn[2 * n - 2 * i + 1] * pBTable[2 * i + 1])) */
 		outR = -(__SMUSD(*__SIMD32(pSrc2), *__SIMD32(pCoefB)));
 
-		# endif	/*      #ifndef ARM_MATH_BIG_ENDIAN     */
+		#endif	/*      #ifndef ARM_MATH_BIG_ENDIAN     */
 
 		/* pIn[2 * i] * pATable[2 * i] + pIn[2 * i + 1] * pATable[2 * i + 1] +
 		 * pIn[2 * n - 2 * i] * pBTable[2 * i] */
@@ -346,26 +346,26 @@ void arm_split_rifft_q15(
 
 		/* pIn[2 * i + 1] * pATable[2 * i] - pIn[2 * i] * pATable[2 * i + 1] */
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		outI = __SMLSDX(*__SIMD32(pCoefA), *__SIMD32(pSrc1)++, -outI);
 
-		# else
+		#else
 
 		outI = __SMLSDX(*__SIMD32(pSrc1)++, *__SIMD32(pCoefA), -outI);
 
-		# endif	/*      #ifndef ARM_MATH_BIG_ENDIAN     */
+		#endif	/*      #ifndef ARM_MATH_BIG_ENDIAN     */
 				/* write output */
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		*__SIMD32(pDst1)++ = __PKHBT(outR, (outI >> 16U), 16);
 
-		# else
+		#else
 
 		*__SIMD32(pDst1)++ = __PKHBT((outI >> 16U), outR, 16);
 
-		# endif	/*      #ifndef ARM_MATH_BIG_ENDIAN     */
+		#endif	/*      #ifndef ARM_MATH_BIG_ENDIAN     */
 
 		/* update coefficient pointer */
 		pCoefB = pCoefB + (2U * modifier);
@@ -373,7 +373,7 @@ void arm_split_rifft_q15(
 
 		i--;
 	}
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 	/* Run the below code for Cortex-M0 */
 	i = fftLen;
 
@@ -415,4 +415,4 @@ void arm_split_rifft_q15(
 		i--;
 	}
 	#endif	/* #if defined (ARM_MATH_DSP) */
-} /* arm_split_rifft_q15 */
+}	/* arm_split_rifft_q15 */

@@ -68,7 +68,7 @@
 
 #ifdef HAL_PCD_MODULE_ENABLED
 
-# if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
 
 /* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -78,8 +78,8 @@
 /** @defgroup PCD_Private_Macros PCD Private Macros
  * @{
  */
-#  define PCD_MIN(a, b)    (((a) < (b)) ? (a) : (b))
-#  define PCD_MAX(a, b)    (((a) > (b)) ? (a) : (b))
+#define PCD_MIN(a, b)    (((a) < (b)) ? (a) : (b))
+#define PCD_MAX(a, b)    (((a) > (b)) ? (a) : (b))
 
 /**
  * @}
@@ -90,11 +90,11 @@
 /** @defgroup PCD_Private_Functions PCD Private Functions
  * @{
  */
-#  if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
 static HAL_StatusTypeDef PCD_WriteEmptyTxFifo(PCD_HandleTypeDef *hpcd, uint32_t epnum);
 static HAL_StatusTypeDef PCD_EP_OutXfrComplete_int(PCD_HandleTypeDef *hpcd, uint32_t epnum);
 static HAL_StatusTypeDef PCD_EP_OutSetupPacket_int(PCD_HandleTypeDef *hpcd, uint32_t epnum);
-#  endif/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+#endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
 /**
  * @}
@@ -141,7 +141,7 @@ HAL_StatusTypeDef HAL_PCD_Init(PCD_HandleTypeDef *hpcd)
 		/* Allocate lock resource and initialize it */
 		hpcd->Lock = HAL_UNLOCKED;
 
-		#  if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+		#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 		hpcd->SOFCallback              = HAL_PCD_SOFCallback;
 		hpcd->SetupStageCallback       = HAL_PCD_SetupStageCallback;
 		hpcd->ResetCallback            = HAL_PCD_ResetCallback;
@@ -160,10 +160,10 @@ HAL_StatusTypeDef HAL_PCD_Init(PCD_HandleTypeDef *hpcd)
 
 		/* Init the low level hardware */
 		hpcd->MspInitCallback(hpcd);
-		#  else	 /* if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U) */
+		#else	/* if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U) */
 		/* Init the low level hardware : GPIO, CLOCK, NVIC... */
 		HAL_PCD_MspInit(hpcd);
-		#  endif/* (USE_HAL_PCD_REGISTER_CALLBACKS) */
+		#endif	/* (USE_HAL_PCD_REGISTER_CALLBACKS) */
 	}
 
 	hpcd->State = HAL_PCD_STATE_BUSY;
@@ -220,7 +220,7 @@ HAL_StatusTypeDef HAL_PCD_Init(PCD_HandleTypeDef *hpcd)
 	(void) USB_DevDisconnect(hpcd->Instance);
 
 	return HAL_OK;
-} /* HAL_PCD_Init */
+}	/* HAL_PCD_Init */
 
 /**
  * @brief  DeInitializes the PCD peripheral.
@@ -239,17 +239,17 @@ HAL_StatusTypeDef HAL_PCD_DeInit(PCD_HandleTypeDef *hpcd)
 	/* Stop Device */
 	(void) HAL_PCD_Stop(hpcd);
 
-	#  if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+	#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 	if (hpcd->MspDeInitCallback == NULL) {
 		hpcd->MspDeInitCallback = HAL_PCD_MspDeInit;/* Legacy weak MspDeInit  */
 	}
 
 	/* DeInit the low level hardware */
 	hpcd->MspDeInitCallback(hpcd);
-	#  else
+	#else
 	/* DeInit the low level hardware: CLOCK, NVIC.*/
 	HAL_PCD_MspDeInit(hpcd);
-	#  endif/* USE_HAL_PCD_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 
 	hpcd->State = HAL_PCD_STATE_RESET;
 
@@ -286,7 +286,7 @@ __weak void HAL_PCD_MspDeInit(PCD_HandleTypeDef *hpcd)
 	 */
 }
 
-#  if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 
 /**
  * @brief  Register a User USB PCD Callback
@@ -391,7 +391,7 @@ HAL_StatusTypeDef HAL_PCD_RegisterCallback(PCD_HandleTypeDef *hpcd, HAL_PCD_Call
 	/* Release Lock */
 	__HAL_UNLOCK(hpcd);
 	return status;
-} /* HAL_PCD_RegisterCallback */
+}	/* HAL_PCD_RegisterCallback */
 
 /**
  * @brief  Unregister an USB PCD Callback
@@ -493,7 +493,7 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterCallback(PCD_HandleTypeDef *hpcd, HAL_PCD_Ca
 	/* Release Lock */
 	__HAL_UNLOCK(hpcd);
 	return status;
-} /* HAL_PCD_UnRegisterCallback */
+}	/* HAL_PCD_UnRegisterCallback */
 
 /**
  * @brief  Register USB PCD Data OUT Stage Callback
@@ -829,7 +829,7 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterLpmCallback(PCD_HandleTypeDef *hpcd)
 	return status;
 }
 
-#  endif/* USE_HAL_PCD_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -885,7 +885,7 @@ HAL_StatusTypeDef HAL_PCD_Stop(PCD_HandleTypeDef *hpcd)
 	return HAL_OK;
 }
 
-#  if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
 
 /**
  * @brief  Handles PCD interrupt request.
@@ -975,11 +975,11 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
 							hpcd->IN_ep[epnum].xfer_buff += hpcd->IN_ep[epnum].maxpacket;
 						}
 
-						#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+						#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 						hpcd->DataInStageCallback(hpcd, (uint8_t) epnum);
-						#   else
+						#else
 						HAL_PCD_DataInStageCallback(hpcd, (uint8_t) epnum);
-						#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+						#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 
 						if (hpcd->Init.dma_enable == 1U) {
 							/* this is ZLP, so prepare EP0 for next setup */
@@ -1018,17 +1018,17 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
 			if (hpcd->LPM_State == LPM_L1) {
 				hpcd->LPM_State = LPM_L0;
 
-				#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+				#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 				hpcd->LPMCallback(hpcd, PCD_LPM_L0_ACTIVE);
-				#   else
+				#else
 				HAL_PCDEx_LPM_Callback(hpcd, PCD_LPM_L0_ACTIVE);
-				#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 			} else {
-				#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+				#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 				hpcd->ResumeCallback(hpcd);
-				#   else
+				#else
 				HAL_PCD_ResumeCallback(hpcd);
-				#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 			}
 
 			__HAL_PCD_CLEAR_FLAG(hpcd, USB_OTG_GINTSTS_WKUINT);
@@ -1037,11 +1037,11 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
 		/* Handle Suspend Interrupt */
 		if (__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_USBSUSP)) {
 			if ((USBx_DEVICE->DSTS & USB_OTG_DSTS_SUSPSTS) == USB_OTG_DSTS_SUSPSTS) {
-				#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+				#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 				hpcd->SuspendCallback(hpcd);
-				#   else
+				#else
 				HAL_PCD_SuspendCallback(hpcd);
-				#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 			}
 			__HAL_PCD_CLEAR_FLAG(hpcd, USB_OTG_GINTSTS_USBSUSP);
 		}
@@ -1054,17 +1054,17 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
 				hpcd->LPM_State = LPM_L1;
 				hpcd->BESL      = (hpcd->Instance->GLPMCFG & USB_OTG_GLPMCFG_BESL) >> 2U;
 
-				#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+				#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 				hpcd->LPMCallback(hpcd, PCD_LPM_L1_ACTIVE);
-				#   else
+				#else
 				HAL_PCDEx_LPM_Callback(hpcd, PCD_LPM_L1_ACTIVE);
-				#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 			} else {
-				#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+				#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 				hpcd->SuspendCallback(hpcd);
-				#   else
+				#else
 				HAL_PCD_SuspendCallback(hpcd);
-				#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 			}
 		}
 
@@ -1126,11 +1126,11 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
 			  HAL_RCC_GetHCLKFreq(),
 			  (uint8_t) hpcd->Init.speed);
 
-			#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 			hpcd->ResetCallback(hpcd);
-			#   else
+			#else
 			HAL_PCD_ResetCallback(hpcd);
-			#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 
 			__HAL_PCD_CLEAR_FLAG(hpcd, USB_OTG_GINTSTS_ENUMDNE);
 		}
@@ -1162,44 +1162,44 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
 
 		/* Handle SOF Interrupt */
 		if (__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_SOF)) {
-			#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 			hpcd->SOFCallback(hpcd);
-			#   else
+			#else
 			HAL_PCD_SOFCallback(hpcd);
-			#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 
 			__HAL_PCD_CLEAR_FLAG(hpcd, USB_OTG_GINTSTS_SOF);
 		}
 
 		/* Handle Incomplete ISO IN Interrupt */
 		if (__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_IISOIXFR)) {
-			#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 			hpcd->ISOINIncompleteCallback(hpcd, (uint8_t) epnum);
-			#   else
+			#else
 			HAL_PCD_ISOINIncompleteCallback(hpcd, (uint8_t) epnum);
-			#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 
 			__HAL_PCD_CLEAR_FLAG(hpcd, USB_OTG_GINTSTS_IISOIXFR);
 		}
 
 		/* Handle Incomplete ISO OUT Interrupt */
 		if (__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_PXFR_INCOMPISOOUT)) {
-			#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 			hpcd->ISOOUTIncompleteCallback(hpcd, (uint8_t) epnum);
-			#   else
+			#else
 			HAL_PCD_ISOOUTIncompleteCallback(hpcd, (uint8_t) epnum);
-			#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 
 			__HAL_PCD_CLEAR_FLAG(hpcd, USB_OTG_GINTSTS_PXFR_INCOMPISOOUT);
 		}
 
 		/* Handle Connection event Interrupt */
 		if (__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_SRQINT)) {
-			#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 			hpcd->ConnectCallback(hpcd);
-			#   else
+			#else
 			HAL_PCD_ConnectCallback(hpcd);
-			#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 
 			__HAL_PCD_CLEAR_FLAG(hpcd, USB_OTG_GINTSTS_SRQINT);
 		}
@@ -1209,18 +1209,18 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
 			temp = hpcd->Instance->GOTGINT;
 
 			if ((temp & USB_OTG_GOTGINT_SEDET) == USB_OTG_GOTGINT_SEDET) {
-				#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+				#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 				hpcd->DisconnectCallback(hpcd);
-				#   else
+				#else
 				HAL_PCD_DisconnectCallback(hpcd);
-				#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 			}
 			hpcd->Instance->GOTGINT |= temp;
 		}
 	}
-} /* HAL_PCD_IRQHandler */
+}	/* HAL_PCD_IRQHandler */
 
-#  endif/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+#endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
 
 /**
@@ -1752,7 +1752,7 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd)
 /** @addtogroup PCD_Private_Functions
  * @{
  */
-#  if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
 
 /**
  * @brief  Check FIFO for the next packet to be loaded.
@@ -1807,7 +1807,7 @@ static HAL_StatusTypeDef PCD_WriteEmptyTxFifo(PCD_HandleTypeDef *hpcd, uint32_t 
 	}
 
 	return HAL_OK;
-} /* PCD_WriteEmptyTxFifo */
+}	/* PCD_WriteEmptyTxFifo */
 
 /**
  * @brief  process EP OUT transfer complete interrupt.
@@ -1832,11 +1832,11 @@ static HAL_StatusTypeDef PCD_EP_OutXfrComplete_int(PCD_HandleTypeDef *hpcd, uint
 			}
 
 			/* Inform the upper layer that a setup packet is available */
-			#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 			hpcd->SetupStageCallback(hpcd);
-			#   else
+			#else
 			HAL_PCD_SetupStageCallback(hpcd);
-			#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 
 			(void) USB_EP0_OutStart(hpcd->Instance, 1U, (uint8_t *) hpcd->Setup);
 			CLEAR_OUT_EP_INTR(epnum, USB_OTG_DOEPINT_STUP);
@@ -1856,11 +1856,11 @@ static HAL_StatusTypeDef PCD_EP_OutXfrComplete_int(PCD_HandleTypeDef *hpcd, uint
 
 				hpcd->OUT_ep[epnum].xfer_buff += hpcd->OUT_ep[epnum].maxpacket;
 
-				#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+				#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 				hpcd->DataOutStageCallback(hpcd, (uint8_t) epnum);
-				#   else
+				#else
 				HAL_PCD_DataOutStageCallback(hpcd, (uint8_t) epnum);
-				#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 
 				if ((epnum == 0U) && (hpcd->OUT_ep[epnum].xfer_len == 0U)) {
 					/* this is ZLP, so prepare EP0 for next setup */
@@ -1880,23 +1880,23 @@ static HAL_StatusTypeDef PCD_EP_OutXfrComplete_int(PCD_HandleTypeDef *hpcd, uint
 					CLEAR_OUT_EP_INTR(epnum, USB_OTG_DOEPINT_OTEPSPR);
 				}
 
-				#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+				#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 				hpcd->DataOutStageCallback(hpcd, (uint8_t) epnum);
-				#   else
+				#else
 				HAL_PCD_DataOutStageCallback(hpcd, (uint8_t) epnum);
-				#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+				#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 			}
 		} else {
-			#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+			#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 			hpcd->DataOutStageCallback(hpcd, (uint8_t) epnum);
-			#   else
+			#else
 			HAL_PCD_DataOutStageCallback(hpcd, (uint8_t) epnum);
-			#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+			#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 		}
 	}
 
 	return HAL_OK;
-} /* PCD_EP_OutXfrComplete_int */
+}	/* PCD_EP_OutXfrComplete_int */
 
 /**
  * @brief  process EP OUT setup packet received interrupt.
@@ -1927,26 +1927,26 @@ static HAL_StatusTypeDef PCD_EP_OutSetupPacket_int(PCD_HandleTypeDef *hpcd, uint
 	}
 
 	/* Inform the upper layer that a setup packet is available */
-	#   if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+	#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 	hpcd->SetupStageCallback(hpcd);
-	#   else
+	#else
 	HAL_PCD_SetupStageCallback(hpcd);
-	#   endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_PCD_REGISTER_CALLBACKS */
 
 	if ((gSNPSiD > USB_OTG_CORE_ID_300A) && (hpcd->Init.dma_enable == 1U)) {
 		(void) USB_EP0_OutStart(hpcd->Instance, 1U, (uint8_t *) hpcd->Setup);
 	}
 
 	return HAL_OK;
-} /* PCD_EP_OutSetupPacket_int */
+}	/* PCD_EP_OutSetupPacket_int */
 
-#  endif/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+#endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
 
 /**
  * @}
  */
-# endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+#endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 #endif	/* HAL_PCD_MODULE_ENABLED */
 
 /**

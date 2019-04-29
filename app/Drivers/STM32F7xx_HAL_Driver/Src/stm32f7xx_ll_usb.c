@@ -45,19 +45,19 @@
  */
 
 #if defined(HAL_PCD_MODULE_ENABLED) || defined(HAL_HCD_MODULE_ENABLED)
-# if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
-#  if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
 static HAL_StatusTypeDef USB_CoreReset(USB_OTG_GlobalTypeDef *USBx);
 
-#   ifdef USB_HS_PHYC
+#ifdef USB_HS_PHYC
 static HAL_StatusTypeDef USB_HS_PHYCInit(USB_OTG_GlobalTypeDef *USBx);
-#   endif
+#endif
 
 /* Exported functions --------------------------------------------------------*/
 
@@ -102,7 +102,7 @@ HAL_StatusTypeDef USB_CoreInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef c
 		/* Reset after a PHY select  */
 		ret = USB_CoreReset(USBx);
 	}
-	#   ifdef USB_HS_PHYC
+	#ifdef USB_HS_PHYC
 	else if (cfg.phy_itface == USB_OTG_HS_EMBEDDED_PHY) {
 		USBx->GCCFG &= ~(USB_OTG_GCCFG_PWRDWN);
 
@@ -127,7 +127,7 @@ HAL_StatusTypeDef USB_CoreInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef c
 		/* Reset after a PHY select  */
 		ret = USB_CoreReset(USBx);
 	}
-	#   endif /* ifdef USB_HS_PHYC */
+	#endif	/* ifdef USB_HS_PHYC */
 	else {	/* FS interface (embedded Phy) */
 		/* Select FS Embedded PHY */
 		USBx->GUSBCFG |= USB_OTG_GUSBCFG_PHYSEL;
@@ -145,7 +145,7 @@ HAL_StatusTypeDef USB_CoreInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef c
 	}
 
 	return ret;
-} /* USB_CoreInit */
+}	/* USB_CoreInit */
 
 /**
  * @brief  Set the USB turnaround time
@@ -204,7 +204,7 @@ HAL_StatusTypeDef USB_SetTurnaroundTime(USB_OTG_GlobalTypeDef *USBx,
 	USBx->GUSBCFG |= (uint32_t) ((UsbTrd << 10) & USB_OTG_GUSBCFG_TRDT);
 
 	return HAL_OK;
-} /* USB_SetTurnaroundTime */
+}	/* USB_SetTurnaroundTime */
 
 /**
  * @brief  USB_EnableGlobalInt
@@ -396,7 +396,7 @@ HAL_StatusTypeDef USB_DevInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cf
 	}
 
 	return ret;
-} /* USB_DevInit */
+}	/* USB_DevInit */
 
 /**
  * @brief  USB_OTG_FlushTxFifo : Flush a Tx FIFO
@@ -712,7 +712,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef
 	}
 
 	return HAL_OK;
-} /* USB_EPStartXfer */
+}	/* USB_EPStartXfer */
 
 /**
  * @brief  USB_EP0StartXfer : setup and starts a transfer over the EP  0
@@ -791,7 +791,7 @@ HAL_StatusTypeDef USB_EP0StartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDe
 	}
 
 	return HAL_OK;
-} /* USB_EP0StartXfer */
+}	/* USB_EP0StartXfer */
 
 /**
  * @brief  USB_WritePacket : Writes a packet into the Tx FIFO associated
@@ -1178,7 +1178,7 @@ static HAL_StatusTypeDef USB_CoreReset(USB_OTG_GlobalTypeDef *USBx)
 	return HAL_OK;
 }
 
-#   ifdef USB_HS_PHYC
+#ifdef USB_HS_PHYC
 
 /**
  * @brief  Enables control of a High Speed USB PHYs
@@ -1228,9 +1228,9 @@ static HAL_StatusTypeDef USB_HS_PHYCInit(USB_OTG_GlobalTypeDef *USBx)
 	HAL_Delay(2U);
 
 	return HAL_OK;
-} /* USB_HS_PHYCInit */
+}	/* USB_HS_PHYCInit */
 
-#   endif	/* USB_HS_PHYC */
+#endif	/* USB_HS_PHYC */
 
 /**
  * @brief  USB_HostInit : Initializes the USB OTG controller registers
@@ -1308,7 +1308,7 @@ HAL_StatusTypeDef USB_HostInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef c
 	  | USB_OTG_GINTMSK_PXFRM_IISOOXFRM | USB_OTG_GINTMSK_WUIM);
 
 	return HAL_OK;
-} /* USB_HostInit */
+}	/* USB_HostInit */
 
 /**
  * @brief  USB_InitFSLSPClkSel : Initializes the FSLSPClkSel field of the
@@ -1540,7 +1540,7 @@ HAL_StatusTypeDef USB_HC_Init(USB_OTG_GlobalTypeDef *USBx,
 	}
 
 	return ret;
-} /* USB_HC_Init */
+}	/* USB_HC_Init */
 
 /**
  * @brief  Start a transfer over a host channel
@@ -1653,7 +1653,7 @@ HAL_StatusTypeDef USB_HC_StartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_HCTypeDe
 	}
 
 	return HAL_OK;
-} /* USB_HC_StartXfer */
+}	/* USB_HC_StartXfer */
 
 /**
  * @brief Read all host channel interrupts status
@@ -1715,7 +1715,7 @@ HAL_StatusTypeDef USB_HC_Halt(USB_OTG_GlobalTypeDef *USBx, uint8_t hc_num)
 	}
 
 	return HAL_OK;
-} /* USB_HC_Halt */
+}	/* USB_HC_Halt */
 
 /**
  * @brief  Initiate Do Ping protocol
@@ -1792,7 +1792,7 @@ HAL_StatusTypeDef USB_StopHost(USB_OTG_GlobalTypeDef *USBx)
 	(void) USB_EnableGlobalInt(USBx);
 
 	return HAL_OK;
-} /* USB_StopHost */
+}	/* USB_StopHost */
 
 /**
  * @brief  USB_ActivateRemoteWakeup active remote wakeup signalling
@@ -1826,7 +1826,7 @@ HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_OTG_GlobalTypeDef *USBx)
 	return HAL_OK;
 }
 
-#  endif/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+#endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
 
 /**
@@ -1836,7 +1836,7 @@ HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_OTG_GlobalTypeDef *USBx)
 /**
  * @}
  */
-# endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+#endif	/* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 #endif	/* defined (HAL_PCD_MODULE_ENABLED) || defined (HAL_HCD_MODULE_ENABLED) */
 
 /**

@@ -34,80 +34,80 @@
 
 /* Fallback for __has_builtin */
 #ifndef __has_builtin
-# define __has_builtin(x)    (0)
+#define __has_builtin(x)    (0)
 #endif
 
 /* CMSIS compiler specific defines */
 #ifndef   __ASM
-# define __ASM    asm
+#define __ASM    asm
 #endif
 #ifndef   __INLINE
-# define __INLINE    inline
+#define __INLINE    inline
 #endif
 #ifndef   __FORCEINLINE
-# define __FORCEINLINE    __attribute__((always_inline))
+#define __FORCEINLINE    __attribute__((always_inline))
 #endif
 #ifndef   __STATIC_INLINE
-# define __STATIC_INLINE    static inline
+#define __STATIC_INLINE    static inline
 #endif
 #ifndef   __STATIC_FORCEINLINE
-# define __STATIC_FORCEINLINE    __attribute__((always_inline)) static inline
+#define __STATIC_FORCEINLINE    __attribute__((always_inline)) static inline
 #endif
 #ifndef   __NO_RETURN
-# define __NO_RETURN    __attribute__((__noreturn__))
+#define __NO_RETURN    __attribute__((__noreturn__))
 #endif
 #ifndef   CMSIS_DEPRECATED
-# define  CMSIS_DEPRECATED    __attribute__((deprecated))
+#define  CMSIS_DEPRECATED    __attribute__((deprecated))
 #endif
 #ifndef   __USED
-# define __USED    __attribute__((used))
+#define __USED    __attribute__((used))
 #endif
 #ifndef   __WEAK
-# define __WEAK    __attribute__((weak))
+#define __WEAK    __attribute__((weak))
 #endif
 #ifndef   __PACKED
-# define __PACKED    __attribute__((packed, aligned(1)))
+#define __PACKED    __attribute__((packed, aligned(1)))
 #endif
 #ifndef   __PACKED_STRUCT
-# define __PACKED_STRUCT    struct __attribute__((packed, aligned(1)))
+#define __PACKED_STRUCT    struct __attribute__((packed, aligned(1)))
 #endif
 #ifndef   __UNALIGNED_UINT16_WRITE
-# pragma GCC diagnostic push
-# pragma GCC diagnostic ignored "-Wpacked"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpacked"
 /*lint -esym(9058, T_UINT16_WRITE)*/ /* disable MISRA 2012 Rule 2.4 for T_UINT16_WRITE */
 __PACKED_STRUCT T_UINT16_WRITE { uint16_t v;
 };
-# pragma GCC diagnostic pop
-# define __UNALIGNED_UINT16_WRITE(addr, val)    (void) ((((struct T_UINT16_WRITE *) (void *) (addr))->v) = (val))
+#pragma GCC diagnostic pop
+#define __UNALIGNED_UINT16_WRITE(addr, val)    (void) ((((struct T_UINT16_WRITE *) (void *) (addr))->v) = (val))
 #endif
 #ifndef   __UNALIGNED_UINT16_READ
-# pragma GCC diagnostic push
-# pragma GCC diagnostic ignored "-Wpacked"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpacked"
 /*lint -esym(9058, T_UINT16_READ)*/ /* disable MISRA 2012 Rule 2.4 for T_UINT16_READ */
 __PACKED_STRUCT T_UINT16_READ { uint16_t v;
 };
-# pragma GCC diagnostic pop
-# define __UNALIGNED_UINT16_READ(addr)    (((const struct T_UINT16_READ *) (const void *) (addr))->v)
+#pragma GCC diagnostic pop
+#define __UNALIGNED_UINT16_READ(addr)    (((const struct T_UINT16_READ *) (const void *) (addr))->v)
 #endif
 #ifndef   __UNALIGNED_UINT32_WRITE
-# pragma GCC diagnostic push
-# pragma GCC diagnostic ignored "-Wpacked"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpacked"
 /*lint -esym(9058, T_UINT32_WRITE)*/ /* disable MISRA 2012 Rule 2.4 for T_UINT32_WRITE */
 __PACKED_STRUCT T_UINT32_WRITE { uint32_t v;
 };
-# pragma GCC diagnostic pop
-# define __UNALIGNED_UINT32_WRITE(addr, val)    (void) ((((struct T_UINT32_WRITE *) (void *) (addr))->v) = (val))
+#pragma GCC diagnostic pop
+#define __UNALIGNED_UINT32_WRITE(addr, val)    (void) ((((struct T_UINT32_WRITE *) (void *) (addr))->v) = (val))
 #endif
 #ifndef   __UNALIGNED_UINT32_READ
-# pragma GCC diagnostic push
-# pragma GCC diagnostic ignored "-Wpacked"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpacked"
 __PACKED_STRUCT T_UINT32_READ { uint32_t v;
 };
-# pragma GCC diagnostic pop
-# define __UNALIGNED_UINT32_READ(addr)    (((const struct T_UINT32_READ *) (const void *) (addr))->v)
+#pragma GCC diagnostic pop
+#define __UNALIGNED_UINT32_READ(addr)    (((const struct T_UINT32_READ *) (const void *) (addr))->v)
 #endif
 #ifndef   __ALIGNED
-# define __ALIGNED(x)    __attribute__((aligned(x)))
+#define __ALIGNED(x)    __attribute__((aligned(x)))
 #endif
 
 /* ##########################  Core Instruction Access  ######################### */
@@ -266,7 +266,7 @@ __STATIC_FORCEINLINE uint32_t __RBIT(uint32_t value)
 		s--;
 	}
 	result <<= s;	/* shift when v's highest bits are zero */
-	#endif // if ((defined(__ARM_ARCH_7M__      ) && (__ARM_ARCH_7M__ == 1)) || (defined(__ARM_ARCH_7EM__     ) && (__ARM_ARCH_7EM__ == 1)) || (defined(__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1))    )
+	#endif	// if ((defined(__ARM_ARCH_7M__      ) && (__ARM_ARCH_7M__ == 1)) || (defined(__ARM_ARCH_7EM__     ) && (__ARM_ARCH_7EM__ == 1)) || (defined(__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1))    )
 	return result;
 }
 
@@ -454,23 +454,23 @@ __STATIC_FORCEINLINE uint32_t __get_FPSCR(void)
 {
 	#if ((defined(__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
 	(defined(__FPU_USED   ) && (__FPU_USED == 1U))     )
-	# if __has_builtin(__builtin_arm_get_fpscr)
+	#if __has_builtin(__builtin_arm_get_fpscr)
 	// Re-enable using built-in when GCC has been fixed
 	// || (__GNUC__ > 7) || (__GNUC__ == 7 && __GNUC_MINOR__ >= 2)
 	/* see https://gcc.gnu.org/ml/gcc-patches/2017-04/msg00443.html */
 	return __builtin_arm_get_fpscr();
 
-	# else
+	#else
 	uint32_t result;
 
 	__ASM volatile ("VMRS %0, fpscr" : "=r" (result) );
 	return (result);
 
-	# endif	// if __has_builtin(__builtin_arm_get_fpscr)
-	#else // if ((defined(__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && (defined(__FPU_USED   ) && (__FPU_USED == 1U))     )
+	#endif	// if __has_builtin(__builtin_arm_get_fpscr)
+	#else	// if ((defined(__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && (defined(__FPU_USED   ) && (__FPU_USED == 1U))     )
 	return (0U);
 
-	#endif // if ((defined(__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && (defined(__FPU_USED   ) && (__FPU_USED == 1U))     )
+	#endif	// if ((defined(__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && (defined(__FPU_USED   ) && (__FPU_USED == 1U))     )
 }
 
 /**
@@ -482,17 +482,17 @@ __STATIC_FORCEINLINE void __set_FPSCR(uint32_t fpscr)
 {
 	#if ((defined(__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
 	(defined(__FPU_USED   ) && (__FPU_USED == 1U))     )
-	# if __has_builtin(__builtin_arm_set_fpscr)
+	#if __has_builtin(__builtin_arm_set_fpscr)
 	// Re-enable using built-in when GCC has been fixed
 	// || (__GNUC__ > 7) || (__GNUC__ == 7 && __GNUC_MINOR__ >= 2)
 	/* see https://gcc.gnu.org/ml/gcc-patches/2017-04/msg00443.html */
 	__builtin_arm_set_fpscr(fpscr);
-	# else
+	#else
 	__ASM volatile ("VMSR fpscr, %0" : : "r" (fpscr) : "vfpcc", "memory");
-	# endif
+	#endif
 	#else
 	(void) fpscr;
-	#endif // if ((defined(__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && (defined(__FPU_USED   ) && (__FPU_USED == 1U))     )
+	#endif	// if ((defined(__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && (defined(__FPU_USED   ) && (__FPU_USED == 1U))     )
 }
 
 /** \brief  Get CPSR Register
@@ -677,7 +677,7 @@ __STATIC_INLINE void __FPU_Enable(void)
 		"        VMOV    D29,R2,R2         \n"
 		"        VMOV    D30,R2,R2         \n"
 		"        VMOV    D31,R2,R2         \n"
-		#endif // if (defined(__ARM_NEON) && (__ARM_NEON == 1))
+		#endif	// if (defined(__ARM_NEON) && (__ARM_NEON == 1))
 
 		// Initialise FPSCR to a known state
 		"        VMRS    R2,FPSCR          \n"
@@ -685,7 +685,7 @@ __STATIC_INLINE void __FPU_Enable(void)
 		"        AND     R2,R2,R3          \n"
 		"        VMSR    FPSCR,R2            "
 	);
-} // __FPU_Enable
+}	// __FPU_Enable
 
 #pragma GCC diagnostic pop
 

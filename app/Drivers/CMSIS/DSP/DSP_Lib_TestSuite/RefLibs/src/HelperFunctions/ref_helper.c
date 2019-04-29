@@ -20,7 +20,7 @@ q31_t ref_sat_n(q31_t num, uint32_t bits)
 		if (num > posMax) {
 			num = posMax;
 		}
-	} else   {
+	} else {
 		negMin = -posMax;
 
 		if (num < negMin) {
@@ -34,9 +34,9 @@ q31_t ref_sat_q31(q63_t num)
 {
 	if (num > (q63_t) INT_MAX) {
 		return INT_MAX;
-	} else if (num < (q63_t) 0xffffffff80000000ll)    {
+	} else if (num < (q63_t) 0xffffffff80000000ll) {
 		return INT_MIN;
-	} else   {
+	} else {
 		return (q31_t) num;
 	}
 }
@@ -45,9 +45,9 @@ q15_t ref_sat_q15(q31_t num)
 {
 	if (num > (q31_t) SHRT_MAX) {
 		return SHRT_MAX;
-	} else if (num < (q31_t) 0xffff8000)    {
+	} else if (num < (q31_t) 0xffff8000) {
 		return SHRT_MIN;
-	} else   {
+	} else {
 		return (q15_t) num;
 	}
 }
@@ -56,9 +56,9 @@ q7_t ref_sat_q7(q15_t num)
 {
 	if (num > (q15_t) SCHAR_MAX) {
 		return SCHAR_MAX;
-	} else if (num < (q15_t) 0xff80)    {
+	} else if (num < (q15_t) 0xff80) {
 		return SCHAR_MIN;
-	} else   {
+	} else {
 		return (q7_t) num;
 	}
 }

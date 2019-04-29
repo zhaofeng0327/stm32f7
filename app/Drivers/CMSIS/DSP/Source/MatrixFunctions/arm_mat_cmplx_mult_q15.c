@@ -173,7 +173,7 @@ arm_status arm_mat_cmplx_mult_q15(
 				*px   = in;
 				in    = *pInB++;
 				px[1] = in;
-				#else  /* ifdef UNALIGNED_SUPPORT_DISABLE */
+				#else	/* ifdef UNALIGNED_SUPPORT_DISABLE */
 
 				/* Read two elements from the row */
 				in = *__SIMD32(pInB)++;
@@ -221,7 +221,7 @@ arm_status arm_mat_cmplx_mult_q15(
 				in = *__SIMD32(pInB)++;
 
 				*__SIMD32(px) = in;
-				#endif /* ifdef UNALIGNED_SUPPORT_DISABLE */
+				#endif	/* ifdef UNALIGNED_SUPPORT_DISABLE */
 
 				/* Update the pointer px to point to the next row of the transposed matrix */
 				px += numRowsB * 2;
@@ -300,17 +300,17 @@ arm_status arm_mat_cmplx_mult_q15(
 					sumImag += (q31_t) b * c;
 					/* update pointer */
 					pInB += 4U;
-					#else  /* ifdef UNALIGNED_SUPPORT_DISABLE */
+					#else	/* ifdef UNALIGNED_SUPPORT_DISABLE */
 					/* read real and imag values from pSrcA and pSrcB buffer */
 					pSourceA = *__SIMD32(pInA)++;
 					pSourceB = *__SIMD32(pInB)++;
 
 					/* Multiply and Accumlates */
-					# ifdef ARM_MATH_BIG_ENDIAN
+					#ifdef ARM_MATH_BIG_ENDIAN
 					prod1 = -__SMUSD(pSourceA, pSourceB);
-					# else
+					#else
 					prod1 = __SMUSD(pSourceA, pSourceB);
-					# endif
+					#endif
 					prod2    = __SMUADX(pSourceA, pSourceB);
 					sumReal += (q63_t) prod1;
 					sumImag += (q63_t) prod2;
@@ -320,11 +320,11 @@ arm_status arm_mat_cmplx_mult_q15(
 					pSourceB = *__SIMD32(pInB)++;
 
 					/* Multiply and Accumlates */
-					# ifdef ARM_MATH_BIG_ENDIAN
+					#ifdef ARM_MATH_BIG_ENDIAN
 					prod1 = -__SMUSD(pSourceA, pSourceB);
-					# else
+					#else
 					prod1 = __SMUSD(pSourceA, pSourceB);
-					# endif
+					#endif
 					prod2    = __SMUADX(pSourceA, pSourceB);
 					sumReal += (q63_t) prod1;
 					sumImag += (q63_t) prod2;
@@ -353,17 +353,17 @@ arm_status arm_mat_cmplx_mult_q15(
 					sumReal -= (q31_t) b * d;
 					sumImag += (q31_t) b * c;
 
-					#else  /* ifdef UNALIGNED_SUPPORT_DISABLE */
+					#else	/* ifdef UNALIGNED_SUPPORT_DISABLE */
 					/* read real and imag values from pSrcA and pSrcB buffer */
 					pSourceA = *__SIMD32(pInA)++;
 					pSourceB = *__SIMD32(pInB)++;
 
 					/* Multiply and Accumlates */
-					# ifdef ARM_MATH_BIG_ENDIAN
+					#ifdef ARM_MATH_BIG_ENDIAN
 					prod1 = -__SMUSD(pSourceA, pSourceB);
-					# else
+					#else
 					prod1 = __SMUSD(pSourceA, pSourceB);
-					# endif
+					#endif
 					prod2    = __SMUADX(pSourceA, pSourceB);
 					sumReal += (q63_t) prod1;
 					sumImag += (q63_t) prod2;
@@ -392,7 +392,7 @@ arm_status arm_mat_cmplx_mult_q15(
 
 	/* Return to application */
 	return (status);
-} /* arm_mat_cmplx_mult_q15 */
+}	/* arm_mat_cmplx_mult_q15 */
 
 /**
  * @} end of MatrixMult group

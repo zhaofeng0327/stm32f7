@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef STM32F7xx_HAL_IWDG_H
-# define STM32F7xx_HAL_IWDG_H
+#define STM32F7xx_HAL_IWDG_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -79,13 +79,13 @@ typedef struct {
 /** @defgroup IWDG_Prescaler IWDG Prescaler
  * @{
  */
-# define IWDG_PRESCALER_4      0x00000000u					/*!< IWDG prescaler set to 4   */
-# define IWDG_PRESCALER_8      IWDG_PR_PR_0					/*!< IWDG prescaler set to 8   */
-# define IWDG_PRESCALER_16     IWDG_PR_PR_1					/*!< IWDG prescaler set to 16  */
-# define IWDG_PRESCALER_32     (IWDG_PR_PR_1 | IWDG_PR_PR_0)/*!< IWDG prescaler set to 32  */
-# define IWDG_PRESCALER_64     IWDG_PR_PR_2					/*!< IWDG prescaler set to 64  */
-# define IWDG_PRESCALER_128    (IWDG_PR_PR_2 | IWDG_PR_PR_0)/*!< IWDG prescaler set to 128 */
-# define IWDG_PRESCALER_256    (IWDG_PR_PR_2 | IWDG_PR_PR_1)/*!< IWDG prescaler set to 256 */
+#define IWDG_PRESCALER_4      0x00000000u	/*!< IWDG prescaler set to 4   */
+#define IWDG_PRESCALER_8      IWDG_PR_PR_0	/*!< IWDG prescaler set to 8   */
+#define IWDG_PRESCALER_16     IWDG_PR_PR_1	/*!< IWDG prescaler set to 16  */
+#define IWDG_PRESCALER_32     (IWDG_PR_PR_1 | IWDG_PR_PR_0)	/*!< IWDG prescaler set to 32  */
+#define IWDG_PRESCALER_64     IWDG_PR_PR_2	/*!< IWDG prescaler set to 64  */
+#define IWDG_PRESCALER_128    (IWDG_PR_PR_2 | IWDG_PR_PR_0)	/*!< IWDG prescaler set to 128 */
+#define IWDG_PRESCALER_256    (IWDG_PR_PR_2 | IWDG_PR_PR_1)	/*!< IWDG prescaler set to 256 */
 
 /**
  * @}
@@ -94,7 +94,7 @@ typedef struct {
 /** @defgroup IWDG_Window_option IWDG Window option
  * @{
  */
-# define IWDG_WINDOW_DISABLE    IWDG_WINR_WIN
+#define IWDG_WINDOW_DISABLE    IWDG_WINR_WIN
 
 /**
  * @}
@@ -116,7 +116,7 @@ typedef struct {
  * @param  __HANDLE__  IWDG handle
  * @retval None
  */
-# define __HAL_IWDG_START(__HANDLE__)    WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_ENABLE)
+#define __HAL_IWDG_START(__HANDLE__)    WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_ENABLE)
 
 /**
  * @brief  Reload IWDG counter with value defined in the reload register
@@ -124,7 +124,7 @@ typedef struct {
  * @param  __HANDLE__  IWDG handle
  * @retval None
  */
-# define __HAL_IWDG_RELOAD_COUNTER(__HANDLE__)    WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_RELOAD)
+#define __HAL_IWDG_RELOAD_COUNTER(__HANDLE__)    WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_RELOAD)
 
 /**
  * @}
@@ -169,10 +169,10 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
 /**
  * @brief  IWDG Key Register BitMask
  */
-# define IWDG_KEY_RELOAD                  0x0000AAAAu	/*!< IWDG Reload Counter Enable   */
-# define IWDG_KEY_ENABLE                  0x0000CCCCu	/*!< IWDG Peripheral Enable       */
-# define IWDG_KEY_WRITE_ACCESS_ENABLE     0x00005555u	/*!< IWDG KR Write Access Enable  */
-# define IWDG_KEY_WRITE_ACCESS_DISABLE    0x00000000u	/*!< IWDG KR Write Access Disable */
+#define IWDG_KEY_RELOAD                  0x0000AAAAu/*!< IWDG Reload Counter Enable   */
+#define IWDG_KEY_ENABLE                  0x0000CCCCu/*!< IWDG Peripheral Enable       */
+#define IWDG_KEY_WRITE_ACCESS_ENABLE     0x00005555u/*!< IWDG KR Write Access Enable  */
+#define IWDG_KEY_WRITE_ACCESS_DISABLE    0x00000000u/*!< IWDG KR Write Access Disable */
 
 /**
  * @}
@@ -189,21 +189,21 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
  * @param  __HANDLE__  IWDG handle
  * @retval None
  */
-# define IWDG_ENABLE_WRITE_ACCESS(__HANDLE__)    WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_WRITE_ACCESS_ENABLE)
+#define IWDG_ENABLE_WRITE_ACCESS(__HANDLE__)    WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_WRITE_ACCESS_ENABLE)
 
 /**
  * @brief  Disable write access to IWDG_PR, IWDG_RLR and IWDG_WINR registers.
  * @param  __HANDLE__  IWDG handle
  * @retval None
  */
-# define IWDG_DISABLE_WRITE_ACCESS(__HANDLE__)    WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_WRITE_ACCESS_DISABLE)
+#define IWDG_DISABLE_WRITE_ACCESS(__HANDLE__)    WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_WRITE_ACCESS_DISABLE)
 
 /**
  * @brief  Check IWDG prescaler value.
  * @param  __PRESCALER__  IWDG prescaler value
  * @retval None
  */
-# define IS_IWDG_PRESCALER(__PRESCALER__) \
+#define IS_IWDG_PRESCALER(__PRESCALER__) \
 	(((__PRESCALER__) == IWDG_PRESCALER_4) || \
 	((__PRESCALER__) == IWDG_PRESCALER_8) || \
 	((__PRESCALER__) == IWDG_PRESCALER_16) || \
@@ -217,14 +217,14 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
  * @param  __RELOAD__  IWDG reload value
  * @retval None
  */
-# define IS_IWDG_RELOAD(__RELOAD__)    ((__RELOAD__) <= IWDG_RLR_RL)
+#define IS_IWDG_RELOAD(__RELOAD__)    ((__RELOAD__) <= IWDG_RLR_RL)
 
 /**
  * @brief  Check IWDG window value.
  * @param  __WINDOW__  IWDG window value
  * @retval None
  */
-# define IS_IWDG_WINDOW(__WINDOW__)    ((__WINDOW__) <= IWDG_WINR_WIN)
+#define IS_IWDG_WINDOW(__WINDOW__)    ((__WINDOW__) <= IWDG_WINR_WIN)
 
 
 /**
@@ -240,9 +240,9 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
  */
 
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* STM32F7xx_HAL_IWDG_H */
 

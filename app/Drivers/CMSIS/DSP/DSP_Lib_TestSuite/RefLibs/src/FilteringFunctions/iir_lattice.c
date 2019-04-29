@@ -81,7 +81,7 @@ void ref_iir_lattice_f32(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* ref_iir_lattice_f32 */
+}	/* ref_iir_lattice_f32 */
 
 void ref_iir_lattice_q31(
 	const arm_iir_lattice_instance_q31 *S,
@@ -170,7 +170,7 @@ void ref_iir_lattice_q31(
 		/* Decrement the loop counter */
 		tapCnt--;
 	}
-} /* ref_iir_lattice_q31 */
+}	/* ref_iir_lattice_q31 */
 
 void ref_iir_lattice_q15(
 	const arm_iir_lattice_instance_q15 *S,
@@ -259,4 +259,4 @@ void ref_iir_lattice_q15(
 		/* Decrement the loop counter */
 		stgCnt--;
 	}
-} /* ref_iir_lattice_q15 */
+}	/* ref_iir_lattice_q15 */

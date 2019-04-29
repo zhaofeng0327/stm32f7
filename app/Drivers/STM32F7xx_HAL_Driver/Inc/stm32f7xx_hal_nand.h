@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F7xx_HAL_NAND_H
-# define __STM32F7xx_HAL_NAND_H
+#define __STM32F7xx_HAL_NAND_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_ll_fmc.h"
+#include "stm32f7xx_ll_fmc.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -108,11 +108,11 @@ typedef struct {
 /**
  * @brief  NAND handle Structure definition
  */
-# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 typedef struct __NAND_HandleTypeDef
-# else
+#else
 typedef struct
-# endif	/* USE_HAL_NAND_REGISTER_CALLBACKS  */
+#endif	/* USE_HAL_NAND_REGISTER_CALLBACKS  */
 {
 	FMC_NAND_TypeDef           *Instance;	/*!< Register base address                                 */
 
@@ -124,14 +124,14 @@ typedef struct
 
 	NAND_DeviceConfigTypeDef   Config;	/*!< NAND phusical characteristic information structure    */
 
-	# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 	void (*MspInitCallback)(struct __NAND_HandleTypeDef *hnand);	/*!< NAND Msp Init callback              */
 	void (*MspDeInitCallback)(struct __NAND_HandleTypeDef *hnand);	/*!< NAND Msp DeInit callback            */
 	void (*ItCallback)(struct __NAND_HandleTypeDef *hnand);			/*!< NAND IT callback                    */
-	# endif
+	#endif
 } NAND_HandleTypeDef;
 
-# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  HAL NAND Callback ID enumeration definition
@@ -146,7 +146,7 @@ typedef enum {
  * @brief  HAL NAND Callback pointer definition
  */
 typedef void (*pNAND_CallbackTypeDef)(NAND_HandleTypeDef *hnand);
-# endif	// if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+#endif	// if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 
 /**
  * @}
@@ -163,16 +163,16 @@ typedef void (*pNAND_CallbackTypeDef)(NAND_HandleTypeDef *hnand);
  * @param  __HANDLE__ specifies the NAND handle.
  * @retval None
  */
-# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
-#  define __HAL_NAND_RESET_HANDLE_STATE(__HANDLE__) \
+#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+#define __HAL_NAND_RESET_HANDLE_STATE(__HANDLE__) \
 	do {                                             \
 		(__HANDLE__)->State = HAL_NAND_STATE_RESET; \
 		(__HANDLE__)->MspInitCallback   = NULL;       \
 		(__HANDLE__)->MspDeInitCallback = NULL;     \
 	} while (0)
-# else
-#  define __HAL_NAND_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_NAND_STATE_RESET)
-# endif
+#else
+#define __HAL_NAND_RESET_HANDLE_STATE(__HANDLE__)    ((__HANDLE__)->State = HAL_NAND_STATE_RESET)
+#endif
 
 /**
  * @}
@@ -236,12 +236,12 @@ HAL_StatusTypeDef  HAL_NAND_Erase_Block(NAND_HandleTypeDef *hnand, NAND_AddressT
 
 uint32_t           HAL_NAND_Address_Inc(NAND_HandleTypeDef *hnand, NAND_AddressTypeDef *pAddress);
 
-# if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 /* NAND callback registering/unregistering */
 HAL_StatusTypeDef  HAL_NAND_RegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAND_CallbackIDTypeDef CallbackId,
   pNAND_CallbackTypeDef pCallback);
 HAL_StatusTypeDef  HAL_NAND_UnRegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAND_CallbackIDTypeDef CallbackId);
-# endif
+#endif
 
 /**
  * @}
@@ -281,33 +281,33 @@ uint32_t              HAL_NAND_Read_Status(NAND_HandleTypeDef *hnand);
 /** @defgroup NAND_Private_Constants NAND Private Constants
  * @{
  */
-# define NAND_DEVICE             ((uint32_t) 0x80000000U)
-# define NAND_WRITE_TIMEOUT      ((uint32_t) 0x01000000U)
+#define NAND_DEVICE             ((uint32_t) 0x80000000U)
+#define NAND_WRITE_TIMEOUT      ((uint32_t) 0x01000000U)
 
-# define CMD_AREA                ((uint32_t) (1 << 16))	/* A16 = CLE high */
-# define ADDR_AREA               ((uint32_t) (1 << 17))	/* A17 = ALE high */
+#define CMD_AREA                ((uint32_t) (1 << 16))	/* A16 = CLE high */
+#define ADDR_AREA               ((uint32_t) (1 << 17))	/* A17 = ALE high */
 
-# define NAND_CMD_AREA_A         ((uint8_t) 0x00U)
-# define NAND_CMD_AREA_B         ((uint8_t) 0x01U)
-# define NAND_CMD_AREA_C         ((uint8_t) 0x50U)
-# define NAND_CMD_AREA_TRUE1     ((uint8_t) 0x30U)
+#define NAND_CMD_AREA_A         ((uint8_t) 0x00U)
+#define NAND_CMD_AREA_B         ((uint8_t) 0x01U)
+#define NAND_CMD_AREA_C         ((uint8_t) 0x50U)
+#define NAND_CMD_AREA_TRUE1     ((uint8_t) 0x30U)
 
-# define NAND_CMD_WRITE0         ((uint8_t) 0x80U)
-# define NAND_CMD_WRITE_TRUE1    ((uint8_t) 0x10U)
-# define NAND_CMD_ERASE0         ((uint8_t) 0x60U)
-# define NAND_CMD_ERASE1         ((uint8_t) 0xD0U)
-# define NAND_CMD_READID         ((uint8_t) 0x90U)
-# define NAND_CMD_STATUS         ((uint8_t) 0x70U)
-# define NAND_CMD_LOCK_STATUS    ((uint8_t) 0x7AU)
-# define NAND_CMD_RESET          ((uint8_t) 0xFFU)
+#define NAND_CMD_WRITE0         ((uint8_t) 0x80U)
+#define NAND_CMD_WRITE_TRUE1    ((uint8_t) 0x10U)
+#define NAND_CMD_ERASE0         ((uint8_t) 0x60U)
+#define NAND_CMD_ERASE1         ((uint8_t) 0xD0U)
+#define NAND_CMD_READID         ((uint8_t) 0x90U)
+#define NAND_CMD_STATUS         ((uint8_t) 0x70U)
+#define NAND_CMD_LOCK_STATUS    ((uint8_t) 0x7AU)
+#define NAND_CMD_RESET          ((uint8_t) 0xFFU)
 
 /* NAND memory status */
-# define NAND_VALID_ADDRESS      ((uint32_t) 0x00000100U)
-# define NAND_INVALID_ADDRESS    ((uint32_t) 0x00000200U)
-# define NAND_TIMEOUT_ERROR      ((uint32_t) 0x00000400U)
-# define NAND_BUSY               ((uint32_t) 0x00000000U)
-# define NAND_ERROR              ((uint32_t) 0x00000001U)
-# define NAND_READY              ((uint32_t) 0x00000040U)
+#define NAND_VALID_ADDRESS      ((uint32_t) 0x00000100U)
+#define NAND_INVALID_ADDRESS    ((uint32_t) 0x00000200U)
+#define NAND_TIMEOUT_ERROR      ((uint32_t) 0x00000400U)
+#define NAND_BUSY               ((uint32_t) 0x00000000U)
+#define NAND_ERROR              ((uint32_t) 0x00000001U)
+#define NAND_READY              ((uint32_t) 0x00000040U)
 
 /**
  * @}
@@ -325,30 +325,30 @@ uint32_t              HAL_NAND_Read_Status(NAND_HandleTypeDef *hnand);
  * @param  __HANDLE__  NAND handle.
  * @retval NAND Raw address value
  */
-# define ARRAY_ADDRESS(__ADDRESS__, __HANDLE__) \
+#define ARRAY_ADDRESS(__ADDRESS__, __HANDLE__) \
 	((__ADDRESS__)->Page   \
 	+ (((__ADDRESS__)->Block + (((__ADDRESS__)->Plane) * ((__HANDLE__)->Config.PlaneSize))) \
 	* ((__HANDLE__)->Config.BlockSize)))
 
-# define COLUMN_ADDRESS(__HANDLE__)    ((__HANDLE__)->Config.PageSize)
+#define COLUMN_ADDRESS(__HANDLE__)    ((__HANDLE__)->Config.PageSize)
 
 /**
  * @brief  NAND memory address cycling.
  * @param  __ADDRESS__ NAND memory address.
  * @retval NAND address cycling value.
  */
-# define ADDR_1ST_CYCLE(__ADDRESS__)    (uint8_t) (__ADDRESS__)			/* 1st addressing cycle */
-# define ADDR_2ND_CYCLE(__ADDRESS__)    (uint8_t) ((__ADDRESS__) >> 8)	/* 2nd addressing cycle */
-# define ADDR_3RD_CYCLE(__ADDRESS__)    (uint8_t) ((__ADDRESS__) >> 16)	/* 3rd addressing cycle */
-# define ADDR_4TH_CYCLE(__ADDRESS__)    (uint8_t) ((__ADDRESS__) >> 24)	/* 4th addressing cycle */
+#define ADDR_1ST_CYCLE(__ADDRESS__)    (uint8_t) (__ADDRESS__)			/* 1st addressing cycle */
+#define ADDR_2ND_CYCLE(__ADDRESS__)    (uint8_t) ((__ADDRESS__) >> 8)	/* 2nd addressing cycle */
+#define ADDR_3RD_CYCLE(__ADDRESS__)    (uint8_t) ((__ADDRESS__) >> 16)	/* 3rd addressing cycle */
+#define ADDR_4TH_CYCLE(__ADDRESS__)    (uint8_t) ((__ADDRESS__) >> 24)	/* 4th addressing cycle */
 
 /**
  * @brief  NAND memory Columns cycling.
  * @param  __ADDRESS__ NAND memory address.
  * @retval NAND Column address cycling value.
  */
-# define COLUMN_1ST_CYCLE(__ADDRESS__)    (uint8_t) (__ADDRESS__)		/* 1st Column addressing cycle */
-# define COLUMN_2ND_CYCLE(__ADDRESS__)    (uint8_t) ((__ADDRESS__) >> 8)/* 2nd Column addressing cycle */
+#define COLUMN_1ST_CYCLE(__ADDRESS__)    (uint8_t) (__ADDRESS__)/* 1st Column addressing cycle */
+#define COLUMN_2ND_CYCLE(__ADDRESS__)    (uint8_t) ((__ADDRESS__) >> 8)	/* 2nd Column addressing cycle */
 
 /**
  * @}
@@ -366,9 +366,9 @@ uint32_t              HAL_NAND_Read_Status(NAND_HandleTypeDef *hnand);
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif	/* __STM32F7xx_HAL_NAND_H */
 

@@ -124,15 +124,15 @@
 /** @addtogroup GPIO_Private_Constants GPIO Private Constants
  * @{
  */
-# define GPIO_MODE           ((uint32_t) 0x00000003U)
-# define EXTI_MODE           ((uint32_t) 0x10000000U)
-# define GPIO_MODE_IT        ((uint32_t) 0x00010000U)
-# define GPIO_MODE_EVT       ((uint32_t) 0x00020000U)
-# define RISING_EDGE         ((uint32_t) 0x00100000U)
-# define FALLING_EDGE        ((uint32_t) 0x00200000U)
-# define GPIO_OUTPUT_TYPE    ((uint32_t) 0x00000010U)
+#define GPIO_MODE           ((uint32_t) 0x00000003U)
+#define EXTI_MODE           ((uint32_t) 0x10000000U)
+#define GPIO_MODE_IT        ((uint32_t) 0x00010000U)
+#define GPIO_MODE_EVT       ((uint32_t) 0x00020000U)
+#define RISING_EDGE         ((uint32_t) 0x00100000U)
+#define FALLING_EDGE        ((uint32_t) 0x00200000U)
+#define GPIO_OUTPUT_TYPE    ((uint32_t) 0x00000010U)
 
-# define GPIO_NUMBER         ((uint32_t) 16U)
+#define GPIO_NUMBER         ((uint32_t) 16U)
 
 /**
  * @}
@@ -277,7 +277,7 @@ void HAL_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *GPIO_Init)
 			}
 		}
 	}
-} /* HAL_GPIO_Init */
+}	/* HAL_GPIO_Init */
 
 /**
  * @brief  De-initializes the GPIOx peripheral registers to their default reset values.
@@ -337,7 +337,7 @@ void HAL_GPIO_DeInit(GPIO_TypeDef *GPIOx, uint32_t GPIO_Pin)
 			GPIOx->PUPDR &= ~(GPIO_PUPDR_PUPDR0 << (position * 2));
 		}
 	}
-} /* HAL_GPIO_DeInit */
+}	/* HAL_GPIO_DeInit */
 
 /**
  * @}
@@ -371,7 +371,7 @@ GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 
 	if ((GPIOx->IDR & GPIO_Pin) != (uint32_t) GPIO_PIN_RESET) {
 		bitstatus = GPIO_PIN_SET;
-	} else   {
+	} else {
 		bitstatus = GPIO_PIN_RESET;
 	}
 	return bitstatus;
@@ -401,7 +401,7 @@ void HAL_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState Pin
 
 	if (PinState != GPIO_PIN_RESET) {
 		GPIOx->BSRR = GPIO_Pin;
-	} else   {
+	} else {
 		GPIOx->BSRR = (uint32_t) GPIO_Pin << 16;
 	}
 }
@@ -419,7 +419,7 @@ void HAL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 
 	if ((GPIOx->ODR & GPIO_Pin) == GPIO_Pin) {
 		GPIOx->BSRR = (uint32_t) GPIO_Pin << GPIO_NUMBER;
-	} else   {
+	} else {
 		GPIOx->BSRR = GPIO_Pin;
 	}
 }
@@ -455,7 +455,7 @@ HAL_StatusTypeDef HAL_GPIO_LockPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 
 	if ((GPIOx->LCKR & GPIO_LCKR_LCKK) != RESET) {
 		return HAL_OK;
-	} else   {
+	} else {
 		return HAL_ERROR;
 	}
 }

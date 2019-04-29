@@ -19,14 +19,14 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef STM32F7xx_HAL_TIM_EX_H
-# define STM32F7xx_HAL_TIM_EX_H
+#define STM32F7xx_HAL_TIM_EX_H
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-# include "stm32f7xx_hal_def.h"
+#include "stm32f7xx_hal_def.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
  * @{
@@ -59,7 +59,7 @@ typedef struct {
 	uint32_t Commutation_Delay;	/*!< Specifies the pulse value to be loaded into the Capture Compare Register.
 								 *   This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF */
 } TIM_HallSensor_InitTypeDef;
-# if defined(TIM_BREAK_INPUT_SUPPORT)
+#if defined(TIM_BREAK_INPUT_SUPPORT)
 
 /**
  * @brief  TIM Break/Break2 input configuration
@@ -75,7 +75,7 @@ typedef struct {
 }
 TIMEx_BreakInputConfigTypeDef;
 
-# endif	/* TIM_BREAK_INPUT_SUPPORT */
+#endif	/* TIM_BREAK_INPUT_SUPPORT */
 
 /**
  * @}
@@ -91,29 +91,29 @@ TIMEx_BreakInputConfigTypeDef;
 /** @defgroup TIMEx_Remap TIM Extended Remapping
  * @{
  */
-# define TIM_TIM2_TIM8_TRGO    (0x00000000U)
-# define TIM_TIM2_ETH_PTP      (0x00000400U)
-# define TIM_TIM2_USBFS_SOF    (0x00000800U)
-# define TIM_TIM2_USBHS_SOF    (0x00000C00U)
-# define TIM_TIM5_GPIO         (0x00000000U)
-# define TIM_TIM5_LSI          (0x00000040U)
-# define TIM_TIM5_LSE          (0x00000080U)
-# define TIM_TIM5_RTC          (0x000000C0U)
-# define TIM_TIM11_GPIO        (0x00000000U)
-# define TIM_TIM11_SPDIFRX     (0x00000001U)
-# define TIM_TIM11_HSE         (0x00000002U)
-# define TIM_TIM11_MCO1        (0x00000003U)
+#define TIM_TIM2_TIM8_TRGO    (0x00000000U)
+#define TIM_TIM2_ETH_PTP      (0x00000400U)
+#define TIM_TIM2_USBFS_SOF    (0x00000800U)
+#define TIM_TIM2_USBHS_SOF    (0x00000C00U)
+#define TIM_TIM5_GPIO         (0x00000000U)
+#define TIM_TIM5_LSI          (0x00000040U)
+#define TIM_TIM5_LSE          (0x00000080U)
+#define TIM_TIM5_RTC          (0x000000C0U)
+#define TIM_TIM11_GPIO        (0x00000000U)
+#define TIM_TIM11_SPDIFRX     (0x00000001U)
+#define TIM_TIM11_HSE         (0x00000002U)
+#define TIM_TIM11_MCO1        (0x00000003U)
 
 /**
  * @}
  */
-# if defined(TIM_BREAK_INPUT_SUPPORT)
+#if defined(TIM_BREAK_INPUT_SUPPORT)
 
 /** @defgroup TIMEx_Break_Input TIM Extended Break input
  * @{
  */
-#  define TIM_BREAKINPUT_BRK     0x00000001U/* !< Timer break input  */
-#  define TIM_BREAKINPUT_BRK2    0x00000002U/* !< Timer break2 input */
+#define TIM_BREAKINPUT_BRK     0x00000001U	/* !< Timer break input  */
+#define TIM_BREAKINPUT_BRK2    0x00000002U	/* !< Timer break2 input */
 
 /**
  * @}
@@ -122,8 +122,8 @@ TIMEx_BreakInputConfigTypeDef;
 /** @defgroup TIMEx_Break_Input_Source TIM Extended Break input source
  * @{
  */
-#  define TIM_BREAKINPUTSOURCE_BKIN      ((uint32_t) 0x00000001U)	/* !< An external source (GPIO) is connected to the BKIN pin  */
-#  define TIM_BREAKINPUTSOURCE_DFSDM1    ((uint32_t) 0x00000008U)	/* !< The analog watchdog output of the DFSDM1 peripheral is connected to the break input */
+#define TIM_BREAKINPUTSOURCE_BKIN      ((uint32_t) 0x00000001U)	/* !< An external source (GPIO) is connected to the BKIN pin  */
+#define TIM_BREAKINPUTSOURCE_DFSDM1    ((uint32_t) 0x00000008U)	/* !< The analog watchdog output of the DFSDM1 peripheral is connected to the break input */
 
 /**
  * @}
@@ -132,8 +132,8 @@ TIMEx_BreakInputConfigTypeDef;
 /** @defgroup TIMEx_Break_Input_Source_Enable TIM Extended Break input source enabling
  * @{
  */
-#  define TIM_BREAKINPUTSOURCE_DISABLE    0x00000000U	/* !< Break input source is disabled */
-#  define TIM_BREAKINPUTSOURCE_ENABLE     0x00000001U	/* !< Break input source is enabled */
+#define TIM_BREAKINPUTSOURCE_DISABLE    0x00000000U	/* !< Break input source is disabled */
+#define TIM_BREAKINPUTSOURCE_ENABLE     0x00000001U	/* !< Break input source is enabled */
 
 /**
  * @}
@@ -142,13 +142,13 @@ TIMEx_BreakInputConfigTypeDef;
 /** @defgroup TIMEx_Break_Input_Source_Polarity TIM Extended Break input polarity
  * @{
  */
-#  define TIM_BREAKINPUTSOURCE_POLARITY_LOW     0x00000001U	/* !< Break input source is active low */
-#  define TIM_BREAKINPUTSOURCE_POLARITY_HIGH    0x00000000U	/* !< Break input source is active_high */
+#define TIM_BREAKINPUTSOURCE_POLARITY_LOW     0x00000001U	/* !< Break input source is active low */
+#define TIM_BREAKINPUTSOURCE_POLARITY_HIGH    0x00000000U	/* !< Break input source is active_high */
 
 /**
  * @}
  */
-# endif	/* TIM_BREAK_INPUT_SUPPORT */
+#endif	/* TIM_BREAK_INPUT_SUPPORT */
 
 /**
  * @}
@@ -171,7 +171,7 @@ TIMEx_BreakInputConfigTypeDef;
 /** @defgroup TIMEx_Private_Macros TIM Extended Private Macros
  * @{
  */
-# define IS_TIM_REMAP(__TIM_REMAP__) \
+#define IS_TIM_REMAP(__TIM_REMAP__) \
 	(((__TIM_REMAP__) == TIM_TIM2_TIM8_TRGO) || \
 	((__TIM_REMAP__) == TIM_TIM2_ETH_PTP) || \
 	((__TIM_REMAP__) == TIM_TIM2_USBFS_SOF) || \
@@ -184,24 +184,24 @@ TIMEx_BreakInputConfigTypeDef;
 	((__TIM_REMAP__) == TIM_TIM11_SPDIFRX) || \
 	((__TIM_REMAP__) == TIM_TIM11_HSE) || \
 	((__TIM_REMAP__) == TIM_TIM11_MCO1))
-# if defined(TIM_BREAK_INPUT_SUPPORT)
+#if defined(TIM_BREAK_INPUT_SUPPORT)
 
-#  define IS_TIM_BREAKINPUT(__BREAKINPUT__) \
+#define IS_TIM_BREAKINPUT(__BREAKINPUT__) \
 	(((__BREAKINPUT__) == TIM_BREAKINPUT_BRK) || \
 	((__BREAKINPUT__) == TIM_BREAKINPUT_BRK2))
 
-#  define IS_TIM_BREAKINPUTSOURCE(__SOURCE__) \
+#define IS_TIM_BREAKINPUTSOURCE(__SOURCE__) \
 	(((__SOURCE__) == TIM_BREAKINPUTSOURCE_BKIN) || \
 	((__SOURCE__) == TIM_BREAKINPUTSOURCE_DFSDM))
 
-#  define IS_TIM_BREAKINPUTSOURCE_STATE(__STATE__) \
+#define IS_TIM_BREAKINPUTSOURCE_STATE(__STATE__) \
 	(((__STATE__) == TIM_BREAKINPUTSOURCE_DISABLE) || \
 	((__STATE__) == TIM_BREAKINPUTSOURCE_ENABLE))
 
-#  define IS_TIM_BREAKINPUTSOURCE_POLARITY(__POLARITY__) \
+#define IS_TIM_BREAKINPUTSOURCE_POLARITY(__POLARITY__) \
 	(((__POLARITY__) == TIM_BREAKINPUTSOURCE_POLARITY_LOW) || \
 	((__POLARITY__) == TIM_BREAKINPUTSOURCE_POLARITY_HIGH))
-# endif	/* TIM_BREAK_INPUT_SUPPORT */
+#endif	/* TIM_BREAK_INPUT_SUPPORT */
 
 /**
  * @}
@@ -312,10 +312,10 @@ HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
   TIM_MasterConfigTypeDef                                                 *sMasterConfig);
 HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
   TIM_BreakDeadTimeConfigTypeDef                                  *sBreakDeadTimeConfig);
-# if defined(TIM_BREAK_INPUT_SUPPORT)
+#if defined(TIM_BREAK_INPUT_SUPPORT)
 HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim, uint32_t BreakInput,
   TIMEx_BreakInputConfigTypeDef *sBreakInputConfig);
-# endif	/* TIM_BREAK_INPUT_SUPPORT */
+#endif	/* TIM_BREAK_INPUT_SUPPORT */
 HAL_StatusTypeDef HAL_TIMEx_GroupChannel5(TIM_HandleTypeDef *htim, uint32_t Channels);
 HAL_StatusTypeDef HAL_TIMEx_RemapConfig(TIM_HandleTypeDef *htim, uint32_t Remap);
 
@@ -374,9 +374,9 @@ void TIMEx_DMACommutationHalfCplt(DMA_HandleTypeDef *hdma);
  * @}
  */
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 
 #endif	/* STM32F7xx_HAL_TIM_EX_H */

@@ -136,7 +136,7 @@ HAL_StatusTypeDef HAL_CRCEx_Polynomial_Set(CRC_HandleTypeDef *hcrc, uint32_t Pol
 	}
 	/* Return function status */
 	return status;
-} /* HAL_CRCEx_Polynomial_Set */
+}	/* HAL_CRCEx_Polynomial_Set */
 
 /**
  * @brief  Set the Reverse Input data mode.

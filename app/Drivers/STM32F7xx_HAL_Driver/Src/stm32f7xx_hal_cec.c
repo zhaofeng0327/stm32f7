@@ -121,7 +121,7 @@
  * @{
  */
 #ifdef HAL_CEC_MODULE_ENABLED
-# if defined(CEC)
+#if defined(CEC)
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -201,7 +201,7 @@ HAL_StatusTypeDef HAL_CEC_Init(CEC_HandleTypeDef *hcec)
 	assert_param(IS_CEC_LISTENING_MODE(hcec->Init.ListenMode));
 	assert_param(IS_CEC_OWN_ADDRESS(hcec->Init.OwnAddress));
 
-	#  if (USE_HAL_CEC_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_CEC_REGISTER_CALLBACKS == 1)
 	if (hcec->gState == HAL_CEC_STATE_RESET) {
 		/* Allocate lock resource and initialize it */
 		hcec->Lock = HAL_UNLOCKED;
@@ -217,14 +217,14 @@ HAL_StatusTypeDef HAL_CEC_Init(CEC_HandleTypeDef *hcec)
 		/* Init the low level hardware */
 		hcec->MspInitCallback(hcec);
 	}
-	#  else	 /* if (USE_HAL_CEC_REGISTER_CALLBACKS == 1) */
+	#else	/* if (USE_HAL_CEC_REGISTER_CALLBACKS == 1) */
 	if (hcec->gState == HAL_CEC_STATE_RESET) {
 		/* Allocate lock resource and initialize it */
 		hcec->Lock = HAL_UNLOCKED;
 		/* Init the low level hardware : GPIO, CLOCK */
 		HAL_CEC_MspInit(hcec);
 	}
-	#  endif/* USE_HAL_CEC_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_CEC_REGISTER_CALLBACKS */
 
 	hcec->gState = HAL_CEC_STATE_BUSY;
 
@@ -263,7 +263,7 @@ HAL_StatusTypeDef HAL_CEC_Init(CEC_HandleTypeDef *hcec)
 	hcec->RxState   = HAL_CEC_STATE_READY;
 
 	return HAL_OK;
-} /* HAL_CEC_Init */
+}	/* HAL_CEC_Init */
 
 /**
  * @brief DeInitializes the CEC peripheral
@@ -282,7 +282,7 @@ HAL_StatusTypeDef HAL_CEC_DeInit(CEC_HandleTypeDef *hcec)
 
 	hcec->gState = HAL_CEC_STATE_BUSY;
 
-	#  if (USE_HAL_CEC_REGISTER_CALLBACKS == 1)
+	#if (USE_HAL_CEC_REGISTER_CALLBACKS == 1)
 	if (hcec->MspDeInitCallback == NULL) {
 		hcec->MspDeInitCallback = HAL_CEC_MspDeInit;/* Legacy weak MspDeInit  */
 	}
@@ -290,10 +290,10 @@ HAL_StatusTypeDef HAL_CEC_DeInit(CEC_HandleTypeDef *hcec)
 	/* DeInit the low level hardware */
 	hcec->MspDeInitCallback(hcec);
 
-	#  else
+	#else
 	/* DeInit the low level hardware */
 	HAL_CEC_MspDeInit(hcec);
-	#  endif/* USE_HAL_CEC_REGISTER_CALLBACKS */
+	#endif	/* USE_HAL_CEC_REGISTER_CALLBACKS */
 
 	/* Disable the Peripheral */
 	__HAL_CEC_DISABLE(hcec);
@@ -327,7 +327,7 @@ HAL_StatusTypeDef HAL_CEC_DeInit(CEC_HandleTypeDef *hcec)
 	__HAL_UNLOCK(hcec);
 
 	return HAL_OK;
-} /* HAL_CEC_DeInit */
+}	/* HAL_CEC_DeInit */
 
 /**
  * @brief Initializes the Own Address of the CEC device
@@ -368,7 +368,7 @@ HAL_StatusTypeDef HAL_CEC_SetDeviceAddress(CEC_HandleTypeDef *hcec, uint16_t CEC
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_CEC_SetDeviceAddress */
+}	/* HAL_CEC_SetDeviceAddress */
 
 /**
  * @brief CEC MSP Init
@@ -400,7 +400,7 @@ __weak void HAL_CEC_MspDeInit(CEC_HandleTypeDef *hcec)
 	 */
 }
 
-#  if (USE_HAL_CEC_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_CEC_REGISTER_CALLBACKS == 1)
 
 /**
  * @brief  Register a User CEC Callback
@@ -481,7 +481,7 @@ HAL_StatusTypeDef HAL_CEC_RegisterCallback(CEC_HandleTypeDef *hcec, HAL_CEC_Call
 	__HAL_UNLOCK(hcec);
 
 	return status;
-} /* HAL_CEC_RegisterCallback */
+}	/* HAL_CEC_RegisterCallback */
 
 /**
  * @brief  Unregister an CEC Callback
@@ -555,7 +555,7 @@ HAL_StatusTypeDef HAL_CEC_UnRegisterCallback(CEC_HandleTypeDef *hcec, HAL_CEC_Ca
 	__HAL_UNLOCK(hcec);
 
 	return status;
-} /* HAL_CEC_UnRegisterCallback */
+}	/* HAL_CEC_UnRegisterCallback */
 
 /**
  * @brief  Register CEC RX complete Callback
@@ -617,7 +617,7 @@ HAL_StatusTypeDef HAL_CEC_UnRegisterRxCpltCallback(CEC_HandleTypeDef *hcec)
 	return status;
 }
 
-#  endif/* USE_HAL_CEC_REGISTER_CALLBACKS */
+#endif	/* USE_HAL_CEC_REGISTER_CALLBACKS */
 
 /**
  * @}
@@ -711,7 +711,7 @@ HAL_StatusTypeDef HAL_CEC_Transmit_IT(CEC_HandleTypeDef *hcec, uint8_t Initiator
 	} else {
 		return HAL_BUSY;
 	}
-} /* HAL_CEC_Transmit_IT */
+}	/* HAL_CEC_Transmit_IT */
 
 /**
  * @brief Get size of the received frame.
@@ -775,11 +775,11 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
 		hcec->RxState        = HAL_CEC_STATE_READY;
 		hcec->ErrorCode      = HAL_CEC_ERROR_NONE;
 		hcec->Init.RxBuffer -= hcec->RxXferSize;
-		#  if (USE_HAL_CEC_REGISTER_CALLBACKS == 1U)
+		#if (USE_HAL_CEC_REGISTER_CALLBACKS == 1U)
 		hcec->RxCpltCallback(hcec, hcec->RxXferSize);
-		#  else
+		#else
 		HAL_CEC_RxCpltCallback(hcec, hcec->RxXferSize);
-		#  endif/* USE_HAL_CEC_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_CEC_REGISTER_CALLBACKS */
 		hcec->RxXferSize = 0U;
 	}
 
@@ -811,11 +811,11 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
 		 * start again the Transmission under the Tx call back API */
 		__HAL_UNLOCK(hcec);
 		hcec->ErrorCode = HAL_CEC_ERROR_NONE;
-		#  if (USE_HAL_CEC_REGISTER_CALLBACKS == 1U)
+		#if (USE_HAL_CEC_REGISTER_CALLBACKS == 1U)
 		hcec->TxCpltCallback(hcec);
-		#  else
+		#else
 		HAL_CEC_TxCpltCallback(hcec);
-		#  endif/* USE_HAL_CEC_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_CEC_REGISTER_CALLBACKS */
 	}
 
 	/* ----------------------------Rx/Tx Error Management----------------------------------*/
@@ -840,16 +840,16 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
 		} else {
 			/* Nothing todo*/
 		}
-		#  if (USE_HAL_CEC_REGISTER_CALLBACKS == 1U)
+		#if (USE_HAL_CEC_REGISTER_CALLBACKS == 1U)
 		hcec->ErrorCallback(hcec);
-		#  else
+		#else
 		/* Error  Call Back */
 		HAL_CEC_ErrorCallback(hcec);
-		#  endif/* USE_HAL_CEC_REGISTER_CALLBACKS */
+		#endif	/* USE_HAL_CEC_REGISTER_CALLBACKS */
 	} else {
 		/* Nothing todo*/
 	}
-} /* HAL_CEC_IRQHandler */
+}	/* HAL_CEC_IRQHandler */
 
 /**
  * @brief Tx Transfer completed callback
@@ -950,7 +950,7 @@ uint32_t HAL_CEC_GetError(CEC_HandleTypeDef *hcec)
 /**
  * @}
  */
-# endif	/* CEC */
+#endif	/* CEC */
 #endif	/* HAL_CEC_MODULE_ENABLED */
 
 /**

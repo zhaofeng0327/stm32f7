@@ -46,7 +46,7 @@
 #undef MPU_WRAPPERS_INCLUDED_FROM_API_FILE
 
 #if ( configSUPPORT_DYNAMIC_ALLOCATION == 0 )
-# error This file must not be used if configSUPPORT_DYNAMIC_ALLOCATION is 0
+#error This file must not be used if configSUPPORT_DYNAMIC_ALLOCATION is 0
 #endif
 
 /* Block sizes must not get too small. */
@@ -59,7 +59,7 @@
 #if ( configAPPLICATION_ALLOCATED_HEAP == 1 )
 
 /* The application writer has already defined the array used for the RTOS
- * heap - probably so it can be placed in a special segment or address. */
+* heap - probably so it can be placed in a special segment or address. */
 extern uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
 #else
 static uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
@@ -230,7 +230,7 @@ void *pvPortMalloc(size_t xWantedSize)
 
 	configASSERT( ( ( (size_t) pvReturn ) & (size_t) portBYTE_ALIGNMENT_MASK ) == 0);
 	return pvReturn;
-} /* pvPortMalloc */
+}	/* pvPortMalloc */
 
 /*-----------------------------------------------------------*/
 
@@ -272,7 +272,7 @@ void vPortFree(void *pv)
 			mtCOVERAGE_TEST_MARKER();
 		}
 	}
-} /* vPortFree */
+}	/* vPortFree */
 
 /*-----------------------------------------------------------*/
 
@@ -341,7 +341,7 @@ static void prvHeapInit(void)
 
 	/* Work out the position of the top bit in a size_t variable. */
 	xBlockAllocatedBit = ( (size_t) 1 ) << ( ( sizeof( size_t ) * heapBITS_PER_BYTE ) - 1 );
-} /* prvHeapInit */
+}	/* prvHeapInit */
 
 /*-----------------------------------------------------------*/
 
@@ -392,4 +392,4 @@ static void prvInsertBlockIntoFreeList(BlockLink_t *pxBlockToInsert)
 	} else {
 		mtCOVERAGE_TEST_MARKER();
 	}
-} /* prvInsertBlockIntoFreeList */
+}	/* prvInsertBlockIntoFreeList */

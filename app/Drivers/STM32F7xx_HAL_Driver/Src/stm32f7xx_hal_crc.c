@@ -128,7 +128,7 @@ HAL_StatusTypeDef HAL_CRC_Init(CRC_HandleTypeDef *hcrc)
 		/* initialize peripheral with default generating polynomial */
 		WRITE_REG(hcrc->Instance->POL, DEFAULT_CRC32_POLY);
 		MODIFY_REG(hcrc->Instance->CR, CRC_CR_POLYSIZE, CRC_POLYLENGTH_32B);
-	} else   {
+	} else {
 		/* initialize CRC peripheral with generating polynomial defined by user */
 		if (HAL_CRCEx_Polynomial_Set(hcrc, hcrc->Init.GeneratingPolynomial, hcrc->Init.CRCLength) != HAL_OK) {
 			return HAL_ERROR;
@@ -140,7 +140,7 @@ HAL_StatusTypeDef HAL_CRC_Init(CRC_HandleTypeDef *hcrc)
 	assert_param(IS_DEFAULT_INIT_VALUE(hcrc->Init.DefaultInitValueUse));
 	if (hcrc->Init.DefaultInitValueUse == DEFAULT_INIT_VALUE_ENABLE) {
 		WRITE_REG(hcrc->Instance->INIT, DEFAULT_CRC_INITVALUE);
-	} else   {
+	} else {
 		WRITE_REG(hcrc->Instance->INIT, hcrc->Init.InitValue);
 	}
 
@@ -162,7 +162,7 @@ HAL_StatusTypeDef HAL_CRC_Init(CRC_HandleTypeDef *hcrc)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_CRC_Init */
+}	/* HAL_CRC_Init */
 
 /**
  * @brief  DeInitialize the CRC peripheral.
@@ -204,7 +204,7 @@ HAL_StatusTypeDef HAL_CRC_DeInit(CRC_HandleTypeDef *hcrc)
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_CRC_DeInit */
+}	/* HAL_CRC_DeInit */
 
 /**
  * @brief  Initializes the CRC MSP.
@@ -308,7 +308,7 @@ uint32_t HAL_CRC_Accumulate(CRC_HandleTypeDef *hcrc, uint32_t pBuffer[], uint32_
 
 	/* Return the CRC computed value */
 	return temp;
-} /* HAL_CRC_Accumulate */
+}	/* HAL_CRC_Accumulate */
 
 /**
  * @brief  Compute the 7, 8, 16 or 32-bit CRC value of an 8, 16 or 32-bit data buffer
@@ -365,7 +365,7 @@ uint32_t HAL_CRC_Calculate(CRC_HandleTypeDef *hcrc, uint32_t pBuffer[], uint32_t
 
 	/* Return the CRC computed value */
 	return temp;
-} /* HAL_CRC_Calculate */
+}	/* HAL_CRC_Calculate */
 
 /**
  * @}
@@ -452,7 +452,7 @@ static uint32_t CRC_Handle_8(CRC_HandleTypeDef *hcrc, uint8_t pBuffer[], uint32_
 
 	/* Return the CRC computed value */
 	return hcrc->Instance->DR;
-} /* CRC_Handle_8 */
+}	/* CRC_Handle_8 */
 
 /**
  * @brief  Enter 16-bit input data to the CRC calculator.

@@ -72,7 +72,7 @@ void arm_cfft_radix2_q15(
 	if (S->ifftFlag == 1U) {
 		arm_radix2_butterfly_inverse_q15(pSrc, S->fftLen,
 		  S->pTwiddle, S->twidCoefModifier);
-	} else   {
+	} else {
 		arm_radix2_butterfly_q15(pSrc, S->fftLen,
 		  S->pTwiddle, S->twidCoefModifier);
 	}
@@ -125,17 +125,17 @@ void arm_radix2_butterfly_q15(
 
 		_SIMD32_OFFSET(pSrc + (2 * i)) = __SHADD16(T, S);
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		out1 = __SMUAD(coeff, R) >> 16;
 		out2 = __SMUSDX(coeff, R);
 
-		# else
+		#else
 
 		out1 = __SMUSDX(R, coeff) >> 16U;
 		out2 = __SMUAD(coeff, R);
 
-		# endif	//     #ifndef ARM_MATH_BIG_ENDIAN
+		#endif	//     #ifndef ARM_MATH_BIG_ENDIAN
 
 		_SIMD32_OFFSET(pSrc + (2U * l)) =
 		  (q31_t) ((out2) & 0xFFFF0000) | (out1 & 0x0000FFFF);
@@ -160,17 +160,17 @@ void arm_radix2_butterfly_q15(
 
 		_SIMD32_OFFSET(pSrc + (2 * i)) = __SHADD16(T, S);
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		out1 = __SMUAD(coeff, R) >> 16;
 		out2 = __SMUSDX(coeff, R);
 
-		# else
+		#else
 
 		out1 = __SMUSDX(R, coeff) >> 16U;
 		out2 = __SMUAD(coeff, R);
 
-		# endif	//     #ifndef ARM_MATH_BIG_ENDIAN
+		#endif	//     #ifndef ARM_MATH_BIG_ENDIAN
 
 		_SIMD32_OFFSET(pSrc + (2U * l)) =
 		  (q31_t) ((out2) & 0xFFFF0000) | (out1 & 0x0000FFFF);
@@ -202,17 +202,17 @@ void arm_radix2_butterfly_q15(
 
 				_SIMD32_OFFSET(pSrc + (2 * i)) = __SHADD16(T, S);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				out1 = __SMUAD(coeff, R) >> 16;
 				out2 = __SMUSDX(coeff, R);
 
-				# else
+				#else
 
 				out1 = __SMUSDX(R, coeff) >> 16U;
 				out2 = __SMUAD(coeff, R);
 
-				# endif	//     #ifndef ARM_MATH_BIG_ENDIAN
+				#endif	//     #ifndef ARM_MATH_BIG_ENDIAN
 
 				_SIMD32_OFFSET(pSrc + (2U * l)) =
 				  (q31_t) ((out2) & 0xFFFF0000) | (out1 & 0x0000FFFF);
@@ -229,17 +229,17 @@ void arm_radix2_butterfly_q15(
 
 				_SIMD32_OFFSET(pSrc + (2 * i)) = __SHADD16(T, S);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				out1 = __SMUAD(coeff, R) >> 16;
 				out2 = __SMUSDX(coeff, R);
 
-				# else
+				#else
 
 				out1 = __SMUSDX(R, coeff) >> 16U;
 				out2 = __SMUAD(coeff, R);
 
-				# endif	//     #ifndef ARM_MATH_BIG_ENDIAN
+				#endif	//     #ifndef ARM_MATH_BIG_ENDIAN
 
 				_SIMD32_OFFSET(pSrc + (2U * l)) =
 				  (q31_t) ((out2) & 0xFFFF0000) | (out1 & 0x0000FFFF);
@@ -286,7 +286,7 @@ void arm_radix2_butterfly_q15(
 	}	// groups loop end
 
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 	unsigned i, j, k, l;
 	unsigned n1, n2, ia;
@@ -387,7 +387,7 @@ void arm_radix2_butterfly_q15(
 	twidCoefModifier = twidCoefModifier << 1U;
 
 	#endif	//             #if defined (ARM_MATH_DSP)
-} /* arm_radix2_butterfly_q15 */
+}	/* arm_radix2_butterfly_q15 */
 
 void arm_radix2_butterfly_inverse_q15(
 	q15_t    *pSrc,
@@ -430,16 +430,16 @@ void arm_radix2_butterfly_inverse_q15(
 
 		_SIMD32_OFFSET(pSrc + (2 * i)) = __SHADD16(T, S);
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		out1 = __SMUSD(coeff, R) >> 16;
 		out2 = __SMUADX(coeff, R);
-		# else
+		#else
 
 		out1 = __SMUADX(R, coeff) >> 16U;
 		out2 = __SMUSD(__QSUB(0, coeff), R);
 
-		# endif	//     #ifndef ARM_MATH_BIG_ENDIAN
+		#endif	//     #ifndef ARM_MATH_BIG_ENDIAN
 
 		_SIMD32_OFFSET(pSrc + (2U * l)) =
 		  (q31_t) ((out2) & 0xFFFF0000) | (out1 & 0x0000FFFF);
@@ -464,16 +464,16 @@ void arm_radix2_butterfly_inverse_q15(
 
 		_SIMD32_OFFSET(pSrc + (2 * i)) = __SHADD16(T, S);
 
-		# ifndef ARM_MATH_BIG_ENDIAN
+		#ifndef ARM_MATH_BIG_ENDIAN
 
 		out1 = __SMUSD(coeff, R) >> 16;
 		out2 = __SMUADX(coeff, R);
-		# else
+		#else
 
 		out1 = __SMUADX(R, coeff) >> 16U;
 		out2 = __SMUSD(__QSUB(0, coeff), R);
 
-		# endif	//     #ifndef ARM_MATH_BIG_ENDIAN
+		#endif	//     #ifndef ARM_MATH_BIG_ENDIAN
 
 		_SIMD32_OFFSET(pSrc + (2U * l)) =
 		  (q31_t) ((out2) & 0xFFFF0000) | (out1 & 0x0000FFFF);
@@ -505,17 +505,17 @@ void arm_radix2_butterfly_inverse_q15(
 
 				_SIMD32_OFFSET(pSrc + (2 * i)) = __SHADD16(T, S);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				out1 = __SMUSD(coeff, R) >> 16;
 				out2 = __SMUADX(coeff, R);
 
-				# else
+				#else
 
 				out1 = __SMUADX(R, coeff) >> 16U;
 				out2 = __SMUSD(__QSUB(0, coeff), R);
 
-				# endif	//     #ifndef ARM_MATH_BIG_ENDIAN
+				#endif	//     #ifndef ARM_MATH_BIG_ENDIAN
 
 				_SIMD32_OFFSET(pSrc + (2U * l)) =
 				  (q31_t) ((out2) & 0xFFFF0000) | (out1 & 0x0000FFFF);
@@ -532,16 +532,16 @@ void arm_radix2_butterfly_inverse_q15(
 
 				_SIMD32_OFFSET(pSrc + (2 * i)) = __SHADD16(T, S);
 
-				# ifndef ARM_MATH_BIG_ENDIAN
+				#ifndef ARM_MATH_BIG_ENDIAN
 
 				out1 = __SMUSD(coeff, R) >> 16;
 				out2 = __SMUADX(coeff, R);
-				# else
+				#else
 
 				out1 = __SMUADX(R, coeff) >> 16U;
 				out2 = __SMUSD(__QSUB(0, coeff), R);
 
-				# endif	//     #ifndef ARM_MATH_BIG_ENDIAN
+				#endif	//     #ifndef ARM_MATH_BIG_ENDIAN
 
 				_SIMD32_OFFSET(pSrc + (2U * l)) =
 				  (q31_t) ((out2) & 0xFFFF0000) | (out1 & 0x0000FFFF);
@@ -579,7 +579,7 @@ void arm_radix2_butterfly_inverse_q15(
 
 	twidCoefModifier = twidCoefModifier << 1U;
 
-	#else  /* if defined(ARM_MATH_DSP) */
+	#else	/* if defined(ARM_MATH_DSP) */
 
 
 	unsigned i, j, k, l;
@@ -676,4 +676,4 @@ void arm_radix2_butterfly_inverse_q15(
 
 
 	#endif	//             #if defined (ARM_MATH_DSP)
-} /* arm_radix2_butterfly_inverse_q15 */
+}	/* arm_radix2_butterfly_inverse_q15 */

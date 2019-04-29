@@ -37,22 +37,22 @@
 #include "task.h"
 
 #ifndef __ARMVFP__
-# error This port can only be used when the project options are configured to enable hardware floating point support.
+#error This port can only be used when the project options are configured to enable hardware floating point support.
 #endif
 
 #if ( configMAX_SYSCALL_INTERRUPT_PRIORITY == 0 )
-# error configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to 0.  See http:	// www.FreeRTOS.org/RTOS-Cortex-M3-M4.html
+#error configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to 0.  See http:	// www.FreeRTOS.org/RTOS-Cortex-M3-M4.html
 #endif
 
 #ifndef configSYSTICK_CLOCK_HZ
-# define configSYSTICK_CLOCK_HZ      configCPU_CLOCK_HZ
+#define configSYSTICK_CLOCK_HZ      configCPU_CLOCK_HZ
 /* Ensure the SysTick is clocked at the same frequency as the core. */
-# define portNVIC_SYSTICK_CLK_BIT    ( 1UL << 2UL )
+#define portNVIC_SYSTICK_CLK_BIT    ( 1UL << 2UL )
 #else
 
 /* The way the SysTick is clocked is not modified in case it is not the same
  * as the core. */
-# define portNVIC_SYSTICK_CLK_BIT    ( 0 )
+#define portNVIC_SYSTICK_CLK_BIT    ( 0 )
 #endif
 
 /* Constants required to manipulate the core.  Registers first... */
@@ -264,23 +264,23 @@ BaseType_t xPortStartScheduler(void)
 			ucMaxPriorityValue <<= (uint8_t) 0x01;
 		}
 
-		# ifdef __NVIC_PRIO_BITS
+		#ifdef __NVIC_PRIO_BITS
 		{
 			/* Check the CMSIS configuration that defines the number of
 			 * priority bits matches the number of priority bits actually queried
 			 * from the hardware. */
 			configASSERT( ( portMAX_PRIGROUP_BITS - ulMaxPRIGROUPValue ) == __NVIC_PRIO_BITS);
 		}
-		# endif
+		#endif
 
-		# ifdef configPRIO_BITS
+		#ifdef configPRIO_BITS
 		{
 			/* Check the FreeRTOS configuration that defines the number of
 			 * priority bits matches the number of priority bits actually queried
 			 * from the hardware. */
 			configASSERT( ( portMAX_PRIGROUP_BITS - ulMaxPRIGROUPValue ) == configPRIO_BITS);
 		}
-		# endif
+		#endif
 
 		/* Shift the priority group value back to its position within the AIRCR
 		 * register. */
@@ -315,7 +315,7 @@ BaseType_t xPortStartScheduler(void)
 
 	/* Should not get here! */
 	return 0;
-} /* xPortStartScheduler */
+}	/* xPortStartScheduler */
 
 /*-----------------------------------------------------------*/
 
@@ -533,7 +533,7 @@ __weak void vPortSuppressTicksAndSleep(TickType_t xExpectedIdleTime)
 		/* Exit with interrpts enabled. */
 		__enable_interrupt();
 	}
-} /* vPortSuppressTicksAndSleep */
+}	/* vPortSuppressTicksAndSleep */
 
 #endif	/* configUSE_TICKLESS_IDLE */
 /*-----------------------------------------------------------*/
