@@ -353,8 +353,8 @@ typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart);	/*!< pointer 
 /** @defgroup UART_Mode UART Transfer Mode
  * @{
  */
-#define UART_MODE_RX       USART_CR1_RE					/*!< RX mode        */
-#define UART_MODE_TX       USART_CR1_TE					/*!< TX mode        */
+#define UART_MODE_RX       USART_CR1_RE	/*!< RX mode        */
+#define UART_MODE_TX       USART_CR1_TE	/*!< TX mode        */
 #define UART_MODE_TX_RX    (USART_CR1_TE | USART_CR1_RE)/*!< RX and TX mode */
 
 /**
@@ -374,7 +374,7 @@ typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart);	/*!< pointer 
 /** @defgroup UART_Over_Sampling UART Over Sampling
  * @{
  */
-#define UART_OVERSAMPLING_16    0x00000000U	/*!< Oversampling by 16 */
+#define UART_OVERSAMPLING_16    0x00000000U		/*!< Oversampling by 16 */
 #define UART_OVERSAMPLING_8     USART_CR1_OVER8	/*!< Oversampling by 8  */
 
 /**
@@ -384,7 +384,7 @@ typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart);	/*!< pointer 
 /** @defgroup UART_OneBit_Sampling UART One Bit Sampling Method
  * @{
  */
-#define UART_ONE_BIT_SAMPLE_DISABLE    0x00000000U	/*!< One-bit sampling disable */
+#define UART_ONE_BIT_SAMPLE_DISABLE    0x00000000U		/*!< One-bit sampling disable */
 #define UART_ONE_BIT_SAMPLE_ENABLE     USART_CR3_ONEBIT	/*!< One-bit sampling enable  */
 
 /**
@@ -406,7 +406,7 @@ typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart);	/*!< pointer 
 /** @defgroup UART_Receiver_TimeOut UART Receiver TimeOut
  * @{
  */
-#define UART_RECEIVER_TIMEOUT_DISABLE    0x00000000U	/*!< UART receiver timeout disable */
+#define UART_RECEIVER_TIMEOUT_DISABLE    0x00000000U/*!< UART receiver timeout disable */
 #define UART_RECEIVER_TIMEOUT_ENABLE     USART_CR2_RTOEN/*!< UART receiver timeout enable  */
 
 /**
@@ -416,7 +416,7 @@ typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart);	/*!< pointer 
 /** @defgroup UART_LIN    UART Local Interconnection Network mode
  * @{
  */
-#define UART_LIN_DISABLE    0x00000000U	/*!< Local Interconnect Network disable */
+#define UART_LIN_DISABLE    0x00000000U		/*!< Local Interconnect Network disable */
 #define UART_LIN_ENABLE     USART_CR2_LINEN	/*!< Local Interconnect Network enable  */
 
 /**
@@ -456,7 +456,7 @@ typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart);	/*!< pointer 
 /** @defgroup UART_Half_Duplex_Selection  UART Half Duplex Selection
  * @{
  */
-#define UART_HALF_DUPLEX_DISABLE    0x00000000U	/*!< UART half-duplex disabled */
+#define UART_HALF_DUPLEX_DISABLE    0x00000000U		/*!< UART half-duplex disabled */
 #define UART_HALF_DUPLEX_ENABLE     USART_CR3_HDSEL	/*!< UART half-duplex enabled  */
 
 /**
@@ -506,7 +506,7 @@ typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart);	/*!< pointer 
 /** @defgroup UART_Tx_Inv UART Advanced Feature TX Pin Active Level Inversion
  * @{
  */
-#define UART_ADVFEATURE_TXINV_DISABLE    0x00000000U	/*!< TX pin active level inversion disable */
+#define UART_ADVFEATURE_TXINV_DISABLE    0x00000000U/*!< TX pin active level inversion disable */
 #define UART_ADVFEATURE_TXINV_ENABLE     USART_CR2_TXINV/*!< TX pin active level inversion enable  */
 
 /**
@@ -516,7 +516,7 @@ typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart);	/*!< pointer 
 /** @defgroup UART_Rx_Inv UART Advanced Feature RX Pin Active Level Inversion
  * @{
  */
-#define UART_ADVFEATURE_RXINV_DISABLE    0x00000000U	/*!< RX pin active level inversion disable */
+#define UART_ADVFEATURE_RXINV_DISABLE    0x00000000U/*!< RX pin active level inversion disable */
 #define UART_ADVFEATURE_RXINV_ENABLE     USART_CR2_RXINV/*!< RX pin active level inversion enable  */
 
 /**
@@ -526,7 +526,7 @@ typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart);	/*!< pointer 
 /** @defgroup UART_Data_Inv  UART Advanced Feature Binary Data Inversion
  * @{
  */
-#define UART_ADVFEATURE_DATAINV_DISABLE    0x00000000U		/*!< Binary data inversion disable */
+#define UART_ADVFEATURE_DATAINV_DISABLE    0x00000000U	/*!< Binary data inversion disable */
 #define UART_ADVFEATURE_DATAINV_ENABLE     USART_CR2_DATAINV/*!< Binary data inversion enable  */
 
 /**
@@ -546,7 +546,7 @@ typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart);	/*!< pointer 
 /** @defgroup UART_Overrun_Disable  UART Advanced Feature Overrun Disable
  * @{
  */
-#define UART_ADVFEATURE_OVERRUN_ENABLE     0x00000000U	/*!< RX overrun enable  */
+#define UART_ADVFEATURE_OVERRUN_ENABLE     0x00000000U		/*!< RX overrun enable  */
 #define UART_ADVFEATURE_OVERRUN_DISABLE    USART_CR3_OVRDIS	/*!< RX overrun disable */
 
 /**
@@ -556,7 +556,7 @@ typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart);	/*!< pointer 
 /** @defgroup UART_AutoBaudRate_Enable  UART Advanced Feature Auto BaudRate Enable
  * @{
  */
-#define UART_ADVFEATURE_AUTOBAUDRATE_DISABLE    0x00000000U	/*!< RX Auto Baud rate detection enable  */
+#define UART_ADVFEATURE_AUTOBAUDRATE_DISABLE    0x00000000U		/*!< RX Auto Baud rate detection enable  */
 #define UART_ADVFEATURE_AUTOBAUDRATE_ENABLE     USART_CR2_ABREN	/*!< RX Auto Baud rate detection disable */
 
 /**

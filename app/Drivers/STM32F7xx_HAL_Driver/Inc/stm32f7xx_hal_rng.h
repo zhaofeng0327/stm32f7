@@ -227,7 +227,7 @@ typedef  void (*pRNG_ReadyDataCallbackTypeDef)(RNG_HandleTypeDef *hrng, uint32_t
  *         flags RNG_FLAG_DRDY, RNG_FLAG_CECS and RNG_FLAG_SECS are read-only.
  * @retval None
  */
-#define __HAL_RNG_CLEAR_FLAG(__HANDLE__, __FLAG__)		/* dummy  macro */
+#define __HAL_RNG_CLEAR_FLAG(__HANDLE__, __FLAG__)	/* dummy  macro */
 
 /**
  * @brief  Enables the RNG interrupts.

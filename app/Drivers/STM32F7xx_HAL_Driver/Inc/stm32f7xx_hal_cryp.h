@@ -272,12 +272,12 @@ typedef  void (*pCRYP_CallbackTypeDef)(CRYP_HandleTypeDef *hcryp);	/*!< pointer 
 #if defined(CRYP)
 #define CRYP_IT_INI      CRYP_IMSCR_INIM/*!< Input FIFO Interrupt */
 #define CRYP_IT_OUTI     CRYP_IMSCR_OUTIM	/*!< Output FIFO Interrupt */
-#else	/* AES*/
-#define CRYP_IT_CCFIE    AES_CR_CCFIE	/*!< Computation Complete interrupt enable */
-#define CRYP_IT_ERRIE    AES_CR_ERRIE	/*!< Error interrupt enable                */
-#define CRYP_IT_WRERR    AES_SR_WRERR	/*!< Write Error           */
-#define CRYP_IT_RDERR    AES_SR_RDERR	/*!< Read Error            */
-#define CRYP_IT_CCF      AES_SR_CCF	/*!< Computation completed */
+#else										/* AES*/
+#define CRYP_IT_CCFIE    AES_CR_CCFIE		/*!< Computation Complete interrupt enable */
+#define CRYP_IT_ERRIE    AES_CR_ERRIE		/*!< Error interrupt enable                */
+#define CRYP_IT_WRERR    AES_SR_WRERR		/*!< Write Error           */
+#define CRYP_IT_RDERR    AES_SR_RDERR		/*!< Read Error            */
+#define CRYP_IT_CCF      AES_SR_CCF			/*!< Computation completed */
 #endif	/* End AES or CRYP */
 
 /**

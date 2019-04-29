@@ -354,7 +354,7 @@ typedef enum {
 /** @defgroup SMARTCARD_Parity SMARTCARD Parity
  * @{
  */
-#define SMARTCARD_PARITY_EVEN    USART_CR1_PCE	/*!< SMARTCARD frame even parity */
+#define SMARTCARD_PARITY_EVEN    USART_CR1_PCE					/*!< SMARTCARD frame even parity */
 #define SMARTCARD_PARITY_ODD     (USART_CR1_PCE | USART_CR1_PS)	/*!< SMARTCARD frame odd parity  */
 
 /**
@@ -405,7 +405,7 @@ typedef enum {
 /** @defgroup SMARTCARD_OneBit_Sampling SMARTCARD One Bit Sampling Method
  * @{
  */
-#define SMARTCARD_ONE_BIT_SAMPLE_DISABLE    0x00000000U		/*!< SMARTCARD frame one-bit sample disabled */
+#define SMARTCARD_ONE_BIT_SAMPLE_DISABLE    0x00000000U	/*!< SMARTCARD frame one-bit sample disabled */
 #define SMARTCARD_ONE_BIT_SAMPLE_ENABLE     USART_CR3_ONEBIT/*!< SMARTCARD frame one-bit sample enabled  */
 
 /**
@@ -425,7 +425,7 @@ typedef enum {
 /** @defgroup SMARTCARD_Timeout_Enable SMARTCARD Timeout Enable
  * @{
  */
-#define SMARTCARD_TIMEOUT_DISABLE    0x00000000U	/*!< SMARTCARD receiver timeout disabled */
+#define SMARTCARD_TIMEOUT_DISABLE    0x00000000U/*!< SMARTCARD receiver timeout disabled */
 #define SMARTCARD_TIMEOUT_ENABLE     USART_CR2_RTOEN/*!< SMARTCARD receiver timeout enabled  */
 
 /**
@@ -475,7 +475,7 @@ typedef enum {
 /** @defgroup SMARTCARD_Overrun_Disable SMARTCARD advanced feature Overrun Disable
  * @{
  */
-#define SMARTCARD_ADVFEATURE_OVERRUN_ENABLE     0x00000000U		/*!< RX overrun enable  */
+#define SMARTCARD_ADVFEATURE_OVERRUN_ENABLE     0x00000000U	/*!< RX overrun enable  */
 #define SMARTCARD_ADVFEATURE_OVERRUN_DISABLE    USART_CR3_OVRDIS/*!< RX overrun disable */
 
 /**

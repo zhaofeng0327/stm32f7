@@ -229,7 +229,7 @@ typedef struct
 	uint32_t                      ErrorCode;			/*!< DFSDM filter error code */
 	#if (USE_HAL_DFSDM_REGISTER_CALLBACKS == 1)
 	void (*AwdCallback)(struct __DFSDM_Filter_HandleTypeDef *hdfsdm_filter,
-	  uint32_t Channel, uint32_t Threshold);										/*!< DFSDM filter analog watchdog callback */
+	  uint32_t Channel, uint32_t Threshold);/*!< DFSDM filter analog watchdog callback */
 	void (*RegConvCpltCallback)(struct __DFSDM_Filter_HandleTypeDef *hdfsdm_filter);/*!< DFSDM filter regular conversion complete callback */
 	void (*RegConvHalfCpltCallback)(struct __DFSDM_Filter_HandleTypeDef *hdfsdm_filter);/*!< DFSDM filter half regular conversion complete callback */
 	void (*InjConvCpltCallback)(struct __DFSDM_Filter_HandleTypeDef *hdfsdm_filter);/*!< DFSDM filter injected conversion complete callback */
@@ -337,9 +337,9 @@ typedef void (*pDFSDM_Filter_AwdCallbackTypeDef)(DFSDM_Filter_HandleTypeDef *hdf
  * @{
  */
 #define DFSDM_CHANNEL_SPI_RISING            ((uint32_t) 0x00000000U)/*!< SPI with rising edge */
-#define DFSDM_CHANNEL_SPI_FALLING           DFSDM_CHCFGR1_SITP_0	/*!< SPI with falling edge */
-#define DFSDM_CHANNEL_MANCHESTER_RISING     DFSDM_CHCFGR1_SITP_1	/*!< Manchester with rising edge */
-#define DFSDM_CHANNEL_MANCHESTER_FALLING    DFSDM_CHCFGR1_SITP		/*!< Manchester with falling edge */
+#define DFSDM_CHANNEL_SPI_FALLING           DFSDM_CHCFGR1_SITP_0/*!< SPI with falling edge */
+#define DFSDM_CHANNEL_MANCHESTER_RISING     DFSDM_CHCFGR1_SITP_1/*!< Manchester with rising edge */
+#define DFSDM_CHANNEL_MANCHESTER_FALLING    DFSDM_CHCFGR1_SITP	/*!< Manchester with falling edge */
 
 /**
  * @}
@@ -420,11 +420,11 @@ typedef void (*pDFSDM_Filter_AwdCallbackTypeDef)(DFSDM_Filter_HandleTypeDef *hdf
 /** @defgroup DFSDM_Filter_SincOrder DFSDM filter sinc order
  * @{
  */
-#define DFSDM_FILTER_FASTSINC_ORDER    ((uint32_t) 0x00000000U)	/*!< FastSinc filter type */
-#define DFSDM_FILTER_SINC1_ORDER       DFSDM_FLTFCR_FORD_0		/*!< Sinc 1 filter type */
-#define DFSDM_FILTER_SINC2_ORDER       DFSDM_FLTFCR_FORD_1		/*!< Sinc 2 filter type */
+#define DFSDM_FILTER_FASTSINC_ORDER    ((uint32_t) 0x00000000U)						/*!< FastSinc filter type */
+#define DFSDM_FILTER_SINC1_ORDER       DFSDM_FLTFCR_FORD_0							/*!< Sinc 1 filter type */
+#define DFSDM_FILTER_SINC2_ORDER       DFSDM_FLTFCR_FORD_1							/*!< Sinc 2 filter type */
 #define DFSDM_FILTER_SINC3_ORDER       (DFSDM_FLTFCR_FORD_0 | DFSDM_FLTFCR_FORD_1)	/*!< Sinc 3 filter type */
-#define DFSDM_FILTER_SINC4_ORDER       DFSDM_FLTFCR_FORD_2	/*!< Sinc 4 filter type */
+#define DFSDM_FILTER_SINC4_ORDER       DFSDM_FLTFCR_FORD_2							/*!< Sinc 4 filter type */
 #define DFSDM_FILTER_SINC5_ORDER       (DFSDM_FLTFCR_FORD_0 | DFSDM_FLTFCR_FORD_2)	/*!< Sinc 5 filter type */
 
 /**

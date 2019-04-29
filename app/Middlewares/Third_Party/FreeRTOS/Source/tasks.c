@@ -3957,7 +3957,7 @@ void vTaskGetRunTimeStats(char *pcWriteBuffer)
 						  (unsigned int) pxTaskStatusArray[ x ].ulRunTimeCounter,
 						  (unsigned int) ulStatsAsPercentage);
 					}
-					#endif /* ifdef portLU_PRINTF_SPECIFIER_REQUIRED */
+					#endif	/* ifdef portLU_PRINTF_SPECIFIER_REQUIRED */
 				} else {
 					/* If the percentage is zero here then the task has
 					 * consumed less than 1% of the total run time. */

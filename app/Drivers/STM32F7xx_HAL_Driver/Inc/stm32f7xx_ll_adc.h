@@ -282,13 +282,13 @@ extern "C" {
 /* ADC internal channels related definitions */
 /* Internal voltage reference VrefInt */
 #define VREFINT_CAL_ADDR             ((uint16_t *) (0x1FF0F44A))/* Internal voltage reference, address of parameter VREFINT_CAL: VrefInt ADC raw data acquired at temperature 30 DegC (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
-#define VREFINT_CAL_VREF             ( 3300U)					/* Analog voltage reference (Vref+) value with which temperature sensor has been calibrated in production (tolerance: +-10 mV) (unit: mV). */
+#define VREFINT_CAL_VREF             ( 3300U)	/* Analog voltage reference (Vref+) value with which temperature sensor has been calibrated in production (tolerance: +-10 mV) (unit: mV). */
 /* Temperature sensor */
 #define TEMPSENSOR_CAL1_ADDR         ((uint16_t *) (0x1FF0F44C))/* Internal temperature sensor, address of parameter TS_CAL1: On STM32F7, temperature sensor ADC raw data acquired at temperature  30 DegC (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
 #define TEMPSENSOR_CAL2_ADDR         ((uint16_t *) (0x1FF0F44E))/* Internal temperature sensor, address of parameter TS_CAL2: On STM32F7, temperature sensor ADC raw data acquired at temperature 110 DegC (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
-#define TEMPSENSOR_CAL1_TEMP         ((int32_t)   30)			/* Internal temperature sensor, temperature at which temperature sensor has been calibrated in production for data into TEMPSENSOR_CAL1_ADDR (tolerance: +-5 DegC) (unit: DegC). */
-#define TEMPSENSOR_CAL2_TEMP         ((int32_t)  110)			/* Internal temperature sensor, temperature at which temperature sensor has been calibrated in production for data into TEMPSENSOR_CAL2_ADDR (tolerance: +-5 DegC) (unit: DegC). */
-#define TEMPSENSOR_CAL_VREFANALOG    ( 3300U)					/* Analog voltage reference (Vref+) voltage with which temperature sensor has been calibrated in production (+-10 mV) (unit: mV). */
+#define TEMPSENSOR_CAL1_TEMP         ((int32_t)   30)	/* Internal temperature sensor, temperature at which temperature sensor has been calibrated in production for data into TEMPSENSOR_CAL1_ADDR (tolerance: +-5 DegC) (unit: DegC). */
+#define TEMPSENSOR_CAL2_TEMP         ((int32_t)  110)	/* Internal temperature sensor, temperature at which temperature sensor has been calibrated in production for data into TEMPSENSOR_CAL2_ADDR (tolerance: +-5 DegC) (unit: DegC). */
+#define TEMPSENSOR_CAL_VREFANALOG    ( 3300U)			/* Analog voltage reference (Vref+) voltage with which temperature sensor has been calibrated in production (+-10 mV) (unit: mV). */
 
 /**
  * @}
@@ -570,7 +570,7 @@ typedef struct {
 /** @defgroup ADC_LL_EC_COMMON_CLOCK_SOURCE  ADC common - Clock source
  * @{
  */
-#define LL_ADC_CLOCK_SYNC_PCLK_DIV2    0x00000000U							/*!< ADC synchronous clock derived from AHB clock with prescaler division by 2 */
+#define LL_ADC_CLOCK_SYNC_PCLK_DIV2    0x00000000U	/*!< ADC synchronous clock derived from AHB clock with prescaler division by 2 */
 #define LL_ADC_CLOCK_SYNC_PCLK_DIV4    (                   ADC_CCR_ADCPRE_0)/*!< ADC synchronous clock derived from AHB clock with prescaler division by 4 */
 #define LL_ADC_CLOCK_SYNC_PCLK_DIV6    (ADC_CCR_ADCPRE_1                   )/*!< ADC synchronous clock derived from AHB clock with prescaler division by 6 */
 #define LL_ADC_CLOCK_SYNC_PCLK_DIV8    (ADC_CCR_ADCPRE_1 | ADC_CCR_ADCPRE_0)/*!< ADC synchronous clock derived from AHB clock with prescaler division by 8 */
@@ -587,7 +587,7 @@ typedef struct {
 /*       If they are not listed below, they do not require any specific       */
 /*       path enable. In this case, Access to measurement path is done        */
 /*       only by selecting the corresponding ADC internal channel.            */
-#define LL_ADC_PATH_INTERNAL_NONE          0x00000000U		/*!< ADC measurement pathes all disabled */
+#define LL_ADC_PATH_INTERNAL_NONE          0x00000000U	/*!< ADC measurement pathes all disabled */
 #define LL_ADC_PATH_INTERNAL_VREFINT       (ADC_CCR_TSVREFE)/*!< ADC measurement path to internal channel VrefInt */
 #define LL_ADC_PATH_INTERNAL_TEMPSENSOR    (ADC_CCR_TSVREFE)/*!< ADC measurement path to internal channel temperature sensor */
 #define LL_ADC_PATH_INTERNAL_VBAT          (ADC_CCR_VBATE)	/*!< ADC measurement path to internal channel Vbat */
@@ -599,7 +599,7 @@ typedef struct {
 /** @defgroup ADC_LL_EC_RESOLUTION  ADC instance - Resolution
  * @{
  */
-#define LL_ADC_RESOLUTION_12B    0x00000000U					/*!< ADC resolution 12 bits */
+#define LL_ADC_RESOLUTION_12B    0x00000000U/*!< ADC resolution 12 bits */
 #define LL_ADC_RESOLUTION_10B    (                ADC_CR1_RES_0)/*!< ADC resolution 10 bits */
 #define LL_ADC_RESOLUTION_8B     (ADC_CR1_RES_1                )/*!< ADC resolution  8 bits */
 #define LL_ADC_RESOLUTION_6B     (ADC_CR1_RES_1 | ADC_CR1_RES_0)/*!< ADC resolution  6 bits */
@@ -611,7 +611,7 @@ typedef struct {
 /** @defgroup ADC_LL_EC_DATA_ALIGN  ADC instance - Data alignment
  * @{
  */
-#define LL_ADC_DATA_ALIGN_RIGHT    0x00000000U	/*!< ADC conversion data alignment: right aligned (alignment on data register LSB bit 0)*/
+#define LL_ADC_DATA_ALIGN_RIGHT    0x00000000U		/*!< ADC conversion data alignment: right aligned (alignment on data register LSB bit 0)*/
 #define LL_ADC_DATA_ALIGN_LEFT     (ADC_CR2_ALIGN)	/*!< ADC conversion data alignment: left aligned (aligment on data register MSB bit 15)*/
 
 /**
@@ -725,7 +725,7 @@ typedef struct {
 /** @defgroup ADC_LL_EC_REG_DMA_TRANSFER  ADC group regular - DMA transfer of ADC conversion data
  * @{
  */
-#define LL_ADC_REG_DMA_TRANSFER_NONE         0x00000000U				/*!< ADC conversions are not transferred by DMA */
+#define LL_ADC_REG_DMA_TRANSFER_NONE         0x00000000U/*!< ADC conversions are not transferred by DMA */
 #define LL_ADC_REG_DMA_TRANSFER_LIMITED      (              ADC_CR2_DMA)/*!< ADC conversion data are transferred by DMA, in limited mode (one shot mode): DMA transfer requests are stopped when number of DMA data transfers (number of ADC conversions) is reached. This ADC mode is intended to be used with DMA mode non-circular. */
 #define LL_ADC_REG_DMA_TRANSFER_UNLIMITED    (ADC_CR2_DDS | ADC_CR2_DMA)/*!< ADC conversion data are transferred by DMA, in unlimited mode: DMA transfer requests are unlimited, whatever number of DMA data transferred (number of ADC conversions). This ADC mode is intended to be used with DMA mode circular. */
 
@@ -770,14 +770,14 @@ typedef struct {
 /** @defgroup ADC_LL_EC_REG_SEQ_DISCONT_MODE  ADC group regular - Sequencer discontinuous mode
  * @{
  */
-#define LL_ADC_REG_SEQ_DISCONT_DISABLE    0x00000000U	/*!< ADC group regular sequencer discontinuous mode disable */
+#define LL_ADC_REG_SEQ_DISCONT_DISABLE    0x00000000U																	/*!< ADC group regular sequencer discontinuous mode disable */
 #define LL_ADC_REG_SEQ_DISCONT_1RANK      (                                                            ADC_CR1_DISCEN)	/*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every rank */
 #define LL_ADC_REG_SEQ_DISCONT_2RANKS     (                                        ADC_CR1_DISCNUM_0 | ADC_CR1_DISCEN)	/*!< ADC group regular sequencer discontinuous mode enabled with sequence interruption every 2 ranks */
-#define LL_ADC_REG_SEQ_DISCONT_3RANKS     (                    ADC_CR1_DISCNUM_1 | ADC_CR1_DISCEN)	/*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every 3 ranks */
+#define LL_ADC_REG_SEQ_DISCONT_3RANKS     (                    ADC_CR1_DISCNUM_1 | ADC_CR1_DISCEN)						/*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every 3 ranks */
 #define LL_ADC_REG_SEQ_DISCONT_4RANKS     (                    ADC_CR1_DISCNUM_1 | ADC_CR1_DISCNUM_0 | ADC_CR1_DISCEN)	/*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every 4 ranks */
-#define LL_ADC_REG_SEQ_DISCONT_5RANKS     (ADC_CR1_DISCNUM_2 | ADC_CR1_DISCEN)						/*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every 5 ranks */
-#define LL_ADC_REG_SEQ_DISCONT_6RANKS     (ADC_CR1_DISCNUM_2 | ADC_CR1_DISCNUM_0 | ADC_CR1_DISCEN)	/*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every 6 ranks */
-#define LL_ADC_REG_SEQ_DISCONT_7RANKS     (ADC_CR1_DISCNUM_2 | ADC_CR1_DISCNUM_1 | ADC_CR1_DISCEN)	/*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every 7 ranks */
+#define LL_ADC_REG_SEQ_DISCONT_5RANKS     (ADC_CR1_DISCNUM_2 | ADC_CR1_DISCEN)											/*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every 5 ranks */
+#define LL_ADC_REG_SEQ_DISCONT_6RANKS     (ADC_CR1_DISCNUM_2 | ADC_CR1_DISCNUM_0 | ADC_CR1_DISCEN)						/*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every 6 ranks */
+#define LL_ADC_REG_SEQ_DISCONT_7RANKS     (ADC_CR1_DISCNUM_2 | ADC_CR1_DISCNUM_1 | ADC_CR1_DISCEN)						/*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every 7 ranks */
 #define LL_ADC_REG_SEQ_DISCONT_8RANKS     (ADC_CR1_DISCNUM_2 | ADC_CR1_DISCNUM_1 | ADC_CR1_DISCNUM_0 | ADC_CR1_DISCEN)	/*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every 8 ranks */
 
 /**
@@ -864,7 +864,7 @@ typedef struct {
 /** @defgroup ADC_LL_EC_INJ_SEQ_SCAN_LENGTH  ADC group injected - Sequencer scan length
  * @{
  */
-#define LL_ADC_INJ_SEQ_SCAN_DISABLE          0x00000000U					/*!< ADC group injected sequencer disable (equivalent to sequencer of 1 rank: ADC conversion on only 1 channel) */
+#define LL_ADC_INJ_SEQ_SCAN_DISABLE          0x00000000U/*!< ADC group injected sequencer disable (equivalent to sequencer of 1 rank: ADC conversion on only 1 channel) */
 #define LL_ADC_INJ_SEQ_SCAN_ENABLE_2RANKS    (                ADC_JSQR_JL_0)/*!< ADC group injected sequencer enable with 2 ranks in the sequence */
 #define LL_ADC_INJ_SEQ_SCAN_ENABLE_3RANKS    (ADC_JSQR_JL_1                )/*!< ADC group injected sequencer enable with 3 ranks in the sequence */
 #define LL_ADC_INJ_SEQ_SCAN_ENABLE_4RANKS    (ADC_JSQR_JL_1 | ADC_JSQR_JL_0)/*!< ADC group injected sequencer enable with 4 ranks in the sequence */
@@ -898,14 +898,14 @@ typedef struct {
 /** @defgroup ADC_LL_EC_CHANNEL_SAMPLINGTIME  Channel - Sampling time
  * @{
  */
-#define LL_ADC_SAMPLINGTIME_3CYCLES      0x00000000U							/*!< Sampling time 3 ADC clock cycles */
-#define LL_ADC_SAMPLINGTIME_15CYCLES     (ADC_SMPR1_SMP10_0)					/*!< Sampling time 15 ADC clock cycles */
-#define LL_ADC_SAMPLINGTIME_28CYCLES     (ADC_SMPR1_SMP10_1)					/*!< Sampling time 28 ADC clock cycles */
+#define LL_ADC_SAMPLINGTIME_3CYCLES      0x00000000U/*!< Sampling time 3 ADC clock cycles */
+#define LL_ADC_SAMPLINGTIME_15CYCLES     (ADC_SMPR1_SMP10_0)/*!< Sampling time 15 ADC clock cycles */
+#define LL_ADC_SAMPLINGTIME_28CYCLES     (ADC_SMPR1_SMP10_1)/*!< Sampling time 28 ADC clock cycles */
 #define LL_ADC_SAMPLINGTIME_56CYCLES     (ADC_SMPR1_SMP10_1 | ADC_SMPR1_SMP10_0)/*!< Sampling time 56 ADC clock cycles */
-#define LL_ADC_SAMPLINGTIME_84CYCLES     (ADC_SMPR1_SMP10_2)					/*!< Sampling time 84 ADC clock cycles */
+#define LL_ADC_SAMPLINGTIME_84CYCLES     (ADC_SMPR1_SMP10_2)/*!< Sampling time 84 ADC clock cycles */
 #define LL_ADC_SAMPLINGTIME_112CYCLES    (ADC_SMPR1_SMP10_2 | ADC_SMPR1_SMP10_0)/*!< Sampling time 112 ADC clock cycles */
 #define LL_ADC_SAMPLINGTIME_144CYCLES    (ADC_SMPR1_SMP10_2 | ADC_SMPR1_SMP10_1)/*!< Sampling time 144 ADC clock cycles */
-#define LL_ADC_SAMPLINGTIME_480CYCLES    (ADC_SMPR1_SMP10)						/*!< Sampling time 480 ADC clock cycles */
+#define LL_ADC_SAMPLINGTIME_480CYCLES    (ADC_SMPR1_SMP10)	/*!< Sampling time 480 ADC clock cycles */
 
 /**
  * @}
@@ -926,7 +926,7 @@ typedef struct {
 #define LL_ADC_AWD_DISABLE             0x00000000U	/*!< ADC analog watchdog monitoring disabled */
 #define LL_ADC_AWD_ALL_CHANNELS_REG \
 	( \
-		ADC_CR1_AWDEN                 )																								/*!< ADC analog watchdog monitoring of all channels, converted by group regular only */
+		ADC_CR1_AWDEN                 )	/*!< ADC analog watchdog monitoring of all channels, converted by group regular only */
 #define LL_ADC_AWD_ALL_CHANNELS_INJ    (                                            ADC_CR1_JAWDEN                                 )/*!< ADC analog watchdog monitoring of all channels, converted by group injected only */
 #define LL_ADC_AWD_ALL_CHANNELS_REG_INJ \
 	(                                            ADC_CR1_JAWDEN \
@@ -1153,16 +1153,16 @@ typedef struct {
 	| ADC_CCR_MULTI_1                  )/*!< ADC dual mode enabled: group regular simultaneous */
 #define LL_ADC_MULTI_DUAL_REG_INTERL \
 	(                  ADC_CCR_MULTI_2 | ADC_CCR_MULTI_1 \
-	| ADC_CCR_MULTI_0)																								/*!< ADC dual mode enabled: Combined group regular interleaved */
-#define LL_ADC_MULTI_DUAL_INJ_SIMULT         (                  ADC_CCR_MULTI_2 | ADC_CCR_MULTI_0)					/*!< ADC dual mode enabled: group injected simultaneous */
-#define LL_ADC_MULTI_DUAL_INJ_ALTERN         (ADC_CCR_MULTI_3 | ADC_CCR_MULTI_0)									/*!< ADC dual mode enabled: group injected alternate trigger. Works only with external triggers (not internal SW start) */
+	| ADC_CCR_MULTI_0)																				/*!< ADC dual mode enabled: Combined group regular interleaved */
+#define LL_ADC_MULTI_DUAL_INJ_SIMULT         (                  ADC_CCR_MULTI_2 | ADC_CCR_MULTI_0)	/*!< ADC dual mode enabled: group injected simultaneous */
+#define LL_ADC_MULTI_DUAL_INJ_ALTERN         (ADC_CCR_MULTI_3 | ADC_CCR_MULTI_0)					/*!< ADC dual mode enabled: group injected alternate trigger. Works only with external triggers (not internal SW start) */
 #define LL_ADC_MULTI_DUAL_REG_SIM_INJ_SIM    (                                                      ADC_CCR_MULTI_0)/*!< ADC dual mode enabled: Combined group regular simultaneous + group injected simultaneous */
 #define LL_ADC_MULTI_DUAL_REG_SIM_INJ_ALT    (                                    ADC_CCR_MULTI_1                  )/*!< ADC dual mode enabled: Combined group regular simultaneous + group injected alternate trigger */
 #define LL_ADC_MULTI_DUAL_REG_INT_INJ_SIM \
 	(                                    ADC_CCR_MULTI_1 \
 	| ADC_CCR_MULTI_0)	/*!< ADC dual mode enabled: Combined group regular interleaved + group injected simultaneous */
 #if defined(ADC3)
-#define LL_ADC_MULTI_TRIPLE_REG_SIM_INJ_SIM    (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_0)					/*!< ADC triple mode enabled: Combined group regular simultaneous + group injected simultaneous */
+#define LL_ADC_MULTI_TRIPLE_REG_SIM_INJ_SIM    (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_0)	/*!< ADC triple mode enabled: Combined group regular simultaneous + group injected simultaneous */
 #define LL_ADC_MULTI_TRIPLE_REG_SIM_INJ_ALT    (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_1                  )/*!< ADC triple mode enabled: Combined group regular simultaneous + group injected alternate trigger */
 #define LL_ADC_MULTI_TRIPLE_INJ_SIMULT         (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_2 | ADC_CCR_MULTI_0)/*!< ADC triple mode enabled: group injected simultaneous */
 #define LL_ADC_MULTI_TRIPLE_REG_SIMULT \
@@ -1172,7 +1172,7 @@ typedef struct {
 	(ADC_CCR_MULTI_4 | ADC_CCR_MULTI_2 | ADC_CCR_MULTI_1 \
 	| ADC_CCR_MULTI_0)															/*!< ADC triple mode enabled: Combined group regular interleaved */
 #define LL_ADC_MULTI_TRIPLE_INJ_ALTERN    (ADC_CCR_MULTI_4 | ADC_CCR_MULTI_0)	/*!< ADC triple mode enabled: group injected alternate trigger. Works only with external triggers (not internal SW start) */
-#endif // if defined(ADC3)
+#endif	// if defined(ADC3)
 
 /**
  * @}
@@ -1185,7 +1185,7 @@ typedef struct {
 #define LL_ADC_MULTI_REG_DMA_LIMIT_1     (                              ADC_CCR_DMA_0)	/*!< ADC multimode group regular conversions are transferred by DMA, one DMA channel for all ADC instances (DMA of ADC master), in limited mode (one shot mode): DMA transfer requests are stopped when number of DMA data transfers (number of ADC conversions) is reached. This ADC mode is intended to be used with DMA mode non-circular. Setting of DMA mode 1: 2 or 3 (dual or triple mode) half-words one by one, ADC1 then ADC2 then ADC3. */
 #define LL_ADC_MULTI_REG_DMA_LIMIT_2     (              ADC_CCR_DMA_1                )	/*!< ADC multimode group regular conversions are transferred by DMA, one DMA channel for all ADC instances (DMA of ADC master), in limited mode (one shot mode): DMA transfer requests are stopped when number of DMA data transfers (number of ADC conversions) is reached. This ADC mode is intended to be used with DMA mode non-circular. Setting of DMA mode 2: 2 or 3 (dual or triple mode) half-words one by one, ADC2&1 then ADC1&3 then ADC3&2. */
 #define LL_ADC_MULTI_REG_DMA_LIMIT_3     (              ADC_CCR_DMA_0 | ADC_CCR_DMA_0)	/*!< ADC multimode group regular conversions are transferred by DMA, one DMA channel for all ADC instances (DMA of ADC master), in limited mode (one shot mode): DMA transfer requests are stopped when number of DMA data transfers (number of ADC conversions) is reached. This ADC mode is intended to be used with DMA mode non-circular. Setting of DMA mode 3: 2 or 3 (dual or triple mode) bytes one by one, ADC2&1 then ADC1&3 then ADC3&2. */
-#define LL_ADC_MULTI_REG_DMA_UNLMT_1     (ADC_CCR_DDS | ADC_CCR_DMA_0)	/*!< ADC multimode group regular conversions are transferred by DMA, one DMA channel for all ADC instances (DMA of ADC master), in unlimited mode: DMA transfer requests are unlimited, whatever number of DMA data transferred (number of ADC conversions) is reached. This ADC mode is intended to be used with DMA mode non-circular. Setting of DMA mode 1: 2 or 3 (dual or triple mode) half-words one by one, ADC1 then ADC2 then ADC3. */
+#define LL_ADC_MULTI_REG_DMA_UNLMT_1     (ADC_CCR_DDS | ADC_CCR_DMA_0)					/*!< ADC multimode group regular conversions are transferred by DMA, one DMA channel for all ADC instances (DMA of ADC master), in unlimited mode: DMA transfer requests are unlimited, whatever number of DMA data transferred (number of ADC conversions) is reached. This ADC mode is intended to be used with DMA mode non-circular. Setting of DMA mode 1: 2 or 3 (dual or triple mode) half-words one by one, ADC1 then ADC2 then ADC3. */
 #define LL_ADC_MULTI_REG_DMA_UNLMT_2     (ADC_CCR_DDS | ADC_CCR_DMA_1                )	/*!< ADC multimode group regular conversions are transferred by DMA, one DMA channel for all ADC instances (DMA of ADC master), in unlimited mode: DMA transfer requests are unlimited, whatever number of DMA data transferred (number of ADC conversions) is reached. This ADC mode is intended to be used with DMA mode non-circular. Setting of DMA mode 2: 2 or 3 (dual or triple mode) half-words by pairs, ADC2&1 then ADC1&3 then ADC3&2. */
 #define LL_ADC_MULTI_REG_DMA_UNLMT_3     (ADC_CCR_DDS | ADC_CCR_DMA_0 | ADC_CCR_DMA_0)	/*!< ADC multimode group regular conversions are transferred by DMA, one DMA channel for all ADC instances (DMA of ADC master), in unlimited mode: DMA transfer requests are unlimited, whatever number of DMA data transferred (number of ADC conversions) is reached. This ADC mode is intended to be used with DMA mode non-circular. Setting of DMA mode 3: 2 or 3 (dual or triple mode) bytes one by one, ADC2&1 then ADC1&3 then ADC3&2. */
 

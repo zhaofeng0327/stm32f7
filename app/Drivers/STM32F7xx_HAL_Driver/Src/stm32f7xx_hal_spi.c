@@ -3845,7 +3845,7 @@ static void SPI_AbortRx_ISR(SPI_HandleTypeDef *hspi)
 	}
 
 	hspi->State = HAL_SPI_STATE_ABORT;
-} /* SPI_AbortRx_ISR */
+}	/* SPI_AbortRx_ISR */
 
 /**
  * @brief  Handle abort a Tx or Rx/Tx transaction.

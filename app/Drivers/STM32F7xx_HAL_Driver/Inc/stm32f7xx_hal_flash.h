@@ -141,7 +141,7 @@ typedef struct {
  * @brief FLASH Interrupt definition
  * @{
  */
-#define FLASH_IT_EOP    FLASH_CR_EOPIE			/*!< End of FLASH Operation Interrupt source */
+#define FLASH_IT_EOP    FLASH_CR_EOPIE	/*!< End of FLASH Operation Interrupt source */
 #define FLASH_IT_ERR    ((uint32_t) 0x02000000U)/*!< Error Interrupt source                  */
 
 /**

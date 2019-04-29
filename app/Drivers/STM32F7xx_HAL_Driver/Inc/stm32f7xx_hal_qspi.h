@@ -251,7 +251,7 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
 /** @defgroup QSPI_SampleShifting QSPI Sample Shifting
  * @{
  */
-#define QSPI_SAMPLE_SHIFTING_NONE         ((uint32_t) 0x00000000U)		/*!<No clock cycle shift to sample data*/
+#define QSPI_SAMPLE_SHIFTING_NONE         ((uint32_t) 0x00000000U)	/*!<No clock cycle shift to sample data*/
 #define QSPI_SAMPLE_SHIFTING_HALFCYCLE    ((uint32_t) QUADSPI_CR_SSHIFT)/*!<1/2 clock cycle shift to sample data*/
 
 /**
@@ -277,7 +277,7 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
 /** @defgroup QSPI_ClockMode QSPI Clock Mode
  * @{
  */
-#define QSPI_CLOCK_MODE_0    ((uint32_t) 0x00000000U)		/*!<Clk stays low while nCS is released*/
+#define QSPI_CLOCK_MODE_0    ((uint32_t) 0x00000000U)	/*!<Clk stays low while nCS is released*/
 #define QSPI_CLOCK_MODE_3    ((uint32_t) QUADSPI_DCR_CKMODE)/*!<Clk goes high while nCS is released*/
 
 /**
@@ -331,7 +331,7 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
 /** @defgroup QSPI_InstructionMode QSPI Instruction Mode
  * @{
  */
-#define QSPI_INSTRUCTION_NONE       ((uint32_t) 0x00000000U)		/*!<No instruction*/
+#define QSPI_INSTRUCTION_NONE       ((uint32_t) 0x00000000U)/*!<No instruction*/
 #define QSPI_INSTRUCTION_1_LINE     ((uint32_t) QUADSPI_CCR_IMODE_0)/*!<Instruction on a single line*/
 #define QSPI_INSTRUCTION_2_LINES    ((uint32_t) QUADSPI_CCR_IMODE_1)/*!<Instruction on two lines*/
 #define QSPI_INSTRUCTION_4_LINES    ((uint32_t) QUADSPI_CCR_IMODE)	/*!<Instruction on four lines*/
@@ -389,7 +389,7 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
 /** @defgroup QSPI_DdrHoldHalfCycle QSPI Ddr HoldHalfCycle
  * @{
  */
-#define QSPI_DDR_HHC_ANALOG_DELAY      ((uint32_t) 0x00000000U)		/*!<Delay the data output using analog delay in DDR mode*/
+#define QSPI_DDR_HHC_ANALOG_DELAY      ((uint32_t) 0x00000000U)	/*!<Delay the data output using analog delay in DDR mode*/
 #define QSPI_DDR_HHC_HALF_CLK_DELAY    ((uint32_t) QUADSPI_CCR_DHHC)/*!<Delay the data output by 1/2 clock cycle in DDR mode*/
 
 /**
@@ -419,7 +419,7 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
 /** @defgroup QSPI_AutomaticStop QSPI Automatic Stop
  * @{
  */
-#define QSPI_AUTOMATIC_STOP_DISABLE    ((uint32_t) 0x00000000U)	/*!<AutoPolling stops only with abort or QSPI disabling*/
+#define QSPI_AUTOMATIC_STOP_DISABLE    ((uint32_t) 0x00000000U)		/*!<AutoPolling stops only with abort or QSPI disabling*/
 #define QSPI_AUTOMATIC_STOP_ENABLE     ((uint32_t) QUADSPI_CR_APMS)	/*!<AutoPolling stops as soon as there is a match*/
 
 /**
@@ -429,7 +429,7 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
 /** @defgroup QSPI_TimeOutActivation QSPI TimeOut Activation
  * @{
  */
-#define QSPI_TIMEOUT_COUNTER_DISABLE    ((uint32_t) 0x00000000U)	/*!<Timeout counter disabled, nCS remains active*/
+#define QSPI_TIMEOUT_COUNTER_DISABLE    ((uint32_t) 0x00000000U)/*!<Timeout counter disabled, nCS remains active*/
 #define QSPI_TIMEOUT_COUNTER_ENABLE     ((uint32_t) QUADSPI_CR_TCEN)/*!<Timeout counter enabled, nCS released when timeout expires*/
 
 /**

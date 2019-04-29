@@ -421,11 +421,11 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
 #endif
 
 #ifndef USB_OTG_DOEPMSK_OTEPSPRM
-#define USB_OTG_DOEPMSK_OTEPSPRM    (0x1UL << 5)	/*!< Setup Packet Received interrupt mask */
+#define USB_OTG_DOEPMSK_OTEPSPRM    (0x1UL << 5)/*!< Setup Packet Received interrupt mask */
 #endif
 
 #ifndef USB_OTG_DOEPINT_NAK
-#define USB_OTG_DOEPINT_NAK    (0x1UL << 13)	/*!< NAK interrupt */
+#define USB_OTG_DOEPINT_NAK    (0x1UL << 13)/*!< NAK interrupt */
 #endif
 
 #ifndef USB_OTG_DOEPMSK_NAKM
@@ -433,7 +433,7 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
 #endif
 
 #ifndef USB_OTG_DOEPINT_STPKTRX
-#define USB_OTG_DOEPINT_STPKTRX    (0x1UL << 15)	/*!< Setup Packet Received interrupt */
+#define USB_OTG_DOEPINT_STPKTRX    (0x1UL << 15)/*!< Setup Packet Received interrupt */
 #endif
 
 #ifndef USB_OTG_DOEPMSK_NYETM

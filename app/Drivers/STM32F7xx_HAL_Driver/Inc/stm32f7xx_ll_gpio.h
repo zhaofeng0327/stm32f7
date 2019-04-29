@@ -161,7 +161,7 @@ typedef struct {
 /** @defgroup GPIO_LL_EC_SPEED Output Speed
  * @{
  */
-#define LL_GPIO_SPEED_FREQ_LOW          (0x00000000U)			/*!< Select I/O low output speed    */
+#define LL_GPIO_SPEED_FREQ_LOW          (0x00000000U)	/*!< Select I/O low output speed    */
 #define LL_GPIO_SPEED_FREQ_MEDIUM       GPIO_OSPEEDER_OSPEEDR0_0/*!< Select I/O medium output speed */
 #define LL_GPIO_SPEED_FREQ_HIGH         GPIO_OSPEEDER_OSPEEDR0_1/*!< Select I/O fast output speed   */
 #define LL_GPIO_SPEED_FREQ_VERY_HIGH    GPIO_OSPEEDER_OSPEEDR0	/*!< Select I/O high output speed   */
@@ -173,7 +173,7 @@ typedef struct {
 /** @defgroup GPIO_LL_EC_PULL Pull Up Pull Down
  * @{
  */
-#define LL_GPIO_PULL_NO      (0x00000000U)		/*!< Select I/O no pull */
+#define LL_GPIO_PULL_NO      (0x00000000U)	/*!< Select I/O no pull */
 #define LL_GPIO_PULL_UP      GPIO_PUPDR_PUPDR0_0/*!< Select I/O pull up */
 #define LL_GPIO_PULL_DOWN    GPIO_PUPDR_PUPDR0_1/*!< Select I/O pull down */
 

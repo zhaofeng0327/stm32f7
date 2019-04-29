@@ -152,7 +152,7 @@
  * @{
  */
 #define USART_DUMMY_DATA             ((uint16_t) 0xFFFF)/*!< USART transmitted dummy data                     */
-#define USART_TEACK_REACK_TIMEOUT    1000U				/*!< USART TX or RX enable acknowledge time-out value */
+#define USART_TEACK_REACK_TIMEOUT    1000U	/*!< USART TX or RX enable acknowledge time-out value */
 #define USART_CR1_FIELDS \
 	((uint32_t) (USART_CR1_M | USART_CR1_PCE | USART_CR1_PS   \
 	| USART_CR1_TE | USART_CR1_RE | USART_CR1_OVER8))	/*!< USART CR1 fields of parameters set by USART_SetConfig API */

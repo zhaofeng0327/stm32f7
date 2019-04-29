@@ -605,7 +605,7 @@ static WCHAR LfnBuf[_MAX_LFN + 1];	/* LFN enabled with static working buffer */
 	{ lfn = ff_memalloc((_MAX_LFN + 1) * 2); \
 	  if (!lfn) LEAVE_FF(fs, FR_NOT_ENOUGH_CORE); (fs)->lfnbuf = lfn; }
 #define FREE_NAMBUF()    ff_memfree(lfn)
-#endif /* if _FS_EXFAT */
+#endif	/* if _FS_EXFAT */
 
 #else	/* if _USE_LFN == 1 */
 #error Wrong _USE_LFN setting
@@ -1453,7 +1453,7 @@ DWORD create_chain(	/* 0:No free cluster, 1:Internal error, 0xFFFFFFFF:Disk erro
 	}
 
 	return ncl;	/* Return new cluster number or error status */
-}	/* create_chain */
+}				/* create_chain */
 
 #endif	/* !_FS_READONLY */
 
@@ -1594,8 +1594,8 @@ FRESULT dir_next(	/* FR_OK(0):succeeded, FR_NO_FILE:End of table, FR_DENIED:Coul
 						fs->wflag = 1;
 						if (sync_window(fs) != FR_OK) return FR_DISK_ERR;
 					}
-					fs->winsect -= n;	/* Restore window offset */
-					#else	/* if !_FS_READONLY */
+					fs->winsect -= n;			/* Restore window offset */
+					#else						/* if !_FS_READONLY */
 					if (!stretch) dp->sect = 0;	/* (this line is to suppress compiler warning) */
 					dp->sect = 0;
 					return FR_NO_FILE;	/* Report EOT */
@@ -1995,7 +1995,7 @@ void get_xdir_info(
 	fno->fsize      = (fno->fattrib & AM_DIR) ? 0 : ld_qword(dirb + XDIR_FileSize);	/* Size */
 	fno->ftime      = ld_word(dirb + XDIR_ModTime + 0);								/* Time */
 	fno->fdate      = ld_word(dirb + XDIR_ModTime + 2);								/* Date */
-}	/* get_xdir_info */
+}																					/* get_xdir_info */
 
 #endif	/* _FS_MINIMIZE <= 1 || _FS_RPATH >= 2 */
 
@@ -4006,7 +4006,7 @@ FRESULT f_getcwd(
 		INIT_NAMBUF(fs);
 		i = len;/* Bottom of buffer (directory stack base) */
 		if (!_FS_EXFAT || fs->fs_type != FS_EXFAT) {/* (Cannot do getcwd on exFAT and returns root path) */
-			dj.obj.sclust = fs->cdir;			/* Start to follow upper directory from current directory */
+			dj.obj.sclust = fs->cdir;	/* Start to follow upper directory from current directory */
 			while ((ccl = dj.obj.sclust) != 0) {/* Repeat while current directory is a sub-directory */
 				res = dir_sdi(&dj, 1 * SZDIRE);	/* Get parent directory */
 				if (res != FR_OK) break;
@@ -4250,7 +4250,7 @@ FRESULT f_opendir(
 		obj->fs = fs;
 		INIT_NAMBUF(fs);
 		res = follow_path(dp, path);/* Follow the path to the directory */
-		if (res == FR_OK) {			/* Follow completed */
+		if (res == FR_OK) {	/* Follow completed */
 			if (!(dp->fn[NSFLAG] & NS_NONAME)) {/* It is not the origin directory itself */
 				if (obj->attr & AM_DIR) {	/* This object is a sub-directory */
 					#if _FS_EXFAT
@@ -6033,7 +6033,7 @@ void putc_bfd(	/* Buffered write with code conversion */
 
 	#if _LFN_UNICODE
 	#if _STRF_ENCODE == 3	/* Write a character in UTF-8 */
-	if (c < 0x80) {	/* 7-bit */
+	if (c < 0x80) {			/* 7-bit */
 		pb->buf[i++] = (BYTE) c;
 	} else {
 		if (c < 0x800) {/* 11-bit */

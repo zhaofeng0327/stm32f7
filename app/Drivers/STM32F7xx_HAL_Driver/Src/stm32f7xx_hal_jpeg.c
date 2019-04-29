@@ -245,7 +245,7 @@
 
 #define JPEG_FIFO_TH_SIZE              ((uint32_t) 4U)	/* JPEG Input/Output HW FIFO Threshold in words*/
 
-#define JPEG_DMA_MASK                  ((uint32_t) 0x00001800)	/* JPEG DMA request Mask*/
+#define JPEG_DMA_MASK                  ((uint32_t) 0x00001800)		/* JPEG DMA request Mask*/
 #define JPEG_DMA_IDMA                  ((uint32_t) JPEG_CR_IDMAEN)	/* DMA request for the input FIFO */
 #define JPEG_DMA_ODMA                  ((uint32_t) JPEG_CR_ODMAEN)	/* DMA request for the output FIFO */
 

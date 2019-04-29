@@ -315,7 +315,7 @@
 #endif	// if   defined( __CC_ARM )
 
 
-#define __CMSIS_GENERIC		/* disable NVIC and Systick functions */
+#define __CMSIS_GENERIC	/* disable NVIC and Systick functions */
 
 #if defined(ARM_MATH_CM7)
 #include "core_cm7.h"

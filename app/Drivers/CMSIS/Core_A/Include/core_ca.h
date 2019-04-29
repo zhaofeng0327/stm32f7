@@ -176,9 +176,9 @@ extern "C" {
 #define     __IO    volatile/*!< \brief Defines 'read / write' permissions */
 
 /* following defines should be used for structure members */
-#define     __IM     volatile const	/*!< \brief Defines 'read only' structure member permissions */
-#define     __OM     volatile		/*!< \brief Defines 'write only' structure member permissions */
-#define     __IOM    volatile		/*!< \brief Defines 'read / write' structure member permissions */
+#define     __IM     volatile const			/*!< \brief Defines 'read only' structure member permissions */
+#define     __OM     volatile				/*!< \brief Defines 'write only' structure member permissions */
+#define     __IOM    volatile				/*!< \brief Defines 'read / write' structure member permissions */
 #define RESERVED(N, T)    T RESERVED ## N;	// placeholder struct members used for "reserved" areas
 
 /*******************************************************************************
@@ -237,10 +237,10 @@ typedef union {
 #define CPSR_J_Pos      24U					/*!< \brief CPSR: J Position */
 #define CPSR_J_Msk      (1UL << CPSR_J_Pos)	/*!< \brief CPSR: J Mask */
 
-#define CPSR_GE_Pos     16U	/*!< \brief CPSR: GE Position */
+#define CPSR_GE_Pos     16U						/*!< \brief CPSR: GE Position */
 #define CPSR_GE_Msk     (0xFUL << CPSR_GE_Pos)	/*!< \brief CPSR: GE Mask */
 
-#define CPSR_IT1_Pos    10U						/*!< \brief CPSR: IT1 Position */
+#define CPSR_IT1_Pos    10U	/*!< \brief CPSR: IT1 Position */
 #define CPSR_IT1_Msk    (0x3FUL << CPSR_IT1_Pos)/*!< \brief CPSR: IT1 Mask */
 
 #define CPSR_E_Pos      9U					/*!< \brief CPSR: E Position */
@@ -258,7 +258,7 @@ typedef union {
 #define CPSR_T_Pos      5U					/*!< \brief CPSR: T Position */
 #define CPSR_T_Msk      (1UL << CPSR_T_Pos)	/*!< \brief CPSR: T Mask */
 
-#define CPSR_M_Pos      0U	/*!< \brief CPSR: M Position */
+#define CPSR_M_Pos      0U						/*!< \brief CPSR: M Position */
 #define CPSR_M_Msk      (0x1FUL << CPSR_M_Pos)	/*!< \brief CPSR: M Mask */
 
 #define CPSR_M_USR      0x10U	/*!< \brief CPSR: M User mode (PL0) */
@@ -316,7 +316,7 @@ typedef union {
 #define SCTLR_TRE_Pos        28U					/*!< \brief SCTLR: TRE Position */
 #define SCTLR_TRE_Msk        (1UL << SCTLR_TRE_Pos)	/*!< \brief SCTLR: TRE Mask */
 
-#define SCTLR_NMFI_Pos       27U					/*!< \brief SCTLR: NMFI Position */
+#define SCTLR_NMFI_Pos       27U/*!< \brief SCTLR: NMFI Position */
 #define SCTLR_NMFI_Msk       (1UL << SCTLR_NMFI_Pos)/*!< \brief SCTLR: NMFI Mask */
 
 #define SCTLR_EE_Pos         25U/*!< \brief SCTLR: EE Position */
@@ -331,7 +331,7 @@ typedef union {
 #define SCTLR_FI_Pos         21U/*!< \brief SCTLR: FI Position */
 #define SCTLR_FI_Msk         (1UL << SCTLR_FI_Pos)	/*!< \brief SCTLR: FI Mask */
 
-#define SCTLR_UWXN_Pos       20U					/*!< \brief SCTLR: UWXN Position */
+#define SCTLR_UWXN_Pos       20U/*!< \brief SCTLR: UWXN Position */
 #define SCTLR_UWXN_Msk       (1UL << SCTLR_UWXN_Pos)/*!< \brief SCTLR: UWXN Mask */
 
 #define SCTLR_WXN_Pos        19U					/*!< \brief SCTLR: WXN Position */
@@ -429,7 +429,7 @@ typedef union {
 #define ACTLR_DDI_Pos        28U					/*!< \brief ACTLR: DDI Position */
 #define ACTLR_DDI_Msk        (1UL << ACTLR_DDI_Pos)	/*!< \brief ACTLR: DDI Mask */
 
-#define ACTLR_DBDI_Pos       28U					/*!< \brief ACTLR: DBDI Position */
+#define ACTLR_DBDI_Pos       28U/*!< \brief ACTLR: DBDI Position */
 #define ACTLR_DBDI_Msk       (1UL << ACTLR_DBDI_Pos)/*!< \brief ACTLR: DBDI Mask */
 
 #define ACTLR_BTDIS_Pos      18U						/*!< \brief ACTLR: BTDIS Position */
@@ -441,7 +441,7 @@ typedef union {
 #define ACTLR_BP_Pos         15U/*!< \brief ACTLR: BP Position */
 #define ACTLR_BP_Msk         (3UL << ACTLR_BP_Pos)	/*!< \brief ACTLR: BP Mask */
 
-#define ACTLR_DDVM_Pos       15U					/*!< \brief ACTLR: DDVM Position */
+#define ACTLR_DDVM_Pos       15U/*!< \brief ACTLR: DDVM Position */
 #define ACTLR_DDVM_Msk       (1UL << ACTLR_DDVM_Pos)/*!< \brief ACTLR: DDVM Mask */
 
 #define ACTLR_L1PCTL_Pos     13U/*!< \brief ACTLR: L1PCTL Position */
@@ -462,13 +462,13 @@ typedef union {
 #define ACTLR_DODMBS_Pos     10U/*!< \brief ACTLR: DODMBS Position */
 #define ACTLR_DODMBS_Msk     (1UL << ACTLR_DODMBS_Pos)	/*!< \brief ACTLR: DODMBS Mask */
 
-#define ACTLR_PARITY_Pos     9U	/*!< \brief ACTLR: PARITY Position */
+#define ACTLR_PARITY_Pos     9U							/*!< \brief ACTLR: PARITY Position */
 #define ACTLR_PARITY_Msk     (1UL << ACTLR_PARITY_Pos)	/*!< \brief ACTLR: PARITY Mask */
 
 #define ACTLR_AOW_Pos        8U						/*!< \brief ACTLR: AOW Position */
 #define ACTLR_AOW_Msk        (1UL << ACTLR_AOW_Pos)	/*!< \brief ACTLR: AOW Mask */
 
-#define ACTLR_EXCL_Pos       7U						/*!< \brief ACTLR: EXCL Position */
+#define ACTLR_EXCL_Pos       7U	/*!< \brief ACTLR: EXCL Position */
 #define ACTLR_EXCL_Msk       (1UL << ACTLR_EXCL_Pos)/*!< \brief ACTLR: EXCL Mask */
 
 #define ACTLR_SMP_Pos        6U						/*!< \brief ACTLR: SMP Position */
@@ -477,10 +477,10 @@ typedef union {
 #define ACTLR_WFLZM_Pos      3U							/*!< \brief ACTLR: WFLZM Position */
 #define ACTLR_WFLZM_Msk      (1UL << ACTLR_WFLZM_Pos)	/*!< \brief ACTLR: WFLZM Mask */
 
-#define ACTLR_L1PE_Pos       2U						/*!< \brief ACTLR: L1PE Position */
+#define ACTLR_L1PE_Pos       2U	/*!< \brief ACTLR: L1PE Position */
 #define ACTLR_L1PE_Msk       (1UL << ACTLR_L1PE_Pos)/*!< \brief ACTLR: L1PE Mask */
 
-#define ACTLR_FW_Pos         0U	/*!< \brief ACTLR: FW Position */
+#define ACTLR_FW_Pos         0U						/*!< \brief ACTLR: FW Position */
 #define ACTLR_FW_Msk         (1UL << ACTLR_FW_Pos)	/*!< \brief ACTLR: FW Mask */
 
 /* CP15 Register CPACR */
@@ -553,13 +553,13 @@ typedef union {
 #define DFSR_CM_Pos        13U					/*!< \brief DFSR: CM Position */
 #define DFSR_CM_Msk        (1UL << DFSR_CM_Pos)	/*!< \brief DFSR: CM Mask */
 
-#define DFSR_Ext_Pos       12U					/*!< \brief DFSR: Ext Position */
+#define DFSR_Ext_Pos       12U	/*!< \brief DFSR: Ext Position */
 #define DFSR_Ext_Msk       (1UL << DFSR_Ext_Pos)/*!< \brief DFSR: Ext Mask */
 
-#define DFSR_WnR_Pos       11U					/*!< \brief DFSR: WnR Position */
+#define DFSR_WnR_Pos       11U	/*!< \brief DFSR: WnR Position */
 #define DFSR_WnR_Msk       (1UL << DFSR_WnR_Pos)/*!< \brief DFSR: WnR Mask */
 
-#define DFSR_FS1_Pos       10U					/*!< \brief DFSR: FS1 Position */
+#define DFSR_FS1_Pos       10U	/*!< \brief DFSR: FS1 Position */
 #define DFSR_FS1_Msk       (1UL << DFSR_FS1_Pos)/*!< \brief DFSR: FS1 Mask */
 
 #define DFSR_LPAE_Pos      9U						/*!< \brief DFSR: LPAE Position */
@@ -568,10 +568,10 @@ typedef union {
 #define DFSR_Domain_Pos    4U							/*!< \brief DFSR: Domain Position */
 #define DFSR_Domain_Msk    (0xFUL << DFSR_Domain_Pos)	/*!< \brief DFSR: Domain Mask */
 
-#define DFSR_FS0_Pos       0U	/*!< \brief DFSR: FS0 Position */
+#define DFSR_FS0_Pos       0U						/*!< \brief DFSR: FS0 Position */
 #define DFSR_FS0_Msk       (0xFUL << DFSR_FS0_Pos)	/*!< \brief DFSR: FS0 Mask */
 
-#define DFSR_STATUS_Pos    0U	/*!< \brief DFSR: STATUS Position */
+#define DFSR_STATUS_Pos    0U							/*!< \brief DFSR: STATUS Position */
 #define DFSR_STATUS_Msk    (0x3FUL << DFSR_STATUS_Pos)	/*!< \brief DFSR: STATUS Mask */
 
 /* CP15 Register IFSR */
@@ -596,19 +596,19 @@ typedef union {
 	uint32_t w;	/*!< \brief Type      used for word access */
 } IFSR_Type;
 
-#define IFSR_ExT_Pos       12U					/*!< \brief IFSR: ExT Position */
+#define IFSR_ExT_Pos       12U	/*!< \brief IFSR: ExT Position */
 #define IFSR_ExT_Msk       (1UL << IFSR_ExT_Pos)/*!< \brief IFSR: ExT Mask */
 
-#define IFSR_FS1_Pos       10U					/*!< \brief IFSR: FS1 Position */
+#define IFSR_FS1_Pos       10U	/*!< \brief IFSR: FS1 Position */
 #define IFSR_FS1_Msk       (1UL << IFSR_FS1_Pos)/*!< \brief IFSR: FS1 Mask */
 
 #define IFSR_LPAE_Pos      9U						/*!< \brief IFSR: LPAE Position */
 #define IFSR_LPAE_Msk      (0x1UL << IFSR_LPAE_Pos)	/*!< \brief IFSR: LPAE Mask */
 
-#define IFSR_FS0_Pos       0U	/*!< \brief IFSR: FS0 Position */
+#define IFSR_FS0_Pos       0U						/*!< \brief IFSR: FS0 Position */
 #define IFSR_FS0_Msk       (0xFUL << IFSR_FS0_Pos)	/*!< \brief IFSR: FS0 Mask */
 
-#define IFSR_STATUS_Pos    0U	/*!< \brief IFSR: STATUS Position */
+#define IFSR_STATUS_Pos    0U							/*!< \brief IFSR: STATUS Position */
 #define IFSR_STATUS_Msk    (0x3FUL << IFSR_STATUS_Pos)	/*!< \brief IFSR: STATUS Mask */
 
 /* CP15 Register ISR */
@@ -810,7 +810,7 @@ typedef struct {
 	__IOM uint32_t WRESET;	// !< \brief  Offset: 0x030 (R/W) Watchdog Reset Status Register
 	__OM uint32_t  WDISABLE;// !< \brief  Offset: 0x034 ( /W) Watchdog Disable Register
 } Timer_Type;
-#define PTIM    ((Timer_Type *) TIMER_BASE )	/*!< \brief Timer register struct */
+#define PTIM    ((Timer_Type *) TIMER_BASE )/*!< \brief Timer register struct */
 #endif	// if ((__CORTEX_A == 5U) || (__CORTEX_A == 9U)) || defined(DOXYGEN)
 #endif	// if (__TIM_PRESENT == 1U) || defined(DOXYGEN)
 

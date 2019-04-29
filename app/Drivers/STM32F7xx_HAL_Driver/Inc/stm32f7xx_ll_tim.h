@@ -132,7 +132,7 @@ static const uint8_t SHIFT_TAB_OISx[] =
 #endif											/* DFSDM1_Channel0 */
 #define TIMx_AF1_BKINP       TIM1_AF1_BKINP		/*!< BRK BKIN input polarity */
 /* Generic bit definitions for TIMx_AF2 register */
-#define TIMx_AF2_BK2INE      TIM1_AF2_BK2INE	/*!< BRK B2KINE input enable */
+#define TIMx_AF2_BK2INE      TIM1_AF2_BK2INE/*!< BRK B2KINE input enable */
 #if defined(DFSDM1_Channel0)
 #define TIMx_AF2_BK2DFBKE    TIM1_AF2_BK2DFBKE	/*!< BRK DFSDM_BREAK[0] enable */
 #endif											/* DFSDM1_Channel0 */
@@ -758,7 +758,7 @@ typedef struct {
 /** @defgroup TIM_LL_EC_ICPSC Input Configuration Prescaler
  * @{
  */
-#define LL_TIM_ICPSC_DIV1    0x00000000U				/*!< No prescaler, capture is done each time an edge is detected on the capture input */
+#define LL_TIM_ICPSC_DIV1    0x00000000U/*!< No prescaler, capture is done each time an edge is detected on the capture input */
 #define LL_TIM_ICPSC_DIV2    (TIM_CCMR1_IC1PSC_0 << 16U)/*!< Capture is done once every 2 events */
 #define LL_TIM_ICPSC_DIV4    (TIM_CCMR1_IC1PSC_1 << 16U)/*!< Capture is done once every 4 events */
 #define LL_TIM_ICPSC_DIV8    (TIM_CCMR1_IC1PSC << 16U)	/*!< Capture is done once every 8 events */
@@ -805,7 +805,7 @@ typedef struct {
 /** @defgroup TIM_LL_EC_CLOCKSOURCE Clock Source
  * @{
  */
-#define LL_TIM_CLOCKSOURCE_INTERNAL     0x00000000U	/*!< The timer is clocked by the internal clock provided from the RCC */
+#define LL_TIM_CLOCKSOURCE_INTERNAL     0x00000000U											/*!< The timer is clocked by the internal clock provided from the RCC */
 #define LL_TIM_CLOCKSOURCE_EXT_MODE1    (TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1 | TIM_SMCR_SMS_0)	/*!< Counter counts at each rising or falling edge on a selected input*/
 #define LL_TIM_CLOCKSOURCE_EXT_MODE2    TIM_SMCR_ECE/*!< Counter counts at each rising or falling edge on the external trigger input ETR */
 
@@ -843,21 +843,21 @@ typedef struct {
 /** @defgroup TIM_LL_EC_TRGO2 Trigger Output 2
  * @{
  */
-#define LL_TIM_TRGO2_RESET                     0x00000000U											/*!< UG bit from the TIMx_EGR register is used as trigger output 2 */
-#define LL_TIM_TRGO2_ENABLE                    TIM_CR2_MMS2_0										/*!< Counter Enable signal (CNT_EN) is used as trigger output 2 */
-#define LL_TIM_TRGO2_UPDATE                    TIM_CR2_MMS2_1										/*!< Update event is used as trigger output 2 */
-#define LL_TIM_TRGO2_CC1F                      (TIM_CR2_MMS2_1 | TIM_CR2_MMS2_0)					/*!< CC1 capture or a compare match is used as trigger output 2 */
-#define LL_TIM_TRGO2_OC1                       TIM_CR2_MMS2_2										/*!< OC1REF signal is used as trigger output 2 */
-#define LL_TIM_TRGO2_OC2                       (TIM_CR2_MMS2_2 | TIM_CR2_MMS2_0)					/*!< OC2REF signal is used as trigger output 2 */
-#define LL_TIM_TRGO2_OC3                       (TIM_CR2_MMS2_2 | TIM_CR2_MMS2_1)					/*!< OC3REF signal is used as trigger output 2 */
-#define LL_TIM_TRGO2_OC4                       (TIM_CR2_MMS2_2 | TIM_CR2_MMS2_1 | TIM_CR2_MMS2_0)	/*!< OC4REF signal is used as trigger output 2 */
-#define LL_TIM_TRGO2_OC5                       TIM_CR2_MMS2_3										/*!< OC5REF signal is used as trigger output 2 */
-#define LL_TIM_TRGO2_OC6                       (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_0)					/*!< OC6REF signal is used as trigger output 2 */
-#define LL_TIM_TRGO2_OC4_RISINGFALLING         (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_1)					/*!< OC4REF rising or falling edges are used as trigger output 2 */
-#define LL_TIM_TRGO2_OC6_RISINGFALLING         (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_1 | TIM_CR2_MMS2_0)	/*!< OC6REF rising or falling edges are used as trigger output 2 */
-#define LL_TIM_TRGO2_OC4_RISING_OC6_RISING     (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_2)					/*!< OC4REF or OC6REF rising edges are used as trigger output 2 */
-#define LL_TIM_TRGO2_OC4_RISING_OC6_FALLING    (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_2 | TIM_CR2_MMS2_0)	/*!< OC4REF rising or OC6REF falling edges are used as trigger output 2 */
-#define LL_TIM_TRGO2_OC5_RISING_OC6_RISING     (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_2 | TIM_CR2_MMS2_1)	/*!< OC5REF or OC6REF rising edges are used as trigger output 2 */
+#define LL_TIM_TRGO2_RESET                     0x00000000U															/*!< UG bit from the TIMx_EGR register is used as trigger output 2 */
+#define LL_TIM_TRGO2_ENABLE                    TIM_CR2_MMS2_0														/*!< Counter Enable signal (CNT_EN) is used as trigger output 2 */
+#define LL_TIM_TRGO2_UPDATE                    TIM_CR2_MMS2_1														/*!< Update event is used as trigger output 2 */
+#define LL_TIM_TRGO2_CC1F                      (TIM_CR2_MMS2_1 | TIM_CR2_MMS2_0)									/*!< CC1 capture or a compare match is used as trigger output 2 */
+#define LL_TIM_TRGO2_OC1                       TIM_CR2_MMS2_2														/*!< OC1REF signal is used as trigger output 2 */
+#define LL_TIM_TRGO2_OC2                       (TIM_CR2_MMS2_2 | TIM_CR2_MMS2_0)									/*!< OC2REF signal is used as trigger output 2 */
+#define LL_TIM_TRGO2_OC3                       (TIM_CR2_MMS2_2 | TIM_CR2_MMS2_1)									/*!< OC3REF signal is used as trigger output 2 */
+#define LL_TIM_TRGO2_OC4                       (TIM_CR2_MMS2_2 | TIM_CR2_MMS2_1 | TIM_CR2_MMS2_0)					/*!< OC4REF signal is used as trigger output 2 */
+#define LL_TIM_TRGO2_OC5                       TIM_CR2_MMS2_3														/*!< OC5REF signal is used as trigger output 2 */
+#define LL_TIM_TRGO2_OC6                       (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_0)									/*!< OC6REF signal is used as trigger output 2 */
+#define LL_TIM_TRGO2_OC4_RISINGFALLING         (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_1)									/*!< OC4REF rising or falling edges are used as trigger output 2 */
+#define LL_TIM_TRGO2_OC6_RISINGFALLING         (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_1 | TIM_CR2_MMS2_0)					/*!< OC6REF rising or falling edges are used as trigger output 2 */
+#define LL_TIM_TRGO2_OC4_RISING_OC6_RISING     (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_2)									/*!< OC4REF or OC6REF rising edges are used as trigger output 2 */
+#define LL_TIM_TRGO2_OC4_RISING_OC6_FALLING    (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_2 | TIM_CR2_MMS2_0)					/*!< OC4REF rising or OC6REF falling edges are used as trigger output 2 */
+#define LL_TIM_TRGO2_OC5_RISING_OC6_RISING     (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_2 | TIM_CR2_MMS2_1)					/*!< OC5REF or OC6REF rising edges are used as trigger output 2 */
 #define LL_TIM_TRGO2_OC5_RISING_OC6_FALLING    (TIM_CR2_MMS2_3 | TIM_CR2_MMS2_2 | TIM_CR2_MMS2_1 | TIM_CR2_MMS2_0)	/*!< OC5REF rising or OC6REF falling edges are used as trigger output 2 */
 
 /**
@@ -880,13 +880,13 @@ typedef struct {
 /** @defgroup TIM_LL_EC_TS Trigger Selection
  * @{
  */
-#define LL_TIM_TS_ITR0       0x00000000U									/*!< Internal Trigger 0 (ITR0) is used as trigger input */
-#define LL_TIM_TS_ITR1       TIM_SMCR_TS_0									/*!< Internal Trigger 1 (ITR1) is used as trigger input */
-#define LL_TIM_TS_ITR2       TIM_SMCR_TS_1									/*!< Internal Trigger 2 (ITR2) is used as trigger input */
-#define LL_TIM_TS_ITR3       (TIM_SMCR_TS_0 | TIM_SMCR_TS_1)				/*!< Internal Trigger 3 (ITR3) is used as trigger input */
-#define LL_TIM_TS_TI1F_ED    TIM_SMCR_TS_2									/*!< TI1 Edge Detector (TI1F_ED) is used as trigger input */
-#define LL_TIM_TS_TI1FP1     (TIM_SMCR_TS_2 | TIM_SMCR_TS_0)				/*!< Filtered Timer Input 1 (TI1FP1) is used as trigger input */
-#define LL_TIM_TS_TI2FP2     (TIM_SMCR_TS_2 | TIM_SMCR_TS_1)				/*!< Filtered Timer Input 2 (TI12P2) is used as trigger input */
+#define LL_TIM_TS_ITR0       0x00000000U	/*!< Internal Trigger 0 (ITR0) is used as trigger input */
+#define LL_TIM_TS_ITR1       TIM_SMCR_TS_0	/*!< Internal Trigger 1 (ITR1) is used as trigger input */
+#define LL_TIM_TS_ITR2       TIM_SMCR_TS_1	/*!< Internal Trigger 2 (ITR2) is used as trigger input */
+#define LL_TIM_TS_ITR3       (TIM_SMCR_TS_0 | TIM_SMCR_TS_1)/*!< Internal Trigger 3 (ITR3) is used as trigger input */
+#define LL_TIM_TS_TI1F_ED    TIM_SMCR_TS_2	/*!< TI1 Edge Detector (TI1F_ED) is used as trigger input */
+#define LL_TIM_TS_TI1FP1     (TIM_SMCR_TS_2 | TIM_SMCR_TS_0)/*!< Filtered Timer Input 1 (TI1FP1) is used as trigger input */
+#define LL_TIM_TS_TI2FP2     (TIM_SMCR_TS_2 | TIM_SMCR_TS_1)/*!< Filtered Timer Input 2 (TI12P2) is used as trigger input */
 #define LL_TIM_TS_ETRF       (TIM_SMCR_TS_2 | TIM_SMCR_TS_1 | TIM_SMCR_TS_0)/*!< Filtered external Trigger (ETRF) is used as trigger input */
 
 /**
@@ -906,7 +906,7 @@ typedef struct {
 /** @defgroup TIM_LL_EC_ETR_PRESCALER External Trigger Prescaler
  * @{
  */
-#define LL_TIM_ETR_PRESCALER_DIV1    0x00000000U	/*!< ETR prescaler OFF */
+#define LL_TIM_ETR_PRESCALER_DIV1    0x00000000U/*!< ETR prescaler OFF */
 #define LL_TIM_ETR_PRESCALER_DIV2    TIM_SMCR_ETPS_0/*!< ETR frequency is divided by 2 */
 #define LL_TIM_ETR_PRESCALER_DIV4    TIM_SMCR_ETPS_1/*!< ETR frequency is divided by 4 */
 #define LL_TIM_ETR_PRESCALER_DIV8    TIM_SMCR_ETPS	/*!< ETR frequency is divided by 8 */
@@ -1043,7 +1043,7 @@ typedef struct {
 /** @defgroup TIM_LL_EC_BKIN_SOURCE BKIN SOURCE
  * @{
  */
-#define LL_TIM_BKIN_SOURCE_BKIN     TIM1_AF1_BKINE	/*!< BKIN input from AF controller */
+#define LL_TIM_BKIN_SOURCE_BKIN     TIM1_AF1_BKINE		/*!< BKIN input from AF controller */
 #define LL_TIM_BKIN_SOURCE_DF1BK    TIM1_AF1_BKDF1BKE	/*!< internal signal: DFSDM1 break output */
 
 /**
@@ -1125,7 +1125,7 @@ typedef struct {
 /** @defgroup TIM_LL_EC_TIM2_ITR1_RMP_TIM8  TIM2 Internal Trigger1 Remap TIM8
  * @{
  */
-#define LL_TIM_TIM2_ITR1_RMP_TIM8_TRGO     TIM2_OR_RMP_MASK	/*!< TIM2_ITR1 is connected to TIM8_TRGO */
+#define LL_TIM_TIM2_ITR1_RMP_TIM8_TRGO     TIM2_OR_RMP_MASK							/*!< TIM2_ITR1 is connected to TIM8_TRGO */
 #define LL_TIM_TIM2_ITR1_RMP_ETH_PTP       (TIM2_OR_ITR1_RMP_0 | TIM2_OR_RMP_MASK)	/*!< TIM2_ITR1 is connected to ETH_PTP */
 #define LL_TIM_TIM2_ITR1_RMP_OTG_FS_SOF    (TIM2_OR_ITR1_RMP_1 | TIM2_OR_RMP_MASK)	/*!< TIM2_ITR1 is connected to OTG_FS SOF */
 #define LL_TIM_TIM2_ITR1_RMP_OTG_HS_SOF    (TIM2_OR_ITR1_RMP | TIM2_OR_RMP_MASK)/*!< TIM2_ITR1 is connected to OTG_HS SOF */
@@ -1149,7 +1149,7 @@ typedef struct {
 /** @defgroup TIM_LL_EC_TIM11_TI1_RMP  TIM11 External Input Capture 1 Remap
  * @{
  */
-#define LL_TIM_TIM11_TI1_RMP_GPIO       TIM11_OR_RMP_MASK						/*!< TIM11 channel 1 is connected to GPIO */
+#define LL_TIM_TIM11_TI1_RMP_GPIO       TIM11_OR_RMP_MASK	/*!< TIM11 channel 1 is connected to GPIO */
 #define LL_TIM_TIM11_TI1_RMP_SPDIFRX    (TIM11_OR_TI1_RMP_0 | TIM11_OR_RMP_MASK)/*!< TIM11 channel 1 is connected to SPDIFRX */
 #define LL_TIM_TIM11_TI1_RMP_HSE        (TIM11_OR_TI1_RMP_1 | TIM11_OR_RMP_MASK)/*!< TIM11 channel 1 is connected to HSE */
 #define LL_TIM_TIM11_TI1_RMP_MCO1       (TIM11_OR_TI1_RMP | TIM11_OR_RMP_MASK)	/*!< TIM11 channel 1 is connected to MCO1 */

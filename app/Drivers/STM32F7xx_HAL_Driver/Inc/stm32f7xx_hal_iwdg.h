@@ -79,11 +79,11 @@ typedef struct {
 /** @defgroup IWDG_Prescaler IWDG Prescaler
  * @{
  */
-#define IWDG_PRESCALER_4      0x00000000u	/*!< IWDG prescaler set to 4   */
-#define IWDG_PRESCALER_8      IWDG_PR_PR_0	/*!< IWDG prescaler set to 8   */
-#define IWDG_PRESCALER_16     IWDG_PR_PR_1	/*!< IWDG prescaler set to 16  */
+#define IWDG_PRESCALER_4      0x00000000u					/*!< IWDG prescaler set to 4   */
+#define IWDG_PRESCALER_8      IWDG_PR_PR_0					/*!< IWDG prescaler set to 8   */
+#define IWDG_PRESCALER_16     IWDG_PR_PR_1					/*!< IWDG prescaler set to 16  */
 #define IWDG_PRESCALER_32     (IWDG_PR_PR_1 | IWDG_PR_PR_0)	/*!< IWDG prescaler set to 32  */
-#define IWDG_PRESCALER_64     IWDG_PR_PR_2	/*!< IWDG prescaler set to 64  */
+#define IWDG_PRESCALER_64     IWDG_PR_PR_2					/*!< IWDG prescaler set to 64  */
 #define IWDG_PRESCALER_128    (IWDG_PR_PR_2 | IWDG_PR_PR_0)	/*!< IWDG prescaler set to 128 */
 #define IWDG_PRESCALER_256    (IWDG_PR_PR_2 | IWDG_PR_PR_1)	/*!< IWDG prescaler set to 256 */
 

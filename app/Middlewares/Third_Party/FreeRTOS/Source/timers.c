@@ -872,7 +872,7 @@ static void prvCheckForValidListAndQueue(void)
 					(UBaseType_t) sizeof( DaemonTaskMessage_t ), &( ucStaticTimerQueueStorage[ 0 ] ),
 					&xStaticTimerQueue);
 			}
-			#else  /* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) */
+			#else	/* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) */
 			{
 				xTimerQueue = xQueueCreate( (UBaseType_t) configTIMER_QUEUE_LENGTH, sizeof( DaemonTaskMessage_t ) );
 			}

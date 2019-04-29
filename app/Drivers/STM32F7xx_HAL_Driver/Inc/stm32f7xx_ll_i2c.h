@@ -179,9 +179,9 @@ typedef struct {
 /** @defgroup I2C_LL_EC_PERIPHERAL_MODE Peripheral Mode
  * @{
  */
-#define LL_I2C_MODE_I2C                 0x00000000U	/*!< I2C Master or Slave mode                                    */
+#define LL_I2C_MODE_I2C                 0x00000000U		/*!< I2C Master or Slave mode                                    */
 #define LL_I2C_MODE_SMBUS_HOST          I2C_CR1_SMBHEN	/*!< SMBus Host address acknowledge                              */
-#define LL_I2C_MODE_SMBUS_DEVICE        0x00000000U	/*!< SMBus Device default mode (Default address not acknowledge) */
+#define LL_I2C_MODE_SMBUS_DEVICE        0x00000000U		/*!< SMBus Device default mode (Default address not acknowledge) */
 #define LL_I2C_MODE_SMBUS_DEVICE_ARP    I2C_CR1_SMBDEN	/*!< SMBus Device Default address acknowledge                    */
 
 /**
@@ -211,7 +211,7 @@ typedef struct {
 /** @defgroup I2C_LL_EC_OWNADDRESS1 Own Address 1 Length
  * @{
  */
-#define LL_I2C_OWNADDRESS1_7BIT     0x00000000U		/*!< Own address 1 is a 7-bit address. */
+#define LL_I2C_OWNADDRESS1_7BIT     0x00000000U	/*!< Own address 1 is a 7-bit address. */
 #define LL_I2C_OWNADDRESS1_10BIT    I2C_OAR1_OA1MODE/*!< Own address 1 is a 10-bit address.*/
 
 /**
@@ -257,7 +257,7 @@ typedef struct {
 /** @defgroup I2C_LL_EC_REQUEST Transfer Request Direction
  * @{
  */
-#define LL_I2C_REQUEST_WRITE    0x00000000U	/*!< Master request a write transfer. */
+#define LL_I2C_REQUEST_WRITE    0x00000000U		/*!< Master request a write transfer. */
 #define LL_I2C_REQUEST_READ     I2C_CR2_RD_WRN	/*!< Master request a read transfer.  */
 
 /**
@@ -267,12 +267,12 @@ typedef struct {
 /** @defgroup I2C_LL_EC_MODE Transfer End Mode
  * @{
  */
-#define LL_I2C_MODE_RELOAD                    I2C_CR2_RELOAD									/*!< Enable I2C Reload mode.                                   */
-#define LL_I2C_MODE_AUTOEND                   I2C_CR2_AUTOEND									/*!< Enable I2C Automatic end mode with no HW PEC comparison.  */
-#define LL_I2C_MODE_SOFTEND                   0x00000000U										/*!< Enable I2C Software end mode with no HW PEC comparison.   */
-#define LL_I2C_MODE_SMBUS_RELOAD              LL_I2C_MODE_RELOAD								/*!< Enable SMBUS Automatic end mode with HW PEC comparison.   */
-#define LL_I2C_MODE_SMBUS_AUTOEND_NO_PEC      LL_I2C_MODE_AUTOEND								/*!< Enable SMBUS Automatic end mode with HW PEC comparison.   */
-#define LL_I2C_MODE_SMBUS_SOFTEND_NO_PEC      LL_I2C_MODE_SOFTEND								/*!< Enable SMBUS Software end mode with HW PEC comparison.    */
+#define LL_I2C_MODE_RELOAD                    I2C_CR2_RELOAD		/*!< Enable I2C Reload mode.                                   */
+#define LL_I2C_MODE_AUTOEND                   I2C_CR2_AUTOEND		/*!< Enable I2C Automatic end mode with no HW PEC comparison.  */
+#define LL_I2C_MODE_SOFTEND                   0x00000000U			/*!< Enable I2C Software end mode with no HW PEC comparison.   */
+#define LL_I2C_MODE_SMBUS_RELOAD              LL_I2C_MODE_RELOAD	/*!< Enable SMBUS Automatic end mode with HW PEC comparison.   */
+#define LL_I2C_MODE_SMBUS_AUTOEND_NO_PEC      LL_I2C_MODE_AUTOEND	/*!< Enable SMBUS Automatic end mode with HW PEC comparison.   */
+#define LL_I2C_MODE_SMBUS_SOFTEND_NO_PEC      LL_I2C_MODE_SOFTEND	/*!< Enable SMBUS Software end mode with HW PEC comparison.    */
 #define LL_I2C_MODE_SMBUS_AUTOEND_WITH_PEC    (uint32_t) (LL_I2C_MODE_AUTOEND | I2C_CR2_PECBYTE)/*!< Enable SMBUS Automatic end mode with HW PEC comparison.   */
 #define LL_I2C_MODE_SMBUS_SOFTEND_WITH_PEC    (uint32_t) (LL_I2C_MODE_SOFTEND | I2C_CR2_PECBYTE)/*!< Enable SMBUS Software end mode with HW PEC comparison.    */
 
@@ -283,12 +283,12 @@ typedef struct {
 /** @defgroup I2C_LL_EC_GENERATE Start And Stop Generation
  * @{
  */
-#define LL_I2C_GENERATE_NOSTARTSTOP            0x00000000U												/*!< Don't Generate Stop and Start condition.                */
-#define LL_I2C_GENERATE_STOP                   (uint32_t) (0x80000000U | I2C_CR2_STOP)					/*!< Generate Stop condition (Size should be set to 0).      */
+#define LL_I2C_GENERATE_NOSTARTSTOP            0x00000000U								/*!< Don't Generate Stop and Start condition.                */
+#define LL_I2C_GENERATE_STOP                   (uint32_t) (0x80000000U | I2C_CR2_STOP)	/*!< Generate Stop condition (Size should be set to 0).      */
 #define LL_I2C_GENERATE_START_READ             (uint32_t) (0x80000000U | I2C_CR2_START | I2C_CR2_RD_WRN)/*!< Generate Start for read request.                        */
-#define LL_I2C_GENERATE_START_WRITE            (uint32_t) (0x80000000U | I2C_CR2_START)					/*!< Generate Start for write request.                       */
+#define LL_I2C_GENERATE_START_WRITE            (uint32_t) (0x80000000U | I2C_CR2_START)	/*!< Generate Start for write request.                       */
 #define LL_I2C_GENERATE_RESTART_7BIT_READ      (uint32_t) (0x80000000U | I2C_CR2_START | I2C_CR2_RD_WRN)/*!< Generate Restart for read request, slave 7Bit address.  */
-#define LL_I2C_GENERATE_RESTART_7BIT_WRITE     (uint32_t) (0x80000000U | I2C_CR2_START)					/*!< Generate Restart for write request, slave 7Bit address. */
+#define LL_I2C_GENERATE_RESTART_7BIT_WRITE     (uint32_t) (0x80000000U | I2C_CR2_START)	/*!< Generate Restart for write request, slave 7Bit address. */
 #define LL_I2C_GENERATE_RESTART_10BIT_READ \
 	(uint32_t) (0x80000000U | I2C_CR2_START | I2C_CR2_RD_WRN \
 	| I2C_CR2_HEAD10R)																	/*!< Generate Restart for read request, slave 10Bit address. */
@@ -331,8 +331,8 @@ typedef struct {
 /** @defgroup I2C_LL_EC_SMBUS_TIMEOUT_SELECTION SMBus Timeout Selection
  * @{
  */
-#define LL_I2C_SMBUS_TIMEOUTA       I2C_TIMEOUTR_TIMOUTEN									/*!< TimeoutA enable bit                                */
-#define LL_I2C_SMBUS_TIMEOUTB       I2C_TIMEOUTR_TEXTEN										/*!< TimeoutB (extended clock) enable bit               */
+#define LL_I2C_SMBUS_TIMEOUTA       I2C_TIMEOUTR_TIMOUTEN	/*!< TimeoutA enable bit                                */
+#define LL_I2C_SMBUS_TIMEOUTB       I2C_TIMEOUTR_TEXTEN		/*!< TimeoutB (extended clock) enable bit               */
 #define LL_I2C_SMBUS_ALL_TIMEOUT    (uint32_t) (I2C_TIMEOUTR_TIMOUTEN | I2C_TIMEOUTR_TEXTEN)/*!< TimeoutA and TimeoutB (extended clock) enable bits */
 
 /**

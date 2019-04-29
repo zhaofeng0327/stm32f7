@@ -349,7 +349,7 @@ typedef struct {
 #define SCB_CPUID_IMPLEMENTER_Pos     24U									/*!< SCB CPUID: IMPLEMENTER Position */
 #define SCB_CPUID_IMPLEMENTER_Msk     (0xFFUL << SCB_CPUID_IMPLEMENTER_Pos)	/*!< SCB CPUID: IMPLEMENTER Mask */
 
-#define SCB_CPUID_VARIANT_Pos         20U	/*!< SCB CPUID: VARIANT Position */
+#define SCB_CPUID_VARIANT_Pos         20U								/*!< SCB CPUID: VARIANT Position */
 #define SCB_CPUID_VARIANT_Msk         (0xFUL << SCB_CPUID_VARIANT_Pos)	/*!< SCB CPUID: VARIANT Mask */
 
 #define SCB_CPUID_ARCHITECTURE_Pos    16U									/*!< SCB CPUID: ARCHITECTURE Position */
@@ -362,7 +362,7 @@ typedef struct {
 #define SCB_CPUID_REVISION_Msk        (0xFUL /*<< SCB_CPUID_REVISION_Pos*/)	/*!< SCB CPUID: REVISION Mask */
 
 /* SCB Interrupt Control State Register Definitions */
-#define SCB_ICSR_NMIPENDSET_Pos     31U								/*!< SCB ICSR: NMIPENDSET Position */
+#define SCB_ICSR_NMIPENDSET_Pos     31U	/*!< SCB ICSR: NMIPENDSET Position */
 #define SCB_ICSR_NMIPENDSET_Msk     (1UL << SCB_ICSR_NMIPENDSET_Pos)/*!< SCB ICSR: NMIPENDSET Mask */
 
 #define SCB_ICSR_PENDSVSET_Pos      28U								/*!< SCB ICSR: PENDSVSET Position */
@@ -377,23 +377,23 @@ typedef struct {
 #define SCB_ICSR_PENDSTCLR_Pos      25U								/*!< SCB ICSR: PENDSTCLR Position */
 #define SCB_ICSR_PENDSTCLR_Msk      (1UL << SCB_ICSR_PENDSTCLR_Pos)	/*!< SCB ICSR: PENDSTCLR Mask */
 
-#define SCB_ICSR_ISRPREEMPT_Pos     23U								/*!< SCB ICSR: ISRPREEMPT Position */
+#define SCB_ICSR_ISRPREEMPT_Pos     23U	/*!< SCB ICSR: ISRPREEMPT Position */
 #define SCB_ICSR_ISRPREEMPT_Msk     (1UL << SCB_ICSR_ISRPREEMPT_Pos)/*!< SCB ICSR: ISRPREEMPT Mask */
 
-#define SCB_ICSR_ISRPENDING_Pos     22U								/*!< SCB ICSR: ISRPENDING Position */
+#define SCB_ICSR_ISRPENDING_Pos     22U	/*!< SCB ICSR: ISRPENDING Position */
 #define SCB_ICSR_ISRPENDING_Msk     (1UL << SCB_ICSR_ISRPENDING_Pos)/*!< SCB ICSR: ISRPENDING Mask */
 
 #define SCB_ICSR_VECTPENDING_Pos    12U										/*!< SCB ICSR: VECTPENDING Position */
 #define SCB_ICSR_VECTPENDING_Msk    (0x1FFUL << SCB_ICSR_VECTPENDING_Pos)	/*!< SCB ICSR: VECTPENDING Mask */
 
-#define SCB_ICSR_VECTACTIVE_Pos     0U										/*!< SCB ICSR: VECTACTIVE Position */
+#define SCB_ICSR_VECTACTIVE_Pos     0U	/*!< SCB ICSR: VECTACTIVE Position */
 #define SCB_ICSR_VECTACTIVE_Msk     (0x1FFUL /*<< SCB_ICSR_VECTACTIVE_Pos*/)/*!< SCB ICSR: VECTACTIVE Mask */
 
 /* SCB Application Interrupt and Reset Control Register Definitions */
-#define SCB_AIRCR_VECTKEY_Pos          16U	/*!< SCB AIRCR: VECTKEY Position */
+#define SCB_AIRCR_VECTKEY_Pos          16U									/*!< SCB AIRCR: VECTKEY Position */
 #define SCB_AIRCR_VECTKEY_Msk          (0xFFFFUL << SCB_AIRCR_VECTKEY_Pos)	/*!< SCB AIRCR: VECTKEY Mask */
 
-#define SCB_AIRCR_VECTKEYSTAT_Pos      16U	/*!< SCB AIRCR: VECTKEYSTAT Position */
+#define SCB_AIRCR_VECTKEYSTAT_Pos      16U										/*!< SCB AIRCR: VECTKEYSTAT Position */
 #define SCB_AIRCR_VECTKEYSTAT_Msk      (0xFFFFUL << SCB_AIRCR_VECTKEYSTAT_Pos)	/*!< SCB AIRCR: VECTKEYSTAT Mask */
 
 #define SCB_AIRCR_ENDIANESS_Pos        15U								/*!< SCB AIRCR: ENDIANESS Position */
@@ -416,7 +416,7 @@ typedef struct {
 #define SCB_SCR_SLEEPONEXIT_Msk    (1UL << SCB_SCR_SLEEPONEXIT_Pos)	/*!< SCB SCR: SLEEPONEXIT Mask */
 
 /* SCB Configuration Control Register Definitions */
-#define SCB_CCR_STKALIGN_Pos       9U							/*!< SCB CCR: STKALIGN Position */
+#define SCB_CCR_STKALIGN_Pos       9U	/*!< SCB CCR: STKALIGN Position */
 #define SCB_CCR_STKALIGN_Msk       (1UL << SCB_CCR_STKALIGN_Pos)/*!< SCB CCR: STKALIGN Mask */
 
 #define SCB_CCR_UNALIGN_TRP_Pos    3U								/*!< SCB CCR: UNALIGN_TRP Position */
@@ -485,21 +485,21 @@ typedef struct {
 #define SysTick_CTRL_ENABLE_Msk       (1UL /*<< SysTick_CTRL_ENABLE_Pos*/)	/*!< SysTick CTRL: ENABLE Mask */
 
 /* SysTick Reload Register Definitions */
-#define SysTick_LOAD_RELOAD_Pos    0U	/*!< SysTick LOAD: RELOAD Position */
+#define SysTick_LOAD_RELOAD_Pos    0U											/*!< SysTick LOAD: RELOAD Position */
 #define SysTick_LOAD_RELOAD_Msk    (0xFFFFFFUL /*<< SysTick_LOAD_RELOAD_Pos*/)	/*!< SysTick LOAD: RELOAD Mask */
 
 /* SysTick Current Register Definitions */
-#define SysTick_VAL_CURRENT_Pos    0U	/*!< SysTick VAL: CURRENT Position */
+#define SysTick_VAL_CURRENT_Pos    0U											/*!< SysTick VAL: CURRENT Position */
 #define SysTick_VAL_CURRENT_Msk    (0xFFFFFFUL /*<< SysTick_VAL_CURRENT_Pos*/)	/*!< SysTick VAL: CURRENT Mask */
 
 /* SysTick Calibration Register Definitions */
 #define SysTick_CALIB_NOREF_Pos    31U								/*!< SysTick CALIB: NOREF Position */
 #define SysTick_CALIB_NOREF_Msk    (1UL << SysTick_CALIB_NOREF_Pos)	/*!< SysTick CALIB: NOREF Mask */
 
-#define SysTick_CALIB_SKEW_Pos     30U	/*!< SysTick CALIB: SKEW Position */
+#define SysTick_CALIB_SKEW_Pos     30U								/*!< SysTick CALIB: SKEW Position */
 #define SysTick_CALIB_SKEW_Msk     (1UL << SysTick_CALIB_SKEW_Pos)	/*!< SysTick CALIB: SKEW Mask */
 
-#define SysTick_CALIB_TENMS_Pos    0U	/*!< SysTick CALIB: TENMS Position */
+#define SysTick_CALIB_TENMS_Pos    0U											/*!< SysTick CALIB: TENMS Position */
 #define SysTick_CALIB_TENMS_Msk    (0xFFFFFFUL /*<< SysTick_CALIB_TENMS_Pos*/)	/*!< SysTick CALIB: TENMS Mask */
 
 /*@} end of group CMSIS_SysTick */

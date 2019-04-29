@@ -215,8 +215,8 @@ extern "C" {
 /** @defgroup SYSTEM_LL_EC_TRACE DBGMCU TRACE Pin Assignment
  * @{
  */
-#define LL_DBGMCU_TRACE_NONE           0x00000000U			/*!< TRACE pins not assigned (default state) */
-#define LL_DBGMCU_TRACE_ASYNCH         DBGMCU_CR_TRACE_IOEN	/*!< TRACE pin assignment for Asynchronous Mode */
+#define LL_DBGMCU_TRACE_NONE           0x00000000U										/*!< TRACE pins not assigned (default state) */
+#define LL_DBGMCU_TRACE_ASYNCH         DBGMCU_CR_TRACE_IOEN								/*!< TRACE pin assignment for Asynchronous Mode */
 #define LL_DBGMCU_TRACE_SYNCH_SIZE1    (DBGMCU_CR_TRACE_IOEN | DBGMCU_CR_TRACE_MODE_0)	/*!< TRACE pin assignment for Synchronous Mode with a TRACEDATA size of 1 */
 #define LL_DBGMCU_TRACE_SYNCH_SIZE2    (DBGMCU_CR_TRACE_IOEN | DBGMCU_CR_TRACE_MODE_1)	/*!< TRACE pin assignment for Synchronous Mode with a TRACEDATA size of 2 */
 #define LL_DBGMCU_TRACE_SYNCH_SIZE4    (DBGMCU_CR_TRACE_IOEN | DBGMCU_CR_TRACE_MODE)/*!< TRACE pin assignment for Synchronous Mode with a TRACEDATA size of 4 */
@@ -228,19 +228,19 @@ extern "C" {
 /** @defgroup SYSTEM_LL_EC_APB1_GRP1_STOP_IP DBGMCU APB1 GRP1 STOP IP
  * @{
  */
-#define LL_DBGMCU_APB1_GRP1_TIM2_STOP      DBGMCU_APB1_FZ_DBG_TIM2_STOP			/*!< TIM2 counter stopped when core is halted */
-#define LL_DBGMCU_APB1_GRP1_TIM3_STOP      DBGMCU_APB1_FZ_DBG_TIM3_STOP			/*!< TIM3 counter stopped when core is halted */
-#define LL_DBGMCU_APB1_GRP1_TIM4_STOP      DBGMCU_APB1_FZ_DBG_TIM4_STOP			/*!< TIM4 counter stopped when core is halted */
-#define LL_DBGMCU_APB1_GRP1_TIM5_STOP      DBGMCU_APB1_FZ_DBG_TIM5_STOP			/*!< TIM5 counter stopped when core is halted */
-#define LL_DBGMCU_APB1_GRP1_TIM6_STOP      DBGMCU_APB1_FZ_DBG_TIM6_STOP			/*!< TIM6 counter stopped when core is halted */
-#define LL_DBGMCU_APB1_GRP1_TIM7_STOP      DBGMCU_APB1_FZ_DBG_TIM7_STOP			/*!< TIM7 counter stopped when core is halted */
-#define LL_DBGMCU_APB1_GRP1_TIM12_STOP     DBGMCU_APB1_FZ_DBG_TIM12_STOP		/*!< TIM12 counter stopped when core is halted */
-#define LL_DBGMCU_APB1_GRP1_TIM13_STOP     DBGMCU_APB1_FZ_DBG_TIM13_STOP		/*!< TIM13 counter stopped when core is halted */
-#define LL_DBGMCU_APB1_GRP1_TIM14_STOP     DBGMCU_APB1_FZ_DBG_TIM14_STOP		/*!< TIM14 counter stopped when core is halted */
-#define LL_DBGMCU_APB1_GRP1_LPTIM1_STOP    DBGMCU_APB1_FZ_DBG_LPTIM1_STOP		/*!< LPTIIM1 counter stopped when core is halted */
-#define LL_DBGMCU_APB1_GRP1_RTC_STOP       DBGMCU_APB1_FZ_DBG_RTC_STOP			/*!< RTC counter stopped when core is halted */
-#define LL_DBGMCU_APB1_GRP1_WWDG_STOP      DBGMCU_APB1_FZ_DBG_WWDG_STOP			/*!< Debug Window Watchdog stopped when Core is halted */
-#define LL_DBGMCU_APB1_GRP1_IWDG_STOP      DBGMCU_APB1_FZ_DBG_IWDG_STOP			/*!< Debug Independent Watchdog stopped when Core is halted */
+#define LL_DBGMCU_APB1_GRP1_TIM2_STOP      DBGMCU_APB1_FZ_DBG_TIM2_STOP		/*!< TIM2 counter stopped when core is halted */
+#define LL_DBGMCU_APB1_GRP1_TIM3_STOP      DBGMCU_APB1_FZ_DBG_TIM3_STOP		/*!< TIM3 counter stopped when core is halted */
+#define LL_DBGMCU_APB1_GRP1_TIM4_STOP      DBGMCU_APB1_FZ_DBG_TIM4_STOP		/*!< TIM4 counter stopped when core is halted */
+#define LL_DBGMCU_APB1_GRP1_TIM5_STOP      DBGMCU_APB1_FZ_DBG_TIM5_STOP		/*!< TIM5 counter stopped when core is halted */
+#define LL_DBGMCU_APB1_GRP1_TIM6_STOP      DBGMCU_APB1_FZ_DBG_TIM6_STOP		/*!< TIM6 counter stopped when core is halted */
+#define LL_DBGMCU_APB1_GRP1_TIM7_STOP      DBGMCU_APB1_FZ_DBG_TIM7_STOP		/*!< TIM7 counter stopped when core is halted */
+#define LL_DBGMCU_APB1_GRP1_TIM12_STOP     DBGMCU_APB1_FZ_DBG_TIM12_STOP	/*!< TIM12 counter stopped when core is halted */
+#define LL_DBGMCU_APB1_GRP1_TIM13_STOP     DBGMCU_APB1_FZ_DBG_TIM13_STOP	/*!< TIM13 counter stopped when core is halted */
+#define LL_DBGMCU_APB1_GRP1_TIM14_STOP     DBGMCU_APB1_FZ_DBG_TIM14_STOP	/*!< TIM14 counter stopped when core is halted */
+#define LL_DBGMCU_APB1_GRP1_LPTIM1_STOP    DBGMCU_APB1_FZ_DBG_LPTIM1_STOP	/*!< LPTIIM1 counter stopped when core is halted */
+#define LL_DBGMCU_APB1_GRP1_RTC_STOP       DBGMCU_APB1_FZ_DBG_RTC_STOP		/*!< RTC counter stopped when core is halted */
+#define LL_DBGMCU_APB1_GRP1_WWDG_STOP      DBGMCU_APB1_FZ_DBG_WWDG_STOP		/*!< Debug Window Watchdog stopped when Core is halted */
+#define LL_DBGMCU_APB1_GRP1_IWDG_STOP      DBGMCU_APB1_FZ_DBG_IWDG_STOP		/*!< Debug Independent Watchdog stopped when Core is halted */
 #define LL_DBGMCU_APB1_GRP1_I2C1_STOP      DBGMCU_APB1_FZ_DBG_I2C1_SMBUS_TIMEOUT/*!< I2C1 SMBUS timeout mode stopped when Core is halted */
 #define LL_DBGMCU_APB1_GRP1_I2C2_STOP      DBGMCU_APB1_FZ_DBG_I2C2_SMBUS_TIMEOUT/*!< I2C2 SMBUS timeout mode stopped when Core is halted */
 #define LL_DBGMCU_APB1_GRP1_I2C3_STOP      DBGMCU_APB1_FZ_DBG_I2C3_SMBUS_TIMEOUT/*!< I2C3 SMBUS timeout mode stopped when Core is halted */

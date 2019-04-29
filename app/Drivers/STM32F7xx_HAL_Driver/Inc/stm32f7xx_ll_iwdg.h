@@ -79,11 +79,11 @@ extern "C" {
 /** @defgroup IWDG_LL_EC_PRESCALER  Prescaler Divider
  * @{
  */
-#define LL_IWDG_PRESCALER_4      0x00000000U	/*!< Divider by 4   */
-#define LL_IWDG_PRESCALER_8      (IWDG_PR_PR_0)	/*!< Divider by 8   */
-#define LL_IWDG_PRESCALER_16     (IWDG_PR_PR_1)	/*!< Divider by 16  */
+#define LL_IWDG_PRESCALER_4      0x00000000U					/*!< Divider by 4   */
+#define LL_IWDG_PRESCALER_8      (IWDG_PR_PR_0)					/*!< Divider by 8   */
+#define LL_IWDG_PRESCALER_16     (IWDG_PR_PR_1)					/*!< Divider by 16  */
 #define LL_IWDG_PRESCALER_32     (IWDG_PR_PR_1 | IWDG_PR_PR_0)	/*!< Divider by 32  */
-#define LL_IWDG_PRESCALER_64     (IWDG_PR_PR_2)	/*!< Divider by 64  */
+#define LL_IWDG_PRESCALER_64     (IWDG_PR_PR_2)					/*!< Divider by 64  */
 #define LL_IWDG_PRESCALER_128    (IWDG_PR_PR_2 | IWDG_PR_PR_0)	/*!< Divider by 128 */
 #define LL_IWDG_PRESCALER_256    (IWDG_PR_PR_2 | IWDG_PR_PR_1)	/*!< Divider by 256 */
 

@@ -265,7 +265,7 @@ typedef  void (*pSPDIFRX_CallbackTypeDef)(SPDIFRX_HandleTypeDef *hspdif);	/*!< p
 /** @defgroup SPDIFRX_ChannelStatus_Mask  SPDIFRX Channel Status Mask
  * @{
  */
-#define SPDIFRX_CHANNELSTATUS_OFF    ((uint32_t) 0x00000000U)	/* The channel status and user bits are copied into the SPDIF_DR */
+#define SPDIFRX_CHANNELSTATUS_OFF    ((uint32_t) 0x00000000U)		/* The channel status and user bits are copied into the SPDIF_DR */
 #define SPDIFRX_CHANNELSTATUS_ON     ((uint32_t) SPDIFRX_CR_CUMSK)	/* The channel status and user bits are not copied into the SPDIF_DR, zeros are written instead*/
 
 /**

@@ -221,6 +221,6 @@ int32_t main(void)
 	}
 
 	while (1);	/* main function does not return */
-}	/* main */
+}				/* main */
 
 /** \endlink */

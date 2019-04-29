@@ -185,14 +185,14 @@
  * @{
  */
 #define TIMING_CLEAR_MASK    (0xF0FFFFFFUL)	/*!< SMBUS TIMING clear register Mask */
-#define HAL_TIMEOUT_ADDR     (10000U)	/*!< 10 s  */
-#define HAL_TIMEOUT_BUSY     (25U)		/*!< 25 ms */
-#define HAL_TIMEOUT_DIR      (25U)		/*!< 25 ms */
-#define HAL_TIMEOUT_RXNE     (25U)		/*!< 25 ms */
-#define HAL_TIMEOUT_STOPF    (25U)		/*!< 25 ms */
-#define HAL_TIMEOUT_TC       (25U)		/*!< 25 ms */
-#define HAL_TIMEOUT_TCR      (25U)		/*!< 25 ms */
-#define HAL_TIMEOUT_TXIS     (25U)		/*!< 25 ms */
+#define HAL_TIMEOUT_ADDR     (10000U)		/*!< 10 s  */
+#define HAL_TIMEOUT_BUSY     (25U)			/*!< 25 ms */
+#define HAL_TIMEOUT_DIR      (25U)			/*!< 25 ms */
+#define HAL_TIMEOUT_RXNE     (25U)			/*!< 25 ms */
+#define HAL_TIMEOUT_STOPF    (25U)			/*!< 25 ms */
+#define HAL_TIMEOUT_TC       (25U)			/*!< 25 ms */
+#define HAL_TIMEOUT_TCR      (25U)			/*!< 25 ms */
+#define HAL_TIMEOUT_TXIS     (25U)			/*!< 25 ms */
 #define MAX_NBYTE_SIZE       255U
 
 /**

@@ -148,7 +148,7 @@ typedef struct {
  * @{
  */
 #define LL_SPI_MODE_MASTER    (SPI_CR1_MSTR | SPI_CR1_SSI)	/*!< Master configuration  */
-#define LL_SPI_MODE_SLAVE     0x00000000U	/*!< Slave configuration   */
+#define LL_SPI_MODE_SLAVE     0x00000000U					/*!< Slave configuration   */
 
 /**
  * @}
@@ -177,7 +177,7 @@ typedef struct {
 /** @defgroup SPI_LL_EC_POLARITY Clock Polarity
  * @{
  */
-#define LL_SPI_POLARITY_LOW     0x00000000U	/*!< Clock to 0 when idle */
+#define LL_SPI_POLARITY_LOW     0x00000000U		/*!< Clock to 0 when idle */
 #define LL_SPI_POLARITY_HIGH    (SPI_CR1_CPOL)	/*!< Clock to 1 when idle */
 
 /**
@@ -204,7 +204,7 @@ typedef struct {
  * @{
  */
 #define LL_SPI_LSB_FIRST    (SPI_CR1_LSBFIRST)	/*!< Data is transmitted/received with the LSB first */
-#define LL_SPI_MSB_FIRST    0x00000000U	/*!< Data is transmitted/received with the MSB first */
+#define LL_SPI_MSB_FIRST    0x00000000U			/*!< Data is transmitted/received with the MSB first */
 
 /**
  * @}
@@ -213,9 +213,9 @@ typedef struct {
 /** @defgroup SPI_LL_EC_TRANSFER_MODE Transfer Mode
  * @{
  */
-#define LL_SPI_FULL_DUPLEX       0x00000000U						/*!< Full-Duplex mode. Rx and Tx transfer on 2 lines */
-#define LL_SPI_SIMPLEX_RX        (SPI_CR1_RXONLY)					/*!< Simplex Rx mode.  Rx transfer only on 1 line    */
-#define LL_SPI_HALF_DUPLEX_RX    (SPI_CR1_BIDIMODE)					/*!< Half-Duplex Rx mode. Rx transfer on 1 line      */
+#define LL_SPI_FULL_DUPLEX       0x00000000U		/*!< Full-Duplex mode. Rx and Tx transfer on 2 lines */
+#define LL_SPI_SIMPLEX_RX        (SPI_CR1_RXONLY)	/*!< Simplex Rx mode.  Rx transfer only on 1 line    */
+#define LL_SPI_HALF_DUPLEX_RX    (SPI_CR1_BIDIMODE)	/*!< Half-Duplex Rx mode. Rx transfer on 1 line      */
 #define LL_SPI_HALF_DUPLEX_TX    (SPI_CR1_BIDIMODE | SPI_CR1_BIDIOE)/*!< Half-Duplex Tx mode. Tx transfer on 1 line      */
 
 /**
@@ -225,8 +225,8 @@ typedef struct {
 /** @defgroup SPI_LL_EC_NSS_MODE Slave Select Pin Mode
  * @{
  */
-#define LL_SPI_NSS_SOFT           (SPI_CR1_SSM)						/*!< NSS managed internally. NSS pin not used and free              */
-#define LL_SPI_NSS_HARD_INPUT     0x00000000U						/*!< NSS pin used in Input. Only used in Master mode                */
+#define LL_SPI_NSS_SOFT           (SPI_CR1_SSM)	/*!< NSS managed internally. NSS pin not used and free              */
+#define LL_SPI_NSS_HARD_INPUT     0x00000000U	/*!< NSS pin used in Input. Only used in Master mode                */
 #define LL_SPI_NSS_HARD_OUTPUT    (((uint32_t) SPI_CR2_SSOE << 16U))/*!< NSS pin used in Output. Only used in Slave mode as chip select */
 
 /**
@@ -258,7 +258,7 @@ typedef struct {
 /** @defgroup SPI_LL_EC_CRC_CALCULATION CRC Calculation
  * @{
  */
-#define LL_SPI_CRCCALCULATION_DISABLE    0x00000000U	/*!< CRC calculation disabled */
+#define LL_SPI_CRCCALCULATION_DISABLE    0x00000000U/*!< CRC calculation disabled */
 #define LL_SPI_CRCCALCULATION_ENABLE     (SPI_CR1_CRCEN)/*!< CRC calculation enabled  */
 
 /**
@@ -269,7 +269,7 @@ typedef struct {
 /** @defgroup SPI_LL_EC_CRC_LENGTH CRC Length
  * @{
  */
-#define LL_SPI_CRC_8BIT     0x00000000U	/*!<  8-bit CRC length */
+#define LL_SPI_CRC_8BIT     0x00000000U		/*!<  8-bit CRC length */
 #define LL_SPI_CRC_16BIT    (SPI_CR1_CRCL)	/*!< 16-bit CRC length */
 
 /**
@@ -279,7 +279,7 @@ typedef struct {
 /** @defgroup SPI_LL_EC_RX_FIFO_TH RX FIFO Threshold
  * @{
  */
-#define LL_SPI_RX_FIFO_TH_HALF       0x00000000U	/*!< RXNE event is generated if FIFO level is greater than or equel to 1/2 (16-bit) */
+#define LL_SPI_RX_FIFO_TH_HALF       0x00000000U/*!< RXNE event is generated if FIFO level is greater than or equel to 1/2 (16-bit) */
 #define LL_SPI_RX_FIFO_TH_QUARTER    (SPI_CR2_FRXTH)/*!< RXNE event is generated if FIFO level is greater than or equel to 1/4 (8-bit)  */
 
 /**
@@ -289,9 +289,9 @@ typedef struct {
 /** @defgroup SPI_LL_EC_RX_FIFO RX FIFO Level
  * @{
  */
-#define LL_SPI_RX_FIFO_EMPTY           0x00000000U						/*!< FIFO reception empty */
-#define LL_SPI_RX_FIFO_QUARTER_FULL    (SPI_SR_FRLVL_0)					/*!< FIFO reception 1/4   */
-#define LL_SPI_RX_FIFO_HALF_FULL       (SPI_SR_FRLVL_1)					/*!< FIFO reception 1/2   */
+#define LL_SPI_RX_FIFO_EMPTY           0x00000000U		/*!< FIFO reception empty */
+#define LL_SPI_RX_FIFO_QUARTER_FULL    (SPI_SR_FRLVL_0)	/*!< FIFO reception 1/4   */
+#define LL_SPI_RX_FIFO_HALF_FULL       (SPI_SR_FRLVL_1)	/*!< FIFO reception 1/2   */
 #define LL_SPI_RX_FIFO_FULL            (SPI_SR_FRLVL_1 | SPI_SR_FRLVL_0)/*!< FIFO reception full  */
 
 /**
@@ -301,9 +301,9 @@ typedef struct {
 /** @defgroup SPI_LL_EC_TX_FIFO TX FIFO Level
  * @{
  */
-#define LL_SPI_TX_FIFO_EMPTY           0x00000000U						/*!< FIFO transmission empty */
-#define LL_SPI_TX_FIFO_QUARTER_FULL    (SPI_SR_FTLVL_0)					/*!< FIFO transmission 1/4   */
-#define LL_SPI_TX_FIFO_HALF_FULL       (SPI_SR_FTLVL_1)					/*!< FIFO transmission 1/2   */
+#define LL_SPI_TX_FIFO_EMPTY           0x00000000U		/*!< FIFO transmission empty */
+#define LL_SPI_TX_FIFO_QUARTER_FULL    (SPI_SR_FTLVL_0)	/*!< FIFO transmission 1/4   */
+#define LL_SPI_TX_FIFO_HALF_FULL       (SPI_SR_FTLVL_1)	/*!< FIFO transmission 1/2   */
 #define LL_SPI_TX_FIFO_FULL            (SPI_SR_FTLVL_1 | SPI_SR_FTLVL_0)/*!< FIFO transmission full  */
 
 /**
@@ -1523,8 +1523,8 @@ typedef struct {
 /** @defgroup I2S_LL_EC_DATA_FORMAT Data format
  * @{
  */
-#define LL_I2S_DATAFORMAT_16B             0x00000000U								/*!< Data length 16 bits, Channel lenght 16bit */
-#define LL_I2S_DATAFORMAT_16B_EXTENDED    (SPI_I2SCFGR_CHLEN)						/*!< Data length 16 bits, Channel lenght 32bit */
+#define LL_I2S_DATAFORMAT_16B             0x00000000U			/*!< Data length 16 bits, Channel lenght 16bit */
+#define LL_I2S_DATAFORMAT_16B_EXTENDED    (SPI_I2SCFGR_CHLEN)	/*!< Data length 16 bits, Channel lenght 32bit */
 #define LL_I2S_DATAFORMAT_24B             (SPI_I2SCFGR_CHLEN | SPI_I2SCFGR_DATLEN_0)/*!< Data length 24 bits, Channel lenght 32bit */
 #define LL_I2S_DATAFORMAT_32B             (SPI_I2SCFGR_CHLEN | SPI_I2SCFGR_DATLEN_1)/*!< Data length 16 bits, Channel lenght 32bit */
 
@@ -1545,10 +1545,10 @@ typedef struct {
 /** @defgroup I2S_LL_EC_STANDARD I2s Standard
  * @{
  */
-#define LL_I2S_STANDARD_PHILIPS      0x00000000U														/*!< I2S standard philips                      */
-#define LL_I2S_STANDARD_MSB          (SPI_I2SCFGR_I2SSTD_0)												/*!< MSB justified standard (left justified)   */
-#define LL_I2S_STANDARD_LSB          (SPI_I2SCFGR_I2SSTD_1)												/*!< LSB justified standard (right justified)  */
-#define LL_I2S_STANDARD_PCM_SHORT    (SPI_I2SCFGR_I2SSTD_0 | SPI_I2SCFGR_I2SSTD_1)						/*!< PCM standard, short frame synchronization */
+#define LL_I2S_STANDARD_PHILIPS      0x00000000U									/*!< I2S standard philips                      */
+#define LL_I2S_STANDARD_MSB          (SPI_I2SCFGR_I2SSTD_0)							/*!< MSB justified standard (left justified)   */
+#define LL_I2S_STANDARD_LSB          (SPI_I2SCFGR_I2SSTD_1)							/*!< LSB justified standard (right justified)  */
+#define LL_I2S_STANDARD_PCM_SHORT    (SPI_I2SCFGR_I2SSTD_0 | SPI_I2SCFGR_I2SSTD_1)	/*!< PCM standard, short frame synchronization */
 #define LL_I2S_STANDARD_PCM_LONG     (SPI_I2SCFGR_I2SSTD_0 | SPI_I2SCFGR_I2SSTD_1 | SPI_I2SCFGR_PCMSYNC)/*!< PCM standard, long frame synchronization  */
 
 /**
@@ -1558,9 +1558,9 @@ typedef struct {
 /** @defgroup I2S_LL_EC_MODE Operation Mode
  * @{
  */
-#define LL_I2S_MODE_SLAVE_TX     0x00000000U			/*!< Slave Tx configuration  */
-#define LL_I2S_MODE_SLAVE_RX     (SPI_I2SCFGR_I2SCFG_0)	/*!< Slave Rx configuration  */
-#define LL_I2S_MODE_MASTER_TX    (SPI_I2SCFGR_I2SCFG_1)	/*!< Master Tx configuration */
+#define LL_I2S_MODE_SLAVE_TX     0x00000000U									/*!< Slave Tx configuration  */
+#define LL_I2S_MODE_SLAVE_RX     (SPI_I2SCFGR_I2SCFG_0)							/*!< Slave Rx configuration  */
+#define LL_I2S_MODE_MASTER_TX    (SPI_I2SCFGR_I2SCFG_1)							/*!< Master Tx configuration */
 #define LL_I2S_MODE_MASTER_RX    (SPI_I2SCFGR_I2SCFG_0 | SPI_I2SCFGR_I2SCFG_1)	/*!< Master Rx configuration */
 
 /**

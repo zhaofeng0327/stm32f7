@@ -214,8 +214,8 @@ typedef struct {
 #define LL_DAC_TRIG_SOFTWARE          (DAC_CR_TSEL1_2 | DAC_CR_TSEL1_1 | DAC_CR_TSEL1_0)/*!< DAC channel conversion trigger internal (SW start) */
 #define LL_DAC_TRIG_EXT_TIM2_TRGO     (DAC_CR_TSEL1_2                                  )/*!< DAC channel conversion trigger from external IP: TIM2 TRGO. */
 #define LL_DAC_TRIG_EXT_TIM8_TRGO     (                                  DAC_CR_TSEL1_0)/*!< DAC channel conversion trigger from external IP: TIM8 TRGO. */
-#define LL_DAC_TRIG_EXT_TIM4_TRGO     (DAC_CR_TSEL1_2 | DAC_CR_TSEL1_0)					/*!< DAC channel conversion trigger from external IP: TIM4 TRGO. */
-#define LL_DAC_TRIG_EXT_TIM6_TRGO     0x00000000U										/*!< DAC channel conversion trigger from external IP: TIM6 TRGO. */
+#define LL_DAC_TRIG_EXT_TIM4_TRGO     (DAC_CR_TSEL1_2 | DAC_CR_TSEL1_0)	/*!< DAC channel conversion trigger from external IP: TIM4 TRGO. */
+#define LL_DAC_TRIG_EXT_TIM6_TRGO     0x00000000U						/*!< DAC channel conversion trigger from external IP: TIM6 TRGO. */
 #define LL_DAC_TRIG_EXT_TIM7_TRGO     (                 DAC_CR_TSEL1_1                 )/*!< DAC channel conversion trigger from external IP: TIM7 TRGO. */
 #define LL_DAC_TRIG_EXT_TIM5_TRGO     (                 DAC_CR_TSEL1_1 | DAC_CR_TSEL1_0)/*!< DAC channel conversion trigger from external IP: TIM5 TRGO. */
 #define LL_DAC_TRIG_EXT_EXTI_LINE9    (DAC_CR_TSEL1_2 | DAC_CR_TSEL1_1                 )/*!< DAC channel conversion trigger from external IP: external interrupt line 9. */
@@ -227,7 +227,7 @@ typedef struct {
 /** @defgroup DAC_LL_EC_WAVE_AUTO_GENERATION_MODE DAC waveform automatic generation mode
  * @{
  */
-#define LL_DAC_WAVE_AUTO_GENERATION_NONE        0x00000000U		/*!< DAC channel wave auto generation mode disabled. */
+#define LL_DAC_WAVE_AUTO_GENERATION_NONE        0x00000000U	/*!< DAC channel wave auto generation mode disabled. */
 #define LL_DAC_WAVE_AUTO_GENERATION_NOISE       (DAC_CR_WAVE1_0)/*!< DAC channel wave auto generation mode enabled, set generated noise waveform. */
 #define LL_DAC_WAVE_AUTO_GENERATION_TRIANGLE    (DAC_CR_WAVE1_1)/*!< DAC channel wave auto generation mode enabled, set generated triangle waveform. */
 
@@ -238,18 +238,18 @@ typedef struct {
 /** @defgroup DAC_LL_EC_WAVE_NOISE_LFSR_UNMASK_BITS DAC wave generation - Noise LFSR unmask bits
  * @{
  */
-#define LL_DAC_NOISE_LFSR_UNMASK_BIT0        0x00000000U														/*!< Noise wave generation, unmask LFSR bit0, for the selected DAC channel */
+#define LL_DAC_NOISE_LFSR_UNMASK_BIT0        0x00000000U/*!< Noise wave generation, unmask LFSR bit0, for the selected DAC channel */
 #define LL_DAC_NOISE_LFSR_UNMASK_BITS1_0     (                                                   DAC_CR_MAMP1_0)/*!< Noise wave generation, unmask LFSR bits[1:0], for the selected DAC channel */
 #define LL_DAC_NOISE_LFSR_UNMASK_BITS2_0     (                                  DAC_CR_MAMP1_1                 )/*!< Noise wave generation, unmask LFSR bits[2:0], for the selected DAC channel */
 #define LL_DAC_NOISE_LFSR_UNMASK_BITS3_0     (                                  DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)/*!< Noise wave generation, unmask LFSR bits[3:0], for the selected DAC channel */
 #define LL_DAC_NOISE_LFSR_UNMASK_BITS4_0     (                 DAC_CR_MAMP1_2                                  )/*!< Noise wave generation, unmask LFSR bits[4:0], for the selected DAC channel */
-#define LL_DAC_NOISE_LFSR_UNMASK_BITS5_0     (                 DAC_CR_MAMP1_2 | DAC_CR_MAMP1_0)					/*!< Noise wave generation, unmask LFSR bits[5:0], for the selected DAC channel */
+#define LL_DAC_NOISE_LFSR_UNMASK_BITS5_0     (                 DAC_CR_MAMP1_2 | DAC_CR_MAMP1_0)	/*!< Noise wave generation, unmask LFSR bits[5:0], for the selected DAC channel */
 #define LL_DAC_NOISE_LFSR_UNMASK_BITS6_0     (                 DAC_CR_MAMP1_2 | DAC_CR_MAMP1_1                 )/*!< Noise wave generation, unmask LFSR bits[6:0], for the selected DAC channel */
 #define LL_DAC_NOISE_LFSR_UNMASK_BITS7_0     (                 DAC_CR_MAMP1_2 | DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)/*!< Noise wave generation, unmask LFSR bits[7:0], for the selected DAC channel */
 #define LL_DAC_NOISE_LFSR_UNMASK_BITS8_0     (DAC_CR_MAMP1_3                                                   )/*!< Noise wave generation, unmask LFSR bits[8:0], for the selected DAC channel */
-#define LL_DAC_NOISE_LFSR_UNMASK_BITS9_0     (DAC_CR_MAMP1_3 | DAC_CR_MAMP1_0)									/*!< Noise wave generation, unmask LFSR bits[9:0], for the selected DAC channel */
-#define LL_DAC_NOISE_LFSR_UNMASK_BITS10_0    (DAC_CR_MAMP1_3 | DAC_CR_MAMP1_1                 )					/*!< Noise wave generation, unmask LFSR bits[10:0], for the selected DAC channel */
-#define LL_DAC_NOISE_LFSR_UNMASK_BITS11_0    (DAC_CR_MAMP1_3 | DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)					/*!< Noise wave generation, unmask LFSR bits[11:0], for the selected DAC channel */
+#define LL_DAC_NOISE_LFSR_UNMASK_BITS9_0     (DAC_CR_MAMP1_3 | DAC_CR_MAMP1_0)					/*!< Noise wave generation, unmask LFSR bits[9:0], for the selected DAC channel */
+#define LL_DAC_NOISE_LFSR_UNMASK_BITS10_0    (DAC_CR_MAMP1_3 | DAC_CR_MAMP1_1                 )	/*!< Noise wave generation, unmask LFSR bits[10:0], for the selected DAC channel */
+#define LL_DAC_NOISE_LFSR_UNMASK_BITS11_0    (DAC_CR_MAMP1_3 | DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)	/*!< Noise wave generation, unmask LFSR bits[11:0], for the selected DAC channel */
 
 /**
  * @}
@@ -278,7 +278,7 @@ typedef struct {
 /** @defgroup DAC_LL_EC_OUTPUT_BUFFER DAC channel output buffer
  * @{
  */
-#define LL_DAC_OUTPUT_BUFFER_ENABLE     0x00000000U	/*!< The selected DAC channel output is buffered: higher drive current capability, but also higher current consumption */
+#define LL_DAC_OUTPUT_BUFFER_ENABLE     0x00000000U		/*!< The selected DAC channel output is buffered: higher drive current capability, but also higher current consumption */
 #define LL_DAC_OUTPUT_BUFFER_DISABLE    (DAC_CR_BOFF1)	/*!< The selected DAC channel output is not buffered: lower drive current capability, but also lower current consumption */
 
 /**

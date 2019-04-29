@@ -212,10 +212,10 @@ typedef  void (*pUSART_CallbackTypeDef)(USART_HandleTypeDef *husart);	/*!< point
 /** @defgroup USART_Stop_Bits  USART Number of Stop Bits
  * @{
  */
-#define USART_STOPBITS_0_5    USART_CR2_STOP_0	/*!< USART frame with 0.5 stop bit  */
-#define USART_STOPBITS_1      0x00000000U		/*!< USART frame with 1 stop bit    */
+#define USART_STOPBITS_0_5    USART_CR2_STOP_0						/*!< USART frame with 0.5 stop bit  */
+#define USART_STOPBITS_1      0x00000000U							/*!< USART frame with 1 stop bit    */
 #define USART_STOPBITS_1_5    (USART_CR2_STOP_0 | USART_CR2_STOP_1)	/*!< USART frame with 1.5 stop bits */
-#define USART_STOPBITS_2      USART_CR2_STOP_1	/*!< USART frame with 2 stop bits   */
+#define USART_STOPBITS_2      USART_CR2_STOP_1						/*!< USART frame with 2 stop bits   */
 
 /**
  * @}
@@ -224,8 +224,8 @@ typedef  void (*pUSART_CallbackTypeDef)(USART_HandleTypeDef *husart);	/*!< point
 /** @defgroup USART_Parity    USART Parity
  * @{
  */
-#define USART_PARITY_NONE    0x00000000U	/*!< No parity   */
-#define USART_PARITY_EVEN    USART_CR1_PCE	/*!< Even parity */
+#define USART_PARITY_NONE    0x00000000U					/*!< No parity   */
+#define USART_PARITY_EVEN    USART_CR1_PCE					/*!< Even parity */
 #define USART_PARITY_ODD     (USART_CR1_PCE | USART_CR1_PS)	/*!< Odd parity  */
 
 /**
@@ -246,7 +246,7 @@ typedef  void (*pUSART_CallbackTypeDef)(USART_HandleTypeDef *husart);	/*!< point
 /** @defgroup USART_Over_Sampling USART Over Sampling
  * @{
  */
-#define USART_OVERSAMPLING_16    0x00000000U	/*!< Oversampling by 16 */
+#define USART_OVERSAMPLING_16    0x00000000U/*!< Oversampling by 16 */
 #define USART_OVERSAMPLING_8     USART_CR1_OVER8/*!< Oversampling by 8  */
 
 /**

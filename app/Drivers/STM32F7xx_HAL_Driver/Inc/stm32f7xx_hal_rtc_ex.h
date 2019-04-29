@@ -275,7 +275,7 @@ typedef struct {
  * @{
  */
 #define RTC_TIMESTAMPONTAMPERDETECTION_ENABLE     ((uint32_t) RTC_TAMPCR_TAMPTS)/*!< TimeStamp on Tamper Detection event saved        */
-#define RTC_TIMESTAMPONTAMPERDETECTION_DISABLE    ((uint32_t) 0x00000000U)		/*!< TimeStamp on Tamper Detection event is not saved */
+#define RTC_TIMESTAMPONTAMPERDETECTION_DISABLE    ((uint32_t) 0x00000000U)	/*!< TimeStamp on Tamper Detection event is not saved */
 
 /**
  * @}

@@ -228,7 +228,7 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA peripheral data size
  * @{
  */
-#define DMA_PDATAALIGN_BYTE        0x00000000U	/*!< Peripheral data alignment: Byte     */
+#define DMA_PDATAALIGN_BYTE        0x00000000U		/*!< Peripheral data alignment: Byte     */
 #define DMA_PDATAALIGN_HALFWORD    DMA_SxCR_PSIZE_0	/*!< Peripheral data alignment: HalfWord */
 #define DMA_PDATAALIGN_WORD        DMA_SxCR_PSIZE_1	/*!< Peripheral data alignment: Word     */
 
@@ -240,7 +240,7 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA memory data size
  * @{
  */
-#define DMA_MDATAALIGN_BYTE        0x00000000U	/*!< Memory data alignment: Byte     */
+#define DMA_MDATAALIGN_BYTE        0x00000000U		/*!< Memory data alignment: Byte     */
 #define DMA_MDATAALIGN_HALFWORD    DMA_SxCR_MSIZE_0	/*!< Memory data alignment: HalfWord */
 #define DMA_MDATAALIGN_WORD        DMA_SxCR_MSIZE_1	/*!< Memory data alignment: Word     */
 
@@ -277,7 +277,7 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA FIFO direct mode
  * @{
  */
-#define DMA_FIFOMODE_DISABLE    0x00000000U	/*!< FIFO mode disable */
+#define DMA_FIFOMODE_DISABLE    0x00000000U		/*!< FIFO mode disable */
 #define DMA_FIFOMODE_ENABLE     DMA_SxFCR_DMDIS	/*!< FIFO mode enable  */
 
 /**
@@ -288,7 +288,7 @@ typedef struct __DMA_HandleTypeDef {
  * @brief    DMA FIFO level
  * @{
  */
-#define DMA_FIFO_THRESHOLD_1QUARTERFULL     0x00000000U	/*!< FIFO threshold 1 quart full configuration  */
+#define DMA_FIFO_THRESHOLD_1QUARTERFULL     0x00000000U		/*!< FIFO threshold 1 quart full configuration  */
 #define DMA_FIFO_THRESHOLD_HALFFULL         DMA_SxFCR_FTH_0	/*!< FIFO threshold half full configuration     */
 #define DMA_FIFO_THRESHOLD_3QUARTERSFULL    DMA_SxFCR_FTH_1	/*!< FIFO threshold 3 quarts full configuration */
 #define DMA_FIFO_THRESHOLD_FULL             DMA_SxFCR_FTH	/*!< FIFO threshold full configuration          */

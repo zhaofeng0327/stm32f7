@@ -1315,7 +1315,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Start(LPTIM_HandleTypeDef *hlptim, uint32_t 
 
 	/* Return function status */
 	return HAL_OK;
-} /* HAL_LPTIM_Counter_Start */
+}	/* HAL_LPTIM_Counter_Start */
 
 /**
  * @brief  Stops the Counter mode.

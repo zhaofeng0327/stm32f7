@@ -180,7 +180,7 @@
 #define USART_CR3_FIELDS    ((uint32_t) (USART_CR3_RTSE | USART_CR3_CTSE | USART_CR3_ONEBIT))	/*!< UART or USART CR3 fields of parameters set by UART_SetConfig API */
 
 
-#define UART_BRR_MIN    0x10U	/* UART BRR minimum authorized value */
+#define UART_BRR_MIN    0x10U		/* UART BRR minimum authorized value */
 #define UART_BRR_MAX    0x0000FFFFU	/* UART BRR maximum authorized value */
 
 /**

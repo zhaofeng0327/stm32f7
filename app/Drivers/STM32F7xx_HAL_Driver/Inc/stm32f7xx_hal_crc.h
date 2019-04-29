@@ -169,7 +169,7 @@ typedef struct {
 /** @defgroup CRC_Polynomial_Sizes Polynomial sizes to configure the peripheral
  * @{
  */
-#define CRC_POLYLENGTH_32B    0x00000000U	/*!< Resort to a 32-bit long generating polynomial */
+#define CRC_POLYLENGTH_32B    0x00000000U		/*!< Resort to a 32-bit long generating polynomial */
 #define CRC_POLYLENGTH_16B    CRC_CR_POLYSIZE_0	/*!< Resort to a 16-bit long generating polynomial */
 #define CRC_POLYLENGTH_8B     CRC_CR_POLYSIZE_1	/*!< Resort to a 8-bit long generating polynomial  */
 #define CRC_POLYLENGTH_7B     CRC_CR_POLYSIZE	/*!< Resort to a 7-bit long generating polynomial  */

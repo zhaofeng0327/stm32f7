@@ -280,7 +280,7 @@ typedef  void (*pLTDC_CallbackTypeDef)(LTDC_HandleTypeDef *hltdc);	/*!< pointer 
 /** @defgroup LTDC_PC_POLARITY LTDC PC POLARITY
  * @{
  */
-#define LTDC_PCPOLARITY_IPC     0x00000000U	/*!< input pixel clock. */
+#define LTDC_PCPOLARITY_IPC     0x00000000U		/*!< input pixel clock. */
 #define LTDC_PCPOLARITY_IIPC    LTDC_GCR_PCPOL	/*!< inverted input pixel clock. */
 
 /**
@@ -355,7 +355,7 @@ typedef  void (*pLTDC_CallbackTypeDef)(LTDC_HandleTypeDef *hltdc);	/*!< pointer 
  * @{
  */
 #define LTDC_STOPPOSITION          (LTDC_LxWHPCR_WHSPPOS >> 16U)/*!< LTDC Layer stop position  */
-#define LTDC_STARTPOSITION         LTDC_LxWHPCR_WHSTPOS			/*!< LTDC Layer start position */
+#define LTDC_STARTPOSITION         LTDC_LxWHPCR_WHSTPOS	/*!< LTDC Layer start position */
 
 #define LTDC_COLOR_FRAME_BUFFER    LTDC_LxCFBLR_CFBLL	/*!< LTDC Layer Line length    */
 #define LTDC_LINE_NUMBER           LTDC_LxCFBLNR_CFBLNBR/*!< LTDC Layer Line number    */

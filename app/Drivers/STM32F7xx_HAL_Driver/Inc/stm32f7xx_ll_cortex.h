@@ -68,7 +68,7 @@ extern "C" {
 /** @defgroup CORTEX_LL_EC_CLKSOURCE_HCLK SYSTICK Clock Source
  * @{
  */
-#define LL_SYSTICK_CLKSOURCE_HCLK_DIV8    0x00000000U				/*!< AHB clock divided by 8 selected as SysTick clock source.*/
+#define LL_SYSTICK_CLKSOURCE_HCLK_DIV8    0x00000000U	/*!< AHB clock divided by 8 selected as SysTick clock source.*/
 #define LL_SYSTICK_CLKSOURCE_HCLK         SysTick_CTRL_CLKSOURCE_Msk/*!< AHB clock selected as SysTick clock source. */
 
 /**
@@ -181,7 +181,7 @@ extern "C" {
 /** @defgroup CORTEX_LL_EC_INSTRUCTION_ACCESS MPU Instruction Access
  * @{
  */
-#define LL_MPU_INSTRUCTION_ACCESS_ENABLE     0x00U			/*!< Instruction fetches enabled */
+#define LL_MPU_INSTRUCTION_ACCESS_ENABLE     0x00U	/*!< Instruction fetches enabled */
 #define LL_MPU_INSTRUCTION_ACCESS_DISABLE    MPU_RASR_XN_Msk/*!< Instruction fetches disabled*/
 
 /**
@@ -212,7 +212,7 @@ extern "C" {
  * @{
  */
 #define LL_MPU_ACCESS_BUFFERABLE        MPU_RASR_B_Msk	/*!< Bufferable memory attribute */
-#define LL_MPU_ACCESS_NOT_BUFFERABLE    0x00U	/*!< Not Bufferable memory attribute */
+#define LL_MPU_ACCESS_NOT_BUFFERABLE    0x00U			/*!< Not Bufferable memory attribute */
 
 /**
  * @}

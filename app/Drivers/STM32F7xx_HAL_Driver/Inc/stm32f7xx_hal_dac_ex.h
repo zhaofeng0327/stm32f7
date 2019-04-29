@@ -46,29 +46,29 @@ extern "C" {
 /** @defgroup DACEx_lfsrunmask_triangleamplitude DAC LFS Run Mask Triangle Amplitude
  * @{
  */
-#define DAC_LFSRUNMASK_BIT0           ((uint32_t) 0x00000000U)						/*!< Unmask DAC channel LFSR bit0 for noise wave generation */
-#define DAC_LFSRUNMASK_BITS1_0        ((uint32_t) DAC_CR_MAMP1_0)					/*!< Unmask DAC channel LFSR bit[1:0] for noise wave generation */
-#define DAC_LFSRUNMASK_BITS2_0        ((uint32_t) DAC_CR_MAMP1_1)					/*!< Unmask DAC channel LFSR bit[2:0] for noise wave generation */
-#define DAC_LFSRUNMASK_BITS3_0        ((uint32_t) DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)	/*!< Unmask DAC channel LFSR bit[3:0] for noise wave generation */
-#define DAC_LFSRUNMASK_BITS4_0        ((uint32_t) DAC_CR_MAMP1_2)					/*!< Unmask DAC channel LFSR bit[4:0] for noise wave generation */
-#define DAC_LFSRUNMASK_BITS5_0        ((uint32_t) DAC_CR_MAMP1_2 | DAC_CR_MAMP1_0)	/*!< Unmask DAC channel LFSR bit[5:0] for noise wave generation */
-#define DAC_LFSRUNMASK_BITS6_0        ((uint32_t) DAC_CR_MAMP1_2 | DAC_CR_MAMP1_1)	/*!< Unmask DAC channel LFSR bit[6:0] for noise wave generation */
+#define DAC_LFSRUNMASK_BIT0           ((uint32_t) 0x00000000U)										/*!< Unmask DAC channel LFSR bit0 for noise wave generation */
+#define DAC_LFSRUNMASK_BITS1_0        ((uint32_t) DAC_CR_MAMP1_0)									/*!< Unmask DAC channel LFSR bit[1:0] for noise wave generation */
+#define DAC_LFSRUNMASK_BITS2_0        ((uint32_t) DAC_CR_MAMP1_1)									/*!< Unmask DAC channel LFSR bit[2:0] for noise wave generation */
+#define DAC_LFSRUNMASK_BITS3_0        ((uint32_t) DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)					/*!< Unmask DAC channel LFSR bit[3:0] for noise wave generation */
+#define DAC_LFSRUNMASK_BITS4_0        ((uint32_t) DAC_CR_MAMP1_2)									/*!< Unmask DAC channel LFSR bit[4:0] for noise wave generation */
+#define DAC_LFSRUNMASK_BITS5_0        ((uint32_t) DAC_CR_MAMP1_2 | DAC_CR_MAMP1_0)					/*!< Unmask DAC channel LFSR bit[5:0] for noise wave generation */
+#define DAC_LFSRUNMASK_BITS6_0        ((uint32_t) DAC_CR_MAMP1_2 | DAC_CR_MAMP1_1)					/*!< Unmask DAC channel LFSR bit[6:0] for noise wave generation */
 #define DAC_LFSRUNMASK_BITS7_0        ((uint32_t) DAC_CR_MAMP1_2 | DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)	/*!< Unmask DAC channel LFSR bit[7:0] for noise wave generation */
-#define DAC_LFSRUNMASK_BITS8_0        ((uint32_t) DAC_CR_MAMP1_3)					/*!< Unmask DAC channel LFSR bit[8:0] for noise wave generation */
-#define DAC_LFSRUNMASK_BITS9_0        ((uint32_t) DAC_CR_MAMP1_3 | DAC_CR_MAMP1_0)	/*!< Unmask DAC channel LFSR bit[9:0] for noise wave generation */
-#define DAC_LFSRUNMASK_BITS10_0       ((uint32_t) DAC_CR_MAMP1_3 | DAC_CR_MAMP1_1)	/*!< Unmask DAC channel LFSR bit[10:0] for noise wave generation */
+#define DAC_LFSRUNMASK_BITS8_0        ((uint32_t) DAC_CR_MAMP1_3)									/*!< Unmask DAC channel LFSR bit[8:0] for noise wave generation */
+#define DAC_LFSRUNMASK_BITS9_0        ((uint32_t) DAC_CR_MAMP1_3 | DAC_CR_MAMP1_0)					/*!< Unmask DAC channel LFSR bit[9:0] for noise wave generation */
+#define DAC_LFSRUNMASK_BITS10_0       ((uint32_t) DAC_CR_MAMP1_3 | DAC_CR_MAMP1_1)					/*!< Unmask DAC channel LFSR bit[10:0] for noise wave generation */
 #define DAC_LFSRUNMASK_BITS11_0       ((uint32_t) DAC_CR_MAMP1_3 | DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)	/*!< Unmask DAC channel LFSR bit[11:0] for noise wave generation */
-#define DAC_TRIANGLEAMPLITUDE_1       ((uint32_t) 0x00000000U)						/*!< Select max triangle amplitude of 1 */
-#define DAC_TRIANGLEAMPLITUDE_3       ((uint32_t) DAC_CR_MAMP1_0)					/*!< Select max triangle amplitude of 3 */
-#define DAC_TRIANGLEAMPLITUDE_7       ((uint32_t) DAC_CR_MAMP1_1)					/*!< Select max triangle amplitude of 7 */
-#define DAC_TRIANGLEAMPLITUDE_15      ((uint32_t) DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)	/*!< Select max triangle amplitude of 15 */
-#define DAC_TRIANGLEAMPLITUDE_31      ((uint32_t) DAC_CR_MAMP1_2)					/*!< Select max triangle amplitude of 31 */
-#define DAC_TRIANGLEAMPLITUDE_63      ((uint32_t) DAC_CR_MAMP1_2 | DAC_CR_MAMP1_0)	/*!< Select max triangle amplitude of 63 */
-#define DAC_TRIANGLEAMPLITUDE_127     ((uint32_t) DAC_CR_MAMP1_2 | DAC_CR_MAMP1_1)	/*!< Select max triangle amplitude of 127 */
+#define DAC_TRIANGLEAMPLITUDE_1       ((uint32_t) 0x00000000U)										/*!< Select max triangle amplitude of 1 */
+#define DAC_TRIANGLEAMPLITUDE_3       ((uint32_t) DAC_CR_MAMP1_0)									/*!< Select max triangle amplitude of 3 */
+#define DAC_TRIANGLEAMPLITUDE_7       ((uint32_t) DAC_CR_MAMP1_1)									/*!< Select max triangle amplitude of 7 */
+#define DAC_TRIANGLEAMPLITUDE_15      ((uint32_t) DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)					/*!< Select max triangle amplitude of 15 */
+#define DAC_TRIANGLEAMPLITUDE_31      ((uint32_t) DAC_CR_MAMP1_2)									/*!< Select max triangle amplitude of 31 */
+#define DAC_TRIANGLEAMPLITUDE_63      ((uint32_t) DAC_CR_MAMP1_2 | DAC_CR_MAMP1_0)					/*!< Select max triangle amplitude of 63 */
+#define DAC_TRIANGLEAMPLITUDE_127     ((uint32_t) DAC_CR_MAMP1_2 | DAC_CR_MAMP1_1)					/*!< Select max triangle amplitude of 127 */
 #define DAC_TRIANGLEAMPLITUDE_255     ((uint32_t) DAC_CR_MAMP1_2 | DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)	/*!< Select max triangle amplitude of 255 */
-#define DAC_TRIANGLEAMPLITUDE_511     ((uint32_t) DAC_CR_MAMP1_3)					/*!< Select max triangle amplitude of 511 */
-#define DAC_TRIANGLEAMPLITUDE_1023    ((uint32_t) DAC_CR_MAMP1_3 | DAC_CR_MAMP1_0)	/*!< Select max triangle amplitude of 1023 */
-#define DAC_TRIANGLEAMPLITUDE_2047    ((uint32_t) DAC_CR_MAMP1_3 | DAC_CR_MAMP1_1)	/*!< Select max triangle amplitude of 2047 */
+#define DAC_TRIANGLEAMPLITUDE_511     ((uint32_t) DAC_CR_MAMP1_3)									/*!< Select max triangle amplitude of 511 */
+#define DAC_TRIANGLEAMPLITUDE_1023    ((uint32_t) DAC_CR_MAMP1_3 | DAC_CR_MAMP1_0)					/*!< Select max triangle amplitude of 1023 */
+#define DAC_TRIANGLEAMPLITUDE_2047    ((uint32_t) DAC_CR_MAMP1_3 | DAC_CR_MAMP1_1)					/*!< Select max triangle amplitude of 2047 */
 #define DAC_TRIANGLEAMPLITUDE_4095    ((uint32_t) DAC_CR_MAMP1_3 | DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0)	/*!< Select max triangle amplitude of 4095 */
 
 /**

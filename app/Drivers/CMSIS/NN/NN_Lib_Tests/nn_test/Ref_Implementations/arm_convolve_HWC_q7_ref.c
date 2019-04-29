@@ -29,8 +29,8 @@ void arm_convolve_HWC_q7_ref(const q7_t *Im_in,	// input image
   const q7_t *bias,								// bias
   const uint16_t bias_shift, const uint16_t out_shift, q7_t *Im_out,// output image
   const uint16_t dim_im_out,// output image dimension
-  q15_t *bufferA,			// buffer space for input
-  q7_t *bufferB				// buffer space for output
+  q15_t *bufferA,	// buffer space for input
+  q7_t *bufferB		// buffer space for output
 )
 {
 	int i, j, k, l, m, n;

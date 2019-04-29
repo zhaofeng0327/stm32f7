@@ -339,7 +339,7 @@ typedef struct {
 /** @defgroup RTC_LL_EC_ALARM_OUTPUTTYPE  ALARM OUTPUT TYPE
  * @{
  */
-#define LL_RTC_ALARM_OUTPUTTYPE_OPENDRAIN    0x00000000U		/*!< RTC_ALARM, when mapped on PC13, is open-drain output */
+#define LL_RTC_ALARM_OUTPUTTYPE_OPENDRAIN    0x00000000U/*!< RTC_ALARM, when mapped on PC13, is open-drain output */
 #define LL_RTC_ALARM_OUTPUTTYPE_PUSHPULL     RTC_OR_ALARMOUTTYPE/*!< RTC_ALARM, when mapped on PC13, is push-pull output */
 
 /**
@@ -497,7 +497,7 @@ typedef struct {
 /** @defgroup RTC_LL_EC_TAMPER_FILTER  TAMPER FILTER
  * @{
  */
-#define LL_RTC_TAMPER_FILTER_DISABLE    0x00000000U			/*!< Tamper filter is disabled */
+#define LL_RTC_TAMPER_FILTER_DISABLE    0x00000000U	/*!< Tamper filter is disabled */
 #define LL_RTC_TAMPER_FILTER_2SAMPLE    RTC_TAMPCR_TAMPFLT_0/*!< Tamper is activated after 2 consecutive samples at the active level */
 #define LL_RTC_TAMPER_FILTER_4SAMPLE    RTC_TAMPCR_TAMPFLT_1/*!< Tamper is activated after 4 consecutive samples at the active level */
 #define LL_RTC_TAMPER_FILTER_8SAMPLE    RTC_TAMPCR_TAMPFLT	/*!< Tamper is activated after 8 consecutive samples at the active level. */
@@ -540,11 +540,11 @@ typedef struct {
 /** @defgroup RTC_LL_EC_WAKEUPCLOCK_DIV  WAKEUP CLOCK DIV
  * @{
  */
-#define LL_RTC_WAKEUPCLOCK_DIV_16        0x00000000U		/*!< RTC/16 clock is selected */
-#define LL_RTC_WAKEUPCLOCK_DIV_8         (RTC_CR_WUCKSEL_0)	/*!< RTC/8 clock is selected */
-#define LL_RTC_WAKEUPCLOCK_DIV_4         (RTC_CR_WUCKSEL_1)	/*!< RTC/4 clock is selected */
+#define LL_RTC_WAKEUPCLOCK_DIV_16        0x00000000U							/*!< RTC/16 clock is selected */
+#define LL_RTC_WAKEUPCLOCK_DIV_8         (RTC_CR_WUCKSEL_0)						/*!< RTC/8 clock is selected */
+#define LL_RTC_WAKEUPCLOCK_DIV_4         (RTC_CR_WUCKSEL_1)						/*!< RTC/4 clock is selected */
 #define LL_RTC_WAKEUPCLOCK_DIV_2         (RTC_CR_WUCKSEL_1 | RTC_CR_WUCKSEL_0)	/*!< RTC/2 clock is selected */
-#define LL_RTC_WAKEUPCLOCK_CKSPRE        (RTC_CR_WUCKSEL_2)	/*!< ck_spre (usually 1 Hz) clock is selected */
+#define LL_RTC_WAKEUPCLOCK_CKSPRE        (RTC_CR_WUCKSEL_2)						/*!< ck_spre (usually 1 Hz) clock is selected */
 #define LL_RTC_WAKEUPCLOCK_CKSPRE_WUT    (RTC_CR_WUCKSEL_2 | RTC_CR_WUCKSEL_1)	/*!< ck_spre (usually 1 Hz) clock is selected and 2exp16 is added to the WUT counter value*/
 
 /**
@@ -602,9 +602,9 @@ typedef struct {
 /** @defgroup RTC_LL_EC_CALIB_OUTPUT  Calibration output
  * @{
  */
-#define LL_RTC_CALIB_OUTPUT_NONE     0x00000000U				/*!< Calibration output disabled */
+#define LL_RTC_CALIB_OUTPUT_NONE     0x00000000U/*!< Calibration output disabled */
 #define LL_RTC_CALIB_OUTPUT_1HZ      (RTC_CR_COE | RTC_CR_COSEL)/*!< Calibration output is 1 Hz */
-#define LL_RTC_CALIB_OUTPUT_512HZ    (RTC_CR_COE)				/*!< Calibration output is 512 Hz */
+#define LL_RTC_CALIB_OUTPUT_512HZ    (RTC_CR_COE)	/*!< Calibration output is 512 Hz */
 
 /**
  * @}
@@ -623,7 +623,7 @@ typedef struct {
 /** @defgroup RTC_LL_EC_CALIB_PERIOD  Calibration period
  * @{
  */
-#define LL_RTC_CALIB_PERIOD_32SEC    0x00000000U	/*!< Use a 32-second calibration cycle period */
+#define LL_RTC_CALIB_PERIOD_32SEC    0x00000000U/*!< Use a 32-second calibration cycle period */
 #define LL_RTC_CALIB_PERIOD_16SEC    RTC_CALR_CALW16/*!< Use a 16-second calibration cycle period */
 #define LL_RTC_CALIB_PERIOD_8SEC     RTC_CALR_CALW8	/*!< Use a 8-second calibration cycle period */
 

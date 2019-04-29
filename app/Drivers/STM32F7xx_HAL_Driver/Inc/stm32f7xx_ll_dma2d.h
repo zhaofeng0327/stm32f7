@@ -338,7 +338,7 @@ typedef struct {
 /** @defgroup DMA2D_LL_EC_MODE Mode
  * @{
  */
-#define LL_DMA2D_MODE_M2M          0x00000000U	/*!< DMA2D memory to memory transfer mode */
+#define LL_DMA2D_MODE_M2M          0x00000000U		/*!< DMA2D memory to memory transfer mode */
 #define LL_DMA2D_MODE_M2M_PFC      DMA2D_CR_MODE_0	/*!< DMA2D memory to memory with pixel format conversion transfer mode */
 #define LL_DMA2D_MODE_M2M_BLEND    DMA2D_CR_MODE_1	/*!< DMA2D memory to memory with blending transfer mode */
 #define LL_DMA2D_MODE_R2M          DMA2D_CR_MODE/*!< DMA2D register to memory transfer mode */
@@ -350,11 +350,11 @@ typedef struct {
 /** @defgroup DMA2D_LL_EC_OUTPUT_COLOR_MODE Output Color Mode
  * @{
  */
-#define LL_DMA2D_OUTPUT_MODE_ARGB8888    0x00000000U							/*!< ARGB8888 */
-#define LL_DMA2D_OUTPUT_MODE_RGB888      DMA2D_OPFCCR_CM_0						/*!< RGB888   */
-#define LL_DMA2D_OUTPUT_MODE_RGB565      DMA2D_OPFCCR_CM_1						/*!< RGB565   */
+#define LL_DMA2D_OUTPUT_MODE_ARGB8888    0x00000000U		/*!< ARGB8888 */
+#define LL_DMA2D_OUTPUT_MODE_RGB888      DMA2D_OPFCCR_CM_0	/*!< RGB888   */
+#define LL_DMA2D_OUTPUT_MODE_RGB565      DMA2D_OPFCCR_CM_1	/*!< RGB565   */
 #define LL_DMA2D_OUTPUT_MODE_ARGB1555    (DMA2D_OPFCCR_CM_0 | DMA2D_OPFCCR_CM_1)/*!< ARGB1555 */
-#define LL_DMA2D_OUTPUT_MODE_ARGB4444    DMA2D_OPFCCR_CM_2						/*!< ARGB4444 */
+#define LL_DMA2D_OUTPUT_MODE_ARGB4444    DMA2D_OPFCCR_CM_2	/*!< ARGB4444 */
 
 /**
  * @}
@@ -363,17 +363,17 @@ typedef struct {
 /** @defgroup DMA2D_LL_EC_INPUT_COLOR_MODE Input Color Mode
  * @{
  */
-#define LL_DMA2D_INPUT_MODE_ARGB8888    0x00000000U									/*!< ARGB8888 */
-#define LL_DMA2D_INPUT_MODE_RGB888      DMA2D_FGPFCCR_CM_0							/*!< RGB888   */
-#define LL_DMA2D_INPUT_MODE_RGB565      DMA2D_FGPFCCR_CM_1							/*!< RGB565   */
-#define LL_DMA2D_INPUT_MODE_ARGB1555    (DMA2D_FGPFCCR_CM_0 | DMA2D_FGPFCCR_CM_1)	/*!< ARGB1555 */
-#define LL_DMA2D_INPUT_MODE_ARGB4444    DMA2D_FGPFCCR_CM_2							/*!< ARGB4444 */
-#define LL_DMA2D_INPUT_MODE_L8          (DMA2D_FGPFCCR_CM_0 | DMA2D_FGPFCCR_CM_2)	/*!< L8       */
-#define LL_DMA2D_INPUT_MODE_AL44        (DMA2D_FGPFCCR_CM_1 | DMA2D_FGPFCCR_CM_2)	/*!< AL44     */
+#define LL_DMA2D_INPUT_MODE_ARGB8888    0x00000000U														/*!< ARGB8888 */
+#define LL_DMA2D_INPUT_MODE_RGB888      DMA2D_FGPFCCR_CM_0												/*!< RGB888   */
+#define LL_DMA2D_INPUT_MODE_RGB565      DMA2D_FGPFCCR_CM_1												/*!< RGB565   */
+#define LL_DMA2D_INPUT_MODE_ARGB1555    (DMA2D_FGPFCCR_CM_0 | DMA2D_FGPFCCR_CM_1)						/*!< ARGB1555 */
+#define LL_DMA2D_INPUT_MODE_ARGB4444    DMA2D_FGPFCCR_CM_2												/*!< ARGB4444 */
+#define LL_DMA2D_INPUT_MODE_L8          (DMA2D_FGPFCCR_CM_0 | DMA2D_FGPFCCR_CM_2)						/*!< L8       */
+#define LL_DMA2D_INPUT_MODE_AL44        (DMA2D_FGPFCCR_CM_1 | DMA2D_FGPFCCR_CM_2)						/*!< AL44     */
 #define LL_DMA2D_INPUT_MODE_AL88        (DMA2D_FGPFCCR_CM_0 | DMA2D_FGPFCCR_CM_1 | DMA2D_FGPFCCR_CM_2)	/*!< AL88     */
-#define LL_DMA2D_INPUT_MODE_L4          DMA2D_FGPFCCR_CM_3							/*!< L4       */
-#define LL_DMA2D_INPUT_MODE_A8          (DMA2D_FGPFCCR_CM_0 | DMA2D_FGPFCCR_CM_3)	/*!< A8       */
-#define LL_DMA2D_INPUT_MODE_A4          (DMA2D_FGPFCCR_CM_1 | DMA2D_FGPFCCR_CM_3)	/*!< A4       */
+#define LL_DMA2D_INPUT_MODE_L4          DMA2D_FGPFCCR_CM_3												/*!< L4       */
+#define LL_DMA2D_INPUT_MODE_A8          (DMA2D_FGPFCCR_CM_0 | DMA2D_FGPFCCR_CM_3)						/*!< A8       */
+#define LL_DMA2D_INPUT_MODE_A4          (DMA2D_FGPFCCR_CM_1 | DMA2D_FGPFCCR_CM_3)						/*!< A4       */
 
 /**
  * @}
@@ -382,7 +382,7 @@ typedef struct {
 /** @defgroup DMA2D_LL_EC_ALPHA_MODE Alpha Mode
  * @{
  */
-#define LL_DMA2D_ALPHA_MODE_NO_MODIF    0x00000000U	/*!< No modification of the alpha channel value */
+#define LL_DMA2D_ALPHA_MODE_NO_MODIF    0x00000000U			/*!< No modification of the alpha channel value */
 #define LL_DMA2D_ALPHA_MODE_REPLACE     DMA2D_FGPFCCR_AM_0	/*!< Replace original alpha channel value by programmed alpha value */
 #define LL_DMA2D_ALPHA_MODE_COMBINE     DMA2D_FGPFCCR_AM_1	/*!< Replace original alpha channel value by programmed alpha value
 															* with original alpha channel value                              */
@@ -397,7 +397,7 @@ typedef struct {
 /** @defgroup DMA2D_LL_EC_RED_BLUE_SWAP Red Blue Swap
  * @{
  */
-#define LL_DMA2D_RB_MODE_REGULAR    0x00000000U	/*!< RGB or ARGB */
+#define LL_DMA2D_RB_MODE_REGULAR    0x00000000U			/*!< RGB or ARGB */
 #define LL_DMA2D_RB_MODE_SWAP       DMA2D_FGPFCCR_RBS	/*!< BGR or ABGR */
 
 /**

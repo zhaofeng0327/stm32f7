@@ -492,7 +492,7 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);	/*!< pointer to 
 /** @defgroup TIM_ETR_Prescaler TIM ETR Prescaler
  * @{
  */
-#define TIM_ETRPRESCALER_DIV1    0x00000000U	/*!< No prescaler is used */
+#define TIM_ETRPRESCALER_DIV1    0x00000000U/*!< No prescaler is used */
 #define TIM_ETRPRESCALER_DIV2    TIM_SMCR_ETPS_0/*!< ETR input source is divided by 2 */
 #define TIM_ETRPRESCALER_DIV4    TIM_SMCR_ETPS_1/*!< ETR input source is divided by 4 */
 #define TIM_ETRPRESCALER_DIV8    TIM_SMCR_ETPS	/*!< ETR input source is divided by 8 */
@@ -632,7 +632,7 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);	/*!< pointer to 
 /** @defgroup TIM_Input_Capture_Prescaler TIM Input Capture Prescaler
  * @{
  */
-#define TIM_ICPSC_DIV1    0x00000000U		/*!< Capture performed each time an edge is detected on the capture input */
+#define TIM_ICPSC_DIV1    0x00000000U	/*!< Capture performed each time an edge is detected on the capture input */
 #define TIM_ICPSC_DIV2    TIM_CCMR1_IC1PSC_0/*!< Capture performed once every 2 events                                */
 #define TIM_ICPSC_DIV4    TIM_CCMR1_IC1PSC_1/*!< Capture performed once every 4 events                                */
 #define TIM_ICPSC_DIV8    TIM_CCMR1_IC1PSC	/*!< Capture performed once every 8 events                                */
@@ -830,7 +830,7 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);	/*!< pointer to 
 /** @defgroup TIM_Lock_level  TIM Lock level
  * @{
  */
-#define TIM_LOCKLEVEL_OFF    0x00000000U	/*!< LOCK OFF     */
+#define TIM_LOCKLEVEL_OFF    0x00000000U/*!< LOCK OFF     */
 #define TIM_LOCKLEVEL_1      TIM_BDTR_LOCK_0/*!< LOCK Level 1 */
 #define TIM_LOCKLEVEL_2      TIM_BDTR_LOCK_1/*!< LOCK Level 2 */
 #define TIM_LOCKLEVEL_3      TIM_BDTR_LOCK	/*!< LOCK Level 3 */

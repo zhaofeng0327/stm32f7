@@ -3752,7 +3752,7 @@ WCHAR ff_convert(	/* Converted code, 0 means conversion error */
 				hi = i;
 		}
 		c = n ? p[i * 2 + 1] : 0;
-		#else	/* if !_TINY_TABLE */
+		#else		/* if !_TINY_TABLE */
 		if (dir) {	/* OEM code to unicode (Incremental search)*/
 			p = &uni2sjis[1];
 			do {

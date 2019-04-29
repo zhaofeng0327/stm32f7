@@ -580,7 +580,7 @@ void vEventGroupDelete(EventGroupHandle_t xEventGroup)
 		#endif	/* configSUPPORT_DYNAMIC_ALLOCATION */
 	}
 	(void) xTaskResumeAll();
-} /* vEventGroupDelete */
+}	/* vEventGroupDelete */
 
 /*-----------------------------------------------------------*/
 

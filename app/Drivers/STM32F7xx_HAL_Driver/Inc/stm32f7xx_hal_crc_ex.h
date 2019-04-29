@@ -46,7 +46,7 @@ extern "C" {
 /** @defgroup CRCEx_Input_Data_Inversion Input Data Inversion Modes
  * @{
  */
-#define CRC_INPUTDATA_INVERSION_NONE        0x00000000U	/*!< No input data inversion            */
+#define CRC_INPUTDATA_INVERSION_NONE        0x00000000U		/*!< No input data inversion            */
 #define CRC_INPUTDATA_INVERSION_BYTE        CRC_CR_REV_IN_0	/*!< Byte-wise input data inversion     */
 #define CRC_INPUTDATA_INVERSION_HALFWORD    CRC_CR_REV_IN_1	/*!< HalfWord-wise input data inversion */
 #define CRC_INPUTDATA_INVERSION_WORD        CRC_CR_REV_IN	/*!< Word-wise input data inversion     */

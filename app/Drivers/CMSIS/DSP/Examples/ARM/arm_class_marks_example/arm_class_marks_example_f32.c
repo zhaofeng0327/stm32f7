@@ -205,4 +205,4 @@ int32_t main()
 	arm_var_f32(testOutput, numStudents, &var);
 
 	while (1);	/* main function does not return */
-}	/* main */
+}				/* main */

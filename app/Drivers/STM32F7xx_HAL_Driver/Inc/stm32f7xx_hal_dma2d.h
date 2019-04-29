@@ -194,7 +194,7 @@ typedef  void (*pDMA2D_CallbackTypeDef)(DMA2D_HandleTypeDef *hdma2d);	/*!< Point
 /** @defgroup DMA2D_Mode DMA2D Mode
  * @{
  */
-#define DMA2D_M2M          0x00000000U	/*!< DMA2D memory to memory transfer mode */
+#define DMA2D_M2M          0x00000000U		/*!< DMA2D memory to memory transfer mode */
 #define DMA2D_M2M_PFC      DMA2D_CR_MODE_0	/*!< DMA2D memory to memory with pixel format conversion transfer mode */
 #define DMA2D_M2M_BLEND    DMA2D_CR_MODE_1	/*!< DMA2D memory to memory with blending transfer mode */
 #define DMA2D_R2M          DMA2D_CR_MODE/*!< DMA2D register to memory transfer mode */
@@ -206,11 +206,11 @@ typedef  void (*pDMA2D_CallbackTypeDef)(DMA2D_HandleTypeDef *hdma2d);	/*!< Point
 /** @defgroup DMA2D_Output_Color_Mode DMA2D Output Color Mode
  * @{
  */
-#define DMA2D_OUTPUT_ARGB8888    0x00000000U							/*!< ARGB8888 DMA2D color mode */
-#define DMA2D_OUTPUT_RGB888      DMA2D_OPFCCR_CM_0						/*!< RGB888 DMA2D color mode   */
-#define DMA2D_OUTPUT_RGB565      DMA2D_OPFCCR_CM_1						/*!< RGB565 DMA2D color mode   */
+#define DMA2D_OUTPUT_ARGB8888    0x00000000U		/*!< ARGB8888 DMA2D color mode */
+#define DMA2D_OUTPUT_RGB888      DMA2D_OPFCCR_CM_0	/*!< RGB888 DMA2D color mode   */
+#define DMA2D_OUTPUT_RGB565      DMA2D_OPFCCR_CM_1	/*!< RGB565 DMA2D color mode   */
 #define DMA2D_OUTPUT_ARGB1555    (DMA2D_OPFCCR_CM_0 | DMA2D_OPFCCR_CM_1)/*!< ARGB1555 DMA2D color mode */
-#define DMA2D_OUTPUT_ARGB4444    DMA2D_OPFCCR_CM_2						/*!< ARGB4444 DMA2D color mode */
+#define DMA2D_OUTPUT_ARGB4444    DMA2D_OPFCCR_CM_2	/*!< ARGB4444 DMA2D color mode */
 
 /**
  * @}
@@ -594,7 +594,7 @@ uint32_t               HAL_DMA2D_GetError(DMA2D_HandleTypeDef *hdma2d);
  * @{
  */
 #define DMA2D_PIXEL    (DMA2D_NLR_PL >> 16U)/*!< DMA2D maximum number of pixels per line */
-#define DMA2D_LINE     DMA2D_NLR_NL			/*!< DMA2D maximum number of lines           */
+#define DMA2D_LINE     DMA2D_NLR_NL	/*!< DMA2D maximum number of lines           */
 
 /**
  * @}

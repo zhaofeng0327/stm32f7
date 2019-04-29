@@ -249,15 +249,15 @@ typedef  void (*pCEC_RxCallbackTypeDef)(CEC_HandleTypeDef *hcec,
  * @{
  */
 #define HAL_CEC_ERROR_NONE                 (uint32_t) 0x0000U	/*!< no error                      */
-#define HAL_CEC_ERROR_RXOVR                CEC_ISR_RXOVR	/*!< CEC Rx-Overrun                */
-#define HAL_CEC_ERROR_BRE                  CEC_ISR_BRE		/*!< CEC Rx Bit Rising Error       */
-#define HAL_CEC_ERROR_SBPE                 CEC_ISR_SBPE		/*!< CEC Rx Short Bit period Error */
-#define HAL_CEC_ERROR_LBPE                 CEC_ISR_LBPE		/*!< CEC Rx Long Bit period Error  */
-#define HAL_CEC_ERROR_RXACKE               CEC_ISR_RXACKE	/*!< CEC Rx Missing Acknowledge    */
-#define HAL_CEC_ERROR_ARBLST               CEC_ISR_ARBLST	/*!< CEC Arbitration Lost          */
-#define HAL_CEC_ERROR_TXUDR                CEC_ISR_TXUDR	/*!< CEC Tx-Buffer Underrun        */
-#define HAL_CEC_ERROR_TXERR                CEC_ISR_TXERR	/*!< CEC Tx-Error                  */
-#define HAL_CEC_ERROR_TXACKE               CEC_ISR_TXACKE	/*!< CEC Tx Missing Acknowledge    */
+#define HAL_CEC_ERROR_RXOVR                CEC_ISR_RXOVR		/*!< CEC Rx-Overrun                */
+#define HAL_CEC_ERROR_BRE                  CEC_ISR_BRE			/*!< CEC Rx Bit Rising Error       */
+#define HAL_CEC_ERROR_SBPE                 CEC_ISR_SBPE			/*!< CEC Rx Short Bit period Error */
+#define HAL_CEC_ERROR_LBPE                 CEC_ISR_LBPE			/*!< CEC Rx Long Bit period Error  */
+#define HAL_CEC_ERROR_RXACKE               CEC_ISR_RXACKE		/*!< CEC Rx Missing Acknowledge    */
+#define HAL_CEC_ERROR_ARBLST               CEC_ISR_ARBLST		/*!< CEC Arbitration Lost          */
+#define HAL_CEC_ERROR_TXUDR                CEC_ISR_TXUDR		/*!< CEC Tx-Buffer Underrun        */
+#define HAL_CEC_ERROR_TXERR                CEC_ISR_TXERR		/*!< CEC Tx-Error                  */
+#define HAL_CEC_ERROR_TXACKE               CEC_ISR_TXACKE		/*!< CEC Tx Missing Acknowledge    */
 #if (USE_HAL_CEC_REGISTER_CALLBACKS == 1)
 #define  HAL_CEC_ERROR_INVALID_CALLBACK    ((uint32_t) 0x00002000U)	/*!< Invalid Callback Error  */
 #endif	/* USE_HAL_CEC_REGISTER_CALLBACKS */

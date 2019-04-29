@@ -284,8 +284,8 @@ typedef  void (*pIRDA_CallbackTypeDef)(IRDA_HandleTypeDef *hirda);	/*!< pointer 
 /** @defgroup IRDA_Transfer_Mode IRDA Transfer Mode
  * @{
  */
-#define IRDA_MODE_RX       USART_CR1_RE					/*!< RX mode        */
-#define IRDA_MODE_TX       USART_CR1_TE					/*!< TX mode        */
+#define IRDA_MODE_RX       USART_CR1_RE	/*!< RX mode        */
+#define IRDA_MODE_TX       USART_CR1_TE	/*!< TX mode        */
 #define IRDA_MODE_TX_RX    (USART_CR1_TE | USART_CR1_RE)/*!< RX and TX mode */
 
 /**
@@ -325,7 +325,7 @@ typedef  void (*pIRDA_CallbackTypeDef)(IRDA_HandleTypeDef *hirda);	/*!< pointer 
 /** @defgroup IRDA_One_Bit IRDA One Bit Sampling
  * @{
  */
-#define IRDA_ONE_BIT_SAMPLE_DISABLE    0x00000000U	/*!< One-bit sampling disabled */
+#define IRDA_ONE_BIT_SAMPLE_DISABLE    0x00000000U		/*!< One-bit sampling disabled */
 #define IRDA_ONE_BIT_SAMPLE_ENABLE     USART_CR3_ONEBIT	/*!< One-bit sampling enabled  */
 
 /**
@@ -437,9 +437,9 @@ typedef  void (*pIRDA_CallbackTypeDef)(IRDA_HandleTypeDef *hirda);	/*!< pointer 
  */
 #define IRDA_IT_MASK     0x001FU/*!< IRDA Interruptions flags mask  */
 #define IRDA_CR_MASK     0x00E0U/*!< IRDA control register mask     */
-#define IRDA_CR_POS      5U		/*!< IRDA control register position */
+#define IRDA_CR_POS      5U	/*!< IRDA control register position */
 #define IRDA_ISR_MASK    0x1F00U/*!< IRDA ISR register mask         */
-#define IRDA_ISR_POS     8U		/*!< IRDA ISR register position     */
+#define IRDA_ISR_POS     8U	/*!< IRDA ISR register position     */
 
 /**
  * @}

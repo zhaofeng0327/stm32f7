@@ -189,7 +189,7 @@ typedef struct {
 #define LL_USART_ISR_TXE      USART_ISR_TXE	/*!< Transmit data register empty flag */
 #define LL_USART_ISR_LBDF     USART_ISR_LBDF/*!< LIN break detection flag */
 #define LL_USART_ISR_CTSIF    USART_ISR_CTSIF	/*!< CTS interrupt flag */
-#define LL_USART_ISR_CTS      USART_ISR_CTS	/*!< CTS flag */
+#define LL_USART_ISR_CTS      USART_ISR_CTS		/*!< CTS flag */
 #define LL_USART_ISR_RTOF     USART_ISR_RTOF/*!< Receiver timeout flag */
 #define LL_USART_ISR_EOBF     USART_ISR_EOBF/*!< End of block flag */
 #define LL_USART_ISR_ABRE     USART_ISR_ABRE/*!< Auto baud rate error flag */
@@ -197,7 +197,7 @@ typedef struct {
 #define LL_USART_ISR_BUSY     USART_ISR_BUSY/*!< Busy flag */
 #define LL_USART_ISR_CMF      USART_ISR_CMF	/*!< Character match flag */
 #define LL_USART_ISR_SBKF     USART_ISR_SBKF/*!< Send break flag */
-#define LL_USART_ISR_RWU      USART_ISR_RWU	/*!< Receiver wakeup from Mute mode flag */
+#define LL_USART_ISR_RWU      USART_ISR_RWU		/*!< Receiver wakeup from Mute mode flag */
 #define LL_USART_ISR_TEACK    USART_ISR_TEACK	/*!< Transmit enable acknowledge flag */
 #if defined(USART_TCBGT_SUPPORT)
 #define LL_USART_ISR_TCBGT    USART_ISR_TCBGT	/*!< Transmission complete before guard time completion flag */
@@ -245,8 +245,8 @@ typedef struct {
 /** @defgroup USART_LL_EC_PARITY Parity Control
  * @{
  */
-#define LL_USART_PARITY_NONE    0x00000000U		/*!< Parity control disabled */
-#define LL_USART_PARITY_EVEN    USART_CR1_PCE	/*!< Parity control enabled and Even Parity is selected */
+#define LL_USART_PARITY_NONE    0x00000000U						/*!< Parity control disabled */
+#define LL_USART_PARITY_EVEN    USART_CR1_PCE					/*!< Parity control enabled and Even Parity is selected */
 #define LL_USART_PARITY_ODD     (USART_CR1_PCE | USART_CR1_PS)	/*!< Parity control enabled and Odd Parity is selected */
 
 /**
@@ -290,7 +290,7 @@ typedef struct {
  * @{
  */
 
-#define LL_USART_CLOCK_DISABLE    0x00000000U	/*!< Clock signal not provided */
+#define LL_USART_CLOCK_DISABLE    0x00000000U		/*!< Clock signal not provided */
 #define LL_USART_CLOCK_ENABLE     USART_CR2_CLKEN	/*!< Clock signal provided */
 
 /**
@@ -311,7 +311,7 @@ typedef struct {
 /** @defgroup USART_LL_EC_PHASE Clock Phase
  * @{
  */
-#define LL_USART_PHASE_1EDGE    0x00000000U	/*!< The first clock transition is the first data capture edge */
+#define LL_USART_PHASE_1EDGE    0x00000000U		/*!< The first clock transition is the first data capture edge */
 #define LL_USART_PHASE_2EDGE    USART_CR2_CPHA	/*!< The second clock transition is the first data capture edge */
 
 /**
@@ -331,10 +331,10 @@ typedef struct {
 /** @defgroup USART_LL_EC_STOPBITS Stop Bits
  * @{
  */
-#define LL_USART_STOPBITS_0_5    USART_CR2_STOP_0	/*!< 0.5 stop bit */
-#define LL_USART_STOPBITS_1      0x00000000U		/*!< 1 stop bit */
+#define LL_USART_STOPBITS_0_5    USART_CR2_STOP_0						/*!< 0.5 stop bit */
+#define LL_USART_STOPBITS_1      0x00000000U							/*!< 1 stop bit */
 #define LL_USART_STOPBITS_1_5    (USART_CR2_STOP_0 | USART_CR2_STOP_1)	/*!< 1.5 stop bits */
-#define LL_USART_STOPBITS_2      USART_CR2_STOP_1	/*!< 2 stop bits */
+#define LL_USART_STOPBITS_2      USART_CR2_STOP_1						/*!< 2 stop bits */
 
 /**
  * @}
@@ -343,7 +343,7 @@ typedef struct {
 /** @defgroup USART_LL_EC_TXRX TX RX Pins Swap
  * @{
  */
-#define LL_USART_TXRX_STANDARD    0x00000000U	/*!< TX/RX pins are used as defined in standard pinout */
+#define LL_USART_TXRX_STANDARD    0x00000000U		/*!< TX/RX pins are used as defined in standard pinout */
 #define LL_USART_TXRX_SWAPPED     (USART_CR2_SWAP)	/*!< TX and RX pins functions are swapped.             */
 
 /**
@@ -383,7 +383,7 @@ typedef struct {
 /** @defgroup USART_LL_EC_BITORDER Bit Order
  * @{
  */
-#define LL_USART_BITORDER_LSBFIRST    0x00000000U		/*!< data is transmitted/received with data bit 0 first, following the start bit */
+#define LL_USART_BITORDER_LSBFIRST    0x00000000U	/*!< data is transmitted/received with data bit 0 first, following the start bit */
 #define LL_USART_BITORDER_MSBFIRST    USART_CR2_MSBFIRST/*!< data is transmitted/received with the MSB first, following the start bit */
 
 /**
@@ -393,9 +393,9 @@ typedef struct {
 /** @defgroup USART_LL_EC_AUTOBAUD_DETECT_ON Autobaud Detection
  * @{
  */
-#define LL_USART_AUTOBAUD_DETECT_ON_STARTBIT       0x00000000U			/*!< Measurement of the start bit is used to detect the baud rate */
-#define LL_USART_AUTOBAUD_DETECT_ON_FALLINGEDGE    USART_CR2_ABRMODE_0	/*!< Falling edge to falling edge measurement. Received frame must start with a single bit = 1 -> Frame = Start10xxxxxx */
-#define LL_USART_AUTOBAUD_DETECT_ON_7F_FRAME       USART_CR2_ABRMODE_1	/*!< 0x7F frame detection */
+#define LL_USART_AUTOBAUD_DETECT_ON_STARTBIT       0x00000000U									/*!< Measurement of the start bit is used to detect the baud rate */
+#define LL_USART_AUTOBAUD_DETECT_ON_FALLINGEDGE    USART_CR2_ABRMODE_0							/*!< Falling edge to falling edge measurement. Received frame must start with a single bit = 1 -> Frame = Start10xxxxxx */
+#define LL_USART_AUTOBAUD_DETECT_ON_7F_FRAME       USART_CR2_ABRMODE_1							/*!< 0x7F frame detection */
 #define LL_USART_AUTOBAUD_DETECT_ON_55_FRAME       (USART_CR2_ABRMODE_1 | USART_CR2_ABRMODE_0)	/*!< 0x55 frame detection */
 
 /**
@@ -437,7 +437,7 @@ typedef struct {
 /** @defgroup USART_LL_EC_LINBREAK_DETECT LIN Break Detection Length
  * @{
  */
-#define LL_USART_LINBREAK_DETECT_10B    0x00000000U	/*!< 10-bit break detection method selected */
+#define LL_USART_LINBREAK_DETECT_10B    0x00000000U		/*!< 10-bit break detection method selected */
 #define LL_USART_LINBREAK_DETECT_11B    USART_CR2_LBDL	/*!< 11-bit break detection method selected */
 
 /**

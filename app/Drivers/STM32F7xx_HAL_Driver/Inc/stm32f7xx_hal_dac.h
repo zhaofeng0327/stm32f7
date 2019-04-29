@@ -153,17 +153,17 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
  * @{
  */
 
-#define DAC_TRIGGER_NONE        ((uint32_t) 0x00000000U)									/*!< Conversion is automatic once the DAC1_DHRxxxx register
-																							 *  has been loaded, and not by external trigger */
-#define DAC_TRIGGER_T2_TRGO     ((uint32_t) (DAC_CR_TSEL1_2 | DAC_CR_TEN1))					/*!< TIM2 TRGO selected as external conversion trigger for DAC channel */
+#define DAC_TRIGGER_NONE        ((uint32_t) 0x00000000U)					/*!< Conversion is automatic once the DAC1_DHRxxxx register
+																			 *  has been loaded, and not by external trigger */
+#define DAC_TRIGGER_T2_TRGO     ((uint32_t) (DAC_CR_TSEL1_2 | DAC_CR_TEN1))	/*!< TIM2 TRGO selected as external conversion trigger for DAC channel */
 #define DAC_TRIGGER_T4_TRGO     ((uint32_t) (DAC_CR_TSEL1_2 | DAC_CR_TSEL1_0 | DAC_CR_TEN1))/*!< TIM4 TRGO selected as external conversion trigger for DAC channel */
 #define DAC_TRIGGER_T5_TRGO     ((uint32_t) (DAC_CR_TSEL1_1 | DAC_CR_TSEL1_0 | DAC_CR_TEN1))/*!< TIM5 TRGO selected as external conversion trigger for DAC channel */
-#define DAC_TRIGGER_T6_TRGO     ((uint32_t) DAC_CR_TEN1)									/*!< TIM6 TRGO selected as external conversion trigger for DAC channel */
-#define DAC_TRIGGER_T7_TRGO     ((uint32_t) (DAC_CR_TSEL1_1 | DAC_CR_TEN1))					/*!< TIM7 TRGO selected as external conversion trigger for DAC channel */
-#define DAC_TRIGGER_T8_TRGO     ((uint32_t) (DAC_CR_TSEL1_0 | DAC_CR_TEN1))					/*!< TIM8 TRGO selected as external conversion trigger for DAC channel */
+#define DAC_TRIGGER_T6_TRGO     ((uint32_t) DAC_CR_TEN1)					/*!< TIM6 TRGO selected as external conversion trigger for DAC channel */
+#define DAC_TRIGGER_T7_TRGO     ((uint32_t) (DAC_CR_TSEL1_1 | DAC_CR_TEN1))	/*!< TIM7 TRGO selected as external conversion trigger for DAC channel */
+#define DAC_TRIGGER_T8_TRGO     ((uint32_t) (DAC_CR_TSEL1_0 | DAC_CR_TEN1))	/*!< TIM8 TRGO selected as external conversion trigger for DAC channel */
 
 #define DAC_TRIGGER_EXT_IT9     ((uint32_t) (DAC_CR_TSEL1_2 | DAC_CR_TSEL1_1 | DAC_CR_TEN1))/*!< EXTI Line9 event selected as external conversion trigger for DAC channel */
-#define DAC_TRIGGER_SOFTWARE    ((uint32_t) (DAC_CR_TSEL1 | DAC_CR_TEN1))					/*!< Conversion started by software trigger for DAC channel */
+#define DAC_TRIGGER_SOFTWARE    ((uint32_t) (DAC_CR_TSEL1 | DAC_CR_TEN1))	/*!< Conversion started by software trigger for DAC channel */
 
 /**
  * @}

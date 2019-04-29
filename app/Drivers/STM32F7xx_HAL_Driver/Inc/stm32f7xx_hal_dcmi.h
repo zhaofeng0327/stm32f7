@@ -258,9 +258,9 @@ typedef void (*pDCMI_CallbackTypeDef)(DCMI_HandleTypeDef *hdcmi);
 /** @defgroup DCMI_Extended_Data_Mode DCMI Extended Data Mode
  * @{
  */
-#define DCMI_EXTEND_DATA_8B     ((uint32_t) 0x00000000U)					/*!< Interface captures 8-bit data on every pixel clock  */
-#define DCMI_EXTEND_DATA_10B    ((uint32_t) DCMI_CR_EDM_0)					/*!< Interface captures 10-bit data on every pixel clock */
-#define DCMI_EXTEND_DATA_12B    ((uint32_t) DCMI_CR_EDM_1)					/*!< Interface captures 12-bit data on every pixel clock */
+#define DCMI_EXTEND_DATA_8B     ((uint32_t) 0x00000000U)	/*!< Interface captures 8-bit data on every pixel clock  */
+#define DCMI_EXTEND_DATA_10B    ((uint32_t) DCMI_CR_EDM_0)	/*!< Interface captures 10-bit data on every pixel clock */
+#define DCMI_EXTEND_DATA_12B    ((uint32_t) DCMI_CR_EDM_1)	/*!< Interface captures 12-bit data on every pixel clock */
 #define DCMI_EXTEND_DATA_14B    ((uint32_t) (DCMI_CR_EDM_0 | DCMI_CR_EDM_1))/*!< Interface captures 14-bit data on every pixel clock */
 
 /**
@@ -334,9 +334,9 @@ typedef void (*pDCMI_CallbackTypeDef)(DCMI_HandleTypeDef *hdcmi);
 /** @defgroup DCMI_Byte_Select_Mode DCMI Byte Select Mode
  * @{
  */
-#define DCMI_BSM_ALL            ((uint32_t) 0x00000000U)					/*!< Interface captures all received data */
-#define DCMI_BSM_OTHER          ((uint32_t) DCMI_CR_BSM_0)					/*!< Interface captures every other byte from the received data */
-#define DCMI_BSM_ALTERNATE_4    ((uint32_t) DCMI_CR_BSM_1)					/*!< Interface captures one byte out of four */
+#define DCMI_BSM_ALL            ((uint32_t) 0x00000000U)	/*!< Interface captures all received data */
+#define DCMI_BSM_OTHER          ((uint32_t) DCMI_CR_BSM_0)	/*!< Interface captures every other byte from the received data */
+#define DCMI_BSM_ALTERNATE_4    ((uint32_t) DCMI_CR_BSM_1)	/*!< Interface captures one byte out of four */
 #define DCMI_BSM_ALTERNATE_2    ((uint32_t) (DCMI_CR_BSM_0 | DCMI_CR_BSM_1))/*!< Interface captures two bytes out of four */
 
 /**
