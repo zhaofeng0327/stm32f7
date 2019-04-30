@@ -33,7 +33,11 @@
 #include "usart.h"
 #include "wwdg.h"
 #include "gpio.h"
+
+#ifdef TEST
 #include "apl_log.h"
+#include "fml_slot.h"
+#endif
 
 #ifdef STM32F730xx
 #include "aes.h"
@@ -136,6 +140,7 @@ int main(void)
 	/* Call init function for freertos objects (in freertos.c) */
 #ifdef TEST
 	log_module_test();
+	fml_slot_test();
 #else
 	MX_FREERTOS_Init();
 #endif

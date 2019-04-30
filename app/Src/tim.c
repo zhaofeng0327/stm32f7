@@ -32,9 +32,9 @@ void MX_TIM6_Init(void)
 	TIM_MasterConfigTypeDef sMasterConfig = { 0 };
 
 	htim6.Instance               = TIM6;
-	htim6.Init.Prescaler         = 51;
+	htim6.Init.Prescaler         = 103;
 	htim6.Init.CounterMode       = TIM_COUNTERMODE_UP;
-	htim6.Init.Period            = 999;
+	htim6.Init.Period            = 49999;
 	htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
 	if (HAL_TIM_Base_Init(&htim6) != HAL_OK) {
 		Error_Handler();
@@ -44,6 +44,7 @@ void MX_TIM6_Init(void)
 	if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK) {
 		Error_Handler();
 	}
+	HAL_TIM_Base_Start_IT(&htim6);
 }
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *tim_baseHandle)
