@@ -37,6 +37,8 @@
 #ifdef TEST
 #include "apl_log.h"
 #include "fml_slot.h"
+#include "jd_fml_gprs.h"
+
 #endif
 
 #ifdef STM32F730xx
@@ -109,6 +111,7 @@ int main(void)
 	/* USER CODE END SysInit */
 
 	/* Initialize all configured peripherals */
+	#if 1
 	MX_GPIO_Init();
 	MX_ADC1_Init();
 	MX_QUADSPI_Init();
@@ -130,7 +133,7 @@ int main(void)
 	#ifdef STM32F730xx
 	MX_AES_Init();
 	#endif
-
+#endif
 	/* Initialize interrupts */
 	MX_NVIC_Init();
 	/* USER CODE BEGIN 2 */
@@ -139,8 +142,9 @@ int main(void)
 
 	/* Call init function for freertos objects (in freertos.c) */
 #ifdef TEST
-	log_module_test();
-	fml_slot_test();
+	//log_module_test();
+	//fml_slot_test();
+    gprs_module_test();
 #else
 	MX_FREERTOS_Init();
 #endif
