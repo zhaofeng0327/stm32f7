@@ -7,10 +7,10 @@
 #include "uart_comm.h"
 
 typedef struct {
-	uint32_t head;
-	uint32_t tail;
-	uint32_t len;
-	u8 ring_buf[LLC_PACK_SZ_MAX];
+	uint32_t	head;
+	uint32_t	tail;
+	uint32_t	len;
+	u8		ring_buf[LLC_PACK_SZ_MAX];
 }RingBuf;
 
 RingBuf uart2_ringbuf;
@@ -28,19 +28,45 @@ uint8_t uart6_ch;
 osMutexDef(uart_rx_mtx);
 osMutexId uart_rx_mtx_id;
 
+UART_PIN_T uart2_chn0_pin = {
+	.tx = {
+		.gp = GPIOD,
+		.pin = GPIO_PIN_5,
+		.alt = GPIO_AF7_USART2,
+	},
+	.rx = {
+		.gp = GPIOA,
+		.pin = GPIO_PIN_3,
+		.alt = GPIO_AF7_USART2,
+	},
+};
+
+
+UART_PIN_T uart2_chn2_pin = {
+	.tx = {
+		.gp = GPIOA,
+		.pin = GPIO_PIN_2,
+		.alt = GPIO_AF7_USART2,
+	},
+	.rx = {
+		.gp = GPIOD,
+		.pin = GPIO_PIN_6,
+		.alt = GPIO_AF7_USART2,
+	},
+};
+
 void init_ringbuf(RingBuf *rbuf)
 {
-	memset(rbuf, 0,  sizeof(RingBuf));
+	memset(rbuf, 0, sizeof(RingBuf));
 }
 
 int write_ringbuf(RingBuf *rbuf, u8 data)
 {
-	if(rbuf->len >= LLC_PACK_SZ_MAX) //判断缓冲区是否已满
-	{
+	if (rbuf->len >= LLC_PACK_SZ_MAX) //判断缓冲区是否已满
+
 		return 0;
-	}
 	rbuf->ring_buf[rbuf->tail++] = data;
-	rbuf->tail = (rbuf->tail)%LLC_PACK_SZ_MAX;//防止越界非法访问
+	rbuf->tail = (rbuf->tail) % LLC_PACK_SZ_MAX;//防止越界非法访问
 	rbuf->len++;
 	return 1;
 }
@@ -59,7 +85,7 @@ void uart_config(UART_HandleTypeDef *hdl, USART_TypeDef *num)
 	hdl->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
 }
 
-void * jz_uart_init_ex(int usart_no)
+void *jz_uart_init_ex(int usart_no)
 {
 	debug("%s %d>>>>>\r\n", __func__, usart_no);
 
@@ -74,58 +100,64 @@ void * jz_uart_init_ex(int usart_no)
 			return &huart2;
 		}
 	}
-/*        
-	else if (4 == usart_no) {
-
-		uart_config(&huart4, UART4);
-		if (HAL_HalfDuplex_Init(&huart4) != HAL_OK) {
-			debug("uart4 init error\r\n");
-			return NULL;
-		} else {
-			init_ringbuf(&uart4_ringbuf);
-			HAL_UART_Receive_IT(&huart4, (uint8_t *)&uart4_ch, 1);
-			return &huart4;
-		}
-	}
-	else if (6 == usart_no) {
-		uart_config(&huart6, USART6);
-		if (HAL_UART_Init(&huart6) != HAL_OK) {
-			debug("uart6 init error\r\n");
-			return NULL;
-		} else {
-			init_ringbuf(&uart6_ringbuf);
-			HAL_UART_Receive_IT(&huart6, (uint8_t *)&uart6_ch, 1);
-			return &huart6;
-		}
-	}
-*/
+/*
+ *      else if (4 == usart_no) {
+ *
+ *              uart_config(&huart4, UART4);
+ *              if (HAL_HalfDuplex_Init(&huart4) != HAL_OK) {
+ *                      debug("uart4 init error\r\n");
+ *                      return NULL;
+ *              } else {
+ *                      init_ringbuf(&uart4_ringbuf);
+ *                      HAL_UART_Receive_IT(&huart4, (uint8_t *)&uart4_ch, 1);
+ *                      return &huart4;
+ *              }
+ *      }
+ *      else if (6 == usart_no) {
+ *              uart_config(&huart6, USART6);
+ *              if (HAL_UART_Init(&huart6) != HAL_OK) {
+ *                      debug("uart6 init error\r\n");
+ *                      return NULL;
+ *              } else {
+ *                      init_ringbuf(&uart6_ringbuf);
+ *                      HAL_UART_Receive_IT(&huart6, (uint8_t *)&uart6_ch, 1);
+ *                      return &huart6;
+ *              }
+ *      }
+ */
 	return NULL;
 }
 
 void jz_uart_close_ex(void *fd)
 {
-	debug("%s >>>>>\r\n",__func__);
+	debug("%s >>>>>\r\n", __func__);
 	HAL_UART_DeInit(fd);
+/*
+	UART_HandleTypeDef *hdl = (UART_HandleTypeDef *)fd;
+	USART_TypeDef *ins = hdl->Instance;
+	if (USART2 == ins)
+		init_ringbuf(&uart2_ringbuf);
+*/
 }
 
-int jz_uart_write_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec*/)
+int jz_uart_write_ex(void *fd, u8 *buffer, int lens, uint32_t ulTimeout /*millisec*/)
 {
 	int ret = 0;
-	if (lens <=  0)
+
+	if (lens <= 0)
 		return 0;
 
-	UART_HandleTypeDef* hdl = (UART_HandleTypeDef*)fd;
-	USART_TypeDef* ins = hdl->Instance;
+	UART_HandleTypeDef *hdl = (UART_HandleTypeDef *)fd;
+	USART_TypeDef *ins = hdl->Instance;
 
-	if (UART4 == ins) {
+	if (UART4 == ins)
 		HAL_HalfDuplex_EnableTransmitter(hdl);
-	}
 
 	HAL_UART_Transmit(fd, buffer, lens, ulTimeout);
 	ret = lens - hdl->TxXferCount;
 
 	if (USART2 == ins) {
-		HAL_UART_Receive_IT(hdl, (uint8_t *)&uart2_ch, 1);
+		//HAL_UART_Receive_IT(hdl, (uint8_t *)&uart2_ch, 1);
 	} else if (UART4 == ins) {
 		HAL_HalfDuplex_EnableReceiver(hdl);
 		HAL_UART_Receive_IT(hdl, (uint8_t *)&uart4_ch, 1);
@@ -151,22 +183,23 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 
 
 
-int jz_uart_read_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec*/)
+int jz_uart_read_ex(void *fd, u8 *buffer, int lens, uint32_t ulTimeout /*millisec*/)
 {
 	uint32_t timeout = 0;
 	uint32_t r = 0;
 	uint32_t olen = 0;
 	RingBuf *rb = 0;
 	uint32_t d = 5;
+
 	if (NULL == fd)
 		return 0;
 
-	UART_HandleTypeDef* hdl = (UART_HandleTypeDef*)fd;
-	USART_TypeDef* ins = hdl->Instance;
+	UART_HandleTypeDef *hdl = (UART_HandleTypeDef *)fd;
+	USART_TypeDef *ins = hdl->Instance;
 
 	if (USART2 == ins) {
 		rb = &uart2_ringbuf;
-		d = 2;
+		d = 1;
 	} else if (UART4 == ins) {
 		rb = &uart4_ringbuf;
 		d = 1;
@@ -179,7 +212,7 @@ int jz_uart_read_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec
 
 	while (1) {
 		if (rb->len == olen) {
-			vTaskDelay(d);
+			jd_om_msleep(d);
 			if (timeout++ > 10) {
 				timeout = 0;
 
@@ -198,45 +231,49 @@ int jz_uart_read_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec
 			timeout = 0;
 		}
 	}
-
 }
 
-UART_PIN_T uart2_pin;
-
-void set_uart_pin(USART_TypeDef *inst, UART_PIN_T *pin)
-{
-	if (USART2 == inst) {
-		memcpy(&uart2_pin, pin, sizeof(UART_PIN_T));
-	}
-}
 
 void get_uart_pin(USART_TypeDef *inst, UART_PIN_T *pin)
 {
 	if (USART2 == inst) {
-		memcpy(pin, &uart2_pin, sizeof(UART_PIN_T));
+
+		switch (get_uart_channel()) {
+		case 0:
+			memcpy(pin, &uart2_chn0_pin, sizeof(UART_PIN_T));
+			break;
+		case 2:
+			memcpy(pin, &uart2_chn2_pin, sizeof(UART_PIN_T));
+			break;
+		default:
+			break;
+		}
+
 	}
 }
-
 int uart_gpio_init(USART_TypeDef *inst)
 {
 	int num = get_uart_channel();
 
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
+	GPIO_InitTypeDef GPIO_InitStruct = { 0 };
+	UART_PIN_T pin;
+
+	get_uart_pin(inst, &pin);
 
 	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	GPIO_InitStruct.Pin = pin.tx.pin;
+	GPIO_InitStruct.Alternate = pin.tx.alt;
+	HAL_GPIO_Init(pin.tx.gp, &GPIO_InitStruct);
 
-	UART_PIN_T pin;
-	get_uart_pin(inst, &pin);
-
+	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 	GPIO_InitStruct.Pin = pin.rx.pin;
 	GPIO_InitStruct.Alternate = pin.rx.alt;
 	HAL_GPIO_Init(pin.rx.gp, &GPIO_InitStruct);
 
-	GPIO_InitStruct.Pin = pin.tx.pin;
-	GPIO_InitStruct.Alternate = pin.tx.alt;
-	HAL_GPIO_Init(pin.tx.gp, &GPIO_InitStruct);
 
 	return 0;
 }
@@ -244,12 +281,28 @@ int uart_gpio_init(USART_TypeDef *inst)
 int uart_gpio_deinit(USART_TypeDef *inst)
 {
 	UART_PIN_T pin;
+
 	get_uart_pin(inst, &pin);
 
 	HAL_GPIO_DeInit(pin.tx.gp, pin.tx.pin);
 	HAL_GPIO_DeInit(pin.rx.gp, pin.rx.pin);
 
 	return 0;
+	GPIO_InitTypeDef GPIO_InitStruct = { 0 };
+
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	GPIO_InitStruct.Pin = pin.tx.pin;
+
+	HAL_GPIO_Init(pin.tx.gp, &GPIO_InitStruct);
+
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	GPIO_InitStruct.Pin = pin.rx.pin;
+
+	HAL_GPIO_Init(pin.rx.gp, &GPIO_InitStruct);
+
+
 }
-
-

@@ -17,7 +17,7 @@ unsigned char cipher[32];
 
 UART_COMM_DES_T uart_comm_des;
 JD_OM_MUTEX mutex_channel_select;
-jd_om_comm uart_channels[UART_CNT];
+jd_om_comm uart_channels[UART_CNT+1];
 int active_channel = -1;
 
 static RECV_FILE_DES recv_file_des;
@@ -38,51 +38,28 @@ RES_BAT_PASSWD_CHKSUM_T br_psw_chk;
 	{ #name#id, (thread), (priority), (instances), (stacksz)}
 
 
-UART_PIN_T uart2_chn0_pin = {
-	.tx = {
-		.gp = GPIOD,
-		.pin = GPIO_PIN_5,
-		.alt = GPIO_AF7_USART2,
-	},
-	.rx = {
-		.gp = GPIOA,
-		.pin = GPIO_PIN_3,
-		.alt = GPIO_AF7_USART2,
-	},
-};
-
-
-UART_PIN_T uart2_chn2_pin = {
-	.tx = {
-		.gp = GPIOA,
-		.pin = GPIO_PIN_2,
-		.alt = GPIO_AF7_USART2,
-	},
-	.rx = {
-		.gp = GPIOD,
-		.pin = GPIO_PIN_6,
-		.alt = GPIO_AF7_USART2,
-	},
-};
-
 void select_uart_channel(int num)
 {
 	if (active_channel == num)
 		return;
 
+	if (num == 2) {
+		if (-1 == jd_om_comm_close(&uart_channels[0]))
+			printf("close chn 0 err\r\n");
+	} else if (0 == num) {
+		if (-1 == jd_om_comm_close(&uart_channels[2]))
+			printf("close chn 2 err\r\n");
+	}
+
 	jd_om_mutex_lock(&(mutex_channel_select));
 	active_channel = num;
 	jd_om_mutex_unlock(&(mutex_channel_select));
-        return;
+//        return;
+
 	if (num == 2 || num == 0) {
 
-		if (num == 2) {
-			jd_om_comm_close(&uart_channels[0]);
-			set_uart_pin(USART2, &uart2_chn2_pin);
-		} else if (0 == num) {
-			//jd_om_comm_close(&uart_channels[2]);
-			set_uart_pin(USART2, &uart2_chn0_pin);
-		}
+	if (uart_comm_des.thread_uart_recv[0])
+		osThreadTerminate(uart_comm_des.thread_uart_recv[0]);
 
 		int ret = 0;
 		jd_om_comm_addr local_addr;
@@ -91,11 +68,31 @@ void select_uart_channel(int num)
 		local_addr.addr = tlc_iaddr("1.0.0");
 		addr_mask.addr = tlc_iaddr("255.0.0");
 
+		memset(&uart_channels[0], 0, sizeof(jd_om_comm));
+		memset(&uart_channels[2], 0, sizeof(jd_om_comm));
 		ret = jd_om_comm_open(&uart_channels[num], &local_addr, &addr_mask, 2);
 		if (0 != ret) {
 			dzlog_error("open uart channel %d fail ret %d.\r\n", num, ret);
 			vTaskSuspend(NULL);
+		} else {
+
+			if (num == 0)
+				memcpy(&uart_channels[2], &uart_channels[0], sizeof(jd_om_comm));
+			else
+				memcpy(&uart_channels[0], &uart_channels[2], sizeof(jd_om_comm));
+
 		}
+
+		THREAD_DEF(uartRecv, 0, uart_recv_task, osPriorityHigh, 0, 1024);
+		uart_comm_des.thread_uart_recv[0] = osThreadCreate(TRHEAD_NAME_ID(uartRecv, 0), &uart_channels[0]);
+		if (NULL == uart_comm_des.thread_uart_recv[0]) {
+			printf("create Uart recv Task %d failed!.\r\n", 0);
+			while (1);
+		} else {
+			printf("Uart recv task %d create successful !\r\n", 0);
+		}
+
+		osDelay(100);
 	}
 
 }
@@ -2032,20 +2029,11 @@ int start_uart_service()
 	jd_master_com_get_communication_cipher(sizeof(uart_hdl->cipher),uart_hdl->cipher);
 #endif
 
+
+
+/*
 	local_addr.addr = tlc_iaddr("1.0.0");
 	addr_mask.addr = tlc_iaddr("255.0.0");
-	select_uart_channel(0);
-#if 1
-	ret = jd_om_comm_open(&uart_channels[0], &local_addr, &addr_mask, 2);
-	if (0 != ret) {
-		dzlog_error("open uart number %d fail ret %d.\r\n", 4, ret);
-		vTaskSuspend(NULL);
-	}
-	select_uart_channel(0);
-#else
-	memcpy(&uart_channels[2], &uart_channels[0], sizeof(jd_om_comm));
-#endif
-/*
 	ret = jd_om_comm_open(&uart_channels[1], &local_addr, &addr_mask, 6);
 	if (0 != ret) {
 		dzlog_error("open uart number %d fail ret %d.\r\n", 4, ret);
@@ -2080,8 +2068,8 @@ int start_uart_service()
 		printf("Uart_recv_queue_task create successful !\r\n");
 	}
 
-
-
+#if 0
+	printf("remember only one recv task\r\n");
 	/* definition and creation of uartRecv */
 	for (int i = 0; i < UART_CNT; i++) {
 		THREAD_DEF(uartRecv, i, uart_recv_task, osPriorityNormal, 0, 1024);
@@ -2093,7 +2081,7 @@ int start_uart_service()
 			printf("Uart recv task %d create successful !\r\n", i);
 		}
 	}
-
+#endif
 
 #else
 	osThreadDef(uartTask, uart_task, osPriorityNormal, 0, 5120);

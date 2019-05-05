@@ -9,31 +9,30 @@
 
 void toogle_uart()
 {
-	static int chn = 0;
-	if (chn == 0) {
-		chn = 2;
-	} else {
-		chn = 0;
-	}
+	int chn = get_uart_channel();
 
-	select_uart_channel(chn);
-
+	if (2 == chn)
+		select_uart_channel(0);
+	else if (0 == chn)
+		select_uart_channel(2);
 }
 
 void test_bat_protoc()
 {
-	//toogle_uart();
-
-
+	select_uart_channel(2);
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 	BATTERY_INFO_T info;
 	battery_get_info(1, &info);
-	//osDelay(1000);
 
-	return;
+	select_uart_channel(0);
+	osDelay(1000);
+	//select_uart_channel(0);
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 	battery_set_sn_psw("ABCD123456", 10, "pppssswwwd", 10);
-	osDelay(5000);
+	osDelay(1000);
+
+	return;
+
 
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 	battery_decode("pppssswwwd", 10);

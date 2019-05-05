@@ -1094,9 +1094,6 @@
                 </file>
             </group>
             <file>
-                <name>$PROJ_DIR$\..\Src\eth.c</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\Src\freertos.c</name>
             </file>
             <file>

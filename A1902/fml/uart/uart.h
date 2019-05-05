@@ -32,7 +32,5 @@ EXPORT_API int jz_uart_write_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeo
 EXPORT_API int jz_uart_read_ex(void *fd, u8 * buffer, int lens,uint32_t ulTimeout/*millisec*/);
 int uart_gpio_init(USART_TypeDef *inst);
 int uart_gpio_deinit(USART_TypeDef *inst);
-void set_uart_pin(USART_TypeDef *inst, UART_PIN_T *pin);
-void get_uart_pin(USART_TypeDef *inst, UART_PIN_T *pin);
 
 #endif

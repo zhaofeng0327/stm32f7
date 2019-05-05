@@ -32,7 +32,7 @@ static void stptlc_ack(stptlc * tlc ,u8* buffer,tlc_addr toaddr);
 
 u8 wait_ack(stptlc * tlc) {
 	u8 ret = 0;
-	u32 waittime = TLC_RRT_MS*6;
+	u32 waittime = TLC_RRT_MS*3;
 	u32 tick = 4;
 	while (!tlc->exit) {
 		if ( tlc->ack_id == tlc->session_id ) {
