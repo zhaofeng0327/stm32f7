@@ -1,7 +1,7 @@
+#include <stdio.h>
 #include "apl_log.h"
 #include "bll_log.h"
 #include "jd_os_middleware.h"
-#include "stdio.h"
 #define LOG_TAG "LOG"
 
 // 日志添加队列回调

@@ -47,7 +47,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "apl_bat_in.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -137,7 +137,7 @@ int main(void)
 	/* Initialize interrupts */
 	MX_NVIC_Init();
 	/* USER CODE BEGIN 2 */
-
+	create_bat_in_check_task();
 	/* USER CODE END 2 */
 
 	/* Call init function for freertos objects (in freertos.c) */

@@ -26,6 +26,8 @@ typedef SemaphoreHandle_t JD_OM_SEM;
 typedef SemaphoreHandle_t JD_OM_MUTEX;
 typedef TaskHandle_t JD_OM_THREAD;
 
+#define bat_in_check_task_PRIORITY (configMAX_PRIORITIES - 1)
+
 #define logTest_task_PRIORITY (configMAX_PRIORITIES - 1)
 #define fml_slot_Test_task_PRIORITY (configMAX_PRIORITIES - 1)
 
