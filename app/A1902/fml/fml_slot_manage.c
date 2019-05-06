@@ -1,6 +1,6 @@
 #include "stm32f7xx_hal.h"
 #include "main.h"
-#include "fml_slot.h"
+#include "fml_slot_manage.h"
 #include "fml_log.h"
 
 #define LOG_TAG "FSLOT"

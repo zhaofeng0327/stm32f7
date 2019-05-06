@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "stm32f7xx_hal.h"
-#include "apl_bat_in.h"
+#include "apl_exti_chk.h"
 #include "jd_os_middleware.h"
 #include "apl_log.h"
-#include "fml_slot.h"
+#include "bll_slot_manage.h"
 #include "FreeRTOS.h"
 #include "timers.h"
 
@@ -42,10 +42,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     xHigherPriorityTaskWoken = pdFALSE;
     uint32_t check_bit = REVSER_BIT;
     io_state_e io_state = LOW_LEVEL;
-    // io_state_e io_state = fml_slot_manage_swb_read(GPIO_Pin);
+    // io_state_e io_state = bll_slot_manage_swb_read(GPIO_Pin);
     switch (GPIO_Pin) {
         case GPIO_PIN_1:
-            io_state = fml_slot_manage_swb_read(SLOT_6);
+            io_state = bll_slot_manage_swb_read(SLOT_6);
             if (io_state == HIGH_LEVEL) {
                 check_bit = BAT_6_RISE_BIT;
             } else {
@@ -53,7 +53,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
             }
             break;
         case GPIO_PIN_4:
-            io_state = fml_slot_manage_swb_read(SLOT_5);
+            io_state = bll_slot_manage_swb_read(SLOT_5);
             if (io_state == HIGH_LEVEL) {
                 check_bit = BAT_5_RISE_BIT;
             } else {
@@ -61,7 +61,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
             }
             break;
         case GPIO_PIN_7:
-            io_state = fml_slot_manage_swb_read(SLOT_7);
+            io_state = bll_slot_manage_swb_read(SLOT_7);
             if (io_state == HIGH_LEVEL) {
                 check_bit = BAT_7_RISE_BIT;
             } else {
@@ -69,7 +69,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
             }
             break;
         case GPIO_PIN_9:
-            io_state = fml_slot_manage_swb_read(SLOT_2);
+            io_state = bll_slot_manage_swb_read(SLOT_2);
             if (io_state == HIGH_LEVEL) {
                 check_bit = BAT_2_RISE_BIT;
             } else {
@@ -77,7 +77,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
             }
             break;
         case GPIO_PIN_11:
-            io_state = fml_slot_manage_swb_read(SLOT_8);
+            io_state = bll_slot_manage_swb_read(SLOT_8);
             if (io_state == HIGH_LEVEL) {
                 check_bit = BAT_8_RISE_BIT;
             } else {
@@ -85,7 +85,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
             }
             break;
         case GPIO_PIN_12:
-            io_state = fml_slot_manage_swb_read(SLOT_1);
+            io_state = bll_slot_manage_swb_read(SLOT_1);
             if (io_state == HIGH_LEVEL) {
                 check_bit = BAT_1_RISE_BIT;
             } else {
@@ -93,7 +93,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
             }
             break;
         case GPIO_PIN_13:
-            io_state = fml_slot_manage_swb_read(SLOT_3);
+            io_state = bll_slot_manage_swb_read(SLOT_3);
             if (io_state == HIGH_LEVEL) {
                 check_bit = BAT_3_RISE_BIT;
             } else {
@@ -101,7 +101,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
             }
             break;
         case GPIO_PIN_14:
-            io_state = fml_slot_manage_swb_read(SLOT_4);
+            io_state = bll_slot_manage_swb_read(SLOT_4);
             if (io_state == HIGH_LEVEL) {
                 check_bit = BAT_4_RISE_BIT;
             } else {
@@ -154,7 +154,7 @@ static void bat_in_check_task(void * p)
             act_slot = -1;
         }
         if (act_slot != -1) {
-            if (fml_slot_manage_swb_read((slot_e)act_slot) == HIGH_LEVEL) {
+            if (bll_slot_manage_swb_read((slot_e)act_slot) == HIGH_LEVEL) {
                 alog_d("slot %d BATT OUT.\n", act_slot + 1);
                 //TO DO
                 // notify borrow process

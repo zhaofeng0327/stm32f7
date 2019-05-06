@@ -35,10 +35,8 @@
 #include "gpio.h"
 
 #ifdef TEST
-#include "apl_log.h"
-#include "fml_slot.h"
 #include "jd_fml_gprs.h"
-
+#include "fml_slot_manage.h"
 #endif
 
 #ifdef STM32F730xx
@@ -47,7 +45,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "apl_bat_in.h"
+#include "apl_log.h"
+#include "apl_exti_chk.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

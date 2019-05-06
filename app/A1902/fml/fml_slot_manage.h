@@ -1,5 +1,5 @@
-#ifndef __FML_SLOT_H__
-#define __FML_SLOT_H__
+#ifndef __FML_SLOT_MANAGE_H__
+#define __FML_SLOT_MANAGE_H__
 
 typedef enum _cmd_e {
     CLOSE = 0,
