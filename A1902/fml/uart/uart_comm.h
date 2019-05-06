@@ -63,5 +63,6 @@ u8 get_packet_id();
 int wait_battery_response(EventBits_t bat_evt, TickType_t timeout);
 void select_uart_channel(int num);
 int get_uart_channel();
+osStatus jd_master_com_send_response(jd_om_comm *hdl,unsigned char type, void *data);
 
 #endif

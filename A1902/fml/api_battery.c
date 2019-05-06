@@ -3,7 +3,7 @@
 #include "utils.h"
 
 
-int battery_set_sn_psw(u8 *sn, u32 sn_len, u8 *psw, u32 psw_len)
+int battery_set_sn_psw(u8 slot, u8 *sn, u32 sn_len, u8 *psw, u32 psw_len)
 {
 	int ret = -1;
 	int payload_len = sizeof(REQ_BAT_SET_SN_PSW_T);
@@ -14,6 +14,7 @@ int battery_set_sn_psw(u8 *sn, u32 sn_len, u8 *psw, u32 psw_len)
 	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
 
 	head->start = START_CMD;
+	head->slave = slot;
 	head->type = REQ_BAT_SET_SN_PSW;
 	head->payload_len = payload_len;
 	head->packet_id = get_packet_id();
@@ -45,7 +46,7 @@ int battery_set_sn_psw(u8 *sn, u32 sn_len, u8 *psw, u32 psw_len)
 
 
 //opt : 0 加密电池 1不加密电池
-int battery_get_info(u8 opt, BATTERY_INFO_T *info)
+int battery_get_info(u8 slot, u8 opt, BATTERY_INFO_T *info)
 {
 	int ret = -1;
 	int payload_len = sizeof(REQ_BAT_GET_INFO_T);
@@ -56,6 +57,7 @@ int battery_get_info(u8 opt, BATTERY_INFO_T *info)
 	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
 
 	head->start = START_CMD;
+	head->slave = slot;
 	head->type = REQ_BAT_GET_INFO;
 	head->payload_len = payload_len;
 	head->packet_id = get_packet_id();
@@ -99,7 +101,7 @@ int battery_get_info(u8 opt, BATTERY_INFO_T *info)
 }
 
 
-int battery_decode(u8 *psw, u32 psw_len)
+int battery_decode(u8 slot, u8 *psw, u32 psw_len)
 {
 	int ret = -1;
 	int payload_len = sizeof(REQ_BAT_DECODE_T);
@@ -110,6 +112,7 @@ int battery_decode(u8 *psw, u32 psw_len)
 	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
 
 	head->start = START_CMD;
+	head->slave = slot;
 	head->type = REQ_BAT_DECODE;
 	head->payload_len = payload_len;
 	head->packet_id = get_packet_id();
@@ -138,7 +141,7 @@ int battery_decode(u8 *psw, u32 psw_len)
 
 
 
-int battery_encode()
+int battery_encode(u8 slot)
 {
 	int ret = -1;
 	int payload_len = 0;
@@ -149,6 +152,7 @@ int battery_encode()
 	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
 
 	head->start = START_CMD;
+	head->slave = slot;
 	head->type = REQ_BAT_ENCODE;
 	head->payload_len = payload_len;
 	head->packet_id = get_packet_id();
@@ -173,7 +177,7 @@ int battery_encode()
 }
 
 
-int battery_virtual_psw_info(RES_BAT_VIRTUAL_PWR_T *info)
+int battery_virtual_psw_info(u8 slot, RES_BAT_VIRTUAL_PWR_T *info)
 {
 	int ret = -1;
 	int payload_len = 0;
@@ -184,6 +188,7 @@ int battery_virtual_psw_info(RES_BAT_VIRTUAL_PWR_T *info)
 	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
 
 	head->start = START_CMD;
+	head->slave = slot;
 	head->type = REQ_BAT_VIRTUAL_PWR_INFO;
 	head->payload_len = payload_len;
 	head->packet_id = get_packet_id();
@@ -209,7 +214,7 @@ int battery_virtual_psw_info(RES_BAT_VIRTUAL_PWR_T *info)
 	return ret;
 }
 
-int battery_set_discharge_level(u8 level)
+int battery_set_discharge_level(u8 slot, u8 level)
 {
 	int ret = -1;
 	int payload_len = sizeof(REQ_BAT_DISCHARGE_LEVEL_T);
@@ -220,6 +225,7 @@ int battery_set_discharge_level(u8 level)
 	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
 
 	head->start = START_CMD;
+	head->slave = slot;
 	head->type = REQ_BAT_DISCHARGE_LEVEL;
 	head->payload_len = payload_len;
 	head->packet_id = get_packet_id();
@@ -245,7 +251,7 @@ int battery_set_discharge_level(u8 level)
 }
 
 
-int battery_charge_status(RES_BAT_CHARGE_STATUS_T *status)
+int battery_charge_status(u8 slot, RES_BAT_CHARGE_STATUS_T *status)
 {
 	int ret = -1;
 	int payload_len = 0;
@@ -256,6 +262,7 @@ int battery_charge_status(RES_BAT_CHARGE_STATUS_T *status)
 	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
 
 	head->start = START_CMD;
+	head->slave = slot;
 	head->type = REQ_BAT_CHARGE_STATUS;
 	head->payload_len = payload_len;
 	head->packet_id = get_packet_id();
@@ -280,7 +287,7 @@ int battery_charge_status(RES_BAT_CHARGE_STATUS_T *status)
 	return ret;
 }
 
-int battery_protocal_version(RES_BAT_PROTOCAL_VERSION_T *vers)
+int battery_protocal_version(u8 slot, RES_BAT_PROTOCAL_VERSION_T *vers)
 {
 	int ret = -1;
 	int payload_len = 0;
@@ -291,6 +298,7 @@ int battery_protocal_version(RES_BAT_PROTOCAL_VERSION_T *vers)
 	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
 
 	head->start = START_CMD;
+	head->slave = slot;
 	head->type = REQ_BAT_PROTOCAL_VERSION;
 	head->payload_len = payload_len;
 	head->packet_id = get_packet_id();
@@ -318,7 +326,7 @@ int battery_protocal_version(RES_BAT_PROTOCAL_VERSION_T *vers)
 }
 
 
-int battery_passwd_chksum(RES_BAT_PASSWD_CHKSUM_T *chksum)
+int battery_passwd_chksum(u8 slot, RES_BAT_PASSWD_CHKSUM_T *chksum)
 {
 	int ret = -1;
 	int payload_len = 0;
@@ -329,6 +337,7 @@ int battery_passwd_chksum(RES_BAT_PASSWD_CHKSUM_T *chksum)
 	MSG_UART_HEAD_T *head = (MSG_UART_HEAD_T *)pt;
 
 	head->start = START_CMD;
+	head->slave = slot;
 	head->type = REQ_BAT_PASSWD_CHKSUM;
 	head->payload_len = payload_len;
 	head->packet_id = get_packet_id();

@@ -113,18 +113,20 @@ void *jz_uart_init_ex(int usart_no)
  *                      return &huart4;
  *              }
  *      }
- *      else if (6 == usart_no) {
- *              uart_config(&huart6, USART6);
- *              if (HAL_UART_Init(&huart6) != HAL_OK) {
- *                      debug("uart6 init error\r\n");
- *                      return NULL;
- *              } else {
- *                      init_ringbuf(&uart6_ringbuf);
- *                      HAL_UART_Receive_IT(&huart6, (uint8_t *)&uart6_ch, 1);
- *                      return &huart6;
- *              }
- *      }
  */
+ /*
+     else if (6 == usart_no) {
+             uart_config(&huart6, USART6);
+             if (HAL_UART_Init(&huart6) != HAL_OK) {
+                     debug("uart6 init error\r\n");
+                     return NULL;
+             } else {
+                     init_ringbuf(&uart6_ringbuf);
+                     HAL_UART_Receive_IT(&huart6, (uint8_t *)&uart6_ch, 1);
+                     return &huart6;
+             }
+     }
+*/
 	return NULL;
 }
 
@@ -288,6 +290,7 @@ int uart_gpio_deinit(USART_TypeDef *inst)
 	HAL_GPIO_DeInit(pin.rx.gp, pin.rx.pin);
 
 	return 0;
+/*
 	GPIO_InitTypeDef GPIO_InitStruct = { 0 };
 
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -304,5 +307,5 @@ int uart_gpio_deinit(USART_TypeDef *inst)
 
 	HAL_GPIO_Init(pin.rx.gp, &GPIO_InitStruct);
 
-
+*/
 }

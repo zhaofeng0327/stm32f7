@@ -11,6 +11,7 @@
 #define UINT unsigned int
 //#define AES_CBC_256_DBG
 #include "factory_test.h"
+#include "apl_factory_test.h"
 
 #define UART_CNT 2
 unsigned char cipher[32];
@@ -105,7 +106,6 @@ int get_uart_channel()
 	jd_om_mutex_unlock(&(mutex_channel_select));
 	return chn;
 }
-
 
 CMD_TYPE_T get_cmd_typte(unsigned char type)
 {
@@ -589,7 +589,7 @@ static osStatus jd_master_com_send_play_msg(jd_om_comm *hdl,unsigned char type, 
 }
 #endif
 
-static osStatus jd_master_com_send_response(jd_om_comm *hdl,unsigned char type, void *data)
+osStatus jd_master_com_send_response(jd_om_comm *hdl,unsigned char type, void *data)
 {
 	int payload_size;
 	unsigned char res_type;
@@ -1197,6 +1197,7 @@ static void jd_master_com_fill_device_info(jd_om_comm *hdl,RES_DEVICE_INFO_T **r
 #endif
 }
 #endif
+
 static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *trans_timeout_cnt)
 {
 	char payload[MAX_QUEUE_ELEMENT_SIZE] = { 0 };
@@ -1263,200 +1264,25 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 	}
 
 	switch (type) {
-
 	case REQ_DEVICE_INFO:
-		{
-			dzlog_debug("get device info\r\n");
-			unsigned char sn[16] = { 0 };
-
-			RES_DEVICE_INFO_T res;
-
-			read_sn(sn);
-			snprintf((char *)res.sn, 16, "%s", sn);
-			get_md5((unsigned char *)res.sn_md5, (char const *)res.sn, 12, 1);
-			u32 cpuid = HAL_GetUIDw0();
-			memcpy((char *)res.cpuid, (char *)&cpuid, 4);
-			cpuid = HAL_GetUIDw1();
-			memcpy((char *)res.cpuid + 4, (char *)&cpuid, 4);
-			cpuid = HAL_GetUIDw2();
-			memcpy((char *)res.cpuid + 8, (char *)&cpuid, 4);
-			get_md5((unsigned char *)res.cpuid_md5, (char const *)res.cpuid, 12, 1);
-
-			//snprintf((char *)res.fw_ver, 4, "%c%c%c%c", 1,0,0,0);
-			get_soft_version((char *)res.fw_ver);
-
-			//snprintf((char *)res.hw_ver, 4, "%c%c%c%c", 1,0,1,0);
-			get_hw_version((char *)res.hw_ver);
-
-			res.Encrypted = 0;
-			res.code = 0;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_SET_SN:
-		{
-			REQ_SET_SN_T *req = (REQ_SET_SN_T *)pt + sizeof(MSG_UART_HEAD_T);
-			dzlog_debug("set sn : %s\r\n", req->sn);
-			char sn_md5[16];
-			get_md5((unsigned char *)sn_md5, (char const *)req->sn, req->sn_len, 1);
-			RES_SET_SN_T res;
-			if (memcmp(sn_md5, req->sn_md5, 16)) {
-				res.code = 1;/* md5 校验失败 */
-			} else {
-				if(write_sn(req->sn, req->sn_len)) {
-					res.code = 2;/* 写入sn失败 */
-				} else {
-					unsigned char sn[16] = { 0 };
-					read_sn(sn);
-					if (memcmp(sn, req->sn, req->sn_len))
-						res.code = 2;
-					else
-						res.code = 0;
-				}
-			}
-			jd_master_com_send_response(hdl,type,(void *)&res);
-
-			break;
-		}
 	case REQ_GET_TIME:
-		{
-			dzlog_debug("get rtc time 1555733950\r\n");
-			RES_GET_TIME_T res;
-			res.time_sec = 1555733950;//jd_master_com_get_system_time_second();
-			res.time_usec = 0;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_SET_TIME:
-		{
-			REQ_SET_TIME_T * req = (REQ_SET_TIME_T *)pt + sizeof(MSG_UART_HEAD_T);
-			dzlog_debug("set time sec %d \r\n", req->time_sec);
-
-			RES_SET_TIME_T res;
-			res.code = 0;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_FLASH_LED:
-		{
-			REQ_SET_FLASH_LED_T *req = (REQ_SET_FLASH_LED_T *)pt + sizeof(MSG_UART_HEAD_T);
-			dzlog_debug("set flash led %d\r\n", req->led_status);
-
-
-			RES_SET_FLASH_LED_T res;
-			res.code = 0;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_SLOT_LED:
-		{
-			REQ_SET_SLOT_LED_T *req = (REQ_SET_SLOT_LED_T *)pt + sizeof(MSG_UART_HEAD_T);
-			dzlog_debug("set slot %d led to %d\r\n", req->slot_num, req->led_status);
-
-
-			RES_SET_SLOT_LED_T res;
-			res.code = 0;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_SLOT_ELOCK:
-		{
-			REQ_SET_SLOT_ELOCK_T *req = (REQ_SET_SLOT_ELOCK_T *)pt + sizeof(MSG_UART_HEAD_T);
-			dzlog_debug("set slot %d lock to %d\r\n", req->slot_num, req->elock_status);
-
-
-			RES_SET_SLOT_ELOCK_T res;
-			res.code = 0;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_SLOT_POWER:
-		{
-			REQ_SET_SLOT_POWER_T *req = (REQ_SET_SLOT_POWER_T *)pt + sizeof(MSG_UART_HEAD_T);
-			dzlog_debug("set slot %d power to %d\r\n", req->slot_num, req->power_status);
-
-			RES_SET_SLOT_POWER_T res;
-			res.code = 0;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_SLOT_KEY_STAT:
-		{
-			REQ_GET_SLOT_KEY_T *req = (REQ_GET_SLOT_KEY_T *)pt + sizeof(MSG_UART_HEAD_T);
-			dzlog_debug("get slot %d key status\r\n", req->slot_num);
-
-			RES_GET_SLOT_KEY_T res;
-			res.code = 0;
-			res.key_status = 1;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_BATTERY_ENCRYPT:
-		{
-			REQ_BATTERY_ENCRYPT_T *req = (REQ_BATTERY_ENCRYPT_T *)pt + sizeof(MSG_UART_HEAD_T);
-			dzlog_debug("set battery %d opt %d\r\n", req->slot_num, req->opt);
-
-			RES_BATTERY_ENCRYPT_T res;
-			res.code = 0;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_BATTERY_INFO:
-		{
-			REQ_BATTERY_INFO_T *req = (REQ_BATTERY_INFO_T *)pt + sizeof(MSG_UART_HEAD_T);
-			dzlog_debug("get battery %d info opt %d\r\n", req->slot_num, req->opt);
-
-			RES_BATTERY_INFO_T res;
-			res.code = 0;
-			snprintf((char *)res.sn, 16, "%s", "BAT1234567");
-			res.temperature = 23;
-			res.voltage = 4100;	//电压
-			res.ratio = 88;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_GPRS_MODULE_INFO:
-		{
-			dzlog_debug("get gprs info\r\n");
-
-			RES_GPRS_MODULE_INFO_T res;
-			res.code = 0;	//响应代码：ok �?，fail�?
-			snprintf(res.module_name,16, "%s", "MITU"); //模块�?
-			memcpy(res.Iccid, "12345678901234567890", 20); //iccid
-			res.module_ready = 1;//模块是否正常
-			res.simcard_ready = 1;//sim卡是否正�?
-			res.gprs_ready = 1;	//gprs 是否正常
-			res.rssi = 20;		//rssi
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_GPRS_CONNECT:
-		{
-			REQ_GPRS_CONNECT_T * req = (REQ_GPRS_CONNECT_T*)pt + sizeof(MSG_UART_HEAD_T);
-			dzlog_debug("gprs connect opt %d\r\n", req->opt);
-
-			RES_GPRS_CONNECT_T res;
-			res.code = 0;	//响应代码：ok �?，fail�?
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_DEVICE_AGEING:
-		{
-			REQ_AGEING_T *req = (REQ_AGEING_T *)pt + sizeof(MSG_UART_HEAD_T);
-			dzlog_debug("ageing opt %d\r\n", req->opt);
-			RES_AGEING_T res;
-			res.code = 0;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
-		}
 	case REQ_ENV_TEMPRATURE:
 		{
-			dzlog_debug("get temprature\r\n");
-			RES_TEMPRATURE_T res;
-			res.code = 0;
-			res.temperature = 23;
-			jd_master_com_send_response(hdl,type,(void *)&res);
-			break;
+			add_factory_test_item(pt);
+			return 0;
+
 		}
 
 		case RES_BAT_SET_SN_PSW:
@@ -1739,6 +1565,11 @@ void uart_send_queue_task(void const *p)
 		lens = sizeof(MSG_UART_HEAD_T) + head->payload_len + CHECKSUM_SIZE;
 		//print_hex((char *)__func__,pt, lens);
 		res = head->type;
+		slave = head->slave;
+		sprintf(slave_addr, "0.%d.0", slave);
+		to_addr.addr = tlc_iaddr(slave_addr);
+		select_uart_channel(slave);
+		hdl = &uart_channels[slave];
 
 		switch (get_cmd_typte(res)) {
 			case TYPE_INVALID:
@@ -1749,10 +1580,6 @@ void uart_send_queue_task(void const *p)
 			}
 			case TYPE_RES:
 			{
-				slave = head->slave;
-				sprintf(slave_addr, "0.%d.0", slave);
-				to_addr.addr = tlc_iaddr(slave_addr);
-				hdl = &uart_channels[get_uart_channel()];
 				ret = jd_om_send(hdl, &to_addr, pt, lens, 0);
 				if (ret <= 0)
 					dzlog_error("send to batt uart fail\n");
@@ -1772,16 +1599,11 @@ SEND_REQ:
 RESEND_DATA:
 		set_active_res(0);
 
-		slave = head->slave;
-		sprintf(slave_addr, "0.%d.0", slave);
-		to_addr.addr = tlc_iaddr(slave_addr);
-
 		active_req = head->type;
 
 		dzlog_debug("send msg\r\n");
 
 		//print_hex((char *)__func__, pt, lens);
-		hdl = &uart_channels[get_uart_channel()];
 		ret = jd_om_send(hdl, &to_addr, pt, lens, 0);
 		if (ret <= 0) {
 			num_fail++;
@@ -2031,20 +1853,14 @@ int start_uart_service()
 
 
 
-/*
-	local_addr.addr = tlc_iaddr("1.0.0");
-	addr_mask.addr = tlc_iaddr("255.0.0");
-	ret = jd_om_comm_open(&uart_channels[1], &local_addr, &addr_mask, 6);
-	if (0 != ret) {
-		dzlog_error("open uart number %d fail ret %d.\r\n", 4, ret);
-		vTaskSuspend(NULL);
-	}
-*/
+
+
 	//printf("uart4 0x%x uart6 0x%x\r\n", uart_channels[0].ptlc->pllc->fd, uart_channels[1].ptlc->pllc->fd);
 
 #if 1
 
 
+	//start_factory_test_service();
 
 
 	/* definition and creation of uartSendQueueTask */
@@ -2067,6 +1883,29 @@ int start_uart_service()
 	} else {
 		printf("Uart_recv_queue_task create successful !\r\n");
 	}
+
+/*
+	start_factory_test_service();
+
+	local_addr.addr = tlc_iaddr("1.0.0");
+	addr_mask.addr = tlc_iaddr("255.0.0");
+	ret = jd_om_comm_open(&uart_channels[1], &local_addr, &addr_mask, 6);
+	if (0 != ret) {
+		dzlog_error("open uart number %d fail ret %d.\r\n", 4, ret);
+		vTaskSuspend(NULL);
+	}
+
+
+	THREAD_DEF(uartRecv, 1, uart_recv_task, osPriorityNormal, 0, 1024);
+	uart_comm_des.thread_uart_recv[1] = osThreadCreate(TRHEAD_NAME_ID(uartRecv, 1), &uart_channels[1]);
+	if (NULL == uart_comm_des.thread_uart_recv[1]) {
+		printf("create Uart recv Task %d failed!.\r\n", 1);
+		while (1);
+	} else {
+		printf("Uart recv task %d create successful !\r\n", 1);
+	}
+
+*/
 
 #if 0
 	printf("remember only one recv task\r\n");

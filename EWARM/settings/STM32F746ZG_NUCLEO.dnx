@@ -20,7 +20,7 @@
         <stlinkfoundProbes />
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>1580859550</Checksum>
+        <Checksum>808613951</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -107,8 +107,7 @@
     </DisassembleMode>
     <Breakpoints2>
         <Bp0>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\A1902\fml\os_middleware\jd_os_middleware.c}.341.3" 0 0 1 "" 0 "" 0</Bp0>
-        <Bp1>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\A1902\fml\uart\stptlc.c}.234.41" 0 0 1 "" 0 "" 0</Bp1>
-        <Count>2</Count>
+        <Count>1</Count>
     </Breakpoints2>
     <LogFile>
         <LoggingEnabled>_ 0</LoggingEnabled>

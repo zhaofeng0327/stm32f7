@@ -361,6 +361,7 @@
                     <state>$PROJ_DIR$\..\A1902\fml</state>
                     <state>$PROJ_DIR$\..\A1902\fml\uart</state>
                     <state>$PROJ_DIR$\..\A1902\fml\os_middleware</state>
+                    <state>$PROJ_DIR$\..\A1902\apl</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1057,6 +1058,12 @@
         </group>
         <group>
             <name>User</name>
+            <group>
+                <name>apl</name>
+                <file>
+                    <name>$PROJ_DIR$\..\A1902\apl\apl_factory_test.c</name>
+                </file>
+            </group>
             <group>
                 <name>fml</name>
                 <file>
