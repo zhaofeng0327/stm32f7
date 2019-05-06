@@ -9,14 +9,140 @@
 JD_OM_QUEUE factory_recv_q;
 osThreadId ft_tid;
 
+#define FACTORY_TEST_SLOT 1
+
+osStatus jd_master_com_send_response(jd_om_comm *hdl,unsigned char type, void *data)
+{
+	int payload_size;
+	unsigned char res_type;
+	//unsigned int material_num = 0;
+	osStatus ret;
+
+	switch (type) {
+
+	case REQ_DEVICE_INFO:
+	{
+		res_type = RES_DEVICE_INFO;
+		payload_size = sizeof(RES_DEVICE_INFO_T);
+		break;
+	}
+	case REQ_SET_SN:
+	{
+		res_type = RES_SET_SN;
+		payload_size = sizeof(RES_SET_SN_T);
+		break;
+	}
+
+	case REQ_GET_TIME:
+	{
+		res_type = RES_GET_TIME;
+		payload_size = sizeof(RES_GET_TIME_T);
+		break;
+	}
+
+	case REQ_SET_TIME:
+	{
+		res_type = RES_SET_TIME;
+		payload_size = sizeof(RES_SET_TIME_T);
+		break;
+	}
+	case REQ_FLASH_LED:
+	{
+		res_type = RES_FLASH_LED;
+		payload_size = sizeof(RES_SET_FLASH_LED_T);
+		break;
+	}
+	case REQ_SLOT_LED:
+	{
+		res_type = RES_SLOT_LED;
+		payload_size = sizeof(RES_SET_SLOT_LED_T);
+		break;
+	}
+	case REQ_SLOT_ELOCK:
+	{
+		res_type = RES_SLOT_ELOCK;
+		payload_size = sizeof(RES_SET_SLOT_ELOCK_T);
+		break;
+	}
+	case REQ_SLOT_POWER:
+	{
+		res_type = RES_SLOT_POWER;
+		payload_size = sizeof(RES_SET_SLOT_POWER_T);
+		break;
+	}
+	case REQ_SLOT_KEY_STAT:
+	{
+		res_type = RES_SLOT_KEY_STAT;
+		payload_size = sizeof(RES_GET_SLOT_KEY_T);
+		break;
+	}
+	case REQ_BATTERY_ENCRYPT:
+	{
+		res_type = RES_BATTERY_ENCRYPT;
+		payload_size = sizeof(RES_BATTERY_ENCRYPT_T);
+		break;
+	}
+	case REQ_BATTERY_INFO:
+	{
+		res_type = RES_BATTERY_INFO;
+		payload_size = sizeof(RES_BATTERY_INFO_T);
+		break;
+	}
+	case REQ_GPRS_MODULE_INFO:
+	{
+		res_type = RES_GPRS_MODULE_INFO;
+		payload_size = sizeof(RES_GPRS_MODULE_INFO_T);
+		break;
+	}
+	case REQ_GPRS_CONNECT:
+	{
+		res_type = RES_GPRS_CONNECT;
+		payload_size = sizeof(RES_GPRS_CONNECT_T);
+		break;
+	}
+	case REQ_DEVICE_AGEING:
+	{
+		res_type = RES_DEVICE_AGEING;
+		payload_size = sizeof(RES_AGEING_T);
+		break;
+	}
+	case REQ_ENV_TEMPRATURE:
+	{
+		res_type = RES_ENV_TEMPRATURE;
+		payload_size = sizeof(RES_TEMPRATURE_T);
+		break;
+	}
+
+	default:
+		return osErrorOS;
+	}
+
+	int packet_size = sizeof(MSG_UART_HEAD_T) + payload_size + CHECKSUM_SIZE;
+	MSG_UART_PACKAGE_T *pkt = jd_om_malloc(packet_size);
+
+	pkt->head.start = START_CMD;
+	pkt->head.slave = FACTORY_TEST_SLOT;
+	pkt->head.type = res_type;
+	pkt->head.payload_len = payload_size;
+
+	memcpy((char *)pkt + sizeof(MSG_UART_HEAD_T), (char *)data, payload_size);
+
+	unsigned short chksum = crc16((char *)pkt, packet_size - CHECKSUM_SIZE);
+	memcpy((char *)pkt + packet_size - CHECKSUM_SIZE, &chksum, CHECKSUM_SIZE);
+
+	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pkt);
+	if (osErrorOS == ret)
+		dzlog_error("res[%02x] to queue error\r\n", res_type);
+
+	return ret;
+}
+
 void factory_test_task(void const *p)
 {
 	void *pt = NULL;
 	jd_om_comm *hdl = 0;
 
-	printf("%s start >>>>\r\n", __func__);
-	printf("%s start >>>>\r\n", __func__);
-	printf("%s start >>>>\r\n", __func__);
+	dzlog_debug("%s start >>>>\r\n", __func__);
 
 	while (1) {
 		pt = NULL;
@@ -56,7 +182,7 @@ void factory_test_task(void const *p)
 					}
 				case REQ_SET_SN:
 					{
-						REQ_SET_SN_T *req = (REQ_SET_SN_T *)pt + sizeof(MSG_UART_HEAD_T);
+						REQ_SET_SN_T *req = (REQ_SET_SN_T *)((char *)pt + sizeof(MSG_UART_HEAD_T));
 						dzlog_debug("set sn : %s\r\n", req->sn);
 						char sn_md5[16];
 						get_md5((unsigned char *)sn_md5, (char const *)req->sn, req->sn_len, 1);
@@ -90,7 +216,7 @@ void factory_test_task(void const *p)
 					}
 				case REQ_SET_TIME:
 					{
-						REQ_SET_TIME_T * req = (REQ_SET_TIME_T *)pt + sizeof(MSG_UART_HEAD_T);
+						REQ_SET_TIME_T * req = (REQ_SET_TIME_T *)((char *)pt + sizeof(MSG_UART_HEAD_T));
 						dzlog_debug("set time sec %d \r\n", req->time_sec);
 
 						RES_SET_TIME_T res;
@@ -100,7 +226,7 @@ void factory_test_task(void const *p)
 					}
 				case REQ_FLASH_LED:
 					{
-						REQ_SET_FLASH_LED_T *req = (REQ_SET_FLASH_LED_T *)pt + sizeof(MSG_UART_HEAD_T);
+						REQ_SET_FLASH_LED_T *req = (REQ_SET_FLASH_LED_T *)((char *)pt + sizeof(MSG_UART_HEAD_T));
 						dzlog_debug("set flash led %d\r\n", req->led_status);
 
 
@@ -111,7 +237,7 @@ void factory_test_task(void const *p)
 					}
 				case REQ_SLOT_LED:
 					{
-						REQ_SET_SLOT_LED_T *req = (REQ_SET_SLOT_LED_T *)pt + sizeof(MSG_UART_HEAD_T);
+						REQ_SET_SLOT_LED_T *req = (REQ_SET_SLOT_LED_T *)((char *)pt + sizeof(MSG_UART_HEAD_T));
 						dzlog_debug("set slot %d led to %d\r\n", req->slot_num, req->led_status);
 
 
@@ -122,7 +248,7 @@ void factory_test_task(void const *p)
 					}
 				case REQ_SLOT_ELOCK:
 					{
-						REQ_SET_SLOT_ELOCK_T *req = (REQ_SET_SLOT_ELOCK_T *)pt + sizeof(MSG_UART_HEAD_T);
+						REQ_SET_SLOT_ELOCK_T *req = (REQ_SET_SLOT_ELOCK_T *)((char *)pt + sizeof(MSG_UART_HEAD_T));
 						dzlog_debug("set slot %d lock to %d\r\n", req->slot_num, req->elock_status);
 
 
@@ -133,7 +259,7 @@ void factory_test_task(void const *p)
 					}
 				case REQ_SLOT_POWER:
 					{
-						REQ_SET_SLOT_POWER_T *req = (REQ_SET_SLOT_POWER_T *)pt + sizeof(MSG_UART_HEAD_T);
+						REQ_SET_SLOT_POWER_T *req = (REQ_SET_SLOT_POWER_T *)((char *)pt + sizeof(MSG_UART_HEAD_T));
 						dzlog_debug("set slot %d power to %d\r\n", req->slot_num, req->power_status);
 
 						RES_SET_SLOT_POWER_T res;
@@ -143,7 +269,7 @@ void factory_test_task(void const *p)
 					}
 				case REQ_SLOT_KEY_STAT:
 					{
-						REQ_GET_SLOT_KEY_T *req = (REQ_GET_SLOT_KEY_T *)pt + sizeof(MSG_UART_HEAD_T);
+						REQ_GET_SLOT_KEY_T *req = (REQ_GET_SLOT_KEY_T *)((char *)pt + sizeof(MSG_UART_HEAD_T));
 						dzlog_debug("get slot %d key status\r\n", req->slot_num);
 
 						RES_GET_SLOT_KEY_T res;
@@ -154,7 +280,7 @@ void factory_test_task(void const *p)
 					}
 				case REQ_BATTERY_ENCRYPT:
 					{
-						REQ_BATTERY_ENCRYPT_T *req = (REQ_BATTERY_ENCRYPT_T *)pt + sizeof(MSG_UART_HEAD_T);
+						REQ_BATTERY_ENCRYPT_T *req = (REQ_BATTERY_ENCRYPT_T *)((char *)pt + sizeof(MSG_UART_HEAD_T));
 						dzlog_debug("set battery %d opt %d\r\n", req->slot_num, req->opt);
 
 						RES_BATTERY_ENCRYPT_T res;
@@ -164,13 +290,23 @@ void factory_test_task(void const *p)
 					}
 				case REQ_BATTERY_INFO:
 					{
-						REQ_BATTERY_INFO_T *req = (REQ_BATTERY_INFO_T *)pt + sizeof(MSG_UART_HEAD_T);
+						REQ_BATTERY_INFO_T *req = (REQ_BATTERY_INFO_T *)((char *)pt + sizeof(MSG_UART_HEAD_T));
 						dzlog_debug("get battery %d info opt %d\r\n", req->slot_num, req->opt);
 
-						BATTERY_INFO_T res;
-#if 1
-						battery_get_info(2, 1, &res);
+						BATTERY_INFO_T info;
+						RES_BATTERY_INFO_T res;
 
+						memset(&info, 0, sizeof(BATTERY_INFO_T));
+						memset(&res, 0, sizeof(RES_BATTERY_INFO_T));
+
+#if 1
+						res.code = battery_get_info(req->slot_num, 1, &info);
+						if (0 == res.code) {
+							memcpy(res.sn, info.sn, info.sn_len);
+							res.temperature = info.temperature;
+							res.voltage = info.voltage;
+							res.ratio = 100 * info.rc / info.fcc;
+						}
 #else
 						res.code = 0;
 						snprintf((char *)res.sn, 16, "%s", "BAT1234567");

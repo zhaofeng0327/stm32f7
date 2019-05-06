@@ -287,7 +287,7 @@ int tlc_recv(stptlc * tlc ,u8 * buffer ,int lens ,tlc_addr *fromaddr){
 			continue;
 		}
 
-		debug("recv decode --- \r\n");
+		debug("recv decode %d--- \r\n", ret);
     	dump_buffer(rdbuf, ret);
 
 		switch( phd->protocol ){

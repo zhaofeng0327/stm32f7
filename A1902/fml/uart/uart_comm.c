@@ -39,25 +39,30 @@ RES_BAT_PASSWD_CHKSUM_T br_psw_chk;
 	{ #name#id, (thread), (priority), (instances), (stacksz)}
 
 
-void select_uart_channel(int num)
+void mutex_uart_switch(int slot_num)
 {
-	if (active_channel == num)
+	if (slot_num != 2 && slot_num != 0)
 		return;
 
-	if (num == 2) {
+
+	if (active_channel == slot_num)
+		return;
+
+
+	if (slot_num == 2) {
 		if (-1 == jd_om_comm_close(&uart_channels[0]))
 			printf("close chn 0 err\r\n");
-	} else if (0 == num) {
+	} else if (0 == slot_num) {
 		if (-1 == jd_om_comm_close(&uart_channels[2]))
 			printf("close chn 2 err\r\n");
 	}
 
 	jd_om_mutex_lock(&(mutex_channel_select));
-	active_channel = num;
+	active_channel = slot_num;
 	jd_om_mutex_unlock(&(mutex_channel_select));
 //        return;
 
-	if (num == 2 || num == 0) {
+	if (slot_num == 2 || slot_num == 0) {
 
 	if (uart_comm_des.thread_uart_recv[0])
 		osThreadTerminate(uart_comm_des.thread_uart_recv[0]);
@@ -71,13 +76,13 @@ void select_uart_channel(int num)
 
 		memset(&uart_channels[0], 0, sizeof(jd_om_comm));
 		memset(&uart_channels[2], 0, sizeof(jd_om_comm));
-		ret = jd_om_comm_open(&uart_channels[num], &local_addr, &addr_mask, 2);
+		ret = jd_om_comm_open(&uart_channels[slot_num], &local_addr, &addr_mask, 2);
 		if (0 != ret) {
-			dzlog_error("open uart channel %d fail ret %d.\r\n", num, ret);
+			dzlog_error("open uart channel %d fail ret %d.\r\n", slot_num, ret);
 			vTaskSuspend(NULL);
 		} else {
 
-			if (num == 0)
+			if (slot_num == 0)
 				memcpy(&uart_channels[2], &uart_channels[0], sizeof(jd_om_comm));
 			else
 				memcpy(&uart_channels[0], &uart_channels[2], sizeof(jd_om_comm));
@@ -589,131 +594,6 @@ static osStatus jd_master_com_send_play_msg(jd_om_comm *hdl,unsigned char type, 
 }
 #endif
 
-osStatus jd_master_com_send_response(jd_om_comm *hdl,unsigned char type, void *data)
-{
-	int payload_size;
-	unsigned char res_type;
-	//unsigned int material_num = 0;
-	osStatus ret;
-
-	switch (type) {
-
-	case REQ_DEVICE_INFO:
-	{
-		res_type = RES_DEVICE_INFO;
-		payload_size = sizeof(RES_DEVICE_INFO_T);
-		break;
-	}
-	case REQ_SET_SN:
-	{
-		res_type = RES_SET_SN;
-		payload_size = sizeof(RES_SET_SN_T);
-		break;
-	}
-
-	case REQ_GET_TIME:
-	{
-		res_type = RES_GET_TIME;
-		payload_size = sizeof(RES_GET_TIME_T);
-		break;
-	}
-
-	case REQ_SET_TIME:
-	{
-		res_type = RES_SET_TIME;
-		payload_size = sizeof(RES_SET_TIME_T);
-		break;
-	}
-	case REQ_FLASH_LED:
-	{
-		res_type = RES_FLASH_LED;
-		payload_size = sizeof(RES_SET_FLASH_LED_T);
-		break;
-	}
-	case REQ_SLOT_LED:
-	{
-		res_type = RES_SLOT_LED;
-		payload_size = sizeof(RES_SET_SLOT_LED_T);
-		break;
-	}
-	case REQ_SLOT_ELOCK:
-	{
-		res_type = RES_SLOT_ELOCK;
-		payload_size = sizeof(RES_SET_SLOT_ELOCK_T);
-		break;
-	}
-	case REQ_SLOT_POWER:
-	{
-		res_type = RES_SLOT_POWER;
-		payload_size = sizeof(RES_SET_SLOT_POWER_T);
-		break;
-	}
-	case REQ_SLOT_KEY_STAT:
-	{
-		res_type = RES_SLOT_KEY_STAT;
-		payload_size = sizeof(RES_GET_SLOT_KEY_T);
-		break;
-	}
-	case REQ_BATTERY_ENCRYPT:
-	{
-		res_type = RES_BATTERY_ENCRYPT;
-		payload_size = sizeof(RES_BATTERY_ENCRYPT_T);
-		break;
-	}
-	case REQ_BATTERY_INFO:
-	{
-		res_type = RES_BATTERY_INFO;
-		payload_size = sizeof(RES_BATTERY_INFO_T);
-		break;
-	}
-	case REQ_GPRS_MODULE_INFO:
-	{
-		res_type = RES_GPRS_MODULE_INFO;
-		payload_size = sizeof(RES_GPRS_MODULE_INFO_T);
-		break;
-	}
-	case REQ_GPRS_CONNECT:
-	{
-		res_type = RES_GPRS_CONNECT;
-		payload_size = sizeof(RES_GPRS_CONNECT_T);
-		break;
-	}
-	case REQ_DEVICE_AGEING:
-	{
-		res_type = RES_DEVICE_AGEING;
-		payload_size = sizeof(RES_AGEING_T);
-		break;
-	}
-	case REQ_ENV_TEMPRATURE:
-	{
-		res_type = RES_ENV_TEMPRATURE;
-		payload_size = sizeof(RES_TEMPRATURE_T);
-		break;
-	}
-
-	default:
-		return osErrorOS;
-	}
-
-	int packet_size = sizeof(MSG_UART_HEAD_T) + payload_size + CHECKSUM_SIZE;
-	MSG_UART_PACKAGE_T *pkt = jd_om_malloc(packet_size);
-
-	pkt->head.start = START_CMD;
-	pkt->head.slave = SLAVE_1;
-	pkt->head.type = res_type;
-	pkt->head.payload_len = payload_size;
-
-	memcpy((char *)pkt + sizeof(MSG_UART_HEAD_T), (char *)data, payload_size);
-
-	unsigned short chksum = crc16((char *)pkt, packet_size - CHECKSUM_SIZE);
-	memcpy((char *)pkt + packet_size - CHECKSUM_SIZE, &chksum, CHECKSUM_SIZE);
-
-	ret = jd_om_mq_send(&(uart_comm_des.send_queue), (void *)pkt);
-	if (osErrorOS == ret)
-		dzlog_error("res[%02x] to queue error\r\n", res_type);
-
-	return ret;
-}
 #if 0
 static osStatus jd_master_com_send_exception_response(jd_om_comm *hdl,unsigned char type, void *data)
 {
@@ -1202,7 +1082,8 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 {
 	char payload[MAX_QUEUE_ELEMENT_SIZE] = { 0 };
 	MSG_UART_HEAD_T* head = (MSG_UART_HEAD_T*)pt;
-	static unsigned char last_session_id = -1;
+	static unsigned char last_session_id_req = -1;
+	static unsigned char last_session_id_res = -1;
 	//static unsigned int old_pkt_id = 1;
 	unsigned int payload_len = 0;
 	unsigned char type;
@@ -1226,19 +1107,23 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 			goto FREE;
 		case TYPE_RES:
 			set_active_res(type);
+			if(head->packet_id == last_session_id_res){
+				dzlog_error("recv repeat packet\r\n");
+				goto FREE;
+			} else{
+				last_session_id_res = head->packet_id;
+			}
 			break;
 		case TYPE_REQ:
+			if(head->packet_id == last_session_id_req){
+				dzlog_error("recv repeat packet\r\n");
+				goto FREE;
+			} else{
+				last_session_id_req = head->packet_id;
+			}
 			break;
 		default:
 			break;
-	}
-
-	if(head->packet_id == last_session_id){
-		dzlog_error("recv repeat packet\r\n");
-		goto FREE;
-	}
-	else{
-		last_session_id = head->packet_id;
 	}
 
 	// 获取payload_len字段
@@ -1568,7 +1453,7 @@ void uart_send_queue_task(void const *p)
 		slave = head->slave;
 		sprintf(slave_addr, "0.%d.0", slave);
 		to_addr.addr = tlc_iaddr(slave_addr);
-		select_uart_channel(slave);
+		mutex_uart_switch(slave);
 		hdl = &uart_channels[slave];
 
 		switch (get_cmd_typte(res)) {
@@ -1884,7 +1769,7 @@ int start_uart_service()
 		printf("Uart_recv_queue_task create successful !\r\n");
 	}
 
-/*
+
 	start_factory_test_service();
 
 	local_addr.addr = tlc_iaddr("1.0.0");
@@ -1905,7 +1790,7 @@ int start_uart_service()
 		printf("Uart recv task %d create successful !\r\n", 1);
 	}
 
-*/
+
 
 #if 0
 	printf("remember only one recv task\r\n");

@@ -7,9 +7,9 @@
 #include "uart_comm.h"
 
 typedef struct {
-	uint32_t	head;
-	uint32_t	tail;
-	uint32_t	len;
+	volatile uint32_t	head;
+	volatile uint32_t	tail;
+	volatile uint32_t	len;
 	u8		ring_buf[LLC_PACK_SZ_MAX];
 }RingBuf;
 
@@ -19,11 +19,11 @@ RingBuf uart6_ringbuf;
 
 extern UART_HandleTypeDef huart2;
 //extern UART_HandleTypeDef huart4;
-//extern UART_HandleTypeDef huart6;
+extern UART_HandleTypeDef huart6;
 
-uint8_t uart2_ch;
-uint8_t uart4_ch;
-uint8_t uart6_ch;
+volatile uint8_t uart2_ch;
+volatile uint8_t uart4_ch;
+volatile uint8_t uart6_ch;
 
 osMutexDef(uart_rx_mtx);
 osMutexId uart_rx_mtx_id;
@@ -63,7 +63,6 @@ void init_ringbuf(RingBuf *rbuf)
 int write_ringbuf(RingBuf *rbuf, u8 data)
 {
 	if (rbuf->len >= LLC_PACK_SZ_MAX) //判断缓冲区是否已满
-
 		return 0;
 	rbuf->ring_buf[rbuf->tail++] = data;
 	rbuf->tail = (rbuf->tail) % LLC_PACK_SZ_MAX;//防止越界非法访问
@@ -114,7 +113,7 @@ void *jz_uart_init_ex(int usart_no)
  *              }
  *      }
  */
- /*
+
      else if (6 == usart_no) {
              uart_config(&huart6, USART6);
              if (HAL_UART_Init(&huart6) != HAL_OK) {
@@ -126,7 +125,7 @@ void *jz_uart_init_ex(int usart_no)
                      return &huart6;
              }
      }
-*/
+
 	return NULL;
 }
 
@@ -212,27 +211,53 @@ int jz_uart_read_ex(void *fd, u8 *buffer, int lens, uint32_t ulTimeout /*millise
 		return 0;
 	}
 
+#if 0
+
+	while (1) {
+
+		if (rb->ring_buf[rb->tail-1] == 0xa5) {
+			r = lens > rb->len ? rb->len : lens;
+			memcpy(buffer, rb->ring_buf + rb->head, r);
+			rb->head = (rb->head + r) % LLC_PACK_SZ_MAX;
+			rb->len -= r;
+			return r;
+		}
+
+	}
+
+#else
 	while (1) {
 		if (rb->len == olen) {
 			jd_om_msleep(d);
-			if (timeout++ > 10) {
+			if (timeout++ > 2) {
 				timeout = 0;
 
 				if (olen) {
-					r = lens > rb->len ? rb->len : lens;
-					memcpy(buffer, rb->ring_buf + rb->head, r);
+					r = lens > olen ? olen : lens;
+					if (rb->head < rb->tail) {
+						memcpy(buffer, rb->ring_buf + rb->head, r);
+					} else {
+						int len1 = LLC_PACK_SZ_MAX - rb->head;
+						memcpy(buffer, rb->ring_buf + rb->head, len1);
+						memcpy(buffer + len1, rb->ring_buf, r - len1);
+					}
+
+					//for(int i = 0 ;i < r; i++)
+					//	buffer[i] = rb->ring_buf[rb->head+i];
 					rb->head = (rb->head + r) % LLC_PACK_SZ_MAX;
 					rb->len -= r;
 					return r;
-				} else {
-					//return 0;
 				}
+				//else {
+					//return 0;
+				//}
 			}
 		} else {
 			olen = rb->len;
 			timeout = 0;
 		}
 	}
+#endif
 }
 
 

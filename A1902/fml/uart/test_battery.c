@@ -21,14 +21,11 @@ void toogle_uart()
 
 void test_bat_protoc()
 {
-	//select_uart_channel(2);
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 	BATTERY_INFO_T info;
 	battery_get_info(2, 1, &info);
 
-	//select_uart_channel(0);
 	osDelay(1000);
-	//select_uart_channel(0);
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 	battery_set_sn_psw(0, "ABCD123456", 10, "pppssswwwd", 10);
 	osDelay(1000);

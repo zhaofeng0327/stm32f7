@@ -112,7 +112,7 @@ void StartDefaultTask(void const * argument)
   for(;;)
   {
     osDelay(1000);
-	test_bat_protoc();
+	//test_bat_protoc();
 
   }
   /* USER CODE END StartDefaultTask */
