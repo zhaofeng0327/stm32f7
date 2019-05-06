@@ -35,7 +35,6 @@
 #include "gpio.h"
 
 #ifdef TEST
-#include "jd_fml_gprs.h"
 #include "fml_slot_manage.h"
 #endif
 
@@ -141,9 +140,9 @@ int main(void)
 
 	/* Call init function for freertos objects (in freertos.c) */
 #ifdef TEST
-	//log_module_test();
-	//fml_slot_test();
-    gprs_module_test();
+	log_module_test();
+	fml_slot_test();
+    // gprs_module_test();
 #else
 	MX_FREERTOS_Init();
 #endif
