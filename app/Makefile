@@ -206,10 +206,12 @@ C_INCLUDES =  \
 
 
 C_SOURCES += $(wildcard \
-A1902/apl/*.c \
-A1902/bll/*.c \
-A1902/fml/*.c \
-Middlewares/jd_middlewares/*.c)
+A1902/apl/apl_factory_test.c \
+A1902/fml/api_battery.c \
+A1902/fml/uart/*.c \
+A1902/fml/os_middleware/*.c)
+
+#Middlewares/jd_middlewares/*.c)
 
 #A1902/fml/uart/*.c \
 #A1902/fml/os_middleware/*.c)
@@ -218,9 +220,9 @@ C_INCLUDES +=  \
 -I A1902/apl \
 -I A1902/bll \
 -I A1902/fml \
--I Middlewares/jd_middlewares \
 -I A1902/fml/uart \
-#-I A1902/fml/os_middleware
+-I A1902/fml/os_middleware
+#-I Middlewares/jd_middlewares \
 
 
 # compile gcc flags

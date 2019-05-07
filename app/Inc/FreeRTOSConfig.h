@@ -62,8 +62,8 @@ extern uint32_t SystemCoreClock;
 #define configTICK_RATE_HZ                         ((TickType_t) 1000)
 #define configMAX_PRIORITIES                       ( 7 )
 #define configMINIMAL_STACK_SIZE                   ((uint16_t) 128)
-#define configTOTAL_HEAP_SIZE                      ((size_t) 15360)
-#define configMAX_TASK_NAME_LEN                    ( 16 )
+#define configTOTAL_HEAP_SIZE                    ((size_t)204800)
+#define configMAX_TASK_NAME_LEN                  ( 32 )
 #define configUSE_16_BIT_TICKS                     0
 #define configUSE_MUTEXES                          1
 #define configQUEUE_REGISTRY_SIZE                  8
@@ -90,7 +90,7 @@ extern uint32_t SystemCoreClock;
 #define INCLUDE_vTaskDelay                1
 #define INCLUDE_xTaskGetSchedulerState    1
 #define INCLUDE_xTimerPendFunctionCall    1
-
+#define INCLUDE_eTaskGetState               1
 /* Cortex-M specific definitions. */
 #ifdef __NVIC_PRIO_BITS
 /* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */

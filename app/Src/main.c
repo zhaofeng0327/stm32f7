@@ -33,7 +33,7 @@
 #include "usart.h"
 #include "wwdg.h"
 #include "gpio.h"
-
+#include "uart_comm.h"
 #ifdef TEST
 #include "fml_slot_manage.h"
 #endif
@@ -109,8 +109,10 @@ int main(void)
 	/* USER CODE END SysInit */
 
 	/* Initialize all configured peripherals */
-	#if 1
+
+	MX_UART5_Init();
 	MX_GPIO_Init();
+#if 0
 	MX_ADC1_Init();
 	MX_QUADSPI_Init();
 	MX_UART4_Init();
@@ -135,17 +137,18 @@ int main(void)
 	/* Initialize interrupts */
 	MX_NVIC_Init();
 	/* USER CODE BEGIN 2 */
-	create_bat_in_check_task();
+	//create_bat_in_check_task();
 	/* USER CODE END 2 */
 
 	/* Call init function for freertos objects (in freertos.c) */
-#ifdef TEST
+#if 0
 	log_module_test();
 	fml_slot_test();
     // gprs_module_test();
 #else
 	MX_FREERTOS_Init();
 #endif
+ 	start_uart_service();
 	/* Start scheduler */
 	osKernelStart();
 

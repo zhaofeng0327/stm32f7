@@ -141,7 +141,7 @@ unsigned short at_uart_send_data(unsigned char *data_buff,unsigned short data_le
 
 // 接收第一个字节由传入的timeout 作为超时
 // 如果200ms 没有收到下一字节，则超时返回
-uint32_t at_uart_recv(uint8_t *pdata, uint32_t len, uint32_t timeout, uint8_t *perro)
+unsigned int at_uart_recv(unsigned char *pdata, unsigned int len, unsigned int timeout, unsigned char *perro)
 {
 	unsigned int i = 0;
 	unsigned int tmptimeout = timeout;

@@ -24,7 +24,8 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
-
+#include "stdio.h"
+#include "test_battery.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -90,7 +91,7 @@ void MX_FREERTOS_Init(void)
 
 	/* Create the thread(s) */
 	/* definition and creation of defaultTask */
-	osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+	osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 1024);
 	defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
 	/* USER CODE BEGIN RTOS_THREADS */
@@ -109,16 +110,22 @@ void MX_FREERTOS_Init(void)
 void StartDefaultTask(void const *argument)
 {
 	/* init code for FATFS */
-	MX_FATFS_Init();
+	//MX_FATFS_Init();
 
 	/* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */
+	//osDelay(2000);
+
 	for (;;) {
 		osDelay(1000);
 		HAL_GPIO_WritePin(GPIOB, LED6_Pin, GPIO_PIN_SET);
 		osDelay(1000);
 		HAL_GPIO_WritePin(GPIOB, LED6_Pin, GPIO_PIN_RESET);
-		osDelay(1);
+
+		test_bat_protoc();
+
+
+		printf("uuuuuuuu\r\n");
 	}
 	/* USER CODE END StartDefaultTask */
 }
