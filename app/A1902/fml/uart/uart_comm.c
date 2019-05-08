@@ -670,7 +670,7 @@ int wait_battery_response(EventBits_t bat_evt, TickType_t timeout)
 	if (bits & bat_evt) {
 		return 0;
 	} else {
-		dzlog_debug("######## wait event %d err %d\r\n", bat_evt, bits);
+		dzlog_debug("######## wait event %ld err %ld\r\n", bat_evt, bits);
 		return -1;
 	}
 }

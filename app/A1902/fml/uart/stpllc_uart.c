@@ -53,7 +53,7 @@ static void *uart_open(int usart_no)
 static void uart_close(void *fd){
 	jz_uart_close_ex(fd);
 }
-
+/*
 static int stpllc_req_dev_name_by_AT(u8 _char)
 {
 	const char ReqNameByAt[9]={'A','T','+','N','A','M','E','?','\r'};
@@ -81,7 +81,7 @@ static int stpllc_req_dev_name_by_AT(u8 _char)
 	}
 	return ret;
 }
-
+*/
 void stpllc_init(stpllc * hw){
 	hw->frame_lens = 0;
 	hw->cache_lens = 0;

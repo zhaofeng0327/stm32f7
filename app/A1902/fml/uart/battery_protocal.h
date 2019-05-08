@@ -202,7 +202,8 @@ typedef struct{
 typedef struct{
 	u8 slot_num;
 	u8 opt;//0: 加密 1:解密
-	u8 psw[16];	//解密密码
+	u8 psw_len; //密码长度
+	u8 psw[32];	//解密密码
 }STRUCT_PACKED REQ_BATTERY_ENCRYPT_T;
 
 typedef struct{

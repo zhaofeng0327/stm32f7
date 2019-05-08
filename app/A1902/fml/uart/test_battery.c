@@ -9,50 +9,24 @@
 
 void test_bat_protoc()
 {
-	BATTERY_INFO_T info;
+	for (int i = CHNL1; i < CHNL_MAX; i++) {
 
-	if (0 == battery_get_info(1, 1, &info))
-		printf("1 ok\r\n");
-	osDelay(10);
+		BATTERY_INFO_T info;
+		if (0 == battery_get_info(i + 1, 1, &info))
+			printf("slot %d ok\r\n", i+1);
 
-	if (0 ==  battery_get_info(2, 1, &info))
-		printf("2 ok\r\n");
-	osDelay(1);
+	}
 
-	if  (0 == battery_get_info(3, 1, &info))
-		printf("3 ok\r\n");
-	osDelay(1);
-
-	if (0 == battery_get_info(4, 1, &info))
-		printf("4 ok\r\n");
-	osDelay(1);
-
-	if  (0 == battery_get_info(5, 1, &info))
-		printf("5 ok\r\n");
-	osDelay(1);
-
-	if  (0 == battery_get_info(6, 1, &info))
-		printf("6 ok\r\n");
-	osDelay(1);
-
-	if  (0 == battery_get_info(7, 1, &info))
-		printf("7 ok\r\n");
-	osDelay(1);
-
-	if  (0 == battery_get_info(8, 1, &info))
-		printf("8 ok\r\n");
 	return;
 
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
-	//BATTERY_INFO_T info;
+	BATTERY_INFO_T info;
 	battery_get_info(2, 1, &info);
 
 	osDelay(1000);
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 	battery_set_sn_psw(0, "ABCD123456", 10, "pppssswwwd", 10);
 	osDelay(1000);
-
-
 
 
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);

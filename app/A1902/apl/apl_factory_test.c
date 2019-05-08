@@ -6,10 +6,12 @@
 #include "cmsis_os.h"
 #include "uart_comm.h"
 #include "utils.h"
+#include "uart.h"
+
 JD_OM_QUEUE factory_recv_q;
 osThreadId ft_tid;
 
-#define FACTORY_TEST_SLOT 1
+#define FACTORY_TEST_SLOT CHNL1
 
 osStatus jd_master_com_send_response(jd_om_comm *hdl,unsigned char type, void *data)
 {
@@ -137,6 +139,74 @@ osStatus jd_master_com_send_response(jd_om_comm *hdl,unsigned char type, void *d
 	return ret;
 }
 
+typedef struct  {
+	unsigned int start_time;
+	unsigned int stop_time;
+	unsigned char slot_list[CHNL_MAX];
+} AGE_DATA_T;
+
+
+void read_age_data_from_file(AGE_DATA_T *data)
+{
+
+}
+
+void write_age_data_to_file(AGE_DATA_T *data)
+{
+
+}
+
+int get_current_time()
+{
+	int seconds = 0;
+	return seconds;
+}
+
+int start_ageing_test(AGE_DATA_T *age_data)
+{
+	for (int i = 0; i < CHNL_MAX; i++) {
+		if (age_data->slot_list[i]) {
+
+			//1. enable slot power
+			//2. enalbe slot led
+		}
+	}
+	write_age_data_to_file(age_data);
+	return 0;
+}
+
+int stop_ageing_test(AGE_DATA_T *age_data)
+{
+	for (int i = 0; i < CHNL_MAX; i++) {
+		if (age_data->slot_list[i]) {
+
+			//1. disable slot power
+			//2. disable slot led
+			//3. disable lock
+		}
+	}
+
+	return 0;
+}
+
+int check_ageing_time(AGE_DATA_T *age_data)
+{
+	if (age_data->stop_time && (get_current_time() > age_data->stop_time)) {
+		stop_ageing_test(age_data);
+		memset(age_data, 0, sizeof(AGE_DATA_T));
+		write_age_data_to_file(age_data);
+	}
+        return 0;
+}
+
+int recovery_ageing_test(AGE_DATA_T *age_data)
+{
+	read_age_data_from_file(age_data);
+	if (get_current_time() < age_data->stop_time) {
+		start_ageing_test(age_data);
+	}
+	return 0;
+}
 void factory_test_task(void const *p)
 {
 	void *pt = NULL;
@@ -144,8 +214,13 @@ void factory_test_task(void const *p)
 
 	dzlog_debug("%s start >>>>\r\n", __func__);
 
+	AGE_DATA_T age_data;
+	memset(&age_data, 0, sizeof(AGE_DATA_T));
+	recovery_ageing_test(&age_data);
+
 	while (1) {
 		pt = NULL;
+		check_ageing_time(&age_data);
 		jd_om_mq_recv(&factory_recv_q, (void **)&pt, 1000);
 		if (pt) {
 			MSG_UART_HEAD_T* head = (MSG_UART_HEAD_T*)pt;
@@ -284,7 +359,15 @@ void factory_test_task(void const *p)
 						dzlog_debug("set battery %d opt %d\r\n", req->slot_num, req->opt);
 
 						RES_BATTERY_ENCRYPT_T res;
+#if 1
+						if (0 == req->opt) {
+							res.code = battery_encode(req->slot_num);
+						} else if (1 == req->opt) {
+							res.code = battery_decode(req->slot_num, req->psw, req->psw_len);
+						}
+#else
 						res.code = 0;
+#endif
 						jd_master_com_send_response(hdl,type,(void *)&res);
 						break;
 					}
@@ -300,7 +383,7 @@ void factory_test_task(void const *p)
 						memset(&res, 0, sizeof(RES_BATTERY_INFO_T));
 
 #if 1
-						res.code = battery_get_info(req->slot_num, 1, &info);
+						res.code = battery_get_info(req->slot_num, req->opt, &info);
 						if (0 == res.code) {
 							memcpy(res.sn, info.sn, info.sn_len);
 							res.temperature = info.temperature;
@@ -346,8 +429,17 @@ void factory_test_task(void const *p)
 					{
 						REQ_AGEING_T *req = (REQ_AGEING_T *)pt + sizeof(MSG_UART_HEAD_T);
 						dzlog_debug("ageing opt %d\r\n", req->opt);
+
+						age_data.start_time = get_current_time();
+						age_data.stop_time = age_data.start_time + req->time_sec;
+						memcpy(age_data.slot_list, req->slot_list, CHNL_MAX);
+
 						RES_AGEING_T res;
-						res.code = 0;
+						if (req->opt)
+							res.code = start_ageing_test(&age_data);
+						else
+							res.code = stop_ageing_test(&age_data);
+
 						jd_master_com_send_response(hdl,type,(void *)&res);
 						break;
 					}
