@@ -32,7 +32,7 @@ static void stptlc_ack(stptlc * tlc ,u8* buffer,tlc_addr toaddr);
 
 u8 wait_ack(stptlc * tlc) {
 	u8 ret = 0;
-	u32 waittime = TLC_RRT_MS*3;
+	u32 waittime = 100;//TLC_RRT_MS*3;
 	u32 tick = 4;
 	while (!tlc->exit) {
 		if ( tlc->ack_id == tlc->session_id ) {
@@ -183,7 +183,7 @@ int tlc_send( stptlc * tlc,u8 * buffer ,int datalens,tlc_addr toaddr){
 	int lens;
 	u8 id;
 resend:
-
+	memset(sendbuf, 0, sizeof(TLC_FRAME_SIZE));
 	pbuf = buffer;
 	lens = datalens;
 

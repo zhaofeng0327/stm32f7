@@ -9,7 +9,7 @@
 
 void test_bat_protoc()
 {
-	for (int i = CHNL1; i < CHNL_MAX; i++) {
+	for (int i = CHNL1; i < 1; i++) {
 
 		BATTERY_INFO_T info;
 		if (0 == battery_get_info(i + 1, 1, &info))

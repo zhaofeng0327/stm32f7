@@ -11,7 +11,7 @@
 JD_OM_QUEUE factory_recv_q;
 osThreadId ft_tid;
 
-#define FACTORY_TEST_SLOT CHNL1
+#define FACTORY_TEST_SLOT SLAVE_1
 
 osStatus jd_master_com_send_response(jd_om_comm *hdl,unsigned char type, void *data)
 {
