@@ -1,0 +1,50 @@
+Configuration	stm32F730_Code
+STM32CubeMX 	5.2.0
+Date	05/06/2019
+MCU	STM32F730V8Tx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+ADC1	IN10	ADC1_IN10	PC0
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+15	PC0	ADC1_IN10	
+PERIPHERALS	MODES	FUNCTIONS	PINS
+ADC1	IN10	ADC1_IN10	PC0
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+15	PC0	ADC1_IN10	
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : stm32F730_Code
+Project Folder : C:\Users\asus\Desktop\stm32F730_Code
+Toolchain / IDE : EWARM V8
+Firmware Package Name and Version : STM32Cube FW_F7 V1.15.0
+
+
+Code Generation Settings : 
+STM32Cube Firmware Library Package : Copy all used libraries into the project folder
+Generate peripheral initialization as a pair of '.c/.h' files per peripheral : No
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : 
+
+
+
+
+
