@@ -20,11 +20,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "tim.h"
 #include "usart.h"
 #include "stdio.h"
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
 
 extern UART_HandleTypeDef huart5;
 #ifdef __GNUC__
@@ -50,6 +49,11 @@ PUTCHAR_PROTOTYPE
     HAL_UART_Transmit(&huart5, (uint8_t *)&ch, 1, 0xFFFF);
     return ch;
 }
+
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -68,7 +72,6 @@ PUTCHAR_PROTOTYPE
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-ADC_HandleTypeDef hadc1;
 
 /* USER CODE BEGIN PV */
 
@@ -76,14 +79,13 @@ ADC_HandleTypeDef hadc1;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint32_t adc_value[10];
-uint32_t k;
 
 /* USER CODE END 0 */
 
@@ -123,10 +125,10 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
-	//MX_FREERTOS_Init();
+	MX_FREERTOS_Init();
 
   /* Start scheduler */
-  //osKernelStart();
+	osKernelStart();
   
   /* We should never get here as control is now taken by the scheduler */
 
