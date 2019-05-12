@@ -7,6 +7,5 @@
     <pass>
         <loader>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F7xx_QSPI_STM32F7308-A1902.flash</loader>
         <range>CODE 0x90000000 0x907fffff</range>
-        <rel_offset>0x70000000</rel_offset>
     </pass>
 </flash_board>

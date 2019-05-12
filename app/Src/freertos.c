@@ -115,17 +115,15 @@ void StartDefaultTask(void const *argument)
 	/* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */
 	//osDelay(2000);
-	test_bat_protoc();
-
+	//test_bat_protoc();
+		printf("aaaaa\r\n");
 	for (;;) {
-		osDelay(1000);
+		HAL_Delay(1000);
 		HAL_GPIO_WritePin(GPIOB, LED6_Pin, GPIO_PIN_SET);
-		osDelay(1000);
+		HAL_Delay(1000);
 		HAL_GPIO_WritePin(GPIOB, LED6_Pin, GPIO_PIN_RESET);
 
 		//test_bat_protoc();
-
-
 		printf("uuuuuuuu\r\n");
 	}
 	/* USER CODE END StartDefaultTask */

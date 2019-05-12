@@ -8,8 +8,6 @@
 
 "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\CONFIG\debugger\ST\STM32F730V8.ddf" 
 
-"--drv_verify_download" 
-
 "--semihosting" 
 
 "--device=STM32F730V8" 

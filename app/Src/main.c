@@ -89,7 +89,10 @@ static void MX_NVIC_Init(void);
 int main(void)
 {
 	/* USER CODE BEGIN 1 */
-
+	/* Enable I-Cache */
+	SCB_EnableICache();
+	/* Enable D-Cache */
+	SCB_EnableDCache();
 	/* USER CODE END 1 */
 
 	/* MCU Configuration--------------------------------------------------------*/
@@ -146,9 +149,14 @@ int main(void)
 	fml_slot_test();
     // gprs_module_test();
 #else
-	MX_FREERTOS_Init();
+	//MX_FREERTOS_Init();
 #endif
- 	start_uart_service();
+#if 1
+	while(1) {
+		printf("vector %08X msp %08X\r\n", SCB->VTOR, __get_MSP());
+		HAL_Delay(1000);
+ 	}//start_uart_service();
+#endif
 	/* Start scheduler */
 	osKernelStart();
 

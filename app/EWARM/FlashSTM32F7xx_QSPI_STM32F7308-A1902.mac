@@ -1,0 +1,108 @@
+setup_hardware()
+{
+__var Reg;
+
+  __message "---- Setup QSPI ----";
+
+  /* Enable QUADSPI Clock*/
+  Reg = __readMemory32(0x40023838, "Memory");  // RCC.AHB3ENR
+  Reg |= 0x00000002;
+  __writeMemory32(Reg, 0x40023838, "Memory");
+
+  /* Reset QUADSPI peripheral */
+  Reg = __readMemory32(0x40023818, "Memory");  // RCC.AHB3RSTR
+  Reg |= 0x00000002;
+  __writeMemory32(Reg, 0x40023818, "Memory");
+  Reg &= ~0x00000002;
+  __writeMemory32(Reg, 0x40023818, "Memory");
+
+
+  /* Enable GPIOB, GPIOD and GPIOE AHB1 clock */
+  Reg = __readMemory32(0x40023830, "Memory");  // RCC.AHB1ENR
+  Reg |= 0x0000001A;
+  __writeMemory32(Reg, 0x40023830, "Memory");
+
+
+  /* QUADSPI_CLK      PB2, AF9  */
+  /* QUADSPI_BK1_NCS  PB6, AF10 */
+
+  Reg = __readMemory32(0x40020420, "Memory");  // GPIOB.AFRL
+  Reg &= ~((0x0FUL << 24) | (0x0FUL << 8));
+  Reg |=  ((0x0AUL << 24) | (0x09UL << 8));
+  __writeMemory32(Reg, 0x40020420, "Memory");
+
+  Reg = __readMemory32(0x40020400, "Memory");  // GPIOB.MODER
+  Reg &= ~((0x03UL << 12) | (0x03UL << 4));
+  Reg |=  ((0x02UL << 12) | (0x02UL << 4));
+  __writeMemory32(Reg, 0x40020400, "Memory");
+
+  Reg = __readMemory32(0x40020408, "Memory");  // GPIOB.OSPEEDR
+  Reg |=  ((0x03UL << 12) | (0x03UL << 4));
+  __writeMemory32(Reg, 0x40020408, "Memory");
+
+  Reg = __readMemory32(0x40020404, "Memory");  // GPIOB.OTYPER
+  Reg &= ~((0x01UL << 6) | (0x01UL << 2));
+  __writeMemory32(Reg, 0x40020404, "Memory");
+
+  Reg = __readMemory32(0x4002040C, "Memory");  // GPIOB.PUPDR
+  Reg &= ~((0x03UL << 12) | (0x03UL << 4));
+  __writeMemory32(Reg, 0x4002040C, "Memory");
+
+
+  /* QUADSPI_BK1_IO2  PE2, AF9 */
+
+  Reg = __readMemory32(0x40021020, "Memory");  // GPIOE.AFRL
+  Reg &= ~(0x0FUL << 8);
+  Reg |=  (0x09UL << 8);
+  __writeMemory32(Reg, 0x40021020, "Memory");
+
+  Reg = __readMemory32(0x40021000, "Memory");  // GPIOE.MODER
+  Reg &= ~(0x03UL << 4);
+  Reg |=  (0x02UL << 4);
+  __writeMemory32(Reg, 0x40021000, "Memory");
+
+  Reg = __readMemory32(0x40021008, "Memory");  // GPIOE.OSPEEDR
+  Reg |=  (0x03UL << 4);
+  __writeMemory32(Reg, 0x40021008, "Memory");
+
+  Reg = __readMemory32(0x40021004, "Memory");  // GPIOE.OTYPER
+  Reg &= ~(0x01UL << 2);
+  __writeMemory32(Reg, 0x40021004, "Memory");
+
+  Reg = __readMemory32(0x4002100C, "Memory");  // GPIOE.PUPDR
+  Reg &= ~(0x03UL << 4);
+  __writeMemory32(Reg, 0x4002100C, "Memory");
+
+  /* QUADSPI_BK1_IO0  PD11, AF9 */
+  /* QUADSPI_BK1_IO1  PD12, AF9 */
+  /* QUADSPI_BK1_IO3  PD13, AF9 */
+
+  Reg = __readMemory32(0x40020C24, "Memory");  // GPIOD.AFRH
+  Reg &= ~(0xFFFUL << 12);
+  Reg |=  (0x999UL << 12);
+  __writeMemory32(Reg, 0x40020C24, "Memory");
+
+  Reg = __readMemory32(0x40020C00, "Memory");  // GPIOD.MODER
+  Reg &= ~(0x3FUL << 22);
+  Reg |=  (0x2AUL << 22);
+  __writeMemory32(Reg, 0x40020C00, "Memory");
+
+  Reg = __readMemory32(0x40020C08, "Memory");  // GPIOD.OSPEEDR
+  Reg |=  (0x3FUL << 22);
+  __writeMemory32(Reg, 0x40020C08, "Memory");
+
+  Reg = __readMemory32(0x40020C04, "Memory");  // GPIOD.OTYPER
+  Reg &= ~(0x07UL << 11);
+  __writeMemory32(Reg, 0x40020C04, "Memory");
+
+  Reg = __readMemory32(0x40020C0C, "Memory");  // GPIOD.PUPDR
+  Reg &= ~(0x3FUL << 22);
+  __writeMemory32(Reg, 0x40020C0C, "Memory");
+
+}
+
+execUserFlashInit()
+{
+  __message"---- Prepare hardware for the flashloader gd----";
+  setup_hardware();
+}

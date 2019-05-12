@@ -76,7 +76,7 @@
                 </option>
                 <option>
                     <name>OCDownloadVerifyAll</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>OCProductVersion</name>
@@ -112,7 +112,7 @@
                 </option>
                 <option>
                     <name>FlashLoadersV3</name>
-                    <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F7308_A1902.board</state>
+                    <state>$PROJ_DIR$\A1902_STM32F730V8T6.board</state>
                 </option>
                 <option>
                     <name>OCImagesSuppressCheck1</name>
