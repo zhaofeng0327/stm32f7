@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<flash_device>
+  <exe>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F7xx_QSPI_GD.out</exe>
+  <page>256</page>
+  <block>128 0x10000</block>
+  <flash_base>0x00000000</flash_base>
+  <macro>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F7xx_QSPI_STM32F7308-A1902.mac</macro>
+  <aggregate>0</aggregate>
+</flash_device>
