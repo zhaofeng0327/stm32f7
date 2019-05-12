@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flash_board>
+    <pass>
+        <loader>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F730x8.flash</loader>
+        <range>CODE 0x8000000 0x800ffff</range>
+    </pass>
+    <pass>
+        <loader>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F730x8_TCM.flash</loader>
+        <range>CODE 0x200000 0x20ffff</range>
+    </pass>
+</flash_board>
