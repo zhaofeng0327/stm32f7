@@ -42,7 +42,7 @@
 #define TLC_SEG_DATA 	0x02
 
 
-
+#pragma anon_unions
 typedef struct TLC_ADDR {//01f 013
 	union{
 		struct {
@@ -77,7 +77,7 @@ typedef struct STPTLC {//01f 013
 
 #pragma pack(push)
 #pragma pack(1)
-
+#pragma anon_unions
 typedef struct TLC_HD {//01f 013
 	u8 	protocol;
 	tlc_addr src_addr;

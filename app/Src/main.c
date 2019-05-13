@@ -112,7 +112,9 @@ int main(void)
 
 	MX_UART5_Init();
 	MX_GPIO_Init();
+
 #if 0
+
 	MX_ADC1_Init();
 	MX_QUADSPI_Init();
 	MX_UART4_Init();
@@ -302,6 +304,26 @@ static void MX_NVIC_Init(void)
 	HAL_NVIC_SetPriority(TIM6_DAC_IRQn, 5, 0);
 	HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);
 }	/* MX_NVIC_Init */
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM7 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM7) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /* USER CODE BEGIN 4 */
 

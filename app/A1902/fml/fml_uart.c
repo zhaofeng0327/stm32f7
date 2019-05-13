@@ -22,7 +22,7 @@ int uart5_rcv_cnt = 0;
 char uart8_rx_str[128] = {0};
 int uart8_rcv_cnt = 0;
 
-
+#if 0
 // 串口接收完成中断处理
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 {
@@ -41,7 +41,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
         HAL_UART_Receive_IT(UartHandle, &rx_gprs_char, 1);		
     }
 }
-
+#endif
 void fml_log_uart_init(void)
 {
     MX_UART5_Init();

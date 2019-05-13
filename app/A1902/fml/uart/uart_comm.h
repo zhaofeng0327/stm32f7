@@ -63,16 +63,16 @@ extern UART_COMM_DES_T uart_comm_des;
 
 
 
-int start_uart_service();
+int start_uart_service(void);
 void uart_recv_queue_task(void const *p);
 void uart_send_queue_task(void const *p);
 void uart_recv_task(void const *p);
 void uart_task(void const *p);
-int uart_sent_dumb();
+int uart_sent_dumb(void);
 
 
-u8 get_packet_id();
+u8 get_packet_id(void);
 int wait_battery_response(EventBits_t bat_evt, TickType_t timeout);
-int get_uart_channel();
+int get_uart_channel(void);
 
 #endif

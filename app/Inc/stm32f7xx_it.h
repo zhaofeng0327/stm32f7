@@ -54,7 +54,7 @@ void MemManage_Handler(void);
 void BusFault_Handler(void);
 void UsageFault_Handler(void);
 void DebugMon_Handler(void);
-void SysTick_Handler(void);
+//void SysTick_Handler(void);
 void WWDG_IRQHandler(void);
 void EXTI1_IRQHandler(void);
 void EXTI4_IRQHandler(void);
@@ -69,6 +69,7 @@ void TIM6_DAC_IRQHandler(void);
 void USART6_IRQHandler(void);
 void UART7_IRQHandler(void);
 void UART8_IRQHandler(void);
+void TIM7_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

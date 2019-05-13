@@ -1084,8 +1084,8 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 {
 	char payload[MAX_QUEUE_ELEMENT_SIZE] = { 0 };
 	MSG_UART_HEAD_T* head = (MSG_UART_HEAD_T*)pt;
-	static unsigned char last_session_id_req = -1;
-	static unsigned char last_session_id_res = -1;
+	static unsigned char last_session_id_req = 255;
+	static unsigned char last_session_id_res = 255;
 	//static unsigned int old_pkt_id = 1;
 	unsigned int payload_len = 0;
 	unsigned char type;

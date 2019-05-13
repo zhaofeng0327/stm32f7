@@ -1,0 +1,33 @@
+﻿  0.006: File generated Sun May 12 15:57:12 2019
+
+  0.000: Pass 2 of 2
+  0.000: Starting fragment-style flashloader pass.
+  0.000: Device: C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\config\flashloader\ST\FlashSTM32F7xx_QSPI_STM32F7308-A1902.flash
+  0.000: Flash loader: C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\config\flashloader\ST\FlashSTM32F7xx_QSPI_GD.out
+  0.236: FlashInitEntry is at 0x00000368
+  0.236: FlashWriteEntry is at 0x00000370
+  0.236: FlashEraseWriteEntry is at 0x00000378
+  0.240: FlashBreak is at 0x0000008C
+  0.240: FlashBufferStart is at 0x20000000
+  0.240: FlashBufferEnd is at 0x20010000
+  0.240: theFlashParams is at 0x00003BC8
+  0.241: FlashChecksumEntry not found
+  0.241: FlashSignoffEntry not found
+  0.241: page size is 256 (0x100)
+  0.241: filler is 0xff
+  0.241: buffer size is 65536 (0x10000)  0.241: 
+  0.241: Relative offset is   0.241: 1879048192 (0x70000000)
+  0.241: Base of flash at 0x0
+  0.241: SimpleCode records (after offset):
+  0.241:   Record 0: @ 0x0 [16988 (0x425c) bytes] 0x0 - 0x425b [f0 15 0]
+  0.241: ->init       : base @ 0x0, image size 0x425c
+  0.279:   timing(init): 0.0000 (CPU) 0.0320 (elapsed)
+  0.280: Transaction list:
+  0.280:   Transaction @ 0x0 + 0x0 (0x4300 bytes) 1 packet(s).
+  0.280:     Will erase 1 block(s):
+  0.280:       0: 0x0  0.280:  (0x10000 bytes)
+  0.281: ->erase_write: @ 0x0 (0x4300 bytes, offset 0x0 into block @ 0x0, size 0x10000) [f0 15 0]
+  0.746:   timing(write): 0.0000 (CPU) 0.2770 (elapsed)
+  0.763: Duration:   0.19 (CPU)   0.76 (elapsed)
+  0.763:   of which on target: 0.0000 (CPU) 0.3090 (elapsed)
+  0.763: Flash loading pass finished
