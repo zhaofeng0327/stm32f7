@@ -180,8 +180,8 @@ void Error_Handler(void);
 #define JTMS_SWDIO_GPIO_Port         GPIOA
 #define JTCK_SWCLK_Pin               GPIO_PIN_14
 #define JTCK_SWCLK_GPIO_Port         GPIOA
-#define JTDI_Pin                     GPIO_PIN_15
-#define JTDI_GPIO_Port               GPIOA
+#define SPI1_NSS_Pin                 GPIO_PIN_15
+#define SPI1_NSS_GPIO_Port           GPIOA
 #define UART4_MUTX_S8_Pin            GPIO_PIN_10
 #define UART4_MUTX_S8_GPIO_Port      GPIOC
 #define BAT8_IN_EXTI_Pin             GPIO_PIN_11
@@ -204,10 +204,12 @@ void Error_Handler(void);
 #define BAT7_IN_EXTI_Pin             GPIO_PIN_7
 #define BAT7_IN_EXTI_GPIO_Port       GPIOD
 #define BAT7_IN_EXTI_EXTI_IRQn       EXTI9_5_IRQn
-#define JTDO_SWO_Pin                 GPIO_PIN_3
-#define JTDO_SWO_GPIO_Port           GPIOB
-#define JTRST_Pin                    GPIO_PIN_4
-#define JTRST_GPIO_Port              GPIOB
+#define SPI1_SCK_Pin                 GPIO_PIN_3
+#define SPI1_SCK_GPIO_Port           GPIOB
+#define SPI1_MISO_Pin                GPIO_PIN_4
+#define SPI1_MISO_GPIO_Port          GPIOB
+#define SPI1_MOSI_Pin                GPIO_PIN_5
+#define SPI1_MOSI_GPIO_Port          GPIOB
 #define QUADSPI_BK1_NCS_Pin          GPIO_PIN_6
 #define QUADSPI_BK1_NCS_GPIO_Port    GPIOB
 #define GPRS_PWR_EN_Pin              GPIO_PIN_7

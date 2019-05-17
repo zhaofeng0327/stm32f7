@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\work\STM32F730V8T6\boot\EWARM\settings\A1902_STM32F730V8T6_BOOT.A1902_STM32F730V8T6.general.xcl" --backend -f "D:\work\STM32F730V8T6\boot\EWARM\settings\A1902_STM32F730V8T6_BOOT.A1902_STM32F730V8T6.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\work\STM32F730V8T6\boot_iar_flash\EWARM\settings\A1902_STM32F730V8T6_BOOT.A1902_STM32F730V8T6.general.xcl" --backend -f "D:\work\STM32F730V8T6\boot_iar_flash\EWARM\settings\A1902_STM32F730V8T6_BOOT.A1902_STM32F730V8T6.driver.xcl" 
 }
 else
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\work\STM32F730V8T6\boot\EWARM\settings\A1902_STM32F730V8T6_BOOT.A1902_STM32F730V8T6.general.xcl" --debug_file=$debugfile --backend -f "D:\work\STM32F730V8T6\boot\EWARM\settings\A1902_STM32F730V8T6_BOOT.A1902_STM32F730V8T6.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\work\STM32F730V8T6\boot_iar_flash\EWARM\settings\A1902_STM32F730V8T6_BOOT.A1902_STM32F730V8T6.general.xcl" --debug_file=$debugfile --backend -f "D:\work\STM32F730V8T6\boot_iar_flash\EWARM\settings\A1902_STM32F730V8T6_BOOT.A1902_STM32F730V8T6.driver.xcl" 
 }

@@ -33,6 +33,7 @@
 #include "usart.h"
 #include "wwdg.h"
 #include "gpio.h"
+#include "spi.h"
 #include "GD25Q127.h"
 
 
@@ -42,6 +43,22 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "spi_gd25q127.h"
+#include <stdio.h>
+extern UART_HandleTypeDef huart5;
+int fputc(int ch, FILE *f)
+{
+    /* e.g. write a character to the USART5 and Loop until the end of transmission */
+    HAL_UART_Transmit(&huart5, (uint8_t *)&ch, 1, 0xFFFF);
+    return ch;
+}
+void print_cpuid()
+{
+  uint32_t cpuid0 = HAL_GetUIDw0();
+  uint32_t cpuid1 = HAL_GetUIDw1();
+  uint32_t cpuid2 = HAL_GetUIDw2();
+  printf("cpuid : %08X%08X%08X\r\n", cpuid2, cpuid1, cpuid0);
+}
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -92,14 +109,20 @@ int main(void)
 	SCB_EnableDCache();
 	HAL_Init();
 	SystemClock_Config();
-	//MX_UART5_Init();
+	MX_UART5_Init();
 	MX_GPIO_Init();
+	MX_SPI1_Init();
+	spi_flash_init();
 	MX_NVIC_Init();
+	print_cpuid();
 	BSP_QSPI_Init();
+	WRITE_REG(QUADSPI->LPTR,0xFFF);
+	HAL_NVIC_DisableIRQ(SysTick_IRQn);
+	HAL_UART_MspInit(&huart5);
 	JumpToApplication = (pFunction) (*(__IO uint32_t*) (APPLICATION_ADDRESS + 4));
 	__set_MSP(*(__IO uint32_t*) APPLICATION_ADDRESS);
 	JumpToApplication();
-	WRITE_REG(QUADSPI->LPTR,0xFFF);
+
 	while(1);
 
 }	/* main */

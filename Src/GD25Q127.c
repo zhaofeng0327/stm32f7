@@ -595,6 +595,7 @@ uint8_t BSP_QSPI_Init(void)
 	GD25Q_LeaveDeepPowerDown();
 	GD25Q_ReadID();
 	GD25Q_Enable_QuadMode();
+	//GD25Q_Erase_Chip();
 	GD25Q_ReadID_Quad();
 	BSP_QSPI_EnableMemoryMappedMode();
 #if 0
