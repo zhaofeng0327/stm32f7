@@ -1210,9 +1210,6 @@
                     <name>$PROJ_DIR$\..\A1902\fml\uart\base64.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\A1902\fml\factory_test.c</name>
-                </file>
-                <file>
                     <name>$PROJ_DIR$\..\A1902\fml\os_middleware\jd_os_middleware.c</name>
                 </file>
                 <file>

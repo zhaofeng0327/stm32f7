@@ -10,7 +10,7 @@
 //#include "fatfs.h"
 #define UINT unsigned int
 //#define AES_CBC_256_DBG
-#include "factory_test.h"
+//#include "factory_test.h"
 #include "apl_factory_test.h"
 
 #define UART_CNT 2
@@ -21,7 +21,7 @@ JD_OM_MUTEX mutex_channel_select;
 jd_om_comm uart_channels[UART_CNT+1];
 int active_channel = -1;
 
-static RECV_FILE_DES recv_file_des;
+
 EventGroupHandle_t BatteryResEvents;
 RES_BAT_SET_SN_PSW_T br_set_sn;
 RES_BAT_GET_INFO_T br_get_info;
@@ -326,275 +326,6 @@ static void file_move_to_destination(char *file_path,FileType type)
 	return;
 }
 
-static osStatus file_transfer_start(jd_om_comm *hdl,char *file_name)
-{
-	osStatus ret = osOK;
-	FRESULT error;
-	unsigned char file_Dev = SYSDISK;
-
-	recv_file_des.packet_id = 0;
-	recv_file_des.offset = 0;
-
-	snprintf(recv_file_des.file_path,MAX_FILE_PATH_SIZE,"%s/%s", TMP_FILE_DIR,file_name);
-	if(recv_file_des.type == upgrade_file){
-
-	}
-	else if(recv_file_des.type == schedule_file){
-
-	}
-	else if(recv_file_des.type == picture_file){
-
-	}
-	else if(recv_file_des.type == voice_file){
-		#ifdef PRIVATE_MP3_FLASH_FS
-		//save to tmp of sysdisk
-		#else
-		file_Dev = MP3DISK;
-		#endif
-	}
-	else{
-		dzlog_error("recv unknown file type %d\r\n",recv_file_des.type);
-		ret = osErrorOS;
-		goto RESPONSE;
-	}
-
-	if (0 >= recv_file_des.size) {
-		dzlog_error("recv slave update file size error\r\n");
-		ret = osErrorOS;
-		goto RESPONSE;
-	}
-
-	error = ff_open(file_Dev,&(recv_file_des.file_handle),_T(recv_file_des.file_path), (FA_WRITE | FA_READ | FA_CREATE_ALWAYS));
-	if (error) {
-        if (error == FR_EXIST)
-        {
-            dzlog_error("File exists.\r\n");
-        }
-        else
-        {
-            dzlog_error("Open file failed.\r\n");
-        }
-		dzlog_error("slave create update file fail[file_name=%s,error=%d]\r\n",recv_file_des.file_path,error);
-		ret = osErrorOS;
-		goto RESPONSE;
-	}
-
-	f_lseek(&(recv_file_des.file_handle), 0U);
-
-RESPONSE:
-	{
-		int payload_size = sizeof(RES_TRANS_FILE_HEAD_T);
-		int packet_size = sizeof(MSG_UART_HEAD_T) + payload_size + CHECKSUM_SIZE;
-		MSG_UART_PACKAGE_T *pkt = jd_om_malloc(packet_size);
-
-		pkt->head.start = START_CMD;
-		pkt->head.slave = SLAVE_1;
-		pkt->head.type = RES_TRANS_FILE_HEAD;
-		pkt->head.payload_len = payload_size;
-
-		RES_TRANS_FILE_HEAD_T res;
-		res.code = ret;
-		memcpy((char *)pkt + sizeof(MSG_UART_HEAD_T), &res, payload_size);
-
-		unsigned short chksum = crc16((char *)pkt, packet_size - CHECKSUM_SIZE);
-		memcpy((char *)pkt + packet_size - CHECKSUM_SIZE, &chksum, CHECKSUM_SIZE);
-
-		return jd_om_mq_send(&(hdl->uart_comm_des.send_queue), (void *)pkt);
-	}
-}
-
-static osStatus file_transfer_going(jd_om_comm *hdl,unsigned packet_id, char *data, unsigned len)
-{
-	osStatus ret = osOK;
-	FRESULT error;
-	UINT bytesWritten;
-
-	if ((packet_id != recv_file_des.packet_id + 1) &&
-	    (!(0 == packet_id && 0 == recv_file_des.packet_id))) {
-		dzlog_error("slave update packet id err\r\n");
-		ret = osErrorOS;
-		goto RESPONSE;
-	}
-
-	f_lseek(&(recv_file_des.file_handle), recv_file_des.offset);
-	error = f_write_decrypted_aes_data(hdl,&(recv_file_des.file_handle), data, len, &bytesWritten);
-	//error = f_write(&(recv_file_des.file_handle), data, len, &bytesWritten);
-	if ((error)/* || (len != bytesWritten)*/) {
-		dzlog_error("slave update write file err\r\n");
-		ret = osErrorOS;
-		goto RESPONSE;
-	}
-
-	recv_file_des.packet_id = packet_id;
-	recv_file_des.offset += bytesWritten;
-
-	dzlog_debug("file download progress: %d/%d packet_id %d\r\n", recv_file_des.offset, recv_file_des.size, packet_id);
-
-RESPONSE:
-	{
-		int payload_size = sizeof(RES_TRANS_FILE_DATA_T);
-		int packet_size = sizeof(MSG_UART_HEAD_T) + payload_size + CHECKSUM_SIZE;
-		MSG_UART_PACKAGE_T *pkt = jd_om_malloc(packet_size);
-
-		pkt->head.start = START_CMD;
-		pkt->head.slave = SLAVE_1;
-		pkt->head.type = RES_TRANS_FILE_DATA;
-		pkt->head.payload_len = payload_size;
-
-		RES_TRANS_FILE_DATA_T res;
-		res.packet_id = packet_id;
-		res.code = ret;
-		memcpy((char *)pkt + sizeof(MSG_UART_HEAD_T), &res, payload_size);
-
-		unsigned short chksum = crc16((char *)pkt, packet_size - CHECKSUM_SIZE);
-		memcpy((char *)pkt + packet_size - CHECKSUM_SIZE, &chksum, CHECKSUM_SIZE);
-
-		return jd_om_mq_send(&(hdl->uart_comm_des.send_queue), (void *)pkt);
-	}
-}
-
-static osStatus file_transfer_end(jd_om_comm *hdl)
-{
-	int restart_sec = 3;
-	osStatus ret = osOK;
-	unsigned char md5[MD5_SIZE] = { 0 };
-	#ifdef PRIVATE_MP3_FLASH_FS
-	unsigned char file_Dev = SYSDISK;
-	#else
-	unsigned char file_Dev = (recv_file_des.type == voice_file)?MP3DISK:SYSDISK;
-	#endif
-
-	dzlog_debug("slave update end\r\n");
-	f_sync(&(recv_file_des.file_handle));
-	f_close(&(recv_file_des.file_handle));
-	get_md5(file_Dev,md5, recv_file_des.file_path, 0);
-
-	dzlog_debug("%s:[file_size=%d,padding_len=%d]\r\n",__func__,
-		recv_file_des.size,recv_file_des.aes_padding_len);
-	if ((recv_file_des.size-recv_file_des.aes_padding_len) != get_file_size(file_Dev,recv_file_des.file_path)) {
-		dzlog_error("slave update file size wrong\r\n");
-		ret = osErrorOS;
-		goto RESPONSE;
-	}
-
-	if (0 != memcmp(md5, recv_file_des.md5, MD5_SIZE)) {
-		dzlog_error("slave update file md5 wrong\r\n");
-		ret = osErrorOS;
-	}
-
-	if(ret == osOK)
-		file_move_to_destination(recv_file_des.file_path,(FileType)(recv_file_des.type));
-
-	if((ret == osOK)/* && (recv_file_des.type == schedule_file)*/){
-		//notify a file transfering completed!
-		jd_master_com_send_play_msg(hdl,REQ_TRANS_FILE_END,NULL);
-	}
-
-RESPONSE:
-	{
-		dzlog_debug("slave end\r\n");
-		int payload_size = sizeof(RES_TRANS_FILE_END_T);
-		int packet_size = sizeof(MSG_UART_HEAD_T) + payload_size + CHECKSUM_SIZE;
-		MSG_UART_PACKAGE_T *pkt = jd_om_malloc(packet_size);
-
-		pkt->head.start = START_CMD;
-		pkt->head.slave = SLAVE_1;
-		pkt->head.type = RES_TRANS_FILE_END;
-		pkt->head.payload_len = payload_size;
-
-		RES_TRANS_FILE_END_T res;
-		res.code = ret;
-		memcpy((char *)pkt + sizeof(MSG_UART_HEAD_T), &res, payload_size);
-
-		unsigned short chksum = crc16((char *)pkt, packet_size - CHECKSUM_SIZE);
-		memcpy((char *)pkt + packet_size - CHECKSUM_SIZE, &chksum, CHECKSUM_SIZE);
-
-		ret = jd_om_mq_send(&(hdl->uart_comm_des.send_queue), (void *)pkt);
-
-		if ((0 == res.code) && (recv_file_des.type == upgrade_file)) {
-			dzlog_debug("%s:recv upgrade file completed !\r\n",__func__);
-			jd_om_msleep(1000);	//wait host get the response.
-			//TODO:set a new bin flag to eeprom to notify boot entry upgrade mode here!
-			if(copy_upgrade_file_to_flash(recv_file_des.file_path) != osOK){
-				debug("upgrade err\n");
-			}
-			else{
-				set_upgrade_flag();
-				dbinfo("upgrade suc\r\n");
-				dbinfo("System will reboot in 3s\r\n");
-				do{
-					dbinfo("%d...\r\n", restart_sec);
-					restart_sec--;
-					jd_om_msleep(1000);
-				}while(restart_sec > 0);
-				dbinfo("\r\n===>>>reboot now\r\n");
-				__disable_irq();
-				__set_PSP(0x20018000);
-				EMC_Deinit(EMC);
-				ispPinInit();
-				system_reset();
-			}
-		}
-
-		if(res.code != osOK){
-			dzlog_error("#####%s:start to delete bad file '%s'#####\r\n",__func__,recv_file_des.file_path);
-			ff_unlink(file_Dev,recv_file_des.file_path);
-		}
-		memset(recv_file_des.version,0,4);
-		memset(recv_file_des.file_path, 0, MAX_FILE_PATH_SIZE);
-		recv_file_des.type = 0;
-		recv_file_des.size = 0;
-		recv_file_des.packet_id = 0;
-		recv_file_des.offset = 0;
-		recv_file_des.size = 0;
-		recv_file_des.aes_padding_len = 0;
-		memset(recv_file_des.md5, 0, MD5_SIZE);
-
-		return ret;
-	}
-}
-
-static osStatus jd_master_com_send_play_msg(jd_om_comm *hdl,unsigned char type, void *req_data)
-{
-	pic_play_msg *msg = NULL;
-
-	switch (type){
-
-		case REQ_TRANS_FILE_HEAD:
-			msg = jd_om_malloc(sizeof(pic_play_msg));
-			msg->type = pic_play_file_update_start;
-
-			msg->msg.info_file.type = ((REQ_TRANS_FILE_HEAD_T *)req_data)->type;
-
-			memset(msg->msg.info_file.file_name,0,sizeof(msg->msg.info_file.file_name));
-			memcpy(msg->msg.info_file.file_name,((REQ_TRANS_FILE_HEAD_T *)req_data)->file_name,64);
-			memcpy(msg->msg.info_file.md5,((REQ_TRANS_FILE_HEAD_T *)req_data)->md5,MD5_SIZE);
-			break;
-
-		case REQ_TRANS_FILE_END:	//file transfering completed!
-			msg = jd_om_malloc(sizeof(pic_play_msg));
-			msg->type = pic_play_file_update_end;
-			msg->msg.info_file.type = recv_file_des.type;
-			memset(msg->msg.info_file.file_name,0,sizeof(msg->msg.info_file.file_name));
-			snprintf(msg->msg.info_file.file_name,64,"%s",strrchr(recv_file_des.file_path,'/')+1);
-			break;
-
-		default:
-			dzlog_error("%s:unknown type=%d.\r\n",__func__,type);
-			break;
-	}
-
-	if(msg){
-		jd_om_mq_send(&(hdl->uart_comm_des.play_queue), msg);
-		//wait play task to set responsed
-		jd_om_sem_wait(&(hdl->uart_comm_des.sem),0);
-		return osOK;
-	}
-	return osErrorOS;
-}
-#endif
-
-#if 0
 static osStatus jd_master_com_send_exception_response(jd_om_comm *hdl,unsigned char type, void *data)
 {
 	int payload_size;
@@ -668,7 +399,7 @@ int wait_battery_response(EventBits_t bat_evt, TickType_t timeout)
 	if (bits & bat_evt) {
 		return 0;
 	} else {
-		dzlog_debug("######## wait event %d err %d\r\n", bat_evt, bits);
+		dzlog_error("######## wait event %ld err %ld\r\n", bat_evt, bits);
 		return -1;
 	}
 }
@@ -1082,8 +813,8 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 {
 	char payload[MAX_QUEUE_ELEMENT_SIZE] = { 0 };
 	MSG_UART_HEAD_T* head = (MSG_UART_HEAD_T*)pt;
-	static unsigned char last_session_id_req = -1;
-	static unsigned char last_session_id_res = -1;
+	static unsigned char last_session_id_req = 255;
+	static unsigned char last_session_id_res = 255;
 	//static unsigned int old_pkt_id = 1;
 	unsigned int payload_len = 0;
 	unsigned char type;
@@ -1108,7 +839,7 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 		case TYPE_RES:
 			set_active_res(type);
 			if(head->packet_id == last_session_id_res){
-				dzlog_error("recv repeat packet\r\n");
+				dzlog_error("recv repeat res packet %d\r\n", last_session_id_res);
 				goto FREE;
 			} else{
 				last_session_id_res = head->packet_id;
@@ -1116,7 +847,7 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 			break;
 		case TYPE_REQ:
 			if(head->packet_id == last_session_id_req){
-				dzlog_error("recv repeat packet\r\n");
+				dzlog_error("recv repeat req packet %d\r\n", last_session_id_req);
 				goto FREE;
 			} else{
 				last_session_id_req = head->packet_id;
@@ -1164,6 +895,9 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 	case REQ_GPRS_CONNECT:
 	case REQ_DEVICE_AGEING:
 	case REQ_ENV_TEMPRATURE:
+	case REQ_TRANS_FILE_HEAD:
+	case REQ_TRANS_FILE_DATA:
+	case REQ_TRANS_FILE_END:
 		{
 			add_factory_test_item(pt);
 			return 0;
@@ -1172,6 +906,9 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 
 		case RES_BAT_SET_SN_PSW:
 		{
+			if (payload_len != sizeof(RES_BAT_SET_SN_PSW_T)) {
+				goto WRONG_PAYLOAD_LEN;
+			}
 			RES_BAT_SET_SN_PSW_T *res = (RES_BAT_SET_SN_PSW_T *)(pt + sizeof(MSG_UART_HEAD_T));
 			dzlog_debug("++++++set battery sn res %d\r\n", res->code);
 			memcpy(&br_set_sn, res, sizeof(RES_BAT_SET_SN_PSW_T));
@@ -1180,7 +917,12 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 		}
 		case RES_BAT_GET_INFO:
 		{
+			if (payload_len != sizeof(RES_BAT_GET_INFO_T)) {
+				goto WRONG_PAYLOAD_LEN;
+			}
 			RES_BAT_GET_INFO_T *res = (RES_BAT_GET_INFO_T *)(pt + sizeof(MSG_UART_HEAD_T));
+
+			if (res->sn_len <= sizeof(res->sn)) {
 			dzlog_debug("++++++get battery info sn len %d sn %s temp %d vol_h %d vol_l %d ratio %d\r\n",
 				res->sn_len,		//sn 有效长度
 				res->sn,		//sn
@@ -1188,12 +930,19 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 				res->Vol_H,		//电压：高�?
 				res->Vol_L,		//电压：低�?
 				res->ratio);		//16进制
+			} else {
+				dzlog_error("++++++get battery info invalid battery sn len %d\r\n", res->sn_len);
+			}
+
 			memcpy(&br_get_info, res, sizeof(RES_BAT_GET_INFO_T));
 			xEventGroupSetBits(BatteryResEvents, BAT_EVT_GET_INFO);
 			break;
 		}
 		case RES_BAT_ENCODE:
 		{
+			if (payload_len != sizeof(RES_BAT_ENCODE_T)) {
+				goto WRONG_PAYLOAD_LEN;
+			}
 			RES_BAT_ENCODE_T *res = (RES_BAT_ENCODE_T *)(pt + sizeof(MSG_UART_HEAD_T));
 			dzlog_debug("++++++battery encode res %d\r\n", res->code);
 			memcpy(&br_encode, res, sizeof(RES_BAT_ENCODE_T));
@@ -1202,6 +951,9 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 		}
 		case RES_BAT_DECODE:
 		{
+			if (payload_len != sizeof(RES_BAT_DECODE_T)) {
+				goto WRONG_PAYLOAD_LEN;
+			}
 			RES_BAT_DECODE_T *res = (RES_BAT_DECODE_T *)(pt + sizeof(MSG_UART_HEAD_T));
 			dzlog_debug("++++++battery decode res %d \r\n", res->code);
 			memcpy(&br_decode, res, sizeof(RES_BAT_DECODE_T));
@@ -1211,6 +963,9 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 		case RES_BAT_VIRTUAL_PWR_INFO:
 		{
 
+			if (payload_len != sizeof(RES_BAT_VIRTUAL_PWR_T)) {
+				goto WRONG_PAYLOAD_LEN;
+			}
 			RES_BAT_VIRTUAL_PWR_T *res = (RES_BAT_VIRTUAL_PWR_T *)(pt + sizeof(MSG_UART_HEAD_T));
 			dzlog_debug("++++++battery virtual info cnt1 %d cnt2 %d ratio %d last %d discharging %d \r\n",
 				res->data[0], res->data[1], res->data[2], res->data[3], res->data[4]);
@@ -1221,6 +976,9 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 		}
 		case RES_BAT_DISCHARGE_LEVEL:
 		{
+			if (payload_len != sizeof(RES_BAT_DISCHARGE_LEVEL_T)) {
+				goto WRONG_PAYLOAD_LEN;
+			}
 			RES_BAT_DISCHARGE_LEVEL_T *res = (RES_BAT_DISCHARGE_LEVEL_T *)(pt + sizeof(MSG_UART_HEAD_T));
 			dzlog_debug("++++++battery discharge level res %d\r\n", res->code);
 			memcpy(&br_dis_level, res, sizeof(RES_BAT_DISCHARGE_LEVEL_T));
@@ -1229,6 +987,9 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 		}
 		case RES_BAT_CHARGE_STATUS:
 		{
+			if (payload_len != sizeof(RES_BAT_CHARGE_STATUS_T)) {
+				goto WRONG_PAYLOAD_LEN;
+			}
 			RES_BAT_CHARGE_STATUS_T *res = (RES_BAT_CHARGE_STATUS_T *)(pt + sizeof(MSG_UART_HEAD_T));
 			dzlog_debug("++++++battery charge status level %d status %d\r\n", res->data[0], res->data[1]);
 			memcpy(&br_chg_stat, res, sizeof(RES_BAT_CHARGE_STATUS_T));
@@ -1237,6 +998,9 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 		}
 		case RES_BAT_PROTOCAL_VERSION:
 		{
+			if (payload_len != sizeof(RES_BAT_PROTOCAL_VERSION_T)) {
+				goto WRONG_PAYLOAD_LEN;
+			}
 			RES_BAT_PROTOCAL_VERSION_T *res = (RES_BAT_PROTOCAL_VERSION_T *)(pt + sizeof(MSG_UART_HEAD_T));
 			dzlog_debug("++++++battery protocal version len %d version %d.%d.%d\r\n",
 				res->ver_len, res->ver[0], res->ver[1], res->ver[2]);
@@ -1246,6 +1010,9 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 		}
 		case RES_BAT_PASSWD_CHKSUM:
 		{
+			if (payload_len != sizeof(RES_BAT_PASSWD_CHKSUM_T)) {
+				goto WRONG_PAYLOAD_LEN;
+			}
 			RES_BAT_PASSWD_CHKSUM_T *res = (RES_BAT_PASSWD_CHKSUM_T *)(pt + sizeof(MSG_UART_HEAD_T));
 			dzlog_debug("++++++battery crc 0x%02x 0x%02x\r\n", res->crc[0], res->crc[1]);
 			memcpy(&br_psw_chk, res, sizeof(RES_BAT_PASSWD_CHKSUM_T));
@@ -1258,6 +1025,11 @@ static char recv_data_dispatch(jd_om_comm *hdl,char *pt,bool *file_trans,UINT *t
 	}
 
 FREE:
+	jd_om_free(pt);
+	return 0;
+
+WRONG_PAYLOAD_LEN:
+	dzlog_error("payload len dismatch type\r\n");
 	jd_om_free(pt);
 	return 0;
 }
@@ -1350,7 +1122,6 @@ void uart_recv_queue_task(void const *p)
 	UINT fileTransTimeCnt = 0;
 
 	dzlog_info("%s start\r\n", __func__);
-	memset(recv_file_des.file_path, 0, MAX_FILE_PATH_SIZE);
 
 	while (1) {
 		//daemon_flag_clear(uart_daemon);
@@ -1378,7 +1149,7 @@ void uart_recv_queue_task(void const *p)
 			else
 				loseMaximumSec = 300;	// first time detection:5 minutes timeout.
 			if(disconnect_cnt++ >= loseMaximumSec){	// only trigger one time.
-				dzlog_debug("%s:##lose connect %d seconds with host##\r\n",__func__,loseMaximumSec);
+				//dzlog_debug("%s:##lose connect %d seconds with host##\r\n",__func__,loseMaximumSec);
 				//req.service_code = srv_code_connect_fail;
 				//req.keep_alive = 0;
 				//jd_master_com_send_play_msg(hdl,REQ_SHOW,&req);
@@ -1453,8 +1224,17 @@ void uart_send_queue_task(void const *p)
 		slave = head->slave;
 		sprintf(slave_addr, "0.%d.0", slave);
 		to_addr.addr = tlc_iaddr(slave_addr);
+
+#if 1
 		mutex_uart_switch(slave);
 		hdl = &uart_channels[slave];
+#else
+		hdl = mutex_uart_switch(slave);
+		if (NULL == hdl) {
+			printf("uart switch err\r\n");
+			goto SEND_FREE;
+		}
+#endif
 
 		switch (get_cmd_typte(res)) {
 			case TYPE_INVALID:
@@ -1507,6 +1287,7 @@ RESEND_DATA:
 
 		dzlog_debug("send %d err/ok : %d/%d\r\n", lens, num_fail, num_ok);
 		set_active_res(0xa0 | (0xf & active_req));
+SEND_FREE:
 		jd_om_free(pt);
 	}
 }
@@ -1525,7 +1306,7 @@ void uart_recv_task(void const *p)
 	jd_om_comm_addr from_addr;
 	char buf[MAX_QUEUE_ELEMENT_SIZE] = { 0 };
 	char *pt;
-	dzlog_debug("uart_recv_task start>>>\r\n");
+	dzlog_info("uart_recv_task start>>>\r\n");
 
 	//task of receving.
 	while (1) {
@@ -1667,19 +1448,35 @@ static void aes_cbc_encrypt_desrypt_testing(char *in_string)
 
 int stop_uart_service()
 {
+
+#if 1
 	for (int i = 0; i < UART_CNT; i++) {
 		osThreadTerminate(uart_comm_des.thread_uart_recv[i]);
 	}
 
+#else
+	for (int i = 0; i < UART_COM_MAX; i++) {
+		if (uart_comm_des.thread_uart_recv[i]) {
+		osThreadTerminate(uart_comm_des.thread_uart_recv[i]);
+			uart_comm_des.thread_uart_recv[i] = 0;
+		}
+	}
+#endif
+
 	osThreadTerminate(uart_comm_des.thread_handle_send);
 	osThreadTerminate(uart_comm_des.thread_handle_recv);
 
-
+#if 1
 	for (int i=0; i < UART_CNT; i++) {
 		if (uart_channels[i].ptlc)
 			jd_om_comm_close(&uart_channels[i]);
 	}
-
+#else
+	for (int i=0; i < UART_COM_MAX; i++) {
+		if (uart_comms[i].ptlc)
+			jd_om_comm_close(&uart_comms[i]);
+	}
+#endif
 
 	jd_om_delete_mq(&(uart_comm_des.recv_queue));
 	jd_om_delete_mq(&(uart_comm_des.send_queue));

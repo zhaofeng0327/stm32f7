@@ -7,6 +7,7 @@
 #include "uart_comm.h"
 
 typedef struct {
+  	volatile uint8_t	idle;
 	volatile uint32_t	head;
 	volatile uint32_t	tail;
 	volatile uint32_t	len;
@@ -67,6 +68,8 @@ int write_ringbuf(RingBuf *rbuf, u8 data)
 	rbuf->ring_buf[rbuf->tail++] = data;
 	rbuf->tail = (rbuf->tail) % LLC_PACK_SZ_MAX;//防止越界非法访问
 	rbuf->len++;
+	if (0xA5 == data)
+		rbuf->idle = 1;
 	return 1;
 }
 
@@ -206,7 +209,7 @@ int jz_uart_read_ex(void *fd, u8 *buffer, int lens, uint32_t ulTimeout /*millise
 		d = 1;
 	} else if (USART6 == ins) {
 		rb = &uart6_ringbuf;
-		d = 2;
+		d = 1;
 	} else {
 		return 0;
 	}
@@ -225,11 +228,11 @@ int jz_uart_read_ex(void *fd, u8 *buffer, int lens, uint32_t ulTimeout /*millise
 
 	}
 
-#else
+
 	while (1) {
 		if (rb->len == olen) {
 			jd_om_msleep(d);
-			if (timeout++ > 2) {
+			if (timeout++ > 1) {
 				timeout = 0;
 
 				if (olen) {
@@ -255,6 +258,31 @@ int jz_uart_read_ex(void *fd, u8 *buffer, int lens, uint32_t ulTimeout /*millise
 		} else {
 			olen = rb->len;
 			timeout = 0;
+		}
+	}
+
+#else
+	timeout = 1000;
+	while (1) {
+		if (rb->idle) {
+			if (rb->len) {
+				r = lens > rb->len ? rb->len : lens;
+				if (rb->head < rb->tail) {
+					memcpy(buffer, rb->ring_buf + rb->head, r);
+				} else {
+					int len1 = LLC_PACK_SZ_MAX - rb->head;
+					memcpy(buffer, rb->ring_buf + rb->head, len1);
+					memcpy(buffer + len1, rb->ring_buf, r - len1);
+				}
+
+				rb->head = (rb->head + r) % LLC_PACK_SZ_MAX;
+				rb->len -= r;
+				rb->idle = 0;
+				return r;
+			}
+		} else {
+			while(timeout--);
+			timeout = 1000;
 		}
 	}
 #endif
