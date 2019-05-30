@@ -1,6 +1,6 @@
-#include "stdio.h"
-#include "string.h"
-
+#include <stdio.h>
+#include <string.h>
+#include "factory_test.h"
 
 #define DEVICE_FILE_PATH "0:/device.ini"
 

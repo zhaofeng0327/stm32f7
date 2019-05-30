@@ -14,6 +14,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 #define LLC_UART	0
 #define LLC_UDP		1
 
@@ -23,11 +24,11 @@
 typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned int u32;
-
+#if 0
 #define bool u8
 #define true 1
 #define false 0
-
+#endif
 #define dberr printf
 #define dbinfo printf
 #define debug printf

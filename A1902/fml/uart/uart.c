@@ -158,7 +158,7 @@ int jz_uart_write_ex(void *fd, u8 *buffer, int lens, uint32_t ulTimeout /*millis
 	ret = lens - hdl->TxXferCount;
 
 	if (USART2 == ins) {
-		//HAL_UART_Receive_IT(hdl, (uint8_t *)&uart2_ch, 1);
+		HAL_UART_Receive_IT(hdl, (uint8_t *)&uart2_ch, 1);
 	} else if (UART4 == ins) {
 		HAL_HalfDuplex_EnableReceiver(hdl);
 		HAL_UART_Receive_IT(hdl, (uint8_t *)&uart4_ch, 1);
